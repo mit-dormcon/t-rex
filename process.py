@@ -1,5 +1,6 @@
 import csv
 import os
+import shutil
 import toml
 import datetime
 import pytz
@@ -38,10 +39,16 @@ if __name__ == "__main__":
         "events": []
     }
     for filename in os.listdir("events"):
+        print(f"Processing {filename}...")
         api_response["events"].extend(process_csv("events/" + filename))
     
     api_response["dorms"] = list(set(e["dorm"] for e in api_response["events"]))
+
+    print("Processing complete! Creating API JSON...")
     
+    if os.path.exists("output"): shutil.rmtree("output")
     os.mkdir("output")
     with open("output/api.json", "w") as w:
         json.dump(api_response, w)
+    
+    print("Complete!")
