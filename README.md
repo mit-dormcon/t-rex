@@ -1,2 +1,3 @@
-# t-rex
+# T-REX
+
 The DormCon REX API
