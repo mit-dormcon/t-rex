@@ -43,6 +43,7 @@ if __name__ == "__main__":
         print(f"Processing {filename}...")
         api_response["events"].extend(process_csv("events/" + filename))
     
+    api_response["events"].sort(key=lambda e: e["start"])
     api_response["dorms"] = list(set(e["dorm"] for e in api_response["events"]))
 
     print("Processing complete! Creating API JSON...")
