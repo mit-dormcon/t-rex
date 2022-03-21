@@ -10,7 +10,7 @@ config = toml.load("config.toml")
 
 def process_time(time_string: str) -> str:
     eastern_tz = pytz.timezone("US/Eastern")
-    event_dt = datetime.datetime.strptime(time_string, "%m/%d/%Y %H:%M").astimezone(eastern_tz)
+    event_dt = eastern_tz.localize(datetime.datetime.strptime(time_string, "%m/%d/%Y %H:%M"))
     return event_dt.isoformat()
 
 def process_csv(filename: str) -> list[dict]:
