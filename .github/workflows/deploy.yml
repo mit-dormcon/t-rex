@@ -21,10 +21,15 @@ jobs:
           pipenv install
       - name: Process Data
         run: pipenv run python ./process.py
+      - name: Compile LaTeX
+        uses: dante-ev/latex-action@2021-A
+        with:
+          root_file: templates/main.tex
+      - name: Move booklet into output
+        run: cp templates/main.pdf output/
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           folder: output
           branch: gh-pages
-        
-        
+  
