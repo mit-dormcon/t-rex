@@ -63,14 +63,18 @@ def create_booklet(data: dict):
         f.write("\\newcommand{\eventdescription}{" + data["description"] + "}\n")
     
     with open("compiled/events.tex", "w") as f:
+        last_dt = datetime.datetime.fromtimestamp(0)
         for event in data["events"]:
             format = "%D %l:%M %p"
             start = datetime.datetime.fromisoformat(event["start"])
             end = datetime.datetime.fromisoformat(event["end"])
+            if last_dt.date() != start.date():
+                f.write(f"\\chapter*{{{start.strftime('%A, %B %e, %Y')}}}\n\n")
             f.write(f"{{\\Large \\bf {tex_escape(event['name'])} \\large \\rm at {tex_escape(event['location'])} }} \\hfill \\textbf{{{event['dorm']}}} \\\\ \n")
             f.write(f"{{\\it Runs {start.strftime(format)} to {end.strftime(format)}}} \\\\\n")
             f.write(f"{tex_escape(event['description'])}\n\n")
             f.write("\\vspace{16pt}\n")
+            last_dt = start
 
 
 if __name__ == "__main__":
