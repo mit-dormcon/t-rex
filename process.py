@@ -5,8 +5,33 @@ import toml
 import datetime
 import pytz
 import json
+import re
+import string
 
 config = toml.load("config.toml")
+
+def tex_escape(text):
+    """
+        :param text: a plain text message
+        :return: the message escaped to appear correctly in LaTeX
+    """
+    conv = {
+        '&': r'\&',
+        '%': r'\%',
+        '$': r'\$',
+        '#': r'\#',
+        '_': r'\_',
+        '{': r'\{',
+        '}': r'\}',
+        '~': r'\textasciitilde{}',
+        '^': r'\^{}',
+        '\\': r'\textbackslash{}',
+        '<': r'\textless{}',
+        '>': r'\textgreater{}',
+    }
+    regex = re.compile('|'.join(re.escape(str(key)) for key in sorted(conv.keys(), key = lambda item: - len(item))))
+    return ''.join(filter(lambda c: c in string.printable, regex.sub(lambda match: conv[match.group()], text)))
+
 
 def process_time(time_string: str) -> str:
     eastern_tz = pytz.timezone("US/Eastern")
@@ -29,13 +54,27 @@ def process_csv(filename: str) -> list[dict]:
                 "description": event["Event Description"]
             })
     return events
-            
 
+def create_booklet(data: dict):
+    with open("output/properties.tex", "w") as f:
+        f.write("\\newcommand{\eventtitle}{" + data["name"] + "}\n")
+        f.write("\\newcommand{\eventdescription}{" + data["description"] + "}\n")
+    
+    with open("output/events.tex", "w") as f:
+        for event in data["events"]:
+            format = "%D %l:%M %p"
+            start = datetime.datetime.fromisoformat(event["start"])
+            end = datetime.datetime.fromisoformat(event["end"])
+            f.write(f"{{\\Large \\bf {tex_escape(event['name'])} \\large \\rm at {tex_escape(event['location'])} }} \\hfill \\textbf{{{event['dorm']}}} \\\\ \n")
+            f.write(f"{{\\it Runs {start.strftime(format)} to {end.strftime(format)}}} \\\\\n")
+            f.write(f"{tex_escape(event['description'])}\n\n")
+            f.write("\\vspace{16pt}\n")
 
 
 if __name__ == "__main__":
     api_response = {
         "name": config["name"],
+        "description": config["description"],
         "published": datetime.datetime.now().isoformat(),
         "events": []
     }
@@ -47,10 +86,13 @@ if __name__ == "__main__":
     api_response["dorms"] = sorted(list(set(e["dorm"] for e in api_response["events"])))
 
     print("Processing complete! Creating API JSON...")
+
     
     if os.path.exists("output"): shutil.rmtree("output")
     os.mkdir("output")
     with open("output/api.json", "w") as w:
         json.dump(api_response, w)
+
+    create_booklet(api_response)
     
     print("Complete!")
