@@ -1,0 +1,51 @@
+\documentclass{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{parskip}
+
+
+\setlength{\textheight}{7.5in} \setlength{\textwidth}{5in}
+\setlength{\oddsidemargin}{64pt} \setlength{\evensidemargin}{72pt}
+\setlength{\topmargin}{0.5in} \setlength{\footskip}{0.5in}
+\setlength{\headheight}{14.9pt} \setlength{\headsep}{12pt}
+
+
+\usepackage{fancyhdr}
+\usepackage{ifpdf}
+
+\input{../compiled/properties.tex}
+
+\fancyhf{}
+\fancyhead[ER]{\textit{MIT DormCon}}
+\fancyhead[EL]{\thepage}
+\fancyhead[OL]{\textit{The \eventtitle~Booklet}}
+\fancyhead[OR]{\thepage}
+
+\usepackage[print]{booklet}
+
+\ifpdf % from the ifpdf package
+    \pdfoutput = 1 % generate pdf output
+    \setpdftargetpages % set output page size
+\else
+    \setdvipstargetpages % use this for dvi output
+\fi
+
+
+\begin{document}
+    \pagestyle{empty}
+    \vspace*{180pt}
+    {\Huge \textbf{\textit{The \eventtitle~Booklet}}}
+
+    \vspace*{36pt}
+
+    {\huge \textit{By MIT DormCon}}
+
+    \eventdescription
+    \clearpage
+
+    \pagestyle{fancy}
+    \input{../compiled/events.tex}
+
+\end{document}

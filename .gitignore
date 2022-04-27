@@ -1,4 +1,10 @@
 output
 compiled
-templates
-!templates/main.tex
+
+# LaTeX files
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+*.pdf
