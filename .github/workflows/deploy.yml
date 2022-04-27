@@ -22,11 +22,12 @@ jobs:
       - name: Process Data
         run: pipenv run python ./process.py
       - name: Compile LaTeX
-        uses: dante-ev/latex-action@2021-A
+        uses: xu-cheng/latex-action@v2
         with:
-          root_file: templates/main.tex
+          working_directory: templates
+          root_file: main.tex
       - name: Move booklet into output
-        run: cp templates/main.pdf output/
+        run: cp templates/main.pdf output/booklet.pdf
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
