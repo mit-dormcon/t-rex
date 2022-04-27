@@ -56,11 +56,13 @@ def process_csv(filename: str) -> list[dict]:
     return events
 
 def create_booklet(data: dict):
-    with open("output/properties.tex", "w") as f:
+    if os.path.exists("compiled"): shutil.rmtree("compiled")
+    os.mkdir("compiled")
+    with open("compiled/properties.tex", "w") as f:
         f.write("\\newcommand{\eventtitle}{" + data["name"] + "}\n")
         f.write("\\newcommand{\eventdescription}{" + data["description"] + "}\n")
     
-    with open("output/events.tex", "w") as f:
+    with open("compiled/events.tex", "w") as f:
         for event in data["events"]:
             format = "%D %l:%M %p"
             start = datetime.datetime.fromisoformat(event["start"])
@@ -92,6 +94,8 @@ if __name__ == "__main__":
     os.mkdir("output")
     with open("output/api.json", "w") as w:
         json.dump(api_response, w)
+
+    print("JSON complete! Creating LaTeX for booklet...")
 
     create_booklet(api_response)
     
