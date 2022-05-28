@@ -26,7 +26,8 @@ def process_csv(filename: str) -> list[dict]:
                 "location": event["Event Location"],
                 "start": process_time(event["Start Date and Time"]),
                 "end": process_time(event["End Date and Time"]),
-                "description": event["Event Description"]
+                "description": event["Event Description"],
+                "tags": event["Tags"].lower().split(",")
             })
     return events
             
