@@ -37,7 +37,7 @@ def process_csv(filename: str) -> list[dict]:
 if __name__ == "__main__":
     api_response = {
         "name": config["name"],
-        "published": datetime.datetime.now().isoformat(),
+        "published": datetime.datetime.utcnow(),
         "events": []
     }
     for filename in os.listdir("events"):
