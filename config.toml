@@ -1,1 +1,25 @@
 name = "REX Testing"
+
+# Hardcoding a color for each dorm based on the primary color on their website
+[colors.dorms]
+"Baker" = "#005c96"
+"Burton Conner" = "#cc4331"
+"Chocolate City" = "#000000"
+"Desmond" = "#2717d8"
+"East Campus" = "#ab0000"
+"French House" = "#002395"
+"German House" = "#f7d147"
+"House 2" = "#769958"
+"House 3" = "#990147"
+"House 4" = "#ff7855"
+"IHouse" = "#ffffff"
+"La Casa" = "#ca0147"
+"MacGregor" = "#befdb7"
+"Maseeh" = "#017374"
+"McCormick" = "#a6814c"
+"New Vassar" = "#c8ffb0"
+"Next" = "#2c3e50"
+"Random" = "#ee9900"
+"Simmons" = "#b8bcd1"
+
+[colors.tags]

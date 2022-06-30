@@ -47,6 +47,7 @@ if __name__ == "__main__":
     api_response["events"].sort(key=lambda e: e["start"])
     api_response["dorms"] = sorted(list(set(e["dorm"] for e in api_response["events"])))
     api_response["tags"] = sorted(list(set(t for e in api_response["events"] for t in e["tags"])))
+    api_response["colors"] = config["colors"]
 
     print("Processing complete! Creating API JSON...")
     
