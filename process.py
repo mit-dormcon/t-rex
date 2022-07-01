@@ -6,6 +6,8 @@ import datetime
 import pytz
 import json
 
+import booklet
+
 config = toml.load("config.toml")
 
 def process_time(time_string: str) -> str:
@@ -49,11 +51,18 @@ if __name__ == "__main__":
     api_response["tags"] = sorted(list(set(t for e in api_response["events"] for t in e["tags"])))
     api_response["colors"] = config["colors"]
 
-    print("Processing complete! Creating API JSON...")
+    print("Processing complete!")
+
+    booklet_html = booklet.generate_booklet(api_response)
+
+    print("Outputting booklet and JSON...")
     
     if os.path.exists("output"): shutil.rmtree("output")
     os.mkdir("output")
+    shutil.copytree("static", "output/static")
     with open("output/api.json", "w") as w:
         json.dump(api_response, w)
+    with open("output/booklet.html", "w") as b:
+        b.write(booklet_html)
     
     print("Complete!")

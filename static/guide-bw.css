@@ -1,0 +1,120 @@
+.page {
+    page-break-after: always;
+}
+
+body{
+    background-color: #ffffff;
+}
+
+.event .date, .event .time, .event .title, .event .dorm, .event .location {
+    font-weight: bold;
+}
+
+.day-title, .fpop-title, .post-title{
+    background-color: #e0e0e0;
+    display: block;
+    padding: 10px;
+    margin-bottom: -20px;
+    margin-top: 10px;
+}
+
+.event .date, .event .time {
+    font-style: italic;
+}
+
+.id {
+    display: none;
+}
+
+.mandatory, .favorite {
+    display: block;
+    width: auto;
+    margin: -7px -7px;
+    padding: 3px;
+}
+
+.mandatory {
+    border: 3px solid;
+    border-radius: 10px;
+    background-color: #ffffff
+}
+
+.favorite {
+    border: 5px dotted;
+    border-radius: 10px;
+}
+
+.event {
+    display: block;
+    width: auto;
+    margin: 10px 10px;
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 6px;
+    background-color: #e0e0e0;
+    text-align: left;
+    page-break-inside: avoid;
+}
+
+.fpop {
+    page-break-before: always;
+    page-break-after: always;
+    display: block;
+    width: auto;
+    margin: 10px 10px;
+    border: 4px dashed;
+    border-radius: 15px;
+    padding: 6px;
+    text-align: center;
+}
+
+.fpop-title {
+    text-align: center;
+}
+
+.post {
+    page-break-before: always;
+    page-break-after: always;
+    display: block;
+    width: auto;
+    margin: 5px 10px;
+    border: 4px dashed;
+    border-radius: 15px;
+    padding: 6px;
+    text-align: center;
+}
+
+@media screen {
+    body {
+        font-family: "Arial", Arial, sans-serif;
+        font-size: 12pt;
+    }
+    .day-title, .fpop-title, .post-title{
+        font-size: 24pt;
+        font-weight: bold;
+    }
+}
+
+@media print {
+    body {
+	/* display: none !important; */
+        font-family: "Arial", Arial, sans-serif;
+/*        font-size: 8pt; */
+/*        font-size: 10pt; */
+/*        font-size: 12pt; */
+        font-size: 5pt;
+/*        font-size: 16pt; */
+    }
+    .day-title, .fpop-title, .post-title{
+/*        font-size: 16pt; */
+/*        font-size: 20pt; */
+        font-size: 24pt;
+        font-weight: bold;
+	page-break-after: avoid;
+        page-break-before: avoid;
+        page-break-inside: avoid;
+    }
+    .tours {
+        font-size: 12.5pt;
+    }
+}
