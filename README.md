@@ -7,6 +7,7 @@ The DormCon REX API
 `config.toml` configures the process script.
 
 - `name`: the name of the current running event
+- `colors.dorms` and `colors.tags` control the colors of dorm and tag badges on the REX Events page
 
 ## Events Spreadsheets
 
