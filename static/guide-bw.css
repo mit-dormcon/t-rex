@@ -19,10 +19,6 @@ body{
     margin-top: 10px;
 }
 
-.event .date, .event .time {
-    font-style: italic;
-}
-
 .id {
     display: none;
 }
@@ -34,7 +30,7 @@ body{
     border: 1px solid;
     border-radius: 10px;
     padding: 6px;
-    background-color: #e0e0e0;
+    background-color: #eaeaea; /* sports, it's in the game */
     text-align: left;
     page-break-inside: avoid;
 }
