@@ -8,6 +8,7 @@ The DormCon REX API
 
 - `name`: the name of the current running event
 - `colors.dorms` and `colors.tags` control the colors of dorm and tag badges on the REX Events page
+- `dates` controls the start and end dates of REX for the booklet, has no effect on the web UI.
 
 ## Events Spreadsheets
 

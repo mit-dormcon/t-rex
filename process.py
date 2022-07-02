@@ -9,9 +9,9 @@ import json
 import booklet
 
 config = toml.load("config.toml")
+eastern_tz = pytz.timezone("US/Eastern")
 
-def process_time(time_string: str) -> str:
-    eastern_tz = pytz.timezone("US/Eastern")
+def process_dt_from_csv(time_string: str) -> str:
     event_dt = eastern_tz.localize(datetime.datetime.strptime(time_string, "%m/%d/%Y %H:%M"))
     return event_dt.isoformat()
 
@@ -26,8 +26,8 @@ def process_csv(filename: str) -> list[dict]:
                 "name": event["Event Name"],
                 "dorm": event["Dorm"],
                 "location": event["Event Location"],
-                "start": process_time(event["Start Date and Time"]),
-                "end": process_time(event["End Date and Time"]),
+                "start": process_dt_from_csv(event["Start Date and Time"]),
+                "end": process_dt_from_csv(event["End Date and Time"]),
                 "description": event["Event Description"],
                 "tags": [tag for tag in event["Tags"].lower().split(",") if tag]
             })
@@ -47,13 +47,17 @@ if __name__ == "__main__":
         api_response["events"].extend(process_csv("events/" + filename))
     
     api_response["events"].sort(key=lambda e: e["start"])
+
+    # Add extra data from events and config file
     api_response["dorms"] = sorted(list(set(e["dorm"] for e in api_response["events"])))
     api_response["tags"] = sorted(list(set(t for e in api_response["events"] for t in e["tags"])))
     api_response["colors"] = config["colors"]
+    api_response["start"] = config["dates"]["start"]
+    api_response["end"] = config["dates"]["end"]
 
     print("Processing complete!")
 
-    booklet_html = booklet.generate_booklet(api_response)
+    booklet_html = booklet.generate_booklet(api_response, config)
 
     print("Outputting booklet and JSON...")
     

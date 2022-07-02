@@ -1,5 +1,10 @@
 name = "REX Testing"
 
+# Start and end dates of REX, in YYYY-MM-DD
+[dates]
+start = "2021-08-29"
+end = "2021-09-01"
+
 # Hardcoding a color for each dorm based on the primary color on their website
 [colors.dorms]
 "Baker" = "#005c96"
