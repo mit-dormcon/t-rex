@@ -4,6 +4,8 @@ name = "REX Testing"
 [dates]
 start = "2021-08-29"
 end = "2021-09-01"
+# Events that start before this hour will be considered as starting the day before in the booklet
+hour_cutoff = 4
 
 # Hardcoding a color for each dorm based on the primary color on their website
 [colors.dorms]

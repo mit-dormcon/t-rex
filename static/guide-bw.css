@@ -85,14 +85,14 @@ body{
     text-align: center;
 }
 
-@media screen {
-    body {
-        font-size: 12pt;
-    }
-    .day-title, .fpop-title, .post-title{
-        font-size: 24pt;
-        font-weight: bold;
-    }
+.fpop-title, .post-title{
+    font-size: 24pt;
+    font-weight: bold;
+}
+
+.day-title {
+    font-weight: bold;
+    font-size: 14pt;
 }
 
 @media print {
@@ -100,8 +100,6 @@ body{
         font-size: 5pt;
     }
     .day-title, .fpop-title, .post-title{
-        font-size: 24pt;
-        font-weight: bold;
         page-break-after: avoid;
         page-break-before: avoid;
         page-break-inside: avoid;

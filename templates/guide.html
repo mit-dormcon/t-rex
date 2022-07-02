@@ -30,11 +30,11 @@
       <span class="fpop-title">FPOP Week Events</span>
       <br/><br/>
       During the week before REX begins, FPOPs are happening on campus. If you happen to be around in the afternoon after your FPOP ends, feel free to drop by one of the events below!
-      {% for day in fpop_dates %}
+      {% for day in dates.before %}
 	<br/>
-	<span class="day-title">{{ day }}</span>
+	<span class="day-title">{{ day.strftime("%A %D") }}</span>
 	<br/>
-	{% for key, events in by_dates.items %}
+	{% for key, events in by_dates.items() %}
           {% if key == day %}
             {% for event in events %}
 	      <div class="event">
@@ -72,11 +72,11 @@
       {% endfor %}
       </div>
 
-      {% for day in rex_dates %}
+      {% for day in dates.rex %}
         <div class="page">
-	<span class="day-title">{{ day }}</span>
+	<span class="day-title">{{ day.strftime("%A %D") }}</span>
 	<br/><br/>
-	{% for key, events in by_dates.items %}
+	{% for key, events in by_dates.items() %}
           {% if key == day %}
             {% for event in events %}
 	      <div class="event">
@@ -120,11 +120,11 @@
       <span class="post-title">Post-REX Events</span>
       <br/><br/>
 Still can't get enough of our awesome dorms? Well, move into your new room first, but then stop by any of these events for more fun times! 
-      {% for day in post_dates %}
+      {% for day in dates.after %}
         <br/>
-	<span class="day-title">{{ day }}</span>
+	<span class="day-title">{{ day.strftime("%A %D") }}</span>
 	<br/><br/>
-	{% for key, events in by_dates.items %}
+	{% for key, events in by_dates.items() %}
           {% if key == day %}
             {% for event in events %}
 	      <div class="event">
