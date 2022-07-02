@@ -12,7 +12,7 @@ The DormCon REX API
 
 ## Events Spreadsheets
 
-Events spreadsheets must contain the following columns:
+A template spreadsheet is provided in `template.csv`. Events spreadsheets must contain the following columns:
 
 - `Event Name`: Name of the event
 - `Dorm`: Dorm or living group hosting the event
