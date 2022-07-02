@@ -1,73 +1,70 @@
 {% from "helpers.html" import event_box %}
 <!doctype html>
 <html>
-  <head>
-    <title>DormCon Guide for {{ api.name }}</title>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="static/guide-bw.css" />
-	{# TODO: figure out what font to put here #}
-    <script src="https://use.fontawesome.com/e6eb89a5f7.js"></script>
-  </head>
-    <body>
-      {% include "guide_fm.html" %}
-      <div class="tours">
-      <br/>
-      <span class="day-title">Residence Hall Tours</span>
-      <br/>
-      <br/>
-      {% for event in tours %}
-		{{ event_box(event) }}
-      {% endfor %}
 
-      <div class="fpop">
+<head>
+  <title>DormCon Guide for {{ api.name }}</title>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="static/guide-bw.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <script src="https://use.fontawesome.com/e6eb89a5f7.js"></script>
+</head>
+
+<body>
+  {% include "guide_fm.html" %}
+  <div>
+    <span class="day-title">Residence Hall Tours</span>
+    {% for event in tours %}
+    {{ event_box(event) }}
+    {% endfor %}
+
+    <div class="fpop">
       <span class="fpop-title">FPOP Week Events</span>
-      <br/><br/>
-      During the week before REX begins, FPOPs are happening on campus. If you happen to be around in the afternoon after your FPOP ends, feel free to drop by one of the events below!
+      During the week before REX begins, FPOPs are happening on campus. If you happen to be around in the afternoon
+      after your FPOP ends, feel free to drop by one of the events below!
       {% for day in dates.before %}
-	<br/>
-	<span class="day-title">{{ day.strftime("%A %D") }}</span>
-	<br/>
-	{% for key, events in by_dates.items() %}
-          {% if key == day %}
-            {% for event in events %}
-				{{ event_box(event) }}
-            {% endfor %}
-          {% endif %}
-	{% endfor %}
+      <span class="day-title">{{ day.strftime("%A %D") }}</span>
+      {% for key, events in by_dates.items() %}
+        {% if key == day %}
+          {% for event in events %}
+          {{ event_box(event) }}
+          {% endfor %}
+        {% endif %}
       {% endfor %}
-      </div>
-
-      {% for day in dates.rex %}
-        <div class="page">
-	<span class="day-title">{{ day.strftime("%A %D") }}</span>
-	<br/><br/>
-	{% for key, events in by_dates.items() %}
-          {% if key == day %}
-            {% for event in events %}
-				{{ event_box(event) }}
-            {% endfor %}
-          {% endif %}
-	{% endfor %}
-        </div>
       {% endfor %}
+    </div>
 
-      <div class="post">
+    {% for day in dates.rex %}
+    <div class="page">
+      <span class="day-title">{{ day.strftime("%A %D") }}</span>
+      {% for key, events in by_dates.items() %}
+      {% if key == day %}
+      {% for event in events %}
+      {{ event_box(event) }}
+      {% endfor %}
+      {% endif %}
+      {% endfor %}
+    </div>
+    {% endfor %}
+
+    <div class="post">
       <span class="post-title">Post-REX Events</span>
-      <br/><br/>
-Still can't get enough of our awesome dorms? Well, move into your new room first, but then stop by any of these events for more fun times! 
+      Still can't get enough of our awesome dorms? Well, move into your new room first, but then stop by any of these
+      events for more fun times!
       {% for day in dates.after %}
-        <br/>
-	<span class="day-title">{{ day.strftime("%A %D") }}</span>
-	<br/><br/>
-	{% for key, events in by_dates.items() %}
-          {% if key == day %}
-            {% for event in events %}
-				{{ event_box(event) }}
-            {% endfor %}
-          {% endif %}
-	{% endfor %}
+      <span class="day-title">{{ day.strftime("%A %D") }}</span>
+      <br /><br />
+      {% for key, events in by_dates.items() %}
+      {% if key == day %}
+      {% for event in events %}
+      {{ event_box(event) }}
       {% endfor %}
-      </div>
-	  <p style="text-align: center;">Made with ❤️ by DormCon Tech+REX Chairs</p>
+      {% endif %}
+      {% endfor %}
+      {% endfor %}
+    </div>
 </body>
+
 </html>

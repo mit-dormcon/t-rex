@@ -7,6 +7,19 @@ body{
     font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
 }
 
+.main-title {
+    font-weight: bold;
+    font-size: 48pt;
+}
+
+.qrcode {
+    width: 300px;
+}
+
+.byline {
+    text-align: center;
+}
+
 .event .date, .event .time, .event .title, .event .dorm, .event .location {
     font-weight: bold;
 }
@@ -15,7 +28,6 @@ body{
     background-color: #e0e0e0;
     display: block;
     padding: 10px;
-    margin-bottom: -20px;
     margin-top: 10px;
 }
 
@@ -87,15 +99,23 @@ body{
 
 @media print {
     body {
-        font-size: 12pt;
+        font-size: 18pt;
     }
     .day-title, .fpop-title, .post-title{
+        font-size: 24pt;
         page-break-after: avoid;
         page-break-before: avoid;
         page-break-inside: avoid;
     }
-    .tours {
-        font-size: 12.5pt;
+    .main-title {
+        font-size: 72pt;
+    }
+    .byline {
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-align: center;
+        bottom: 0;
     }
     /* may want to style visited links */
 }
