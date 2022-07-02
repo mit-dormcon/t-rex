@@ -42,9 +42,13 @@ if __name__ == "__main__":
         "published": datetime.datetime.now().astimezone(pytz.utc).isoformat(),
         "events": []
     }
+    orientation_events = []
     for filename in os.listdir("events"):
         print(f"Processing {filename}...")
-        api_response["events"].extend(process_csv("events/" + filename))
+        if filename == "orientation.csv":
+            orientation_events = process_csv("events/" + filename)
+        else:
+            api_response["events"].extend(process_csv("events/" + filename))
     
     api_response["events"].sort(key=lambda e: e["start"])
 
@@ -55,9 +59,11 @@ if __name__ == "__main__":
     api_response["start"] = config["dates"]["start"]
     api_response["end"] = config["dates"]["end"]
 
+    booklet_only_events = orientation_events
+
     print("Processing complete!")
 
-    booklet_html = booklet.generate_booklet(api_response, config)
+    booklet_html = booklet.generate_booklet(api_response, config, booklet_only_events)
 
     print("Outputting booklet and JSON...")
     

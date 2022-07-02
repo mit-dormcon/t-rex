@@ -27,11 +27,16 @@ body{
     display: none;
 }
 
-.mandatory, .favorite {
+.event {
     display: block;
     width: auto;
-    margin: -7px -7px;
-    padding: 3px;
+    margin: 10px 10px;
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 6px;
+    background-color: #e0e0e0;
+    text-align: left;
+    page-break-inside: avoid;
 }
 
 .mandatory {
@@ -45,17 +50,6 @@ body{
     border-radius: 10px;
 }
 
-.event {
-    display: block;
-    width: auto;
-    margin: 10px 10px;
-    border: 1px solid;
-    border-radius: 10px;
-    padding: 6px;
-    background-color: #e0e0e0;
-    text-align: left;
-    page-break-inside: avoid;
-}
 
 .fpop {
     page-break-before: always;
@@ -97,7 +91,7 @@ body{
 
 @media print {
     body {
-        font-size: 5pt;
+        font-size: 12pt;
     }
     .day-title, .fpop-title, .post-title{
         page-break-after: avoid;

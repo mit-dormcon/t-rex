@@ -1,0 +1,29 @@
+{% macro event_box(event) %}
+<div class="event {% if 'mandatory' in event.tags %}mandatory {% endif %}{% if 'favorite' in event.tags %}favorite {% endif %}">
+<span class="id">{{event.id}}</span>
+{% if 'tour' not in event.tags %}<span class="date">{{event.weekday}}</span>
+<span class="time">
+{% if event.allday %}
+    {% if not event.noend %}
+    all day
+    {% endif %}
+{% else %}
+    {{event.starttime}}
+    {% if not event.noend %}
+    -{{event.endtime}}
+    {% endif %}
+{% endif %}
+</span>{% endif %}
+        {% if event.is_food %}<i class="fa fa-cutlery"></i> {% endif %}
+<span class="title">{{event.name}}</span>
+{% if event.display_group != 'Orientation' %}
+    <span class="dorm">@ {{event.display_group}}</span>
+{% endif %}
+{% if event.location %}
+    <span class="location">({{event.location}}){% if not event.empty_description %}:{% endif%}</span>
+{% endif %}
+    <span class="description">{{event.description}}</span>
+    {% if event.is_mandatory %}</td></tr></table>{% endif %}
+    {% if event.is_favorite %}</td></tr></table>{% endif %}
+    </div>
+{% endmacro %}

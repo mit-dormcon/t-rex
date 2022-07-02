@@ -1,6 +1,5 @@
 import jinja2
 import datetime
-import pytz
 
 env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
 
@@ -16,7 +15,7 @@ def get_date_bucket(event: dict, cutoff: int):
     return dt.date()
 
 
-def generate_booklet(api, config):
+def generate_booklet(api, config, extra_events):
     # Bucket events into dates
     start_date = datetime.date.fromisoformat(api["start"])
     end_date = datetime.date.fromisoformat(api["end"])
@@ -28,4 +27,23 @@ def generate_booklet(api, config):
         "after": sorted(list(filter(lambda d: d > end_date, all_dates))),
     }
 
-    return env.get_template("guide.html").render(api=api, by_dates={}, dates=dates, start=start_date, end=end_date)
+    tours = []
+    # Sort events into date buckets
+    by_dates = {d: [] for d in all_dates}
+    for e in (api["events"] + extra_events):
+        if "tour" in e["tags"]:
+            tours.append(e)
+        else:
+            by_dates[get_date_bucket(e, config["dates"]["hour_cutoff"])].append(e)
+
+    for date in by_dates:
+        by_dates[date].sort(key=lambda e: datetime.datetime.fromisoformat(e["start"]))    
+
+    return env.get_template("guide.html").render(
+        api=api,
+        by_dates=by_dates,
+        tours=tours,
+        dates=dates,
+        start=start_date,
+        end=end_date
+    )

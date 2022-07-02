@@ -1,3 +1,4 @@
+{% from "helpers.html" import event_box %}
 <!doctype html>
 <html>
   <head>
@@ -14,17 +15,9 @@
       <span class="day-title">Residence Hall Tours</span>
       <br/>
       <br/>
-      {% for event in by_dates.tours %}
-      <div class="event">
-	<span class="title">{{event.name}}</span>
-	  <span class="dorm">@ {{event.display_group}}</span>
-	{% if event.location %}
-	  <span class="location">({{event.location}}):</span>
-	{% endif %}
-	  <span class="description">{{event.description}}</span>
-      </div>
+      {% for event in tours %}
+		{{ event_box(event) }}
       {% endfor %}
-      </div>
 
       <div class="fpop">
       <span class="fpop-title">FPOP Week Events</span>
@@ -37,35 +30,7 @@
 	{% for key, events in by_dates.items() %}
           {% if key == day %}
             {% for event in events %}
-	      <div class="event">
-	      {% if event.is_mandatory %}<table class="mandatory"><tr><td>{% endif %}
-	      {% if event.is_favorite %}<table class="favorite"><tr><td>{% endif %}
-		<span class="id">{{event.id}}</span>
-		{% if not event.is_tour %}<span class="date">{{event.weekday}}</span>
-		<span class="time">
-		{% if event.allday %}
-		  {% if not event.noend %}
-		    all day
-		  {% endif %}
-		{% else %}
-		  {{event.starttime.time}}
-		  {% if not event.noend %}
-		    -{{event.endtime.time}}
-		  {% endif %}
-		{% endif %}
-		</span>{% endif %}
-                {% if event.is_food %}<i class="fa fa-cutlery"></i> {% endif %}
-		<span class="title">{{event.name}}</span>
-		{% if event.display_group != 'Orientation' %}
-		  <span class="dorm">@ {{event.display_group}}</span>
-		{% endif %}
-		{% if event.location %}
-		  <span class="location">({{event.location}}){% if not event.empty_description %}:{% endif%}</span>
-		{% endif %}
-		  <span class="description">{{event.description}}</span>
-	      {% if event.is_mandatory %}</td></tr></table>{% endif %}
-	      {% if event.is_favorite %}</td></tr></table>{% endif %}
-	      </div>
+				{{ event_box(event) }}
             {% endfor %}
           {% endif %}
 	{% endfor %}
@@ -79,37 +44,7 @@
 	{% for key, events in by_dates.items() %}
           {% if key == day %}
             {% for event in events %}
-	      <div class="event">
-	      {% if event.is_mandatory %}<table class="mandatory"><tr><td>{% endif %}
-	      {% if event.is_favorite %}<table class="favorite"><tr><td>{% endif %}
-		<span class="id">{{event.id}}</span>
-		{% if not event.is_tour %}<span class="date">{{event.weekday}}</span>
-		<span class="time">
-		{% if event.allday %}
-		  {% if not event.noend %}
-		    all day
-		  {% endif %}
-		{% else %}
-		  {{event.starttime.time}}
-		  {% if not event.noend %}
-		    -{{event.endtime.time}}
-		  {% endif %}
-		{% endif %}
-		</span>{% endif %}
-                {% if event.is_food %}<i class="fa fa-cutlery"></i> {% endif %}
-		<span class="title">{{event.name}}</span>
-		{% if event.display_group != 'Orientation' %}
-		  <span class="dorm">@ {{event.display_group}}</span>
-		{% endif %}
-		{% if event.location %}
-		  <span class="location">({{event.location}}){% if not event.empty_description %}:{% endif%}</span>
-		{% endif %}
-                {% if event.description %}
-		  <span class="description">{{event.description}}</span>
-                {% endif %}
-	      {% if event.is_mandatory %}</td></tr></table>{% endif %}
-	      {% if event.is_favorite %}</td></tr></table>{% endif %}
-	      </div>
+				{{ event_box(event) }}
             {% endfor %}
           {% endif %}
 	{% endfor %}
@@ -127,41 +62,12 @@ Still can't get enough of our awesome dorms? Well, move into your new room first
 	{% for key, events in by_dates.items() %}
           {% if key == day %}
             {% for event in events %}
-	      <div class="event">
-	      {% if event.is_mandatory %}<table class="mandatory"><tr><td>{% endif %}
-	      {% if event.is_favorite %}<table class="favorite"><tr><td>{% endif %}
-	      {% if event.is_housing %}<table class="housing"><tr><td>{% endif %}
-		<span class="id">{{event.id}}</span>
-		{% if not event.is_tour %}<span class="date">{{event.weekday}}</span>
-		<span class="time">
-		{% if event.allday %}
-		  {% if not event.noend %}
-		    all day
-		  {% endif %}
-		{% else %}
-		  {{event.starttime.time}}
-		  {% if not event.noend %}
-		    -{{event.endtime.time}}
-		  {% endif %}
-		{% endif %}
-		</span>{% endif %}
-                {% if event.is_food %}<i class="fa fa-cutlery"></i> {% endif %}
-		<span class="title">{{event.name}}</span>
-		{% if event.display_group != 'Orientation' %}
-		  <span class="dorm">@ {{event.display_group}}</span>
-		{% endif %}
-		{% if event.location %}
-		  <span class="location">({{event.location}}){% if not event.empty_description %}:{% endif%}</span>
-		{% endif %}
-		  <span class="description">{{event.description}}</span>
-	      {% if event.is_mandatory %}</td></tr></table>{% endif %}
-	      {% if event.is_favorite %}</td></tr></table>{% endif %}
-	      {% if event.is_housing %}</td></tr></table>{% endif %}
-	      </div>
+				{{ event_box(event) }}
             {% endfor %}
           {% endif %}
 	{% endfor %}
       {% endfor %}
       </div>
+	  <p style="text-align: center;">Made with ❤️ by DormCon Tech+REX Chairs</p>
 </body>
 </html>
