@@ -2,3 +2,4 @@ Event Name,Dorm,Event Location,Start Date and Time,End Date and Time,Event Descr
 Event A,A,MIT,3/21/2022 5:00,3/21/2022 8:30,Description A,TRUE,mandatory
 Event B,B,MIT,3/21/2022 0:00,3/21/2022 19:00,Description B,TRUE,favorite
 Event C,C,MIT,3/21/2022 0:00,3/21/2022 1:00,Description C,TRUE,tour
+Event D,A,MIT,7/16/2022 3:00,7/16/2022 4:00,Description D,TRUE,food
