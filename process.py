@@ -23,9 +23,9 @@ def process_csv(filename: str) -> list[dict]:
             if event["Published"] != "TRUE":
                 continue
             events.append({
-                "name": event["Event Name"],
+                "name": event["Event Name"].strip(),
                 "dorm": event["Dorm"].strip(),
-                "location": event["Event Location"],
+                "location": event["Event Location"].strip(),
                 "start": process_dt_from_csv(event["Start Date and Time"]),
                 "end": process_dt_from_csv(event["End Date and Time"]),
                 "description": event["Event Description"],
