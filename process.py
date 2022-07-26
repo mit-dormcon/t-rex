@@ -24,7 +24,7 @@ def process_csv(filename: str) -> list[dict]:
                 continue
             events.append({
                 "name": event["Event Name"],
-                "dorm": event["Dorm"],
+                "dorm": event["Dorm"].strip(),
                 "location": event["Event Location"],
                 "start": process_dt_from_csv(event["Start Date and Time"]),
                 "end": process_dt_from_csv(event["End Date and Time"]),
