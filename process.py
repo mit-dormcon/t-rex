@@ -63,6 +63,7 @@ if __name__ == "__main__":
 
     print("Processing complete!")
 
+    print("Generating the booklet...")
     booklet_html = booklet.generate_booklet(api_response, config, booklet_only_events)
 
     print("Outputting booklet and JSON...")
