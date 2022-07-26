@@ -29,7 +29,7 @@ def process_csv(filename: str) -> list[dict]:
                 "start": process_dt_from_csv(event["Start Date and Time"]),
                 "end": process_dt_from_csv(event["End Date and Time"]),
                 "description": event["Event Description"],
-                "tags": [tag.strip().lower() for tag in event["Tags"].split(",") if tag]
+                "tags": [tag.strip().lower() for tag in event["Tags"].split(",") if tag.strip()]
             })
     return events
             
