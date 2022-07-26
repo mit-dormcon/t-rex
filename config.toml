@@ -11,10 +11,10 @@ hour_cutoff = 4
 [colors.dorms]
 "Baker" = "#005c96"
 "Burton Conner" = "#cc4331"
-"Chocolate City" = "#000000"
-"Desmond" = "#2717d8"
+"CC" = "#000000"
+"Desmond (House 5)" = "#2717d8"
 "East Campus" = "#ab0000"
-"French House" = "#002395"
+"LMF" = "#002395"
 "German House" = "#f7d147"
 "House 2" = "#769958"
 "House 3" = "#990147"
