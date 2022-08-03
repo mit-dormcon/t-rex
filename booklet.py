@@ -1,7 +1,10 @@
 import jinja2
 import datetime
 
+import pytz
+
 env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
+eastern = pytz.timezone("US/Eastern")
 
 
 def event_dt_format(start_string, end_string):
@@ -74,6 +77,8 @@ def generate_booklet(api, config, extra_events):
 
     tours.sort(key=lambda e: datetime.datetime.fromisoformat(e["start"]))
 
+    published_string = datetime.datetime.fromisoformat(api["published"]).astimezone(eastern).strftime("%B %d, %Y at %I:%M %p") 
+
     return env.get_template("guide.html").render(
         api=api,
         by_dates=by_dates,
@@ -82,4 +87,5 @@ def generate_booklet(api, config, extra_events):
         start=start_date,
         end=end_date,
         emoji=config["tag_emoji"],
+        published=published_string,
     )
