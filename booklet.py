@@ -47,8 +47,10 @@ def generate_booklet(api, config, extra_events):
     start_date = datetime.date.fromisoformat(api["start"])
     end_date = datetime.date.fromisoformat(api["end"])
 
+    all_events = api["events"] + extra_events
+
     all_dates = set(get_date_bucket(
-        e, config["dates"]["hour_cutoff"]) for e in api["events"])
+        e, config["dates"]["hour_cutoff"]) for e in all_events)
     dates = {
         "before": sorted(list(filter(lambda d: d < start_date, all_dates))),
         "rex": sorted(list(filter(lambda d: start_date <= d <= end_date, all_dates))),
@@ -58,7 +60,7 @@ def generate_booklet(api, config, extra_events):
     tours = []
     # Sort events into date buckets, separating out tours
     by_dates = {d: [] for d in all_dates}
-    for e in (api["events"] + extra_events):
+    for e in all_events:
         if "tour" in e["tags"]:
             tours.append(e)
         else:
