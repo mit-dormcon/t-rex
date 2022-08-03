@@ -47,7 +47,7 @@ def generate_booklet(api, config, extra_events):
     start_date = datetime.date.fromisoformat(api["start"])
     end_date = datetime.date.fromisoformat(api["end"])
 
-    all_events = api["events"] + extra_events
+    all_events = [e.copy() for e in api["events"] + extra_events]
 
     all_dates = set(get_date_bucket(
         e, config["dates"]["hour_cutoff"]) for e in all_events)
@@ -60,12 +60,13 @@ def generate_booklet(api, config, extra_events):
     tours = []
     # Sort events into date buckets, separating out tours
     by_dates = {d: [] for d in all_dates}
-    for e in all_events:
-        if "tour" in e["tags"]:
-            tours.append(e)
+    for event in all_events:
+        event["emoji"] = [config["tag_emoji"][tag] for tag in event["tags"] if tag in config["tag_emoji"]]
+        if "tour" in event["tags"]:
+            tours.append(event)
         else:
             by_dates[get_date_bucket(
-                e, config["dates"]["hour_cutoff"])].append(e)
+                event, config["dates"]["hour_cutoff"])].append(event)
 
     for date in by_dates:
         by_dates[date].sort(
@@ -79,5 +80,6 @@ def generate_booklet(api, config, extra_events):
         tours=tours,
         dates=dates,
         start=start_date,
-        end=end_date
+        end=end_date,
+        emoji=config["tag_emoji"],
     )

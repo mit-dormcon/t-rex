@@ -33,3 +33,8 @@ hour_cutoff = 4
 "favorite"="#fac205"
 "food"="#0b4008"
 "party"="#04d9ff"
+
+# These control which emoji appear for a tag in the booklet
+[tag_emoji]
+"food"="🍴"
+"party"="🎉"
