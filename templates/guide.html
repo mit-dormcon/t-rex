@@ -55,7 +55,6 @@
       events for more fun times!
       {% for day in dates.after %}
       <span class="day-title">{{ day.strftime("%A %D") }}</span>
-      <br /><br />
       {% for key, events in by_dates.items() %}
       {% if key == day %}
       {% for event in events %}
