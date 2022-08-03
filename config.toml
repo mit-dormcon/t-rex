@@ -30,3 +30,6 @@ hour_cutoff = 4
 "Simmons" = "#b8bcd1"
 
 [colors.tags]
+"favorite"="#fac205"
+"food"="#0b4008"
+"party"="#04d9ff"
