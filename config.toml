@@ -2,8 +2,8 @@ name = "REX 2022 Alpha"
 
 # Start and end dates of REX, in YYYY-MM-DD
 [dates]
-start = "2021-08-29"
-end = "2021-09-01"
+start = "2022-08-28"
+end = "2021-08-31"
 # Events that start before this hour will be considered as starting the day before in the booklet
 hour_cutoff = 4
 
