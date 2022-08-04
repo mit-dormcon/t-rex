@@ -117,5 +117,9 @@ body{
         text-align: center;
         bottom: 0;
     }
+    .event {
+        /* necessary to not have the top border show up on the previous page */ 
+        transform: translateY(2px);
+    }
     /* may want to style visited links */
 }
