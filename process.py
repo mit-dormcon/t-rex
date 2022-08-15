@@ -44,6 +44,7 @@ if __name__ == "__main__":
     }
     orientation_events = []
     for filename in os.listdir("events"):
+        if not filename.endswith(".csv"): continue
         print(f"Processing {filename}...")
         if filename == "orientation.csv":
             orientation_events = process_csv("events/" + filename)
