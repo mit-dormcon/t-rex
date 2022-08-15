@@ -38,3 +38,6 @@ hour_cutoff = 4
 [tag_emoji]
 "food"="🍴"
 "party"="🎉"
+"social"="👥"
+"games"="🎲"
+"art"="🎨"

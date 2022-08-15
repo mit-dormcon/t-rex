@@ -121,5 +121,8 @@ body{
         /* necessary to not have the top border show up on the previous page */ 
         transform: translateY(2px);
     }
+    #booklet-info {
+        font-size: 16pt;
+    }
     /* may want to style visited links */
 }
