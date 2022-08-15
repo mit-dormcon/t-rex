@@ -88,4 +88,5 @@ def generate_booklet(api, config, extra_events):
         end=end_date,
         emoji=config["tag_emoji"],
         published=published_string,
+        cover_dorms=[d for d in api["dorms"] if d != "All dorms"],
     )
