@@ -51,6 +51,8 @@ if __name__ == "__main__":
         else:
             api_response["events"].extend(process_csv("events/" + filename))
     
+    # Order events by start time, then by end time.
+    api_response["events"].sort(key=lambda e: e["end"])
     api_response["events"].sort(key=lambda e: e["start"])
 
     # Add extra data from events and config file
