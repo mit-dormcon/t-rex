@@ -71,10 +71,14 @@ def generate_booklet(api, config, extra_events):
             by_dates[get_date_bucket(
                 event, config["dates"]["hour_cutoff"])].append(event)
 
+    # Order inside buckets by start, then end.
     for date in by_dates:
+        by_dates[date].sort(
+            key=lambda e: datetime.datetime.fromisoformat(e["end"]))
         by_dates[date].sort(
             key=lambda e: datetime.datetime.fromisoformat(e["start"]))
 
+    tours.sort(key=lambda e: datetime.datetime.fromisoformat(e["end"]))
     tours.sort(key=lambda e: datetime.datetime.fromisoformat(e["start"]))
 
     published_string = datetime.datetime.fromisoformat(api["published"]).astimezone(eastern).strftime("%B %d, %Y at %I:%M %p") 
