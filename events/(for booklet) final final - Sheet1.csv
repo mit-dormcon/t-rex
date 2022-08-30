@@ -340,4 +340,5 @@ beans cake,Random,bmf kitchen,8/30/2022 21:17,8/30/2022 22:17,baked beans cupcak
 Parent Tours,Random,foo,8/29/2022 17:17,8/29/2022 18:17,come see what it's like to live in Random Hall,tour,TRUE,,,,,,,,,,,,,,,
 Parent Tours,Random,foo,8/30/2022 17:47,8/30/2022 18:47,come see what it's like to live in Random Hall,tour,TRUE,,,,,,,,,,,,,,,
 Parent Tours,Random,foo,8/31/2022 14:17,8/31/2022 15:17,come see what it's like to live in Random Hall,tour,TRUE,,,,,,,,,,,,,,,
-WATER WAR!!,All dorms ,Saxon Court,8/30/2022 18:45,8/30/2022 19:45,Hot day? Refresh yourself and support your dorm in an annual battle between the West and East sides involving water-filled ammunition. Who will emerge victorious?,"outdoors,activity",TRUE,,,,,,,,,,,,,,,
+WATER(less) WAR!!,All dorms ,Saxon Court,8/30/2022 18:45,8/30/2022 19:45,Support your dorm in an annual battle between the West and East sides involving color-filled ammunition. Show up in white to show off the colors. Who will emerge victorious?,"outdoors,activity",TRUE,,,,,,,,,,,,,,,
+
