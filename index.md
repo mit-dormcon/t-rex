@@ -9,7 +9,7 @@ GitHub: [mit-dormcon/t-rex][repo]
 
 ## What's this website?
 
-This website hosts the backend of [REX Events page][events], which can be found at [dormcon.mit.edu/rex/events][events]. The code that generates this website produces a few files:
+This website hosts the backend of the [REX Events page][events], which can be found at [dormcon.mit.edu/rex/events][events]. The code that generates this website produces a few files:
 
 - [index.html](/index.html) - This is the page you're reading right now!
 - [api.json](/api.json) - This structured data is provided to the [REX Events page][events]. Feel free to use it for your own purposes! The structure of the JSON is documented as `TRexAPIResponse` in [types.ts](https://github.com/mit-dormcon/website/blob/master/components/t-rex/types.ts) in the main DormCon website repository.
