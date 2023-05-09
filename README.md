@@ -1,6 +1,6 @@
 # T-REX
 
-The DormCon REX API
+The DormCon REX API, published to [rex.mit.edu](https://rex.mit.edu).
 
 ## config.toml
 
