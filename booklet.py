@@ -52,8 +52,9 @@ def generate_booklet(api, config, extra_events):
 
     all_events = [e.copy() for e in api["events"] + extra_events]
 
-    all_dates = set(get_date_bucket(
-        e, config["dates"]["hour_cutoff"]) for e in all_events)
+    all_dates = set(
+        get_date_bucket(e, config["dates"]["hour_cutoff"]) for e in all_events
+    )
     dates = {
         "before": sorted(list(filter(lambda d: d < start_date, all_dates))),
         "rex": sorted(list(filter(lambda d: start_date <= d <= end_date, all_dates))),
@@ -64,24 +65,31 @@ def generate_booklet(api, config, extra_events):
     # Sort events into date buckets, separating out tours
     by_dates = {d: [] for d in all_dates}
     for event in all_events:
-        event["emoji"] = [config["tag_emoji"][tag] for tag in event["tags"] if tag in config["tag_emoji"]]
+        event["emoji"] = [
+            config["tag_emoji"][tag]
+            for tag in event["tags"]
+            if tag in config["tag_emoji"]
+        ]
         if "tour" in event["tags"]:
             tours.append(event)
         else:
-            by_dates[get_date_bucket(
-                event, config["dates"]["hour_cutoff"])].append(event)
+            by_dates[get_date_bucket(event, config["dates"]["hour_cutoff"])].append(
+                event
+            )
 
     # Order inside buckets by start, then end.
     for date in by_dates:
-        by_dates[date].sort(
-            key=lambda e: datetime.datetime.fromisoformat(e["end"]))
-        by_dates[date].sort(
-            key=lambda e: datetime.datetime.fromisoformat(e["start"]))
+        by_dates[date].sort(key=lambda e: datetime.datetime.fromisoformat(e["end"]))
+        by_dates[date].sort(key=lambda e: datetime.datetime.fromisoformat(e["start"]))
 
     tours.sort(key=lambda e: datetime.datetime.fromisoformat(e["end"]))
     tours.sort(key=lambda e: datetime.datetime.fromisoformat(e["start"]))
 
-    published_string = datetime.datetime.fromisoformat(api["published"]).astimezone(eastern).strftime("%B %d, %Y at %I:%M %p") 
+    published_string = (
+        datetime.datetime.fromisoformat(api["published"])
+        .astimezone(eastern)
+        .strftime("%B %d, %Y at %I:%M %p")
+    )
 
     return env.get_template("guide.html").render(
         api=api,
