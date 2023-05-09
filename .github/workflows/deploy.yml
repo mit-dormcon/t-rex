@@ -22,7 +22,7 @@ jobs:
       - name: Process Data
         run: pipenv run python ./process.py
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           folder: output
           branch: gh-pages
