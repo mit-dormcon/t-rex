@@ -11,6 +11,8 @@ python = "^3.11"
 pytz = "^2023.3"
 toml = "^0.10.2"
 Jinja2 = "^3.1.2"
+markdown = "^3.4.3"
+python-frontmatter = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"

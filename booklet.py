@@ -2,6 +2,8 @@ import jinja2
 import datetime
 
 import pytz
+import markdown
+import frontmatter
 
 env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
 eastern = pytz.timezone("US/Eastern")
@@ -102,3 +104,14 @@ def generate_booklet(api, config, extra_events):
         published=published_string,
         cover_dorms=[d for d in api["dorms"] if d != "All dorms"],
     )
+
+
+def generate_index():
+    """
+    Generates homepage index.html using the Markdown file at index.md,
+    with the template at templates/index.html
+    """
+    page = frontmatter.load("index.md")
+    content = markdown.markdown(page.content)
+
+    return env.get_template("index.html").render(content=content, **page.metadata)

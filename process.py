@@ -80,6 +80,9 @@ if __name__ == "__main__":
     print("Generating the booklet...")
     booklet_html = booklet.generate_booklet(api_response, config, booklet_only_events)
 
+    print("Processing index.md...")
+    index_html = booklet.generate_index()
+
     print("Outputting booklet and JSON...")
 
     if os.path.exists("output"):
@@ -90,5 +93,7 @@ if __name__ == "__main__":
         json.dump(api_response, w)
     with open("output/booklet.html", "w") as b:
         b.write(booklet_html)
+    with open("output/index.html", "w") as i:
+        i.write(index_html)
 
     print("Complete!")
