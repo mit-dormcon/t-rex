@@ -1,6 +1,10 @@
 # T-REX
 
-The DormCon REX API, published to [rex.mit.edu](https://rex.mit.edu).
+The DormCon REX API, published to [rex.mit.edu].
+
+For public-facing information about this project, visit [rex.mit.edu] or read the index.md file.
+
+[rex.mit.edu]: https://rex.mit.edu
 
 ## config.toml
 
