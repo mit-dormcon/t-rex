@@ -1,5 +1,9 @@
 name = "REX 2022"
 
+[csv]
+# String format used for parsing dates in the CSV, see strftime.net
+date_format = "%m/%d/%Y %H:%M"
+
 # Start and end dates of REX, in YYYY-MM-DD
 [dates]
 start = "2022-08-28"
@@ -13,7 +17,7 @@ hour_cutoff = 4
 "Burton Conner" = "#cc4331"
 "CC" = "#000000"
 "Desmond (House 5)" = "#2717d8"
-"East Campus" = "#ab0000"
+"East Campus" = "#aa0000"
 "LMF" = "#002395"
 "German House" = "#f7d147"
 "House 2" = "#769958"
