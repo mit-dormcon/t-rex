@@ -1,21 +1,16 @@
 {% macro event_box(event) %}
-<div class="event {% if 'mandatory' in event.tags %}mandatory {% endif %}{% if 'favorite' in event.tags %}favorite {% endif %}">
-    <span class="id">{{event.id}}</span>
-    <span class="date">{{ format_date(event.start, event.end) }}</span>
-    &middot;
+<div class="event {% for tag in event.tags %}tag-{{tag}} {% endfor %}">
+  <span class="id">{{event.id}}</span>
+  <span class="date">{{ format_date(event.start, event.end) }}</span>
+  &middot; {% for emoji in event.emoji %}{{emoji}} {% endfor %}
 
-    {% for emoji in event.emoji %}{{emoji}} {% endfor %}
+  <span class="title">{{event.name}}</span>
 
-    <span class="title">{{event.name}}</span>
-
-    {% if event.dorm != 'Orientation' %}
-        <span class="dorm">@ {{event.dorm}}</span>
-    {% endif %}
-
-    {% if event.location %}
-    <span class="location">({{event.location}})</span>
-    {% endif %}
-    &middot;
-    <span class="description">{{event.description}}</span>
+  {% if event.dorm != 'Orientation' %}
+  <span class="dorm">@ {{event.dorm}}</span>
+  {% endif %} {% if event.location %}
+  <span class="location">({{event.location}})</span>
+  {% endif %} &middot;
+  <span class="description">{{event.description}}</span>
 </div>
 {% endmacro %}

@@ -13,6 +13,9 @@ eastern_tz = pytz.timezone("US/Eastern")
 
 
 def process_dt_from_csv(time_string: str) -> str:
+    """
+    Uses the config setting `date_format` to convert a time string into ISO format
+    """
     event_dt = eastern_tz.localize(
         datetime.datetime.strptime(time_string, config["csv"]["date_format"])
     )

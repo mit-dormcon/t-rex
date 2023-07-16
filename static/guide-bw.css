@@ -1,128 +1,136 @@
 .page {
-    page-break-after: always;
+  page-break-after: always;
 }
 
-body{
-    background-color: #ffffff;
-    font-family: "Noto Sans", Helvetica, Arial, sans-serif, "Noto Emoji";
+body {
+  background-color: #ffffff;
+  font-family: "Noto Sans", Helvetica, Arial, sans-serif, "Noto Emoji";
 }
 
 .main-title {
-    font-weight: bold;
-    font-size: 48pt;
+  font-weight: bold;
+  font-size: 48pt;
 }
 
 .qrcode {
-    width: 300px;
+  width: 300px;
 }
 
 .byline {
-    text-align: center;
+  text-align: center;
 }
 
-.event .date, .event .time, .event .title, .event .dorm, .event .location {
-    font-weight: bold;
+.event .date,
+.event .time,
+.event .title,
+.event .dorm,
+.event .location {
+  font-weight: bold;
 }
 
-.day-title, .fpop-title, .post-title{
-    background-color: #e0e0e0;
-    display: block;
-    padding: 10px;
-    margin-top: 10px;
+.day-title,
+.fpop-title,
+.post-title {
+  background-color: #e0e0e0;
+  display: block;
+  padding: 10px;
+  margin-top: 10px;
 }
 
 .id {
-    display: none;
+  display: none;
 }
 
 .event {
-    display: block;
-    width: auto;
-    margin: 10px 10px;
-    border: 1px solid;
-    border-radius: 10px;
-    padding: 6px;
-    background-color: #eaeaea; /* sports, it's in the game */
-    text-align: left;
-    page-break-inside: avoid;
+  display: block;
+  width: auto;
+  margin: 10px 10px;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 6px;
+  background-color: #eaeaea; /* sports, it's in the game */
+  text-align: left;
+  page-break-inside: avoid;
 }
 
-.mandatory {
-    border: 3px solid;
-    border-radius: 10px;
-    background-color: #ffffff
+.tag-mandatory {
+  border: 3px solid;
+  border-radius: 10px;
+  background-color: #ffffff;
 }
 
-.favorite {
-    border: 5px dotted;
-    border-radius: 10px;
+.tag-favorite {
+  border: 5px dotted;
+  border-radius: 10px;
 }
-
 
 .fpop {
-    page-break-before: always;
-    page-break-after: always;
-    display: block;
-    width: auto;
-    margin: 10px 10px;
-    border: 4px dashed;
-    border-radius: 15px;
-    padding: 6px;
-    text-align: center;
+  page-break-before: always;
+  page-break-after: always;
+  display: block;
+  width: auto;
+  margin: 10px 10px;
+  border: 4px dashed;
+  border-radius: 15px;
+  padding: 6px;
+  text-align: center;
 }
 
 .fpop-title {
-    text-align: center;
+  text-align: center;
 }
 
 .post {
-    page-break-before: always;
-    page-break-after: always;
-    display: block;
-    width: auto;
-    margin: 5px 10px;
-    border: 4px dashed;
-    border-radius: 15px;
-    padding: 6px;
-    text-align: center;
+  page-break-before: always;
+  page-break-after: always;
+  display: block;
+  width: auto;
+  margin: 5px 10px;
+  border: 4px dashed;
+  border-radius: 15px;
+  padding: 6px;
+  text-align: center;
 }
 
-.fpop-title, .post-title{
-    font-size: 24pt;
-    font-weight: bold;
+.fpop-title,
+.post-title {
+  font-size: 24pt;
+  font-weight: bold;
 }
 
 .day-title {
-    font-weight: bold;
-    font-size: 14pt;
+  font-weight: bold;
+  font-size: 14pt;
 }
 
 @media print {
-    body {
-        font-size: 18pt;
-    }
-    .day-title, .fpop-title, .post-title{
-        font-size: 24pt;
-        page-break-after: avoid;
-        page-break-before: avoid;
-        page-break-inside: avoid;
-    }
-    .main-title {
-        font-size: 72pt;
-    }
-    .byline {
-        position: absolute;
-        left: 0;
-        right: 0;
-        text-align: center;
-        bottom: 0;
-    }
-    .event {
-        /* necessary to not have the top border show up on the previous page */ 
-        transform: translateY(2px);
-    }
-    #booklet-info {
-        font-size: 16pt;
-    }
-    /* may want to style visited links */
+  body {
+    font-size: 18pt;
+  }
+  .day-title,
+  .fpop-title,
+  .post-title {
+    font-size: 24pt;
+    page-break-after: avoid;
+    page-break-before: avoid;
+    page-break-inside: avoid;
+  }
+  .main-title {
+    font-size: 72pt;
+  }
+  .byline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    bottom: 0;
+  }
+  .event {
+    /* necessary to not have the top border show up on the previous page */
+    transform: translateY(2px);
+  }
+  #booklet-info {
+    font-size: 16pt;
+  }
+  /* may want to style visited links */
 }

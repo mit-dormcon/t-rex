@@ -72,6 +72,8 @@ def generate_booklet(api, config, extra_events):
             for tag in event["tags"]
             if tag in config["tag_emoji"]
         ]
+
+        # Tours are separated and put at the front of the booklet
         if "tour" in event["tags"]:
             tours.append(event)
         else:
