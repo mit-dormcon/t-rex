@@ -25,9 +25,15 @@ def event_dt_format(start_string, end_string):
             time_strings.append("midnight")
         else:
             if dt.minute == 0:
-                time_strings.append(dt.strftime("%l %p"))
+                try:
+                    time_strings.append(dt.strftime("%l %p"))
+                except ValueError:
+                    time_strings.append(dt.strftime("%I %p"))
             else:
-                time_strings.append(dt.strftime("%l:%M %p"))
+                try:
+                    time_strings.append(dt.strftime("%l:%M %p"))
+                except ValueError:
+                    time_strings.append(dt.strftime("%I:%M %p"))
     out += " " + " - ".join(time_strings)
 
     return out
