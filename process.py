@@ -42,6 +42,7 @@ def process_csv(filename: str) -> list[dict]:
                         for tag in event["Tags"].split(",")
                         if tag.strip()
                     ],
+                    "group": event["Group"].strip() or None,
                 }
             )
     return events
