@@ -30,7 +30,7 @@ hour_cutoff = 4
 "Next House" = "#2c3e50"
 "Random Hall" = "#ee9900"
 "Simmons Hall" = "#b8bcd1"
-"DormCon (Campus Wide!)" = "#a31f34"
+"Campus Wide!" = "#a31f34"
 
 [colors.tags]
 "signature"="#fac205"
