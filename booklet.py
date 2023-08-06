@@ -1,9 +1,9 @@
-import jinja2
 import datetime
 
-import pytz
-import markdown
 import frontmatter
+import jinja2
+import markdown
+import pytz
 
 env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
 eastern = pytz.timezone("US/Eastern")
