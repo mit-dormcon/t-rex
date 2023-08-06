@@ -18,36 +18,65 @@
     {% include "guide_fm.html" %}
     <div>
       <span class="day-title">Residence Hall Tours</span>
-      {% for event in tours %} {{ event_box(event) }} {% endfor %} {% if
-      dates.before %}
-      <div class="fpop">
-        <span class="fpop-title">FPOP Week Events</span>
-        During the week before REX begins, FPOPs are happening on campus. If you
-        happen to be around in the afternoon after your FPOP ends, feel free to
-        drop by one of the events below! {% for day in dates.before %}
-        <span class="day-title">{{ day.strftime("%A %D") }}</span>
-        {% for key, events in by_dates.items() %} {% if key == day %} {% for
-        event in events %} {{ event_box(event) }} {% endfor %} {% endif %} {%
-        endfor %} {% endfor %}
-      </div>
-      {% endif %} {% for day in dates.rex %}
-      <div class="page">
-        <span class="day-title">{{ day.strftime("%A %D") }}</span>
-        {% for key, events in by_dates.items() %} {% if key == day %} {% for
-        event in events %} {{ event_box(event) }} {% endfor %} {% endif %} {%
-        endfor %}
-      </div>
-      {% endfor %} {% if dates.after %}
-      <div class="post">
-        <span class="post-title">Post-REX Events</span>
-        Still can't get enough of our awesome dorms? Well, move into your new
-        room first, but then stop by any of these events for more fun times! {%
-        for day in dates.after %}
-        <span class="day-title">{{ day.strftime("%A %D") }}</span>
-        {% for key, events in by_dates.items() %} {% if key == day %} {% for
-        event in events %} {{ event_box(event) }} {% endfor %} {% endif %} {%
-        endfor %} {% endfor %}
-      </div>
+      {% for event in tours %}{{ event_box(event) }}{% endfor %}
+      {%
+        if
+        dates.before
+      %}
+        <div class="fpop">
+          <span class="fpop-title">FPOP Week Events</span>
+          During the week before REX begins, FPOPs are happening on campus. If
+          you happen to be around in the afternoon after your FPOP ends, feel
+          free to drop by one of the events below!
+          {% for day in dates.before %}
+            <span class="day-title">{{ day.strftime("%A %D") }}</span>
+            {% for key, events in by_dates.items() %}
+              {% if key == day %}
+                {%
+                  for
+                  event in events
+                %}
+                  {{ event_box(event) }}
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% for day in dates.rex %}
+        <div class="page">
+          <span class="day-title">{{ day.strftime("%A %D") }}</span>
+          {% for key, events in by_dates.items() %}
+            {% if key == day %}
+              {%
+                for
+                event in events
+              %}
+                {{ event_box(event) }}
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endfor %}
+      {% if dates.after %}
+        <div class="post">
+          <span class="post-title">Post-REX Events</span>
+          Still can't get enough of our awesome dorms? Well, move into your new
+          room first, but then stop by any of these events for more fun times!
+          {% for day in dates.after %}
+            <span class="day-title">{{ day.strftime("%A %D") }}</span>
+            {% for key, events in by_dates.items() %}
+              {% if key == day %}
+                {%
+                  for
+                  event in events
+                %}
+                  {{ event_box(event) }}
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        </div>
       {% endif %}
     </div>
   </body>
