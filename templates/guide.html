@@ -20,6 +20,7 @@
     {{ event_box(event) }}
     {% endfor %}
 
+    {% if dates.before %}
     <div class="fpop">
       <span class="fpop-title">FPOP Week Events</span>
       During the week before REX begins, FPOPs are happening on campus. If you happen to be around in the afternoon
@@ -35,6 +36,7 @@
       {% endfor %}
       {% endfor %}
     </div>
+    {% endif %}
 
     {% for day in dates.rex %}
     <div class="page">
@@ -49,6 +51,7 @@
     </div>
     {% endfor %}
 
+    {% if dates.after %}
     <div class="post">
       <span class="post-title">Post-REX Events</span>
       Still can't get enough of our awesome dorms? Well, move into your new room first, but then stop by any of these
@@ -64,6 +67,7 @@
       {% endfor %}
       {% endfor %}
     </div>
+    {% endif %}
 </body>
 
 </html>
