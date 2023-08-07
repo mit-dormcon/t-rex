@@ -9,7 +9,7 @@ env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
 eastern = pytz.timezone("US/Eastern")
 
 
-def event_dt_format(start_string, end_string):
+def event_dt_format(start_string, end_string, group=""):
     """
     Formats the time string that gets displayed on the booklet
     """
@@ -26,6 +26,10 @@ def event_dt_format(start_string, end_string):
         else:
             if dt.minute == 0:
                 time_strings.append(dt.strftime("%I %p").lstrip("0"))
+            elif dt.minute == 3 and group == "Burton Third":
+                time_strings.append(
+                    f"{dt.strftime('%I:%M').lstrip('0')}rd {dt.strftime('%p')}"
+                )
             else:
                 time_strings.append(dt.strftime("%I:%M %p").lstrip("0"))
     out += " " + " - ".join(time_strings)
