@@ -1,4 +1,4 @@
-name = "REX 2022"
+name = "REX 2023"
 
 [csv]
 # String format used for parsing dates in the CSV, see strftime.net
@@ -6,35 +6,34 @@ date_format = "%m/%d/%Y %H:%M"
 
 # Start and end dates of REX, in YYYY-MM-DD
 [dates]
-start = "2022-08-28"
-end = "2022-08-31"
+start = "2023-08-27"
+end = "2023-08-30"
 # Events that start before this hour will be considered as starting the day before in the booklet
 hour_cutoff = 4
 
 # Hardcoding a color for each dorm based on the primary color on their website
 [colors.dorms]
-"Baker" = "#005c96"
+"Baker House" = "#005399"
 "Burton Conner" = "#cc4331"
-"CC" = "#000000"
-"Desmond (House 5)" = "#2717d8"
 "East Campus" = "#aa0000"
-"LMF" = "#002395"
-"German House" = "#f7d147"
-"House 2" = "#769958"
-"House 3" = "#990147"
-"House 4" = "#ff7855"
-"IHouse" = "#ffffff"
-"La Casa" = "#ca0147"
-"MacGregor" = "#befdb7"
-"Maseeh" = "#017374"
-"McCormick" = "#a6814c"
-"New Vassar" = "#c8ffb0"
-"Next" = "#2c3e50"
-"Random" = "#ee9900"
-"Simmons" = "#b8bcd1"
+"MacGregor House" = "#dc3545"
+"Maseeh Hall" = "#1589ff"
+"McCormick Hall" = "#293142"
+"New House" = "#eaecf9"
+"Chocolate City" = "#ffed2e"
+"French House" = "#3357cc"
+"German House" = "#ff0000"
+"iHouse" = "#c78665"
+"Juniper" = "#06446c"
+"La Casa" = "#e10909"
+"New Vassar" = "#afe6af"
+"Next House" = "#2c3e50"
+"Random Hall" = "#fd5295"
+"Simmons Hall" = "#25aae1"
+"Campus Wide!" = "#a31f34"
 
 [colors.tags]
-"favorite"="#fac205"
+"signature"="#fac205"
 "food"="#0b4008"
 "party"="#04d9ff"
 "social"="#DF7373"

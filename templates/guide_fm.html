@@ -1,73 +1,109 @@
 {# REX Booklet Front Matter #}
 <div class="page">
-    <div style="text-align: center">
-        <h1 class="main-title">DORMCON {{ api.name | upper }}</h1>
-        <img src="static/qrcode.png" class="qrcode" style="margin-top: 0vh; margin-bottom: 5vh;" /><br />
-        <b> &middot; {{ " &middot; ".join(cover_dorms) }} &middot;</b><br />
-        <p>
-            Find all the events online at <a href="https://dormcon.mit.edu/rex">dormcon.mit.edu/rex</a>.
-        </p>
-    </div>
-    <p class="byline">Made with ❤️ by DormCon Tech+REX Chairs</p>
+  <div style="text-align: center">
+    <h1 class="main-title">DORMCON {{ api.name | upper }}</h1>
+    <img
+      src="static/qrcode.png"
+      class="qrcode"
+      style="margin-top: 0vh; margin-bottom: 5vh"
+    /><br />
+    <b> &middot; {{ " &middot; ".join(cover_dorms) }} &middot;</b><br />
+    <p>
+      Find all the events online at
+      <a href="https://dormcon.mit.edu/rex">dormcon.mit.edu/rex</a>.
+    </p>
+  </div>
+  <p class="byline">Made with ❤️ by DormCon Tech+REX Chairs</p>
 </div>
 <div id="booklet-info" class="page">
-    <b>{{ api.name }} runs from {{ start.strftime("%A %B %e, %Y") }} to {{ end.strftime("%A %B %e, %Y") }}.</b>
-    <h4>REX</h4>
-    <p>
-        REX (Residence EXploration) is a fun time filled with tons of events that will help you get to know the
-        different residential communities at MIT. For those of you who haven't already decided where you're going to
-        live, REX is
-        the perfect time to explore MIT’s dorms and pick the place where you fit in best with the culture and residents.
-        For
-        the rest of you, REX is a great opportunity to find out about the different parts of campus that you otherwise
-        might
-        not experience. Most of all, REX is a time to enjoy yourself, meet as many people as possible, freshmen and
-        upperclassmen, and get a feel for what MIT has to offer socially.
-    </p>
+  <b
+    >{{ api.name }} runs from {{ start.strftime("%A %B %e, %Y") }} to
+    {{ end.strftime("%A %B %e, %Y") }}.</b
+  >
+  <h4>REX</h4>
+  <p>
+    REX (Residence EXploration) is a fun time filled with tons of events that
+    will help you get to know the different residential communities at MIT. For
+    those of you who haven't already decided where you're going to live, REX is
+    the perfect time to explore MIT's dorms and pick the place where you fit in
+    best with the culture and residents. For the rest of you, REX is a great
+    opportunity to find out about the different parts of campus that you
+    otherwise might not experience. Most of all, REX is a time to enjoy
+    yourself, meet as many people as possible, freshmen and upperclassmen, and
+    get a feel for what MIT has to offer socially.
+  </p>
 
-    <h4>FYRE</h4>
-    <p>FYRE, the First-Year Residence Exchange, is a system that allows you to request to swap from your temp dorm into
-        another dorm you'd prefer living in. Different people are drawn to different communities, and we want everyone
-        to be placed where they'll be happiest. FYRE will not move you without your consent - if you're interested in a
-        different residence hall, we strongly encourage you to participate. You can find more information at
-        <a href="https://studentlife.mit.edu/fyre">studentlife.mit.edu/fyre</a>.
-    </p>
+  <h4>FYRE</h4>
+  <p>
+    FYRE, the First-Year Residence Exchange, is a system that allows you to
+    request to swap from your temp dorm into another dorm you'd prefer living
+    in. Different people are drawn to different communities, and we want
+    everyone to be placed where they'll be happiest. FYRE will not move you
+    without your consent - if you're interested in a different residence hall,
+    we strongly encourage you to participate. You can find more information at
+    <a href="https://studentlife.mit.edu/fyre">studentlife.mit.edu/fyre</a>.
+  </p>
 
-    <h4>DormCon</h4>
-    <p>The Dormitory Council, or DormCon, is a student government body formed by the dormitory presidents to represent
-        dorm residents and facilitate interdorm events. You’re now a dorm resident, so DormCon represents you! Learn
-        more
-        about DormCon and how to get involved at <a href="https://dormcon.mit.edu">dormcon.mit.edu</a>, and
-        add yourself to <a href="https://groups.mit.edu/webmoira/list/dormcon-announce">dormcon-announce@mit.edu</a> to
-        get
-        invited to meetings. Enjoy the booklet we made!</p>
+  <h4>DormCon</h4>
+  <p>
+    The Dormitory Council, or DormCon, is a student government body formed by
+    the dormitory presidents to represent dorm residents and facilitate
+    interdorm events. You're now a dorm resident, so DormCon represents you!
+    Learn more about DormCon and how to get involved at
+    <a href="https://dormcon.mit.edu">dormcon.mit.edu</a>, and either add
+    yourself to the
+    <a href="https://groups.mit.edu/webmoira/list/dormcon-announce"
+      >dormcon-announce mailing list</a
+    >
+    or email
+    <a href="mailto:dormcon-secretary@mit.edu">dormcon-secretary@mit.edu</a> to
+    get invited to meetings. Enjoy the booklet we made!
+  </p>
 
-    <h4>How to Make the Most of This Guide</h4>
-    <p>There is no wrong way to do REX. Plan it out carefully! Mark a couple fun-looking events and play the rest by
-        ear! Wander aimlessly around campus until an upperclassman drags you into their dorm for a card game! Hit every
-        single food event on the list! However you spend these first few days at MIT, remember that now is the time to
-        make friends and make memories. When in doubt, heed the wise words of Ms. Frizzle: "Take chances, make mistakes, and
-        get messy!"
-    </p>
-    <p>With that in mind, here's a quick guide to the guide:</p>
-   
-    <div class="event mandatory">
-        <span class="title">Mandatory Event</span>
-        <span class="description">Events that look like this are mandatory. Make sure you go to them, or
-            you'll miss important information!</span>
+  <h4>How to Make the Most of This Guide</h4>
+  <p>
+    There is no wrong way to do REX. Plan it out carefully! Mark a couple
+    fun-looking events and play the rest by ear! Wander aimlessly around campus
+    until an upperclassman drags you into their dorm for a card game! Hit every
+    single food event on the list! However you spend these first few days at
+    MIT, remember that now is the time to make friends and make memories. When
+    in doubt, heed the wise words of Ms. Frizzle: "Take chances, make mistakes,
+    and get messy!"
+  </p>
+  <p>With that in mind, here's a quick guide to the guide:</p>
+
+  {% if "mandatory" in api.tags %}
+    <div class="event tag-mandatory">
+      <span class="title">Mandatory Event</span>
+      <span class="description"
+        >Events that look like this are mandatory. Make sure you go to them, or
+        you'll miss important information!</span
+      >
     </div>
-   
+  {% endif %}
 
-    <div class="event favorite">
-        <span class="title">Signature Event</span>
-        <span class="dorm">@ Dorm</span>
-        <span class="description">This is Dorm's absolute <em>favorite</em> event. The Dorm REX chairs
-            picked it because they think it'll be the most fun event out of all of REX and it'll do the best
-            job of showcasing everything that's fantastic about Dorm! If you can only go to one event from
-            Dorm, go to this one.</span>
+  {% if "signature" in api.tags %}
+    <div class="event tag-signature">
+      <span class="title">Signature Event</span>
+      <span class="dorm">@ Dorm</span>
+      <span class="description"
+        >This is Dorm's absolute <em>favorite</em> event. The Dorm REX chairs
+        picked it because they think it'll be the most fun event out of all of
+        REX and it'll do the best job of showcasing everything that's fantastic
+        about Dorm! If you can only go to one event from Dorm, go to this
+        one.</span
+      >
     </div>
-    
-    <p>Also, look out for icons like {{ emoji.food }} (food) and {{ emoji.party }} (party), which will tell you some extra information about the event.</p>
+  {% endif %}
 
-    <p style="font-style: italic">This booklet was created on {{ published }}. Some events may have changed since then. For the latest information, visit <a href="https://dormcon.mit.edu/rex">dormcon.mit.edu/rex</a>.</p>
+  <p>
+    Also, look out for icons like {{ emoji.food }} (food) and {{ emoji.party }}
+    (party), which will tell you some extra information about the event.
+  </p>
+
+  <p style="font-style: italic">
+    This booklet was created on {{ published }}. Some events may have changed
+    since then. For the latest information, visit
+    <a href="https://dormcon.mit.edu/rex">dormcon.mit.edu/rex</a>.
+  </p>
 </div>

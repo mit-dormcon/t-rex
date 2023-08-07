@@ -31,12 +31,12 @@ A template spreadsheet is provided in `template.csv`. Events spreadsheets must c
 
 - Events tagged with `food` will be printed with a food icon in the booklet
 - Events tagged with `mandatory` will be printed with a bold outline in the booklet
-- Events tagged with `favorite` will be printed with a dashed outline to highlight them in the booklet
+- Events tagged with `signature` will be printed with a dashed outline to highlight them in the booklet
 - Events tagged with `tour` will be separated out and placed at the beginning of the booklet
 
 ### Orientation Events
 
-You can add orientation or official events to the booklet using the `events/orientation.csv` sheet. 
+You can add orientation or official events to the booklet using the `events/orientation.csv` sheet.
 Set the dorm field to "Orientation" for these events, and add "mandatory" to the list of tags.
 
 These events are **skipped** for generating the JSON that populates the web UI, but they will show up

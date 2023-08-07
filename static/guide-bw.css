@@ -4,7 +4,7 @@
 
 body {
   background-color: #ffffff;
-  font-family: "Noto Sans", Helvetica, Arial, sans-serif, "Noto Emoji";
+  font-family: 'Noto Sans', Helvetica, Arial, sans-serif, 'Noto Emoji';
 }
 
 .main-title {
@@ -59,7 +59,7 @@ body {
   background-color: #ffffff;
 }
 
-.tag-favorite {
+.tag-signature {
   border: 5px dotted;
   border-radius: 10px;
 }

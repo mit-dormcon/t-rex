@@ -1,9 +1,9 @@
-import jinja2
 import datetime
 
-import pytz
-import markdown
 import frontmatter
+import jinja2
+import markdown
+import pytz
 
 env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
 eastern = pytz.timezone("US/Eastern")
@@ -25,9 +25,9 @@ def event_dt_format(start_string, end_string):
             time_strings.append("midnight")
         else:
             if dt.minute == 0:
-                time_strings.append(dt.strftime("%l %p"))
+                time_strings.append(dt.strftime("%I %p").lstrip("0"))
             else:
-                time_strings.append(dt.strftime("%l:%M %p"))
+                time_strings.append(dt.strftime("%I:%M %p").lstrip("0"))
     out += " " + " - ".join(time_strings)
 
     return out
@@ -104,7 +104,7 @@ def generate_booklet(api, config, extra_events):
         end=end_date,
         emoji=config["tag_emoji"],
         published=published_string,
-        cover_dorms=[d for d in api["dorms"] if d != "All dorms"],
+        cover_dorms=[d for d in api["dorms"] if d != "Campus Wide!"],
     )
 
 
