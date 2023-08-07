@@ -1,5 +1,5 @@
 {% macro event_box(event) %}
-  <div class="event {% for tag in event.tags %}tag-{{ tag }} {% endfor %}">
+  <div class="event {% for tag in event.tags %}tag-{{ tag + ' ' }}{% endfor %}">
     <span class="id">{{ event.id }}</span>
     <span class="date"
       >{{ format_date(event.start, event.end, event.group) }}</span
