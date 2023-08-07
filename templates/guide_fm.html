@@ -72,29 +72,24 @@
   </p>
   <p>With that in mind, here's a quick guide to the guide:</p>
 
-  {% if "mandatory" in api.tags %}
-    <div class="event tag-mandatory">
-      <span class="title">Mandatory Event</span>
-      <span class="description"
-        >Events that look like this are mandatory. Make sure you go to them, or
-        you'll miss important information!</span
-      >
-    </div>
-  {% endif %}
+  <div class="event tag-mandatory">
+    <span class="title">Mandatory Event</span>
+    <span class="description"
+      >Events that look like this are mandatory. Make sure you go to them, or
+      you'll miss important information!</span
+    >
+  </div>
 
-  {% if "signature" in api.tags %}
-    <div class="event tag-signature">
-      <span class="title">Signature Event</span>
-      <span class="dorm">@ Dorm</span>
-      <span class="description"
-        >This is Dorm's absolute <em>favorite</em> event. The Dorm REX chairs
-        picked it because they think it'll be the most fun event out of all of
-        REX and it'll do the best job of showcasing everything that's fantastic
-        about Dorm! If you can only go to one event from Dorm, go to this
-        one.</span
-      >
-    </div>
-  {% endif %}
+  <div class="event tag-signature">
+    <span class="title">Signature Event</span>
+    <span class="dorm">@ Dorm</span>
+    <span class="description"
+      >This is Dorm's absolute <em>favorite</em> event. The Dorm REX chairs
+      picked it because they think it'll be the most fun event out of all of REX
+      and it'll do the best job of showcasing everything that's fantastic about
+      Dorm! If you can only go to one event from Dorm, go to this one.</span
+    >
+  </div>
 
   <p>
     Also, look out for icons like {{ emoji.food }} (food) and {{ emoji.party }}
