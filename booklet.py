@@ -26,7 +26,7 @@ def event_dt_format(start_string, end_string, group=""):
         else:
             if dt.minute == 0:
                 time_strings.append(dt.strftime("%I %p").lstrip("0"))
-            elif dt.minute == 3 and group == "Burton Third":
+            elif dt.minute % 10 == 3 and group == "Burton Third":
                 time_strings.append(
                     f"{dt.strftime('%I:%M').lstrip('0')}rd {dt.strftime('%p')}"
                 )
