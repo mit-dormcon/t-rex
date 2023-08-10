@@ -1,5 +1,6 @@
 Event Name,Dorm,Group,Event Location,Start Date and Time,End Date and Time,Event Description,Tags,Published
 Orientation Kickoff,Orientation,,Kresge Auditorium,8/27/2023 18:00,8/27/2023 19:30,"This is an Orientation event, please see the Guidebook app for more details!",mandatory,TRUE
+Small Group,Orientation,,Kresge Auditorium,8/28/2023 19:30,8/28/2023 20:30,"This is an Orientation event, please see the Guidebook app for more details!","social, food",TRUE
 President's Convocation,Orientation,,Kresge Oval,8/28/2023 11:00,8/28/2023 12:00,"This is an Orientation event, please see the Guidebook app for more details!",mandatory,TRUE
 Head of House Brunch,Orientation,,All Dorms,8/28/2023 12:30,8/28/2023 14:00,"This is an Orientation event, please see the Guidebook app for more details!",mandatory,TRUE
 Tech Theater,Orientation,,Kresge Auditorium,8/28/2023 17:30,8/28/2023 18:30,"This is an Orientation event, please see the Guidebook app for more details!",mandatory,TRUE
@@ -13,9 +14,10 @@ Sex Signals,Orientation,,Rockwell Cage,8/30/2023 13:00,8/30/2023 14:15,"This is 
 Safety at MIT,Orientation,,Kresge Auditorium,8/30/2023 10:30,8/30/2023 11:45,"This is an Orientation event, please see the Guidebook app for more details!",mandatory,TRUE
 Safety at MIT,Orientation,,Kresge Auditorium,8/30/2023 13:00,8/30/2023 14:15,"This is an Orientation event, please see the Guidebook app for more details!",mandatory,TRUE
 Small Group/Lunch,Orientation,,Kresge Auditorium,8/29/2023 11:45,8/29/2023 13:00,"This is an Orientation event, please see the Guidebook app for more details!","social, food",TRUE
+Small Group,Orientation,,Kresge Auditorium,8/29/2023 14:15,8/29/2023 15:00,"This is an Orientation event, please see the Guidebook app for more details!","social, food",TRUE
 Academic Expo,Orientation,,Johnson Ice Rink,8/30/2023 15:00,8/30/2023 16:30,"This is an Orientation event, please see the Guidebook app for more details!",mandatory,TRUE
 Class Photo,Orientation,,Killian Court,9/1/2023 10:00,9/1/2023 10:30,"This is an Orientation event, please see the Guidebook app for more details!",mandatory,TRUE
 Dear Future Me/Closing,Orientation,,Kresge Auditorium,9/1/2023 10:30,9/1/2023 12:00,"This is an Orientation event, please see the Guidebook app for more details!",mandatory,TRUE
 Lunch/Small Group,Orientation,,Kresge Auditorium,9/1/2023 12:00,9/1/2023 13:30,"This is an Orientation event, please see the Guidebook app for more details!","social, food",TRUE
 Activities Midway,Orientation,,Johnson Ice Rink,9/1/2023 14:30,9/1/2023 16:30,"This is an Orientation event, please see the Guidebook app for more details!",mandatory,TRUE
-DSL Event,Orientation,,Meet at the Kresge Oval,9/1/2023 20:00,9/1/2023 23:00,"This is an Orientation event, please see the Guidebook app for more details!",mandatory,TRUE
+Aquarium Trip,Orientation,,Meet at the Kresge Oval,9/1/2023 20:00,9/1/2023 23:00,"This is an Orientation event, please see the Guidebook app for more details!",mandatory,TRUE
