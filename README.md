@@ -52,3 +52,70 @@ events, and add "mandatory" to the list of tags.
 
 These events are **skipped** for generating the JSON that populates the web UI,
 but they will show up in the booklet.
+
+## Running a local server
+
+When developing the REX API and/or booklet, it can be useful to run a local
+server. One way to do this is to use the
+[Live Server extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
+for VSCode and access the files under the `output` directory.
+
+Another way to do this is to use Python's `http.server` like so:[^cors]
+
+```shell
+$ python -m http.server 8080 --directory output/
+```
+
+Then, every time you make changes, run
+
+```shell
+$ poetry run python process.py
+```
+
+and refresh the page to see the new output!
+
+[^cors]:
+    Note that `http.server` doesn't support
+    [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing), so it
+    won't work if you're trying to run a local server while also editing the REX
+    Events Page.
+
+## Making the REX booklet
+
+Here is an outline of the process used to make the REX booklets:
+
+1. **Print booklet.html** (either on your computer with localhost or at
+   https://rex.mit.edu/booklet.html) to a PDF using Chrome.
+   - The CSS should have this set up to use an A3 page size (11.7 x 16.5 inches)
+     by default, but you might need to adjust this option to use A3. We use A3
+     because it is easier to scale down two A3 pages and put them side by side
+     on a letter sheet of paper for the booklet.
+2. **Check the number of pages.** We only get 32 pages in our booklet, and we
+   want to maximize use of this space.
+3. **Adjust the font size.** You'll want to adjust the font size under
+   `@media print` in static/guide-bw.css. Change the font size under `body` to
+   affect the entire booklet, and under `#booklet-info` for just the first page
+   with all the background information on REX.
+   - Try to get all the background information on the first page to all fit onto
+     one page. You can adjust this font size separately under `#booklet-info`,
+     or you can make edits to templates/guide_fm.html.
+   - Try to use the largest font size you can without going over 32 pages. In
+     the past, we've been able to get somewhere between 16pt and 18pt depending
+     on the number of events.
+   - Note that the font size will be roughly _halved_ on the actual booklet
+     because the printer will take two pages and sit them side-by-side.
+4. **Add page numbers to the PDF.** I've (@camtheman256) been using Adobe
+   Acrobat to do this, but you can do it however you want.
+   - To do this in Acrobat, use Edit &rarr; Header and Footer &rarr; Add. There
+     should be a button to put in a page number.
+   - I like to leave the page number off the cover. In Acrobat, there should be
+     an option to exclude the cover from the pages to add the footer to. You can
+     also get fancy and put the page numbers on the outsides of the booklet,
+     putting it on the left or right if it's an even or odd page.
+   - The font we use in the booklet is
+     [Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans). You don't
+     have to match the page numbers to it, but I think it's nice.
+5. **Mail it to Bob.** We've been using
+   [Goodfellow Printing](https://goodfellowprinting.com/) for our booklets
+   historically because of an old DormCon connection. They usually do a great
+   job for a good price and can ship all the booklets to campus.
