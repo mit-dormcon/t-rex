@@ -104,7 +104,11 @@ Here is an outline of the process used to make the REX booklets:
      on the number of events.
    - Note that the font size will be roughly _halved_ on the actual booklet
      because the printer will take two pages and sit them side-by-side.
-4. **Add page numbers to the PDF.** I've (@camtheman256) been using Adobe
+4. **Regenerate the booklet.** You can either wait for the booklet to update
+   online after making changes, or follow the instructions under
+   [Running a local server](#running-a-local-server) to do it locally. Then,
+   repeat steps 2-4 until the booklet looks good.
+5. **Add page numbers to the PDF.** I've (@camtheman256) been using Adobe
    Acrobat to do this, but you can do it however you want.
    - To do this in Acrobat, use Edit &rarr; Header and Footer &rarr; Add. There
      should be a button to put in a page number.
@@ -115,7 +119,7 @@ Here is an outline of the process used to make the REX booklets:
    - The font we use in the booklet is
      [Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans). You don't
      have to match the page numbers to it, but I think it's nice.
-5. **Mail it to Bob.** We've been using
+6. **Mail it to Bob.** We've been using
    [Goodfellow Printing](https://goodfellowprinting.com/) for our booklets
    historically because of an old DormCon connection. They usually do a great
    job for a good price and can ship all the booklets to campus.
