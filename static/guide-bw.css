@@ -1,10 +1,10 @@
 .page {
-  page-break-after: always;
+  page-break-before: always;
 }
 
 body {
   background-color: #ffffff;
-  font-family: 'Noto Sans', Helvetica, Arial, sans-serif, 'Noto Emoji';
+  font-family: "Noto Sans", Helvetica, Arial, sans-serif, "Noto Emoji";
 }
 
 .main-title {
@@ -82,7 +82,6 @@ body {
 
 .post {
   page-break-before: always;
-  page-break-after: always;
   display: block;
   width: auto;
   margin: 5px 10px;
@@ -103,9 +102,15 @@ body {
   font-size: 14pt;
 }
 
+.credit {
+  display: none;
+  font-style: italic;
+  text-align: center;
+}
+
 @media print {
   body {
-    font-size: 18pt;
+    font-size: 16pt;
   }
   .day-title,
   .fpop-title,
@@ -118,12 +123,18 @@ body {
   .main-title {
     font-size: 72pt;
   }
+  .main-body {
+    font-size: 24pt;
+  }
   .byline {
     position: absolute;
     left: 0;
     right: 0;
     text-align: center;
     bottom: 0;
+  }
+  .credit {
+    display: block;
   }
   .event {
     /* necessary to not have the top border show up on the previous page */
@@ -133,4 +144,8 @@ body {
     font-size: 16pt;
   }
   /* may want to style visited links */
+}
+
+@page {
+  size: A3;
 }
