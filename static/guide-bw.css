@@ -1,5 +1,5 @@
 .page {
-  page-break-after: always;
+  page-break-before: always;
 }
 
 body {
@@ -110,7 +110,7 @@ body {
 
 @media print {
   body {
-    font-size: 18pt;
+    font-size: 16pt;
   }
   .day-title,
   .fpop-title,
@@ -122,6 +122,9 @@ body {
   }
   .main-title {
     font-size: 72pt;
+  }
+  .main-body {
+    font-size: 24pt;
   }
   .byline {
     position: absolute;
