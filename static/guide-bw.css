@@ -143,7 +143,10 @@ body {
   #booklet-info {
     font-size: 16pt;
   }
-  /* may want to style visited links */
+  /* style all links as unvisited */
+  a {
+    color: #00e;
+  }
 }
 
 @page {
