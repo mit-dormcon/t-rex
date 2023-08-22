@@ -82,6 +82,38 @@ if __name__ == "__main__":
 
     booklet_only_events = orientation_events
 
+    # Check for conflicts with mandatory events and invalid events
+    for event in api_response["events"]:
+        event_start = datetime.datetime.fromisoformat(event["start"])
+        event_end = datetime.datetime.fromisoformat(event["end"])
+
+        if event_end < event_start:
+            event["tags"].append("invalid")
+            print("Invalid event found: " + event["name"])
+            continue
+
+        for mandatory_event in (
+            orientation_event
+            for orientation_event in orientation_events
+            if "mandatory" in orientation_event["tags"]
+        ):
+            mandatory_event_start = datetime.datetime.fromisoformat(
+                mandatory_event["start"]
+            )
+            mandatory_event_end = datetime.datetime.fromisoformat(
+                mandatory_event["end"]
+            )
+
+            if (
+                (mandatory_event_start < event_start < mandatory_event_end)
+                or (mandatory_event_start < event_end < mandatory_event_end)
+                or (event_start < mandatory_event_start < event_end)
+                or (event_start < mandatory_event_end < event_end)
+            ):
+                event["tags"].append("conflict")
+                print("Conflict found: " + event["name"])
+                break
+
     print("Processing complete!")
 
     print("Generating the booklet...")
