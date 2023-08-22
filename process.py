@@ -83,7 +83,7 @@ if __name__ == "__main__":
     booklet_only_events = orientation_events
 
     # Check for conflicts with mandatory events and invalid events
-    mandatory_events = (
+    mandatory_events = list(
         orientation_event
         for orientation_event in orientation_events
         if "mandatory" in orientation_event["tags"]
