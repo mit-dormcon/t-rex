@@ -93,8 +93,8 @@ if __name__ == "__main__":
         event_end = datetime.datetime.fromisoformat(event["end"])
 
         if event_end < event_start:
-            event["tags"].append("invalid")
-            print("Invalid event found: " + event["name"])
+            print(event["name"] + " has an end time before its start time!")
+            # raise Exception(event["name"] + " has an end time before its start time!")
             continue
 
         for mandatory_event in mandatory_events:
@@ -111,8 +111,7 @@ if __name__ == "__main__":
                 or (event_start <= mandatory_event_start < event_end)
                 or (event_start < mandatory_event_end <= event_end)
             ):
-                event["tags"].append("conflict")
-                print("Conflict found: " + event["name"])
+                print(event["name"] + " conflicts with " + mandatory_event["name"])
                 break
 
     print("Processing complete!")
