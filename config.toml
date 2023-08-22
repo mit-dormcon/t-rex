@@ -39,8 +39,6 @@ hour_cutoff = 4
 "social"="#DF7373"
 "games"="#001D4A"
 "art"="#3B429F"
-"conflict"="#ffc107"
-"invalid"="#dc3545"
 
 # These control which emoji appear for a tag in the booklet
 [tag_emoji]
@@ -49,5 +47,3 @@ hour_cutoff = 4
 "social"="👥"
 "games"="🎲"
 "art"="🎨"
-"conflict"="⚠️"
-"invalid"="❌"
