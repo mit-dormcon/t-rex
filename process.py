@@ -106,10 +106,10 @@ if __name__ == "__main__":
             )
 
             if (
-                (mandatory_event_start < event_start < mandatory_event_end)
-                or (mandatory_event_start < event_end < mandatory_event_end)
-                or (event_start < mandatory_event_start < event_end)
-                or (event_start < mandatory_event_end < event_end)
+                (mandatory_event_start <= event_start < mandatory_event_end)
+                or (mandatory_event_start < event_end <= mandatory_event_end)
+                or (event_start <= mandatory_event_start < event_end)
+                or (event_start < mandatory_event_end <= event_end)
             ):
                 event["tags"].append("conflict")
                 print("Conflict found: " + event["name"])
