@@ -83,6 +83,11 @@ if __name__ == "__main__":
     booklet_only_events = orientation_events
 
     # Check for conflicts with mandatory events and invalid events
+    mandatory_events = (
+        orientation_event
+        for orientation_event in orientation_events
+        if "mandatory" in orientation_event["tags"]
+    )
     for event in api_response["events"]:
         event_start = datetime.datetime.fromisoformat(event["start"])
         event_end = datetime.datetime.fromisoformat(event["end"])
@@ -92,11 +97,7 @@ if __name__ == "__main__":
             print("Invalid event found: " + event["name"])
             continue
 
-        for mandatory_event in (
-            orientation_event
-            for orientation_event in orientation_events
-            if "mandatory" in orientation_event["tags"]
-        ):
+        for mandatory_event in mandatory_events:
             mandatory_event_start = datetime.datetime.fromisoformat(
                 mandatory_event["start"]
             )
