@@ -84,9 +84,9 @@ if __name__ == "__main__":
 
     # Check for conflicts with mandatory events and invalid events
     mandatory_events = list(
-        orientation_event
-        for orientation_event in orientation_events
-        if "mandatory" in orientation_event["tags"]
+        event_to_check
+        for event_to_check in (orientation_events + api_response["events"])
+        if "mandatory" in event_to_check["tags"]
     )
     for event in api_response["events"]:
         event_start = datetime.datetime.fromisoformat(event["start"])
