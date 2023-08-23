@@ -33,12 +33,14 @@ hour_cutoff = 4
 "Campus Wide!" = "#a31f34"
 
 [colors.tags]
-"signature"="#fac205"
-"food"="#0b4008"
-"party"="#04d9ff"
-"social"="#DF7373"
-"games"="#001D4A"
-"art"="#3B429F"
+"tour"="#34495e"
+"signature"="#f1c40f"
+"updated"="#e67e22"
+"food"="#27ae60"
+"party"="#9b59b6"
+"social"="#e74c3c"
+"games"="#3498db"
+"art"="#1abc9c"
 
 # These control which emoji appear for a tag in the booklet
 [tag_emoji]
