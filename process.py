@@ -82,6 +82,38 @@ if __name__ == "__main__":
 
     booklet_only_events = orientation_events
 
+    # Check for conflicts with mandatory events and invalid events
+    mandatory_events = list(
+        event_to_check
+        for event_to_check in (orientation_events + api_response["events"])
+        if "mandatory" in event_to_check["tags"]
+    )
+    for event in api_response["events"]:
+        event_start = datetime.datetime.fromisoformat(event["start"])
+        event_end = datetime.datetime.fromisoformat(event["end"])
+
+        if event_end < event_start:
+            print(event["name"] + " has an end time before its start time!")
+            # raise Exception(event["name"] + " has an end time before its start time!")
+            continue
+
+        for mandatory_event in mandatory_events:
+            mandatory_event_start = datetime.datetime.fromisoformat(
+                mandatory_event["start"]
+            )
+            mandatory_event_end = datetime.datetime.fromisoformat(
+                mandatory_event["end"]
+            )
+
+            if (
+                (mandatory_event_start <= event_start < mandatory_event_end)
+                or (mandatory_event_start < event_end <= mandatory_event_end)
+                or (event_start <= mandatory_event_start < event_end)
+                or (event_start < mandatory_event_end <= event_end)
+            ):
+                print(event["name"] + " conflicts with " + mandatory_event["name"])
+                break
+
     print("Processing complete!")
 
     print("Generating the booklet...")
