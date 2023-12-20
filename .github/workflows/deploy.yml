@@ -27,7 +27,7 @@ jobs:
       - name: Process Data
         run: poetry run python ./process.py
       - name: Upload result
-        uses: actions/upload-pages-artifact@v2.0.0
+        uses: actions/upload-pages-artifact@v3.0.0
         with:
           path: output
 
