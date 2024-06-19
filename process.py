@@ -33,7 +33,11 @@ def process_csv(filename: str) -> list[dict]:
             events.append(
                 {
                     "name": event["Event Name"].strip(),
-                    "dorm": event["Dorm"].strip(),
+                    "dorm": [
+                        dorm.strip()
+                        for dorm in event["Dorm"].split(",")
+                        if dorm.strip()
+                    ],
                     "location": event["Event Location"].strip(),
                     "start": process_dt_from_csv(event["Start Date and Time"]),
                     "end": process_dt_from_csv(event["End Date and Time"]),
@@ -71,7 +75,8 @@ if __name__ == "__main__":
 
     # Add extra data from events and config file
     api_response["dorms"] = sorted(
-        list(set(e["dorm"] for e in api_response["events"])), key=str.lower
+        list(set(dorm for e in api_response["events"] for dorm in e["dorm"])),
+        key=str.lower,
     )
     api_response["tags"] = sorted(
         list(set(t for e in api_response["events"] for t in e["tags"]))

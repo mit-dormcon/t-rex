@@ -5,6 +5,7 @@ description = "A Python project that generates a structured format for REX event
 authors = ["Cameron Kleiman <ckleiman@mit.edu>"]
 readme = "README.md"
 packages = []
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"

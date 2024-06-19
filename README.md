@@ -63,13 +63,13 @@ for VSCode and access the files under the `output` directory.
 Another way to do this is to use Python's `http.server` like so:[^cors]
 
 ```shell
-$ python -m http.server 8080 --directory output/
+python -m http.server 8080 --directory output/
 ```
 
 Then, every time you make changes, run
 
 ```shell
-$ poetry run python process.py
+poetry run python process.py
 ```
 
 and refresh the page to see the new output!
@@ -85,7 +85,7 @@ and refresh the page to see the new output!
 Here is an outline of the process used to make the REX booklets:
 
 1. **Print booklet.html** (either on your computer with localhost or at
-   https://rex.mit.edu/booklet.html) to a PDF using Chrome.
+   <https://rex.mit.edu/booklet.html>) to a PDF using Chrome.
    - The CSS should have this set up to use an A3 page size (11.7 x 16.5 inches)
      by default, but you might need to adjust this option to use A3. We use A3
      because it is easier to scale down two A3 pages and put them side by side
