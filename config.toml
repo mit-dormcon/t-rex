@@ -1,4 +1,4 @@
-name = "REX 2023"
+name = "REX 2024"
 
 [csv]
 # String format used for parsing dates in the CSV, see strftime.net
@@ -6,8 +6,8 @@ date_format = "%m/%d/%Y %H:%M"
 
 # Start and end dates of REX, in YYYY-MM-DD
 [dates]
-start = "2023-08-27"
-end = "2023-08-30"
+start = "2024-08-25"
+end = "2024-08-30"
 # Events that start before this hour will be considered as starting the day before in the booklet
 hour_cutoff = 4
 
@@ -30,7 +30,7 @@ hour_cutoff = 4
 "Next House" = "#2c3e50"
 "Random Hall" = "#fd5295"
 "Simmons Hall" = "#25aae1"
-"Campus Wide!" = "#a31f34"
+"Campus Wide!" = "#3d93b8" #DormCon color
 
 [colors.tags]
 "tour"="#34495e"
