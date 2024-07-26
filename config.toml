@@ -1,5 +1,9 @@
 name = "REX 2024"
 
+[orientation]
+mandatory_tag = "BLACKOUT"
+filename = "orientation.csv"
+
 [csv]
 # String format used for parsing dates in the CSV, see strftime.net
 date_format = "%m/%d/%Y %H:%M"
@@ -49,3 +53,5 @@ hour_cutoff = 4
 "social"="👥"
 "games"="🎲"
 "art"="🎨"
+
+

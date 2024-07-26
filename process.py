@@ -64,7 +64,7 @@ if __name__ == "__main__":
         if not filename.endswith(".csv"):
             continue
         print(f"Processing {filename}...")
-        if filename == "orientation.csv":
+        if filename == config["orientation"]["filename"]:
             orientation_events = process_csv("events/" + filename)
         else:
             api_response["events"].extend(process_csv("events/" + filename))
@@ -91,7 +91,8 @@ if __name__ == "__main__":
     mandatory_events = list(
         event_to_check
         for event_to_check in (orientation_events + api_response["events"])
-        if "mandatory" in event_to_check["tags"]
+        if config["orientation"]["mandatory_tag"].strip().lower()
+        in event_to_check["tags"]
     )
     for event in api_response["events"]:
         event_start = datetime.datetime.fromisoformat(event["start"])
@@ -117,7 +118,7 @@ if __name__ == "__main__":
                 or (event_start < mandatory_event_end <= event_end)
             ):
                 print(event["name"] + " conflicts with " + mandatory_event["name"])
-                break
+                continue
 
     print("Processing complete!")
 
