@@ -88,6 +88,7 @@ if __name__ == "__main__":
     booklet_only_events = orientation_events
 
     # Check for conflicts with mandatory events and invalid events
+    errors: list[str] = []
     mandatory_events = list(
         event_to_check
         for event_to_check in (orientation_events + api_response["events"])
@@ -99,7 +100,7 @@ if __name__ == "__main__":
         event_end = datetime.datetime.fromisoformat(event["end"])
 
         if event_end < event_start:
-            print(event["name"] + " has an end time before its start time!")
+            errors.append(event["name"] + " has an end time before its start time!")
             # raise Exception(event["name"] + " has an end time before its start time!")
             continue
 
@@ -117,7 +118,9 @@ if __name__ == "__main__":
                 or (event_start <= mandatory_event_start < event_end)
                 or (event_start < mandatory_event_end <= event_end)
             ):
-                print(event["name"] + " conflicts with " + mandatory_event["name"])
+                errors.append(
+                    event["name"] + " conflicts with " + mandatory_event["name"]
+                )
                 continue
 
     print("Processing complete!")
@@ -127,6 +130,9 @@ if __name__ == "__main__":
 
     print("Processing index.md...")
     index_html = booklet.generate_index()
+
+    print("Processing errors...")
+    errors_html = booklet.generate_errors(errors, api_response["name"])
 
     print("Outputting booklet and JSON...")
 
@@ -140,5 +146,7 @@ if __name__ == "__main__":
         b.write(booklet_html)
     with open("output/index.html", "w", encoding="utf-8") as i:
         i.write(index_html)
+    with open("output/errors.html", "w", encoding="utf-8") as e:
+        e.write(errors_html)
 
     print("Complete!")

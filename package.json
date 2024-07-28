@@ -7,7 +7,7 @@
     "overrides": [
       {
         "files": [
-          "templates/*"
+          "templates/*.html"
         ],
         "options": {
           "parser": "jinja-template"

@@ -121,3 +121,15 @@ def generate_index():
     content = markdown.markdown(page.content)
 
     return env.get_template("index.html").render(content=content, **page.metadata)
+
+
+def generate_errors(errors: list[str], name: str):
+    """
+    Generates the error page using the template at templates/errors.html
+    """
+    errors_md = env.get_template("errors.md").render(errors=errors, name=name)
+
+    page = frontmatter.loads(errors_md)
+    content = markdown.markdown(page.content)
+
+    return env.get_template("index.html").render(content=content, **page.metadata)

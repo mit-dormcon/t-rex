@@ -15,14 +15,17 @@ This website hosts the backend of the [REX Events page][events], which can be
 found at [dormcon.mit.edu/rex/events][events]. The code that generates this
 website produces a few files:
 
-- [index.html](/index.html) - This is the page you're reading right now!
-- [api.json](/api.json) - This structured data is provided to the [REX Events
+- [index.html](./index.html) - This is the page you're reading right now!
+- [api.json](./api.json) - This structured data is provided to the [REX Events
   page][events]. Feel free to use it for your own purposes! The structure of the
   JSON is documented as `TRexAPIResponse` in
   [types.ts](https://github.com/mit-dormcon/website/blob/master/components/t-rex/types.ts)
   in the main DormCon website repository.
-- [booklet.html](/booklet.html) - This is the web version of the REX booklet,
+- [booklet.html](./booklet.html) - This is the web version of the REX booklet,
   always up to date with the latest changes.
+- [errors.html](./errors.html) - This contains a list of all errors present in
+  the submitted REX events, including events with invalid times and events that
+  conflict with mandatory orientation events.
 
 ## Can I use the API data for my own project?
 

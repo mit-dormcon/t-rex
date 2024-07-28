@@ -34,7 +34,7 @@ hour_cutoff = 4
 "Next House" = "#2c3e50"
 "Random Hall" = "#fd5295"
 "Simmons Hall" = "#25aae1"
-"Campus Wide!" = "#3d93b8" #DormCon color
+"Campus Wide!" = "#3d93b8" # DormCon color
 
 [colors.tags]
 "tour"="#34495e"
