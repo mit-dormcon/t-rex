@@ -19,8 +19,8 @@ def process_dt_from_csv(time_string: str) -> str:
     """
     Uses the config setting `date_format` to convert a time string into ISO format
     """
-    event_dt = datetime.strptime(time_string, config["csv"]["date_format"]).astimezone(
-        eastern_tz
+    event_dt = datetime.strptime(time_string, config["csv"]["date_format"]).replace(
+        tzinfo=eastern_tz
     )
     return event_dt.isoformat()
 
