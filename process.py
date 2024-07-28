@@ -100,7 +100,9 @@ if __name__ == "__main__":
         event_end = datetime.datetime.fromisoformat(event["end"])
 
         if event_end < event_start:
-            errors.append(f"{event["name"]} @ {", ".join(event["dorm"])} has an end time before its start time!")
+            errors.append(
+                f"{event['name']} @ {', '.join(event['dorm'])} has an end time before its start time!"
+            )
             # raise Exception(event["name"] + " has an end time before its start time!")
             continue
 
@@ -119,7 +121,7 @@ if __name__ == "__main__":
                 or (event_start < mandatory_event_end <= event_end)
             ):
                 errors.append(
-                    f"{event["name"]} @ {", ".join(event["dorm"])} conflicts with {mandatory_event["name"]}"
+                    f"{event['name']} @ {', '.join(event['dorm'])} conflicts with {mandatory_event['name']}"
                 )
                 continue
 
