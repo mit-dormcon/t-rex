@@ -1,8 +1,12 @@
 {
   "editor.formatOnSave": true,
   "[python]": {
-    "editor.defaultFormatter": "ms-python.black-formatter"
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
   },
+  "python.formatting.provider": "black",
+  "isort.args": ["--profile", "black"],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "python.analysis.typeCheckingMode": "basic"
 }

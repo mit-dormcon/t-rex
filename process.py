@@ -1,30 +1,32 @@
 import csv
-import datetime
 import json
 import os
 import shutil
-
-import pytz
-import toml
+import tomllib
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 
 import booklet
+from api_types import APIResponse, Config, Event
 
-config = toml.load("config.toml")
-eastern_tz = pytz.timezone("US/Eastern")
+eastern_tz = ZoneInfo("America/New_York")
+
+with open("config.toml", "rb") as c:
+    config: Config = tomllib.load(c)  # type: ignore
 
 
 def process_dt_from_csv(time_string: str) -> str:
     """
     Uses the config setting `date_format` to convert a time string into ISO format
     """
-    event_dt = eastern_tz.localize(
-        datetime.datetime.strptime(time_string, config["csv"]["date_format"])
+    event_dt = datetime.strptime(time_string, config["csv"]["date_format"]).astimezone(
+        eastern_tz
     )
     return event_dt.isoformat()
 
 
-def process_csv(filename: str) -> list[dict]:
-    events = []
+def process_csv(filename: str):
+    events: list[Event] = []
     with open(filename, encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for event in reader:
@@ -48,18 +50,24 @@ def process_csv(filename: str) -> list[dict]:
                         if tag.strip()
                     ],
                     "group": event["Group"].strip() or None,
+                    "emoji": [],
                 }
             )
     return events
 
 
 if __name__ == "__main__":
-    api_response = {
+    api_response: APIResponse = {
         "name": config["name"],
-        "published": datetime.datetime.now().astimezone(pytz.utc).isoformat(),
+        "published": datetime.now().astimezone(timezone.utc).isoformat(),
         "events": [],
+        "dorms": [],
+        "tags": [],
+        "colors": config["colors"],
+        "start": config["dates"]["start"],
+        "end": config["dates"]["end"],
     }
-    orientation_events = []
+    orientation_events: list[Event] = []
     for filename in os.listdir("events"):
         if not filename.endswith(".csv"):
             continue
@@ -81,9 +89,6 @@ if __name__ == "__main__":
     api_response["tags"] = sorted(
         list(set(t for e in api_response["events"] for t in e["tags"]))
     )
-    api_response["colors"] = config["colors"]
-    api_response["start"] = config["dates"]["start"]
-    api_response["end"] = config["dates"]["end"]
 
     booklet_only_events = (
         orientation_events if config["orientation"]["include_in_booklet"] else []
@@ -98,8 +103,8 @@ if __name__ == "__main__":
         in event_to_check["tags"]
     )
     for event in api_response["events"]:
-        event_start = datetime.datetime.fromisoformat(event["start"])
-        event_end = datetime.datetime.fromisoformat(event["end"])
+        event_start = datetime.fromisoformat(event["start"])
+        event_end = datetime.fromisoformat(event["end"])
 
         if event_end < event_start:
             errors.append(
@@ -109,12 +114,8 @@ if __name__ == "__main__":
             continue
 
         for mandatory_event in mandatory_events:
-            mandatory_event_start = datetime.datetime.fromisoformat(
-                mandatory_event["start"]
-            )
-            mandatory_event_end = datetime.datetime.fromisoformat(
-                mandatory_event["end"]
-            )
+            mandatory_event_start = datetime.fromisoformat(mandatory_event["start"])
+            mandatory_event_end = datetime.fromisoformat(mandatory_event["end"])
 
             if (
                 (mandatory_event_start <= event_start < mandatory_event_end)

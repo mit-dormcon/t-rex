@@ -1,23 +1,25 @@
-import datetime
+from datetime import date, datetime, timedelta
+from zoneinfo import ZoneInfo
 
 import frontmatter
 import jinja2
 import markdown
-import pytz
+
+from api_types import APIResponse, Config, Event
 
 env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
-eastern = pytz.timezone("US/Eastern")
+eastern = ZoneInfo("America/New_York")
 
 
-def event_dt_format(start_string, end_string, group=""):
+def event_dt_format(start_string: str, end_string: str, group=""):
     """
     Formats the time string that gets displayed on the booklet
     """
-    start = datetime.datetime.fromisoformat(start_string)
-    end = datetime.datetime.fromisoformat(end_string)
+    start = datetime.fromisoformat(start_string)
+    end = datetime.fromisoformat(end_string)
     out = start.strftime("%a")
 
-    time_strings = []
+    time_strings: list[str] = []
     for dt in (start, end):
         if dt.hour == 12 and dt.minute == 0:
             time_strings.append("noon")
@@ -40,21 +42,21 @@ def event_dt_format(start_string, end_string, group=""):
 env.globals["format_date"] = event_dt_format
 
 
-def get_date_bucket(event: dict, cutoff: int):
+def get_date_bucket(event: Event, cutoff: int):
     """
     Returns the date that an event "occurs" on. This method treats all events starting
     before hour_cutoff as occurring on the date before.
     """
-    dt = datetime.datetime.fromisoformat(event["start"])
+    dt = datetime.fromisoformat(event["start"])
     if dt.hour < cutoff:
-        return dt.date() - datetime.timedelta(days=1)
+        return dt.date() - timedelta(days=1)
     return dt.date()
 
 
-def generate_booklet(api, config, extra_events):
+def generate_booklet(api: APIResponse, config: Config, extra_events: list[Event]):
     # Bucket events into dates
-    start_date = datetime.date.fromisoformat(api["start"])
-    end_date = datetime.date.fromisoformat(api["end"])
+    start_date = date.fromisoformat(api["start"])
+    end_date = date.fromisoformat(api["end"])
 
     all_events = [e.copy() for e in api["events"] + extra_events]
 
@@ -67,9 +69,9 @@ def generate_booklet(api, config, extra_events):
         "after": sorted(list(filter(lambda d: d > end_date, all_dates))),
     }
 
-    tours = []
+    tours: list[Event] = []
     # Sort events into date buckets, separating out tours
-    by_dates = {d: [] for d in all_dates}
+    by_dates: dict[date, list[Event]] = {d: [] for d in all_dates}
     for event in all_events:
         event["emoji"] = [
             config["tag_emoji"][tag]
@@ -86,15 +88,15 @@ def generate_booklet(api, config, extra_events):
             )
 
     # Order inside buckets by start, then end.
-    for date in by_dates:
-        by_dates[date].sort(key=lambda e: datetime.datetime.fromisoformat(e["end"]))
-        by_dates[date].sort(key=lambda e: datetime.datetime.fromisoformat(e["start"]))
+    for by_date in by_dates:
+        by_dates[by_date].sort(key=lambda e: datetime.fromisoformat(e["end"]))
+        by_dates[by_date].sort(key=lambda e: datetime.fromisoformat(e["start"]))
 
-    tours.sort(key=lambda e: datetime.datetime.fromisoformat(e["end"]))
-    tours.sort(key=lambda e: datetime.datetime.fromisoformat(e["start"]))
+    tours.sort(key=lambda e: datetime.fromisoformat(e["end"]))
+    tours.sort(key=lambda e: datetime.fromisoformat(e["start"]))
 
     published_string = (
-        datetime.datetime.fromisoformat(api["published"])
+        datetime.fromisoformat(api["published"])
         .astimezone(eastern)
         .strftime("%B %d, %Y at %I:%M %p")
     )

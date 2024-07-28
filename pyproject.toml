@@ -9,11 +9,10 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
-pytz = "^2024.1"
-toml = "^0.10.2"
 Jinja2 = "^3.1.4"
 markdown = "^3.6"
 python-frontmatter = "^1.1.0"
+tzdata = "^2024.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.4.2"
