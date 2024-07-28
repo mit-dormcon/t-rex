@@ -85,7 +85,9 @@ if __name__ == "__main__":
     api_response["start"] = config["dates"]["start"]
     api_response["end"] = config["dates"]["end"]
 
-    booklet_only_events = orientation_events
+    booklet_only_events = (
+        orientation_events if config["orientation"]["include_in_booklet"] else []
+    )
 
     # Check for conflicts with mandatory events and invalid events
     errors: list[str] = []

@@ -3,6 +3,7 @@ name = "REX 2024"
 [orientation]
 mandatory_tag = "BLACKOUT"
 filename = "orientation.csv"
+include_in_booklet = false
 
 [csv]
 # String format used for parsing dates in the CSV, see strftime.net
