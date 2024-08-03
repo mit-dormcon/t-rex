@@ -50,7 +50,6 @@ def process_csv(filename: str):
                         if tag.strip()
                     ],
                     "group": event["Group"].strip() or None,
-                    "emoji": [],
                 }
             )
     return events
