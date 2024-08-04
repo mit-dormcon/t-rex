@@ -14,10 +14,12 @@ eastern_tz = ZoneInfo("America/New_York")
 with open("config.toml", "rb") as c:
     config: Config = tomllib.load(c)  # type: ignore
 
+
 def get_main_dorm(dorm: str) -> str:
     if dorm in config["dorms"]["subdorms"]:
         return config["dorms"]["subdorms"][dorm]
     return dorm
+
 
 def process_dt_from_csv(time_string: str) -> str:
     """
@@ -35,7 +37,11 @@ def get_dorm_group(dorms: list[str]) -> str:
 
 def event_with_same_name_exists(event: Event, events: list[Event]) -> bool:
     for e in events:
-        if e["name"] == event["name"] and e["start"] != event["start"] and e["end"] != event["end"]:
+        if (
+            e["name"] == event["name"]
+            and e["start"] != event["start"]
+            and e["end"] != event["end"]
+        ):
             return True
     return False
 
@@ -71,18 +77,19 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
         in event_to_check["tags"]
     )
 
-    def create_error_dorm_entry(
-        dorms: list[str], error_string: str
-    ) -> None:
+    def create_error_dorm_entry(dorms: list[str], error_string: str) -> None:
         dorms_list = [get_main_dorm(dorm) for dorm in dorms]
         error_key = get_dorm_group(dorms_list)
 
         if errors.get(error_key) is None:
             errors[error_key] = (
-                [config["dorms"]["rex_contact"][dorm] + "@mit.edu" for dorm in dorms_list],
+                [
+                    config["dorms"]["rex_contact"][dorm] + "@mit.edu"
+                    for dorm in dorms_list
+                ],
                 [],
             )
-        
+
         errors[error_key][1].append(error_string)
 
     for event in api_response["events"]:
@@ -103,9 +110,27 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
             if check_if_events_conflict(
                 event_start, event_end, mandatory_event_start, mandatory_event_end
             ):
+                event_date_if_needed = (
+                    " on "
+                    + booklet.get_date_bucket(
+                        event, config["dates"]["hour_cutoff"]
+                    ).strftime("%x")
+                    + " "
+                    if event_with_same_name_exists(event, all_events)
+                    else " "
+                )
+                subdorms_if_needed = (
+                    "("
+                    + ", ".join(
+                        [dorm for dorm in event["dorm"] if dorm != get_main_dorm(dorm)]
+                    )
+                    + ") "
+                    if [dorm for dorm in event["dorm"] if dorm != get_main_dorm(dorm)]
+                    else ""
+                )
                 create_error_dorm_entry(
                     event["dorm"],
-                    f"{event['name']}{f" on {booklet.get_date_bucket(event, config["dates"]["hour_cutoff"]).strftime("%x")} " if event_with_same_name_exists(event, all_events) else " "}{"(" + ", ".join([dorm for dorm in event['dorm'] if dorm != get_main_dorm(dorm)]) + ") " if [dorm for dorm in event['dorm'] if dorm != get_main_dorm(dorm)] else ""}conflicts with {mandatory_event['name']}.",
+                    f"{event['name']}{event_date_if_needed}{subdorms_if_needed}conflicts with {mandatory_event['name']}.",
                 )
                 continue
 
@@ -130,7 +155,11 @@ def process_csv(filename: str):
                 {
                     "name": event["Event Name"],
                     "dorm": [
-                        (dorm if dorm.lower() != "dormcon" else config["rename_dormcon_to"])
+                        (
+                            dorm.strip()
+                            if dorm.strip().lower() != "dormcon"
+                            else config["rename_dormcon_to"].strip()
+                        )
                         for dorm in event["Dorm"].split(",")
                         if dorm
                     ],
@@ -138,7 +167,9 @@ def process_csv(filename: str):
                     "start": process_dt_from_csv(event["Start Date and Time"]),
                     "end": process_dt_from_csv(event["End Date and Time"]),
                     "description": event["Event Description"],
-                    "tags": [tag.strip().lower() for tag in event["Tags"].split(",") if tag],
+                    "tags": [
+                        tag.strip().lower() for tag in event["Tags"].split(",") if tag
+                    ],
                     "group": event["Group"] or None,
                 }
             )
