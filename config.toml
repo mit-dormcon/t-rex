@@ -12,7 +12,7 @@ date_format = "%m/%d/%Y %H:%M"
 # Start and end dates of REX, in YYYY-MM-DD
 [dates]
 start = "2024-08-25" #Sunday after FPOPs end
-end = "2024-08-28" # Date of FYRE
+end = "2024-08-28"   # Date of FYRE
 # Events that start before this hour will be considered as starting the day before in the booklet
 hour_cutoff = 4
 
@@ -35,24 +35,22 @@ hour_cutoff = 4
 "Next House" = "#2c3e50"
 "Random Hall" = "#fd5295"
 "Simmons Hall" = "#25aae1"
-"Campus Wide!" = "#3d93b8" # DormCon color
+"Campus Wide!" = "#3d93b8"    # DormCon color
 
 [colors.tags]
-"tour"="#34495e"
-"signature"="#f1c40f"
-"updated"="#e67e22"
-"food"="#27ae60"
-"party"="#9b59b6"
-"social"="#e74c3c"
-"games"="#3498db"
-"art"="#1abc9c"
+"tour" = "#34495e"
+"signature" = "#f1c40f"
+"updated" = "#e67e22"
+"food" = "#27ae60"
+"party" = "#9b59b6"
+"social" = "#e74c3c"
+"games" = "#3498db"
+"art" = "#1abc9c"
 
 # These control which emoji appear for a tag in the booklet
 [tag_emoji]
-"food"="🍴"
-"party"="🎉"
-"social"="👥"
-"games"="🎲"
-"art"="🎨"
-
-
+"food" = "🍴"
+"party" = "🎉"
+"social" = "👥"
+"games" = "🎲"
+"art" = "🎨"
