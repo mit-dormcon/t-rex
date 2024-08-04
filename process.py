@@ -97,9 +97,17 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
         event_end = datetime.fromisoformat(event["end"])
 
         if event_end < event_start:
+            event_date = (
+                " on "
+                + booklet.get_date_bucket(
+                    event, config["dates"]["hour_cutoff"]
+                ).strftime("%x")
+                if event_with_same_name_exists(event, api_response["events"])
+                else ""
+            )
             create_error_dorm_entry(
                 event["dorm"],
-                f"{event['name']} has an end time before its start time.",
+                f"{event['name']}{event_date} has an end time before its start time.",
             )
             continue
 
@@ -110,15 +118,9 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
             if check_if_events_conflict(
                 event_start, event_end, mandatory_event_start, mandatory_event_end
             ):
-                event_date_if_needed = (
-                    " on "
-                    + booklet.get_date_bucket(
-                        event, config["dates"]["hour_cutoff"]
-                    ).strftime("%x")
-                    + " "
-                    if event_with_same_name_exists(event, all_events)
-                    else " "
-                )
+                event_date = " on " + booklet.get_date_bucket(
+                    event, config["dates"]["hour_cutoff"]
+                ).strftime("%x")
                 subdorms_if_needed = (
                     "("
                     + ", ".join(
@@ -126,11 +128,11 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
                     )
                     + ") "
                     if [dorm for dorm in event["dorm"] if dorm != get_main_dorm(dorm)]
-                    else ""
+                    else " "
                 )
                 create_error_dorm_entry(
                     event["dorm"],
-                    f"{event['name']}{event_date_if_needed}{subdorms_if_needed}conflicts with {mandatory_event['name']}.",
+                    f"{event['name']}{subdorms_if_needed}conflicts with {mandatory_event['name']}{event_date}.",
                 )
                 continue
 
