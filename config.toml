@@ -18,7 +18,7 @@ end = "2024-08-28"   # Date of FYRE
 hour_cutoff = 4
 
 # List of dorms with REX chair contact emails, available at https://groups.mit.edu/webmoira/list/dorms-rex
-[dorms]
+[dorms.rex_contact]
 "Baker House" = "baker-rush"
 "Burton Conner" = "bc-rush"
 "East Campus" = "ec-rush-chairs"
@@ -26,17 +26,20 @@ hour_cutoff = 4
 "Maseeh Hall" = "maseeh-rex-chairs"
 "McCormick Hall" = "mccormick-rex"
 "New House" = "nh-rush"
-"Chocolate City" = "nh-rush"
-"French House" = "nh-rush"
-"German House" = "nh-rush"
-"iHouse" = "nh-rush"
-"Juniper" = "nh-rush"
-"La Casa" = "nh-rush"
 "New Vassar" = "nv-rex-chair"
 "Next House" = "next-rex-comm"
 "Random Hall" = "random-rush-chair"
 "Simmons Hall" = "simmons-frosh-chair"
 "DormCon" = "dormcon-rex-chairs"
+
+# List of subdorms in each dorm that equals the main dorm (eg. houses in New House), mainly for contacting REX chairs
+[dorms.subdorms]
+"Chocolate City" = "New House"
+"French House" = "New House"
+"German House" = "New House"
+"iHouse" = "New House"
+"Juniper" = "New House"
+"La Casa" = "New House"
 
 # Hardcoding a color for each dorm based on the primary color on their website
 [colors.dorms]

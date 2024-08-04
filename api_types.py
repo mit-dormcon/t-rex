@@ -34,13 +34,18 @@ class ColorsConfig(TypedDict):
     tags: dict[str, str]
 
 
+class DormsConfig(TypedDict):
+    rex_contact: dict[str, str]
+    subdorms: dict[str, str]
+
+
 class Config(TypedDict):
     name: str
     rename_dormcon_to: str
     orientation: OrientationConfig
     csv: CSVConfig
     dates: DatesConfig
-    dorms: dict[str, str]
+    dorms: DormsConfig
     colors: ColorsConfig
     tag_emoji: dict[str, str]
 

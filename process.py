@@ -14,6 +14,10 @@ eastern_tz = ZoneInfo("America/New_York")
 with open("config.toml", "rb") as c:
     config: Config = tomllib.load(c)  # type: ignore
 
+def get_main_dorm(dorm: str) -> str:
+    if dorm in config["dorms"]["subdorms"]:
+        return config["dorms"]["subdorms"][dorm]
+    return dorm
 
 def process_dt_from_csv(time_string: str) -> str:
     """
@@ -68,23 +72,26 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
     )
 
     def create_error_dorm_entry(
-        error_key: str, error_string: str
+        dorms: list[str], error_string: str
     ) -> None:
+        dorms_list = [get_main_dorm(dorm) for dorm in dorms]
+        error_key = get_dorm_group(dorms_list)
+
         if errors.get(error_key) is None:
             errors[error_key] = (
-                [config["dorms"][dorm] + "@mit.edu" for dorm in event["dorm"]],
+                [config["dorms"]["rex_contact"][dorm] + "@mit.edu" for dorm in dorms_list],
                 [],
             )
+        
         errors[error_key][1].append(error_string)
 
     for event in api_response["events"]:
         event_start = datetime.fromisoformat(event["start"])
         event_end = datetime.fromisoformat(event["end"])
-        dorm_group = get_dorm_group(event["dorm"])
 
         if event_end < event_start:
             create_error_dorm_entry(
-                dorm_group,
+                event["dorm"],
                 f"{event['name']} has an end time before its start time.",
             )
             continue
@@ -97,8 +104,8 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
                 event_start, event_end, mandatory_event_start, mandatory_event_end
             ):
                 create_error_dorm_entry(
-                    dorm_group,
-                    f"{event['name']}{f" on {booklet.get_date_bucket(event, config["dates"]["hour_cutoff"]).strftime("%x")} " if event_with_same_name_exists(event, all_events) else " "}conflicts with {mandatory_event['name']}.",
+                    event["dorm"],
+                    f"{event['name']}{f" on {booklet.get_date_bucket(event, config["dates"]["hour_cutoff"]).strftime("%x")} " if event_with_same_name_exists(event, all_events) else " "}{"(" + ", ".join([dorm for dorm in event['dorm'] if dorm != get_main_dorm(dorm)]) + ") " if [dorm for dorm in event['dorm'] if dorm != get_main_dorm(dorm)] else ""}conflicts with {mandatory_event['name']}.",
                 )
                 continue
 
@@ -131,7 +138,7 @@ def process_csv(filename: str):
                     "start": process_dt_from_csv(event["Start Date and Time"]),
                     "end": process_dt_from_csv(event["End Date and Time"]),
                     "description": event["Event Description"],
-                    "tags": [tag.lower() for tag in event["Tags"].split(",") if tag],
+                    "tags": [tag.strip().lower() for tag in event["Tags"].split(",") if tag],
                     "group": event["Group"] or None,
                 }
             )
