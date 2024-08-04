@@ -1,4 +1,5 @@
 name = "REX 2024"
+rename_dormcon_to = "Campus Wide!"
 
 [orientation]
 mandatory_tag = "BLACKOUT"
@@ -15,6 +16,27 @@ start = "2024-08-25" #Sunday after FPOPs end
 end = "2024-08-28"   # Date of FYRE
 # Events that start before this hour will be considered as starting the day before in the booklet
 hour_cutoff = 4
+
+# List of dorms with REX chair contact emails, available at https://groups.mit.edu/webmoira/list/dorms-rex
+[dorms]
+"Baker House" = "baker-rush"
+"Burton Conner" = "bc-rush"
+"East Campus" = "ec-rush-chairs"
+"MacGregor House" = "mac-rex-chairs"
+"Maseeh Hall" = "maseeh-rex-chairs"
+"McCormick Hall" = "mccormick-rex"
+"New House" = "nh-rush"
+"Chocolate City" = "nh-rush"
+"French House" = "nh-rush"
+"German House" = "nh-rush"
+"iHouse" = "nh-rush"
+"Juniper" = "nh-rush"
+"La Casa" = "nh-rush"
+"New Vassar" = "nv-rex-chair"
+"Next House" = "next-rex-comm"
+"Random Hall" = "random-rush-chair"
+"Simmons Hall" = "simmons-frosh-chair"
+"DormCon" = "dormcon-rex-chairs"
 
 # Hardcoding a color for each dorm based on the primary color on their website
 [colors.dorms]
@@ -35,7 +57,7 @@ hour_cutoff = 4
 "Next House" = "#2c3e50"
 "Random Hall" = "#fd5295"
 "Simmons Hall" = "#25aae1"
-"Campus Wide!" = "#3d93b8"    # DormCon color
+"DormCon" = "#3d93b8"         # DormCon color
 
 [colors.tags]
 "tour" = "#34495e"

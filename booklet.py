@@ -28,7 +28,7 @@ def event_dt_format(start_string: str, end_string: str, group=""):
         else:
             if dt.minute == 0:
                 time_strings.append(dt.strftime("%I %p").lstrip("0"))
-            elif dt.minute % 10 == 3 and group in ["B3rd", "Burton Third"]:
+            elif dt.minute % 10 == 3 and group.lower() in ["b3rd", "burton third"]:
                 time_strings.append(
                     f"{dt.strftime('%I:%M').lstrip('0')}rd {dt.strftime('%p')}"
                 )
@@ -110,7 +110,7 @@ def generate_booklet(api: APIResponse, config: Config, extra_events: list[Event]
         end=end_date,
         emoji=config["tag_emoji"],
         published=published_string,
-        cover_dorms=[d for d in api["dorms"] if d != "Campus Wide!"],
+        cover_dorms=[d for d in api["dorms"] if d != config["rename_dormcon_to"]],
     )
 
 
@@ -125,13 +125,8 @@ def generate_index():
     return env.get_template("index.html").render(content=content, **page.metadata)
 
 
-def generate_errors(errors: list[str], name: str):
+def generate_errors(errors: dict[str, tuple[list[str], list[str]]], name: str):
     """
     Generates the error page using the template at templates/errors.html
     """
-    errors_md = env.get_template("errors.md").render(errors=errors, name=name)
-
-    page = frontmatter.loads(errors_md)
-    content = markdown.markdown(page.content)
-
-    return env.get_template("index.html").render(content=content, **page.metadata)
+    return env.get_template("errors.html").render(errors=errors, name=name)

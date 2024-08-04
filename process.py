@@ -25,31 +25,114 @@ def process_dt_from_csv(time_string: str) -> str:
     return event_dt.isoformat()
 
 
+def get_dorm_group(dorms: list[str]) -> str:
+    return ", ".join(dorms)
+
+
+def event_with_same_name_exists(event: Event, events: list[Event]) -> bool:
+    for e in events:
+        if e["name"] == event["name"] and e["start"] != event["start"] and e["end"] != event["end"]:
+            return True
+    return False
+
+
+def check_if_events_conflict(
+    event_one_start: datetime,
+    event_one_end: datetime,
+    event_two_start: datetime,
+    event_two_end: datetime,
+) -> bool:
+    return (
+        (event_two_start <= event_one_start < event_two_end)
+        or (event_two_start < event_one_end <= event_two_end)
+        or (event_one_start <= event_two_start < event_one_end)
+        or (event_one_start < event_two_end <= event_one_end)
+    )
+
+
+def get_invalid_events(orientation_events: list[Event], api_response: APIResponse):
+    """
+    Get list of error messages for invalid events.
+    Formatted as a dict, with dorms as the key and a tuple of the contact emails and list of events as the value.
+    """
+
+    errors: dict[str, tuple[list[str], list[str]]] = dict()
+
+    # Check for conflicts with mandatory events and invalid events
+    all_events = orientation_events + api_response["events"]
+    mandatory_events = list(
+        event_to_check
+        for event_to_check in all_events
+        if config["orientation"]["mandatory_tag"].strip().lower()
+        in event_to_check["tags"]
+    )
+
+    def create_error_dorm_entry(
+        error_key: str, error_string: str
+    ) -> None:
+        if errors.get(error_key) is None:
+            errors[error_key] = (
+                [config["dorms"][dorm] + "@mit.edu" for dorm in event["dorm"]],
+                [],
+            )
+        errors[error_key][1].append(error_string)
+
+    for event in api_response["events"]:
+        event_start = datetime.fromisoformat(event["start"])
+        event_end = datetime.fromisoformat(event["end"])
+        dorm_group = get_dorm_group(event["dorm"])
+
+        if event_end < event_start:
+            create_error_dorm_entry(
+                dorm_group,
+                f"{event['name']} has an end time before its start time.",
+            )
+            continue
+
+        for mandatory_event in mandatory_events:
+            mandatory_event_start = datetime.fromisoformat(mandatory_event["start"])
+            mandatory_event_end = datetime.fromisoformat(mandatory_event["end"])
+
+            if check_if_events_conflict(
+                event_start, event_end, mandatory_event_start, mandatory_event_end
+            ):
+                create_error_dorm_entry(
+                    dorm_group,
+                    f"{event['name']}{f" on {booklet.get_date_bucket(event, config["dates"]["hour_cutoff"]).strftime("%x")} " if event_with_same_name_exists(event, all_events) else " "}conflicts with {mandatory_event['name']}.",
+                )
+                continue
+
+    return errors
+
+
 def process_csv(filename: str):
     events: list[Event] = []
     with open(filename, encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        for event in reader:
+        reader = [row for row in csv.DictReader(f)]
+
+        events_list: list[dict[str, str]] = []
+        for index, row in enumerate(reader):
+            events_list.append(dict())
+            for key, val in row.items():
+                events_list[index][key.strip()] = val.strip() if val else ""
+
+        for event in events_list:
             if event["Published"] != "TRUE":
                 continue
             events.append(
                 {
-                    "name": event["Event Name"].strip(),
+                    "name": event["Event Name"],
                     "dorm": [
-                        dorm.strip()
+                        (dorm if dorm.lower() != "dormcon" else config["rename_dormcon_to"])
                         for dorm in event["Dorm"].split(",")
-                        if dorm.strip()
+                        if dorm
                     ],
-                    "location": event["Event Location"].strip(),
+                    "location": event["Event Location"],
                     "start": process_dt_from_csv(event["Start Date and Time"]),
                     "end": process_dt_from_csv(event["End Date and Time"]),
                     "description": event["Event Description"],
-                    "tags": [
-                        tag.strip().lower()
-                        for tag in event["Tags"].split(",")
-                        if tag.strip()
-                    ],
-                    "group": event["Group"].strip() or None,
+                    "tags": [tag.lower() for tag in event["Tags"].split(",") if tag],
+                    "group": event["Group"] or None,
                 }
             )
     return events
@@ -58,7 +141,7 @@ def process_csv(filename: str):
 if __name__ == "__main__":
     api_response: APIResponse = {
         "name": config["name"],
-        "published": datetime.now().astimezone(timezone.utc).isoformat(),
+        "published": datetime.now(timezone.utc).isoformat(),
         "events": [],
         "dorms": [],
         "tags": [],
@@ -93,39 +176,7 @@ if __name__ == "__main__":
         orientation_events if config["orientation"]["include_in_booklet"] else []
     )
 
-    # Check for conflicts with mandatory events and invalid events
-    errors: list[str] = []
-    mandatory_events = list(
-        event_to_check
-        for event_to_check in (orientation_events + api_response["events"])
-        if config["orientation"]["mandatory_tag"].strip().lower()
-        in event_to_check["tags"]
-    )
-    for event in api_response["events"]:
-        event_start = datetime.fromisoformat(event["start"])
-        event_end = datetime.fromisoformat(event["end"])
-
-        if event_end < event_start:
-            errors.append(
-                f"{event['name']} @ {', '.join(event['dorm'])} has an end time before its start time!"
-            )
-            # raise Exception(event["name"] + " has an end time before its start time!")
-            continue
-
-        for mandatory_event in mandatory_events:
-            mandatory_event_start = datetime.fromisoformat(mandatory_event["start"])
-            mandatory_event_end = datetime.fromisoformat(mandatory_event["end"])
-
-            if (
-                (mandatory_event_start <= event_start < mandatory_event_end)
-                or (mandatory_event_start < event_end <= mandatory_event_end)
-                or (event_start <= mandatory_event_start < event_end)
-                or (event_start < mandatory_event_end <= event_end)
-            ):
-                errors.append(
-                    f"{event['name']} @ {', '.join(event['dorm'])} conflicts with {mandatory_event['name']}"
-                )
-                continue
+    errors = get_invalid_events(orientation_events, api_response)
 
     print("Processing complete!")
 

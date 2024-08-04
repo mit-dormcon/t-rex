@@ -36,9 +36,11 @@ class ColorsConfig(TypedDict):
 
 class Config(TypedDict):
     name: str
+    rename_dormcon_to: str
     orientation: OrientationConfig
     csv: CSVConfig
     dates: DatesConfig
+    dorms: dict[str, str]
     colors: ColorsConfig
     tag_emoji: dict[str, str]
 
