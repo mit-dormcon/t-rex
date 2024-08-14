@@ -122,7 +122,7 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
                     event, config["dates"]["hour_cutoff"]
                 ).strftime("%x")
                 subdorms_if_needed = (
-                    "("
+                    " ("
                     + ", ".join(
                         [dorm for dorm in event["dorm"] if dorm != get_main_dorm(dorm)]
                     )
@@ -141,6 +141,8 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
 
 def process_csv(filename: str):
     events: list[Event] = []
+    # NOTE: If you saved this with Excel as a CSV file with UTF-8 encoding, you might
+    # need to open it with encoding="utf-8-sig" instead of "utf-8".
     with open(filename, encoding="utf-8") as f:
         reader = [row for row in csv.DictReader(f)]
 
