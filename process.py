@@ -84,7 +84,10 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
         if errors.get(error_key) is None:
             errors[error_key] = (
                 [
-                    config["dorms"]["rex_contact"][dorm] + "@mit.edu"
+                    config["dorms"]["rex_contact"][
+                        dorm if dorm != config["rename_dormcon_to"] else "DormCon"
+                    ]
+                    + "@mit.edu"
                     for dorm in dorms_list
                 ],
                 [],
@@ -136,6 +139,7 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
                 )
                 continue
 
+    errors["DormCon"] = errors.pop(config["rename_dormcon_to"])
     return errors
 
 
