@@ -139,7 +139,9 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
                 )
                 continue
 
-    errors["DormCon"] = errors.pop(config["rename_dormcon_to"])
+    if errors.get(config["rename_dormcon_to"]) is not None:
+        errors["DormCon"] = errors.pop(config["rename_dormcon_to"])
+
     return errors
 
 
