@@ -1,0 +1,107 @@
+openapi: 3.0.0
+
+info:
+  title: T-REX, the DormCon REX API
+  description: Backend for REX events
+  version: 1.0.0
+
+servers:
+  - url: https://rex.mit.edu
+
+paths:
+  /api.json:
+    get:
+      summary: Returns all REX Event data.
+      responses:
+        "200":
+          description: A JSON object containing all REX Event data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  published:
+                    type: string
+                    format: "date-time"
+                  events:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Event"
+                  dorms:
+                    type: array
+                    items:
+                      type: string
+                  tags:
+                    type: array
+                    items:
+                      type: string
+                  colors:
+                    $ref: "#/components/schemas/ColorConfig"
+                required:
+                  - name
+                  - published
+                  - events
+                  - dorms
+                  - tags
+                  - colors
+
+components:
+  schemas:
+    Event:
+      type: object
+      properties:
+        name:
+          type: string
+        dorm:
+          type: array
+          items:
+            type: string
+        location:
+          type: string
+        start:
+          type: string
+          format: "date-time"
+        end:
+          type: string
+          format: "date-time"
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        group:
+          type: string
+          nullable: true
+        emoji:
+          type: array
+          items:
+            type: string
+      required:
+        - name
+        - dorm
+        - location
+        - start
+        - end
+        - description
+        - tags
+        - group
+
+    ColorConfig:
+      type: object
+      properties:
+        dorms:
+          type: object
+          additionalProperties:
+            type: string
+            pattern: "^#[0-9a-fA-F]{6}$"
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+            pattern: "^#[0-9a-fA-F]{6}$"
+      required:
+        - dorms
+        - tags

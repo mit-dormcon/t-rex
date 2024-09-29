@@ -224,6 +224,8 @@ if __name__ == "__main__":
         orientation_events if config["orientation"]["include_in_booklet"] else []
     )
 
+    schema = booklet.generate_schema()
+
     errors = get_invalid_events(orientation_events, api_response)
 
     print("Processing complete!")
@@ -245,6 +247,8 @@ if __name__ == "__main__":
     shutil.copytree("static", "output/static")
     with open("output/api.json", "w", encoding="utf-8") as w:
         json.dump(api_response, w)
+    with open("output/openapi.yaml", "w", encoding="utf-8") as s:
+        s.write(schema)
     with open("output/booklet.html", "w", encoding="utf-8") as b:
         b.write(booklet_html)
     with open("output/index.html", "w", encoding="utf-8") as i:
