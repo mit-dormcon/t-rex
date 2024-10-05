@@ -28,6 +28,9 @@ paths:
   /api.json:
     get:
       summary: All REX Event data
+      description:
+        Returns a JSON object with all REX data. This includes data about the
+        REX API, a list of all events, and more.
       tags:
         - Raw Data
       responses:
