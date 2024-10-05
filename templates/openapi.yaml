@@ -35,7 +35,7 @@ paths:
         - Raw Data
       responses:
         "200":
-          description: This returns a JSON object containing all REX Event data.
+          description: Successful request!
           content:
             application/json:
               schema:
