@@ -130,9 +130,3 @@ def generate_errors(errors: dict[str, tuple[list[str], list[str]]], name: str):
     Generates the error page using the template at templates/errors.html
     """
     return env.get_template("errors.html").render(errors=errors, name=name)
-    
-def generate_schema():
-    """
-    Generates the schema page using the template at templates/openapi.yaml.
-    """
-    return env.get_template("openapi.yaml").render()
