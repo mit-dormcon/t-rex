@@ -22,6 +22,10 @@ tags:
 servers:
   - url: https://rex.mit.edu
 
+externalDocs:
+  description: Documentation on DormCon site
+  url: https://dormcon.mit.edu/about/rex
+
 jsonSchemaDialect: https://spec.openapis.org/oas/3.1/dialect/base
 
 paths:
