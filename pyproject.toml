@@ -17,7 +17,7 @@ python-frontmatter = "^1.1.0"
 tzdata = "^2024.2"
 
 [tool.poetry.group.dev.dependencies]
-black = "^24.8.0"
+black = "^24.10.0"
 
 [build-system]
 requires = ["poetry-core"]
