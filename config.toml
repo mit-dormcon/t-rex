@@ -1,4 +1,4 @@
-name = "REX 2024"
+name = "REX 2025"
 rename_dormcon_to = "Campus Wide!"
 
 [orientation]
@@ -12,8 +12,8 @@ date_format = "%m/%d/%Y %H:%M"
 
 # Start and end dates of REX, in YYYY-MM-DD
 [dates]
-start = "2024-08-25" #Sunday after FPOPs end
-end = "2024-08-28"   # Date of FYRE
+start = "2025-08-22" # Saturday after FPOPs end
+end = "2025-08-26"   # Date of FYRE
 # Events that start before this hour will be considered as starting the day before in the booklet
 hour_cutoff = 4
 
@@ -23,7 +23,7 @@ hour_cutoff = 4
 "Burton Conner" = "bc-rush"
 "East Campus" = "ec-rush-chairs"
 "MacGregor House" = "mac-rex-chairs"
-"Maseeh Hall" = "maseeh-rex-chairs"
+"Maseeh Hall" = "maseeh-rex-chair"
 "McCormick Hall" = "mccormick-rex"
 "New House" = "nh-rush"
 "New Vassar" = "nv-rex-chair"
@@ -46,21 +46,21 @@ hour_cutoff = 4
 "Baker House" = "#005399"
 "Burton Conner" = "#cc4331"
 "East Campus" = "#aa0000"
-"MacGregor House" = "#dc3545"
-"Maseeh Hall" = "#1589ff"
+"MacGregor House" = "#ad6f65"
+"Maseeh Hall" = "#1f3a6c"
 "McCormick Hall" = "#293142"
-"New House" = "#eaecf9"
+"New House" = "#e7e9f6"
 "Chocolate City" = "#ffed2e"
 "French House" = "#3357cc"
 "German House" = "#ff0000"
-"iHouse" = "#c78665"
+"iHouse" = "#238fc0"
 "Juniper" = "#06446c"
 "La Casa" = "#e10909"
-"New Vassar" = "#afe6af"
-"Next House" = "#2c3e50"
-"Random Hall" = "#fd5295"
+"New Vassar" = "#A62B0C"
+"Next House" = "#34495e"
+"Random Hall" = "#cf2661"
 "Simmons Hall" = "#25aae1"
-"DormCon" = "#3d93b8"         # DormCon color
+"DormCon" = "#618ca0"         # DormCon color
 
 [colors.tags]
 "tour" = "#34495e"

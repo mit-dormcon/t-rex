@@ -17,8 +17,10 @@
   <body>
     {% include "guide_fm.html" %}
     <div class="page">
-      <span class="day-title">Residence Hall Tours</span>
-      {% for event in tours %}{{ event_box(event) }}{% endfor %}
+      {% if tours %}
+        <span class="day-title">Residence Hall Tours</span>
+        {% for event in tours %}{{ event_box(event) }}{% endfor %}
+      {% endif %}
       {%
         if
         dates.before
