@@ -40,11 +40,13 @@ hour_cutoff = 4
 "iHouse" = "New House"
 "Juniper" = "New House"
 "La Casa" = "New House"
+"Indigenous Living Community" = "Burton Conner"
 
 # Hardcoding a color for each dorm based on the primary color on their website
 [colors.dorms]
 "Baker House" = "#005399"
 "Burton Conner" = "#cc4331"
+"Indigenous Living Community" = "#cc4331"
 "East Campus" = "#aa0000"
 "MacGregor House" = "#ad6f65"
 "Maseeh Hall" = "#1f3a6c"
@@ -60,7 +62,7 @@ hour_cutoff = 4
 "Next House" = "#34495e"
 "Random Hall" = "#cf2661"
 "Simmons Hall" = "#25aae1"
-"DormCon" = "#618ca0"         # DormCon color
+"DormCon" = "#618ca0"
 
 [colors.tags]
 "tour" = "#34495e"
