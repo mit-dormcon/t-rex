@@ -12,8 +12,8 @@ date_format = "%m/%d/%Y %H:%M"
 
 # Start and end dates of REX, in YYYY-MM-DD
 [dates]
-start = "2025-08-22" # Saturday after FPOPs end
-end = "2025-08-26"   # Date of FYRE
+start = "2025-08-23" # Saturday after FPOPs end
+end = "2025-08-27"   # Date of FYRE
 # Events that start before this hour will be considered as starting the day before in the booklet
 hour_cutoff = 4
 
