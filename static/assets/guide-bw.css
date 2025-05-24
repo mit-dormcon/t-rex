@@ -1,5 +1,5 @@
 .page {
-  page-break-before: always;
+  break-before: page;
 }
 
 body {
@@ -50,7 +50,7 @@ body {
   padding: 6px;
   background-color: #eaeaea; /* sports, it's in the game */
   text-align: left;
-  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 .tag-mandatory {
@@ -65,8 +65,8 @@ body {
 }
 
 .fpop {
-  page-break-before: always;
-  page-break-after: always;
+  break-before: page;
+  break-after: page;
   display: block;
   width: auto;
   margin: 10px 10px;
@@ -81,7 +81,7 @@ body {
 }
 
 .post {
-  page-break-before: always;
+  break-before: page;
   display: block;
   width: auto;
   margin: 5px 10px;
@@ -116,9 +116,9 @@ body {
   .fpop-title,
   .post-title {
     font-size: 24pt;
-    page-break-after: avoid;
-    page-break-before: avoid;
-    page-break-inside: avoid;
+    break-after: avoid;
+    break-before: avoid;
+    break-inside: avoid;
   }
   .main-title {
     font-size: 72pt;
@@ -150,5 +150,6 @@ body {
 }
 
 @page {
-  size: A3;
+  size: A3 portrait;
+  margin: 0.5in;
 }
