@@ -9,7 +9,7 @@ info:
     purposes! The structure of the JSON is documented as `TRexAPIResponse` in
     [types.ts](https://github.com/mit-dormcon/website/blob/main/components/t-rex/types.ts)
     in the main DormCon website repository.
-  version: 1.0.0
+  version: 2025.0.0
   contact:
     name: DormCon Tech Chair
     email: dormcon-tech-chair@mit.edu
@@ -101,10 +101,6 @@ components:
           type:
             - "string"
             - "null"
-        emoji:
-          type: array
-          items:
-            type: string
       required:
         - name
         - dorm
