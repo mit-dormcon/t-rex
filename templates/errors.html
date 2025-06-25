@@ -31,29 +31,34 @@
     <header>
       <h1>{{ name }} Event Errors</h1>
     </header>
-    <p>
+    <nav>
       <a href="./index.html"><em>Back to main page</em></a>
-    </p>
-    <blockquote>
-      The following is a list of all errors found when processing {{ name }}
-      events. If there are any issues, please reach out to
-      <a href="mailto:dormcon-rex-chairs@mit.edu">dormcon-rex-chairs@mit.edu</a
-      >.
-    </blockquote>
-    {% for error_group, (contact_emails, list_of_errors) in errors.items() %}
-      <h2>{{ error_group }}</h2>
-      <p>The following {{ error_group }} events have errors:</p>
-      <ul>
-        {% for error in list_of_errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-      </ul>
-      <p>
-        If you have any questions or concerns, please reach out to
-        <a href="mailto:{{ contact_emails|join("','") }}"
-          >{{ contact_emails|join(", ") }}</a
+    </nav>
+    <main>
+      <blockquote>
+        The following is a list of all errors found when processing {{ name }}
+        events. If there are any issues, please reach out to
+        <a href="mailto:dormcon-rex-chairs@mit.edu"
+          >dormcon-rex-chairs@mit.edu</a
         >.
-      </p>
-    {% endfor %}
+      </blockquote>
+      {% for error_group, (contact_emails, list_of_errors) in errors.items() %}
+        <section>
+          <h2>{{ error_group }}</h2>
+          <p>The following {{ error_group }} events have errors:</p>
+          <ul>
+            {% for error in list_of_errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+          <p>
+            If you have any questions or concerns, please reach out to
+            <a href="mailto:{{ contact_emails|join("','") }}"
+              >{{ contact_emails|join(", ") }}</a
+            >.
+          </p>
+        </section>
+      {% endfor %}
+    </main>
   </body>
 </html>
