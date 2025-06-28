@@ -1,11 +1,12 @@
 from datetime import date, datetime, timedelta
+from typing import cast
 from zoneinfo import ZoneInfo
 
 import frontmatter
 import jinja2
 import markdown
 
-from api_types import APIResponse, Config, Event
+from api_types import APIResponse, Config, Event, EventWithEmoji
 
 env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
 eastern = ZoneInfo("America/New_York")
@@ -73,11 +74,17 @@ def generate_booklet(api: APIResponse, config: Config, extra_events: list[Event]
     # Sort events into date buckets, separating out tours
     by_dates: dict[date, list[Event]] = {d: [] for d in all_dates}
     for event in all_events:
-        event["emoji"] = [
-            config["tag_emoji"][tag]
-            for tag in event["tags"]
-            if tag in config["tag_emoji"]
-        ]
+        event = cast(
+            EventWithEmoji,
+            dict(
+                event,
+                emoji=[
+                    config["tag_emoji"][tag]
+                    for tag in event["tags"]
+                    if tag in config["tag_emoji"]
+                ],
+            ),
+        )
 
         # Tours are separated and put at the front of the booklet
         if "tour" in event["tags"]:
