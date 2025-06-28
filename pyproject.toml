@@ -2,7 +2,10 @@
 name = "t-rex"
 version = "2025.0.0"
 description = "A Python project that generates a structured format for REX events and an HTML file that can get converted into a booklet"
-authors = ["Cameron Kleiman <ckleiman@mit.edu>"]
+authors = [
+    "Cameron Kleiman <ckleiman@mit.edu>",
+    "DormCon Tech Chair <dormcon-tech-chair@mit.edu>",
+]
 readme = "README.md"
 homepage = "https://rex.mit.edu/"
 repository = "https://github.com/mit-dormcon/t-rex"
@@ -10,7 +13,7 @@ packages = []
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.13"
 Jinja2 = "^3.1.6"
 markdown = "^3.8"
 python-frontmatter = "^1.1.0"
