@@ -2,9 +2,9 @@ name = "REX 2025"
 rename_dormcon_to = "Campus Wide!"
 
 [orientation]
-mandatory_tag = "BLACKOUT"
+mandatory_tag = "mandatory"
 filename = "orientation.csv"
-include_in_booklet = false
+include_in_booklet = true
 
 [csv]
 # String format used for parsing dates in the CSV, see strftime.net
