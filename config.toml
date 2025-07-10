@@ -65,18 +65,20 @@ hour_cutoff = 4
 "DormCon" = "#618ca0"
 
 [colors.tags]
-"tour" = "#34495e"
-"signature" = "#f1c40f"
-"updated" = "#e67e22"
-"food" = "#27ae60"
-"party" = "#9b59b6"
-"social" = "#e74c3c"
-"games" = "#3498db"
-"art" = "#1abc9c"
+"tour" = "  #1E90FF"
+"signature" = " #FFD700"
+"updated" = "   #808080"
+"meal" = "  #FF6347"
+"snack" = " #FFB347"
+"party" = " #C71585"
+"social" = "    #32CD32"
+"games" = " #20B2AA"
+"art" = "   #8A2BE2"
 
 # These control which emoji appear for a tag in the booklet
 [tag_emoji]
-"food" = "🍴"
+"snack" = "🍪"
+"meal" = "🍴"
 "party" = "🎉"
 "social" = "👥"
 "games" = "🎲"
