@@ -204,6 +204,15 @@ if __name__ == "__main__":
         list(set(dorm for e in api_response["events"] for dorm in e["dorm"])),
         key=str.lower,
     )
+    # Move the renamed DormCon to the front of the list
+    if config["rename_dormcon_to"] in api_response["dorms"]:
+        api_response["dorms"].insert(
+            0,
+            api_response["dorms"].pop(
+                api_response["dorms"].index(config["rename_dormcon_to"].strip())
+            ),
+        )
+
     for dorm in api_response["dorms"]:
         groups = sorted(
             list(
