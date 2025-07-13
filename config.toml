@@ -32,32 +32,15 @@ hour_cutoff = 4
 "Simmons Hall" = "simmons-frosh-chairs"
 "DormCon" = "dormcon-rexvp"
 
-# List of subdorms in each dorm that equals the main dorm (eg. houses in New House), mainly for contacting REX chairs
-[dorms.subdorms]
-"Chocolate City" = "New House"
-"French House" = "New House"
-"German House" = "New House"
-"iHouse" = "New House"
-"Juniper" = "New House"
-"La Casa" = "New House"
-"Indigenous Living Community" = "Burton Conner"
-
 # Hardcoding a color for each dorm based on the primary color on their website
 [colors.dorms]
 "Baker House" = "#005399"
 "Burton Conner" = "#cc4331"
-"Indigenous Living Community" = "#cc4331"
 "East Campus" = "#aa0000"
 "MacGregor House" = "#ad6f65"
 "Maseeh Hall" = "#1f3a6c"
 "McCormick Hall" = "#293142"
 "New House" = "#e7e9f6"
-"Chocolate City" = "#ffed2e"
-"French House" = "#3357cc"
-"German House" = "#ff0000"
-"iHouse" = "#238fc0"
-"Juniper" = "#06446c"
-"La Casa" = "#e10909"
 "New Vassar" = "#A62B0C"
 "Next House" = "#34495e"
 "Random Hall" = "#cf2661"

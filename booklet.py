@@ -117,11 +117,7 @@ def generate_booklet(api: APIResponse, config: Config, extra_events: list[Event]
         end=end_date,
         emoji=config["tag_emoji"],
         published=published_string,
-        cover_dorms=[
-            d
-            for d in api["dorms"]
-            if d != config["rename_dormcon_to"] and d not in config["dorms"]["subdorms"]
-        ],
+        cover_dorms=[d for d in api["dorms"] if d != config["rename_dormcon_to"]],
     )
 
 

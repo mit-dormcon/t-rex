@@ -4,6 +4,7 @@ import os
 import shutil
 import tomllib
 from datetime import datetime, timezone
+from operator import itemgetter
 from zoneinfo import ZoneInfo
 
 import booklet
@@ -13,12 +14,6 @@ eastern_tz = ZoneInfo("America/New_York")
 
 with open("config.toml", "rb") as c:
     config: Config = tomllib.load(c)  # type: ignore
-
-
-def get_main_dorm(dorm: str) -> str:
-    if dorm in config["dorms"]["subdorms"]:
-        return config["dorms"]["subdorms"][dorm]
-    return dorm
 
 
 def process_dt_from_csv(time_string: str) -> str:
@@ -66,7 +61,7 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
     Formatted as a dict, with dorms as the key and a tuple of the contact emails and list of events as the value.
     """
 
-    errors: dict[str, tuple[list[str], list[str]]] = dict()
+    event_errors: dict[str, tuple[list[str], list[str]]] = {}
 
     # Check for conflicts with mandatory events and invalid events
     all_events = orientation_events + api_response["events"]
@@ -78,11 +73,11 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
     )
 
     def create_error_dorm_entry(dorms: list[str], error_string: str) -> None:
-        dorms_list = [get_main_dorm(dorm) for dorm in dorms]
+        dorms_list = dorms.copy()
         error_key = get_dorm_group(dorms_list)
 
-        if errors.get(error_key) is None:
-            errors[error_key] = (
+        if event_errors.get(error_key) is None:
+            event_errors[error_key] = (
                 [
                     config["dorms"]["rex_contact"][
                         dorm if dorm != config["rename_dormcon_to"] else "DormCon"
@@ -93,7 +88,7 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
                 [],
             )
 
-        errors[error_key][1].append(error_string)
+        event_errors[error_key][1].append(error_string)
 
     for event in api_response["events"]:
         event_start = datetime.fromisoformat(event["start"])
@@ -124,25 +119,16 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
                 event_date = " on " + booklet.get_date_bucket(
                     event, config["dates"]["hour_cutoff"]
                 ).strftime("%x")
-                subdorms_if_needed = (
-                    " ("
-                    + ", ".join(
-                        [dorm for dorm in event["dorm"] if dorm != get_main_dorm(dorm)]
-                    )
-                    + ") "
-                    if [dorm for dorm in event["dorm"] if dorm != get_main_dorm(dorm)]
-                    else " "
-                )
                 create_error_dorm_entry(
                     event["dorm"],
-                    f"{event['name']}{subdorms_if_needed}conflicts with {mandatory_event['name']}{event_date}.",
+                    f"{event['name']} conflicts with {mandatory_event['name']}{event_date}.",
                 )
                 continue
 
-    if errors.get(config["rename_dormcon_to"]) is not None:
-        errors["DormCon"] = errors.pop(config["rename_dormcon_to"])
+    if event_errors.get(config["rename_dormcon_to"]) is not None:
+        event_errors["DormCon"] = event_errors.pop(config["rename_dormcon_to"])
 
-    return errors
+    return event_errors
 
 
 def process_csv(filename: str):
@@ -192,6 +178,7 @@ if __name__ == "__main__":
         "published": datetime.now(timezone.utc).isoformat(),
         "events": [],
         "dorms": [],
+        "groups": {},
         "tags": [],
         "colors": config["colors"],
         "start": config["dates"]["start"],
@@ -208,14 +195,29 @@ if __name__ == "__main__":
             api_response["events"].extend(process_csv("events/" + filename))
 
     # Order events by start time, then by end time.
-    api_response["events"].sort(key=lambda e: e["end"])
-    api_response["events"].sort(key=lambda e: e["start"])
+    # api_response["events"].sort(key=lambda e: e["end"])
+    # api_response["events"].sort(key=lambda e: e["start"])
+    api_response["events"].sort(key=itemgetter("start", "end"))
 
     # Add extra data from events and config file
     api_response["dorms"] = sorted(
         list(set(dorm for e in api_response["events"] for dorm in e["dorm"])),
         key=str.lower,
     )
+    for dorm in api_response["dorms"]:
+        groups = sorted(
+            list(
+                set(
+                    e["group"]
+                    for e in api_response["events"]
+                    if dorm in e["dorm"] and e["group"]
+                )
+            ),
+            key=str.lower,
+        )
+        if groups:
+            api_response["groups"][dorm] = groups
+
     api_response["tags"] = sorted(
         list(set(t for e in api_response["events"] for t in e["tags"]))
     )

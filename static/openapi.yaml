@@ -58,6 +58,12 @@ paths:
                     type: array
                     items:
                       type: string
+                  groups:
+                    type: object
+                    additionalProperties:
+                      type: array
+                      items:
+                        type: string
                   tags:
                     type: array
                     items:

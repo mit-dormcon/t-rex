@@ -39,7 +39,6 @@ class ColorsConfig(TypedDict):
 
 class DormsConfig(TypedDict):
     rex_contact: dict[str, str]
-    subdorms: dict[str, str]
 
 
 class Config(TypedDict):
@@ -58,6 +57,7 @@ class APIResponse(TypedDict):
     published: str
     events: list[Event]
     dorms: list[str]
+    groups: dict[str, list[str]]
     tags: list[str]
     colors: ColorsConfig
     start: str
