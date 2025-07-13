@@ -1,4 +1,4 @@
-from typing import Optional, TypedDict
+from typing import NotRequired, TypedDict
 
 
 class Event(TypedDict):
@@ -9,7 +9,7 @@ class Event(TypedDict):
     end: str
     description: str
     tags: list[str]
-    group: Optional[str]
+    group: NotRequired[str]
 
 
 class EventWithEmoji(Event):

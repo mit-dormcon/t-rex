@@ -104,9 +104,7 @@ components:
           items:
             type: string
         group:
-          type:
-            - "string"
-            - "null"
+          type: "string"
       required:
         - name
         - dorm
@@ -115,7 +113,6 @@ components:
         - end
         - description
         - tags
-        - group
 
     ColorConfig:
       type: object

@@ -166,8 +166,8 @@ def process_csv(filename: str):
                     "tags": [
                         tag.strip().lower() for tag in event["Tags"].split(",") if tag
                     ],
-                    "group": event["Group"] or None,
                 }
+                | ({"group": event["Group"]} if event["Group"] else {})  # type: ignore
             )
     return events
 
@@ -219,7 +219,7 @@ if __name__ == "__main__":
                 set(
                     e["group"]
                     for e in api_response["events"]
-                    if dorm in e["dorm"] and e["group"]
+                    if dorm in e["dorm"] and "group" in e
                 )
             ),
             key=str.lower,
