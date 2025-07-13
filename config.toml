@@ -19,9 +19,9 @@ hour_cutoff = 4
 
 # List of dorms with REX chair contact emails, available at https://groups.mit.edu/webmoira/list/dorms-rex
 [dorms.rex_contact]
-"Baker House" = "baker-rush"
+"Baker House" = "baker-rex-chairs"
 "Burton Conner" = "bc-rush"
-"East Campus" = "ec-rush-chairs"
+"East Campus" = "ec-rex-chairs-25"
 "MacGregor House" = "mac-rex-chairs"
 "Maseeh Hall" = "maseeh-rex-chair"
 "McCormick Hall" = "mccormick-rex"
@@ -29,8 +29,8 @@ hour_cutoff = 4
 "New Vassar" = "nv-rex-chair"
 "Next House" = "next-rex-comm"
 "Random Hall" = "random-rush-chair"
-"Simmons Hall" = "simmons-frosh-chair"
-"DormCon" = "dormcon-rex-chairs"
+"Simmons Hall" = "simmons-frosh-chairs"
+"DormCon" = "dormcon-rexvp"
 
 # List of subdorms in each dorm that equals the main dorm (eg. houses in New House), mainly for contacting REX chairs
 [dorms.subdorms]
