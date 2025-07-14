@@ -203,7 +203,8 @@ if __name__ == "__main__":
             "tags": [],
             "colors": {
                 "dorms": {
-                    dorm: dorm_val.color for dorm, dorm_val in config.dorms.items()
+                    (config.dorms[dorm].rename_to or dorm): dorm_val.color
+                    for dorm, dorm_val in config.dorms.items()
                 },
                 "tags": {
                     tag: tag_val.color
