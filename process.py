@@ -9,7 +9,7 @@ from zoneinfo import ZoneInfo
 import yaml
 
 import booklet
-from api_types import APIResponse, Config, Event, get_api_schema
+from api_types import APIResponse, Config, Event, get_api_schema, save_config_schema
 
 eastern_tz = ZoneInfo("America/New_York")
 
@@ -195,6 +195,7 @@ def process_csv(filename: Path) -> list[Event]:
 
 
 if __name__ == "__main__":
+    save_config_schema()
     api_response = APIResponse.model_validate(
         {
             "name": config.name,

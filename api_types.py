@@ -193,7 +193,11 @@ def get_api_schema():
     return construct_open_api_with_schema_class(open_api)
 
 
-if __name__ == "__main__":
-    # output config schema
+def save_config_schema():
     with open("config_schema.json", "w") as f:
         json.dump(Config.model_json_schema(), f, indent=2)
+
+
+if __name__ == "__main__":
+    # output config schema
+    save_config_schema()
