@@ -70,7 +70,7 @@ python -m http.server 8080 --directory output/
 Then, every time you make changes, run
 
 ```shell
-poetry run python process.py
+poetry run python -m process
 ```
 
 and refresh the page to see the new output!

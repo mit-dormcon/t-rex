@@ -7,7 +7,7 @@ import frontmatter
 import jinja2
 import markdown
 
-from api_types import APIResponse, Config, Event, EventWithEmoji
+from .api_types import APIResponse, Config, Event, EventWithEmoji
 
 env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
 eastern = ZoneInfo("America/New_York")
@@ -130,16 +130,19 @@ def generate_booklet(api: APIResponse, config: Config, extra_events: list[Event]
 def generate_index():
     """
     Generates homepage index.html using the Markdown file at index.md,
-    with the template at templates/index.html
+    with the template at templates/template.html
     """
-    page = frontmatter.load("index.md")
+    page = frontmatter.load("templates/index.md")
     content = markdown.markdown(page.content)
 
-    return env.get_template("index.html").render(content=content, **page.metadata)
+    return env.get_template("template.html").render(content=content, **page.metadata)
 
 
 def generate_errors(errors: dict[str, tuple[list[str], list[str]]], name: str):
     """
     Generates the error page using the template at templates/errors.html
     """
-    return env.get_template("errors.html").render(errors=errors, name=name)
+    return env.get_template("template.html").render(
+        title=f"{name} Event Errors",
+        content=env.get_template("errors.html").render(errors=errors),
+    )

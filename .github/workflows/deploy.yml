@@ -25,7 +25,7 @@ jobs:
         # Skips installing dev dependencies
         run: poetry install --only main
       - name: Process Data
-        run: poetry run python ./process.py
+        run: poetry run python -m process
       - name: Upload result
         uses: actions/upload-pages-artifact@v3
         with:

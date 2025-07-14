@@ -8,8 +8,8 @@ from zoneinfo import ZoneInfo
 
 import yaml
 
-import booklet
-from api_types import APIResponse, Config, Event, get_api_schema, save_config_schema
+from .api_types import APIResponse, Config, Event, get_api_schema, save_config_schema
+from .booklet import generate_booklet, generate_errors, generate_index, get_date_bucket
 
 eastern_tz = ZoneInfo("America/New_York")
 
@@ -104,10 +104,7 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
 
         if event_end < event_start:
             event_date = (
-                " on "
-                + booklet.get_date_bucket(event, config.dates.hour_cutoff).strftime(
-                    "%x"
-                )
+                " on " + get_date_bucket(event, config.dates.hour_cutoff).strftime("%x")
                 if event_with_same_name_exists(event, api_response.events)
                 else ""
             )
@@ -124,7 +121,7 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
             if check_if_events_conflict(
                 event_start, event_end, mandatory_event_start, mandatory_event_end
             ):
-                event_date = " on " + booklet.get_date_bucket(
+                event_date = " on " + get_date_bucket(
                     event, config.dates.hour_cutoff
                 ).strftime("%x")
                 create_error_dorm_entry(
@@ -272,14 +269,14 @@ if __name__ == "__main__":
 
     print("Processing complete!")
 
-    print("Generating the booklet...")
-    booklet_html = booklet.generate_booklet(api_response, config, booklet_only_events)
+    print("Generating the ..")
+    booklet_html = generate_booklet(api_response, config, booklet_only_events)
 
     print("Processing index.md...")
-    index_html = booklet.generate_index()
+    index_html = generate_index()
 
     print("Processing errors...")
-    errors_html = booklet.generate_errors(errors, api_response.name)
+    errors_html = generate_errors(errors, api_response.name)
 
     print("Outputting booklet and JSON...")
 
