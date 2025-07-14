@@ -36,7 +36,8 @@ contain the following columns:
 
 ### Tag behavior
 
-- Events tagged with `food` will be printed with a food icon in the booklet
+- Events tagged with a tag will be printed with an icon in the booklet, if the
+  emoji field is present
 - Events tagged with `mandatory` will be printed with a bold outline in the
   booklet
 - Events tagged with `signature` will be printed with a dashed outline to
