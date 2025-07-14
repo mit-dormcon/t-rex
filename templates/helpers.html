@@ -11,7 +11,7 @@
     {% if event.dorm[0] != 'Orientation' %}
       <span class="dorm"
         >@
-        {{ ', '.join(event.dorm) }}{% if event.group %}{{ ": " + event.group }}{% endif %}</span
+        {{ ', '.join(event.dorm) }}{% if event.group %}{{ ": " + ', '.join(event.group) }}{% endif %}</span
       >
     {% endif %}
     {% if event.location %}

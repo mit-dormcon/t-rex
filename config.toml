@@ -1,5 +1,4 @@
 name = "REX 2025"
-rename_dormcon_to = "Campus Wide!"
 
 [orientation]
 mandatory_tag = "mandatory"
@@ -17,52 +16,93 @@ end = "2025-08-27"   # Date of FYRE
 # Events that start before this hour will be considered as starting the day before in the booklet
 hour_cutoff = 4
 
-# List of dorms with REX chair contact emails, available at https://groups.mit.edu/webmoira/list/dorms-rex
-[dorms.rex_contact]
-"Baker House" = "baker-rex-chairs"
-"Burton Conner" = "bc-rush"
-"East Campus" = "ec-rex-chairs-25"
-"MacGregor House" = "mac-rex-chairs"
-"Maseeh Hall" = "maseeh-rex-chair"
-"McCormick Hall" = "mccormick-rex"
-"New House" = "nh-rush"
-"New Vassar" = "nv-rex-chair"
-"Next House" = "next-rex-comm"
-"Random Hall" = "random-rush-chair"
-"Simmons Hall" = "simmons-frosh-chairs"
-"DormCon" = "dormcon-rexvp"
+# TAGS
+# color: Hex color code for the tag, used on the website
+# emoji: Optional emoji to display next to the tag name in the booklet
 
-# Hardcoding a color for each dorm based on the primary color on their website
-[colors.dorms]
-"Baker House" = "#005399"
-"Burton Conner" = "#cc4331"
-"East Campus" = "#aa0000"
-"MacGregor House" = "#ad6f65"
-"Maseeh Hall" = "#1f3a6c"
-"McCormick Hall" = "#293142"
-"New House" = "#e7e9f6"
-"New Vassar" = "#A62B0C"
-"Next House" = "#34495e"
-"Random Hall" = "#cf2661"
-"Simmons Hall" = "#25aae1"
-"DormCon" = "#618ca0"
+[tags.tour]
+color = "#1E90FF"
 
-[colors.tags]
-"tour" = "#1E90FF"
-"signature" = "#FFD700"
-"updated" = "#808080"
-"meal" = "#FF6347"
-"snack" = "#FFB347"
-"party" = "#C71585"
-"social" = "#32CD32"
-"games" = "#20B2AA"
-"art" = "#8A2BE2"
+[tags.signature]
+color = "#FFD700"
 
-# These control which emoji appear for a tag in the booklet
-[tag_emoji]
-"snack" = "🍪"
-"meal" = "🍴"
-"party" = "🎉"
-"social" = "👥"
-"games" = "🎲"
-"art" = "🎨"
+[tags.updated]
+color = "#808080"
+
+[tags.meal]
+color = "#FF6347"
+emoji = "🍴"
+
+[tags.snack]
+color = "#FFB347"
+emoji = "🍪"
+
+[tags.party]
+color = "#C71585"
+emoji = "🎉"
+
+[tags.social]
+color = "#32CD32"
+emoji = "👥"
+
+[tags.games]
+color = "#20B2AA"
+emoji = "🎲"
+
+[tags.art]
+color = "#8A2BE2"
+emoji = "🎨"
+
+# DORMS
+# color: Hardcoding a color for each dorm based on the primary color on their website
+# contact: List of dorms with REX chair contact emails, available at https://groups.mit.edu/webmoira/list/dorms-rex
+# rename_to: If the dorm is renamed, this is the new name to use in the booklet and on the website
+
+[dorms."Baker House"]
+contact = "baker-rex-chairs"
+color = "#005399"
+
+[dorms."Burton Conner"]
+contact = "bc-rush"
+color = "#cc4331"
+
+[dorms."East Campus"]
+contact = "ec-rex-chairs-25"
+color = "#aa0000"
+
+[dorms."MacGregor House"]
+contact = "mac-rex-chairs"
+color = "#ad6f65"
+
+[dorms."Maseeh Hall"]
+contact = "maseeh-rex-chair"
+color = "#1f3a6c"
+
+[dorms."McCormick Hall"]
+contact = "mccormick-rex"
+color = "#293142"
+
+[dorms."New House"]
+contact = "nh-rush"
+color = "#e7e9f6"
+
+[dorms."New Vassar"]
+contact = "nv-rex-chair"
+color = "#A62B0C"
+
+[dorms."Next House"]
+contact = "next-rex-comm"
+color = "#34495e"
+
+[dorms."Random Hall"]
+contact = "random-rush-chair"
+color = "#cf2661"
+
+[dorms."Simmons Hall"]
+contact = "simmons-frosh-chairs"
+color = "#25aae1"
+
+[dorms."DormCon"]
+contact = "dormcon-rexvp"
+color = "#618ca0"
+rename_to = "Campus Wide!"

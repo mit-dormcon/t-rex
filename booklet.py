@@ -1,5 +1,5 @@
 from datetime import date, datetime, timedelta
-from typing import cast
+from typing import Optional, cast
 from zoneinfo import ZoneInfo
 
 import frontmatter
@@ -12,13 +12,18 @@ env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
 eastern = ZoneInfo("America/New_York")
 
 
-def event_dt_format(start_string: str, end_string: str, group=""):
+def event_dt_format(
+    start_string: str, end_string: str, groups: Optional[list[str]] = None
+):
     """
     Formats the time string that gets displayed on the booklet
     """
     start = datetime.fromisoformat(start_string)
     end = datetime.fromisoformat(end_string)
     out = start.strftime("%a")
+
+    if groups is None:
+        groups = []
 
     time_strings: list[str] = []
     for dt in (start, end):
@@ -29,7 +34,16 @@ def event_dt_format(start_string: str, end_string: str, group=""):
         else:
             if dt.minute == 0:
                 time_strings.append(dt.strftime("%I %p").lstrip("0"))
-            elif dt.minute % 10 == 3 and group.lower() in ["b3rd", "burton third"]:
+            elif dt.minute % 10 == 3 and bool(
+                # If the group is B3rd or Burton Third, use "rd" for the time
+                set(group.lower() for group in groups)
+                & set(
+                    [
+                        "b3rd",
+                        "burton third",
+                    ]
+                )
+            ):
                 time_strings.append(
                     f"{dt.strftime('%I:%M').lstrip('0')}rd {dt.strftime('%p')}"
                 )
@@ -79,9 +93,9 @@ def generate_booklet(api: APIResponse, config: Config, extra_events: list[Event]
             dict(
                 event,
                 emoji=[
-                    config["tag_emoji"][tag]
+                    config["tags"][tag]["emoji"]  # type: ignore
                     for tag in event["tags"]
-                    if tag in config["tag_emoji"]
+                    if tag in config["tags"] and "emoji" in config["tags"][tag]
                 ],
             ),
         )
@@ -115,9 +129,13 @@ def generate_booklet(api: APIResponse, config: Config, extra_events: list[Event]
         dates=dates,
         start=start_date,
         end=end_date,
-        emoji=config["tag_emoji"],
+        emoji=[
+            config["tags"][tag]["emoji"]  # type: ignore
+            for tag in api["tags"]
+            if tag in config["tags"] and "emoji" in config["tags"][tag]
+        ],
         published=published_string,
-        cover_dorms=[d for d in api["dorms"] if d != config["rename_dormcon_to"]],
+        cover_dorms=[d for d in api["dorms"] if d in config["dorms"].keys()],
     )
 
 

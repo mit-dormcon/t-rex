@@ -16,6 +16,13 @@ with open("config.toml", "rb") as c:
     config: Config = tomllib.load(c)  # type: ignore
 
 
+def get_main_dorm(dorm: str) -> str:
+    if dorm in config["dorms"]:
+        return config["dorms"][dorm].get("rename_to", dorm)
+
+    return dorm
+
+
 def process_dt_from_csv(time_string: str) -> str:
     """
     Uses the config setting `date_format` to convert a time string into ISO format
@@ -61,7 +68,7 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
     Formatted as a dict, with dorms as the key and a tuple of the contact emails and list of events as the value.
     """
 
-    event_errors: dict[str, tuple[list[str], list[str]]] = {}
+    errors: dict[str, tuple[list[str], list[str]]] = dict()
 
     # Check for conflicts with mandatory events and invalid events
     all_events = orientation_events + api_response["events"]
@@ -73,22 +80,28 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
     )
 
     def create_error_dorm_entry(dorms: list[str], error_string: str) -> None:
-        dorms_list = dorms.copy()
+        dorms_list = [get_main_dorm(dorm) for dorm in dorms]
         error_key = get_dorm_group(dorms_list)
 
-        if event_errors.get(error_key) is None:
-            event_errors[error_key] = (
-                [
-                    config["dorms"]["rex_contact"][
-                        dorm if dorm != config["rename_dormcon_to"] else "DormCon"
-                    ]
-                    + "@mit.edu"
-                    for dorm in dorms_list
-                ],
+        if errors.get(error_key) is None:
+            contact_emails = []
+
+            for dorm in dorms_list:
+                if dorm in config["dorms"]:
+                    contact_emails.append(config["dorms"][dorm]["contact"] + "@mit.edu")
+                else:
+                    # If the dorm is not in the config, find if it was renamed
+                    for dorm_name, dorm_config in config["dorms"].items():
+                        if dorm == dorm_config.get("rename_to", dorm_name):
+                            contact_emails.append(dorm_config["contact"] + "@mit.edu")
+                            break
+
+            errors[error_key] = (
+                contact_emails,
                 [],
             )
 
-        event_errors[error_key][1].append(error_string)
+        errors[error_key][1].append(error_string)
 
     for event in api_response["events"]:
         event_start = datetime.fromisoformat(event["start"])
@@ -125,10 +138,15 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
                 )
                 continue
 
-    if event_errors.get(config["rename_dormcon_to"]) is not None:
-        event_errors["DormCon"] = event_errors.pop(config["rename_dormcon_to"])
+    for dorm in config["dorms"]:
+        dorm_config = config["dorms"][dorm]
+        if "rename_to" in dorm_config:
+            # If the dorm has a rename_to, check if it exists in the errors dict
+            if errors.get(dorm_config["rename_to"]) is not None:
+                # If it does, move the errors to the renamed dorm
+                errors[dorm] = errors.pop(dorm_config["rename_to"])
 
-    return event_errors
+    return errors
 
 
 def process_csv(filename: str):
@@ -153,8 +171,10 @@ def process_csv(filename: str):
                     "dorm": [
                         (
                             dorm.strip()
-                            if dorm.strip().lower() != "dormcon"
-                            else config["rename_dormcon_to"].strip()
+                            if config["dorms"].get(dorm.strip()) is None
+                            else config["dorms"][dorm.strip()].get(
+                                "rename_to", dorm.strip()
+                            )
                         )
                         for dorm in event["Dorm"].split(",")
                         if dorm
@@ -167,7 +187,11 @@ def process_csv(filename: str):
                         tag.strip().lower() for tag in event["Tags"].split(",") if tag
                     ],
                 }
-                | ({"group": event["Group"]} if event["Group"] else {})  # type: ignore
+                | (
+                    ({"group": [group.strip() for group in event["Group"].split(",")]})  # type: ignore
+                    if event["Group"]
+                    else {}
+                )
             )
     return events
 
@@ -180,7 +204,16 @@ if __name__ == "__main__":
         "dorms": [],
         "groups": {},
         "tags": [],
-        "colors": config["colors"],
+        "colors": {
+            "dorms": {
+                dorm: dorm_val["color"] for dorm, dorm_val in config["dorms"].items()
+            },
+            "tags": {
+                tag: tag_val["color"]
+                for tag, tag_val in config["tags"].items()
+                if "color" in tag_val
+            },
+        },
         "start": config["dates"]["start"],
         "end": config["dates"]["end"],
     }
@@ -204,22 +237,21 @@ if __name__ == "__main__":
         list(set(dorm for e in api_response["events"] for dorm in e["dorm"])),
         key=str.lower,
     )
-    # Move the renamed DormCon to the front of the list
-    if config["rename_dormcon_to"] in api_response["dorms"]:
-        api_response["dorms"].insert(
-            0,
-            api_response["dorms"].pop(
-                api_response["dorms"].index(config["rename_dormcon_to"].strip())
-            ),
-        )
+    for dorm in config["dorms"]:
+        rename_to = config["dorms"].get(dorm, {}).get("rename_to")
+        if rename_to in api_response["dorms"]:
+            # If the dorm has a rename_to, put that at the front of the list
+            api_response["dorms"].remove(rename_to)
+            api_response["dorms"].insert(0, rename_to)
 
     for dorm in api_response["dorms"]:
         groups = sorted(
             list(
                 set(
-                    e["group"]
+                    group.strip()
                     for e in api_response["events"]
                     if dorm in e["dorm"] and "group" in e
+                    for group in e["group"]
                 )
             ),
             key=str.lower,

@@ -104,7 +104,9 @@ components:
           items:
             type: string
         group:
-          type: "string"
+          type: array
+          items:
+            type: string
       required:
         - name
         - dorm

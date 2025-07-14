@@ -9,7 +9,7 @@ class Event(TypedDict):
     end: str
     description: str
     tags: list[str]
-    group: NotRequired[str]
+    group: NotRequired[list[str]]
 
 
 class EventWithEmoji(Event):
@@ -32,24 +32,29 @@ class DatesConfig(TypedDict):
     hour_cutoff: int
 
 
-class ColorsConfig(TypedDict):
+class ColorsAPIResponse(TypedDict):
     dorms: dict[str, str]
     tags: dict[str, str]
 
 
 class DormsConfig(TypedDict):
-    rex_contact: dict[str, str]
+    contact: str
+    color: str
+    rename_to: NotRequired[str]
+
+
+class TagsConfig(TypedDict):
+    color: str
+    emoji: NotRequired[str]
 
 
 class Config(TypedDict):
     name: str
-    rename_dormcon_to: str
     orientation: OrientationConfig
     csv: CSVConfig
     dates: DatesConfig
-    dorms: DormsConfig
-    colors: ColorsConfig
-    tag_emoji: dict[str, str]
+    dorms: dict[str, DormsConfig]
+    tags: dict[str, TagsConfig]
 
 
 class APIResponse(TypedDict):
@@ -59,6 +64,6 @@ class APIResponse(TypedDict):
     dorms: list[str]
     groups: dict[str, list[str]]
     tags: list[str]
-    colors: ColorsConfig
+    colors: ColorsAPIResponse
     start: str
     end: str
