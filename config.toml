@@ -1,3 +1,4 @@
+#:schema ./config_schema.json
 name = "REX 2025"
 
 [orientation]
@@ -6,19 +7,14 @@ filename = "orientation.csv"
 include_in_booklet = true
 
 [csv]
-# String format used for parsing dates in the CSV, see strftime.net
 date_format = "%m/%d/%Y %H:%M"
 
-# Start and end dates of REX, in YYYY-MM-DD
 [dates]
-start = "2025-08-23" # Saturday after FPOPs end
-end = "2025-08-27"   # Date of FYRE
-# Events that start before this hour will be considered as starting the day before in the booklet
+start = "2025-08-23"
+end = "2025-08-27"
 hour_cutoff = 4
 
 # TAGS
-# color: Hex color code for the tag, used on the website
-# emoji: Optional emoji to display next to the tag name in the booklet
 
 [tags.tour]
 color = "#1E90FF"
@@ -54,9 +50,6 @@ color = "#8A2BE2"
 emoji = "🎨"
 
 # DORMS
-# color: Hardcoding a color for each dorm based on the primary color on their website
-# contact: List of dorms with REX chair contact emails, available at https://groups.mit.edu/webmoira/list/dorms-rex
-# rename_to: If the dorm is renamed, this is the new name to use in the booklet and on the website
 
 [dorms."Baker House"]
 contact = "baker-rex-chairs"

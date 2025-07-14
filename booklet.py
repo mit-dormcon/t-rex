@@ -1,5 +1,6 @@
 from datetime import date, datetime, timedelta
-from typing import Optional, cast
+from operator import attrgetter
+from typing import Optional
 from zoneinfo import ZoneInfo
 
 import frontmatter
@@ -12,14 +13,10 @@ env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
 eastern = ZoneInfo("America/New_York")
 
 
-def event_dt_format(
-    start_string: str, end_string: str, groups: Optional[list[str]] = None
-):
+def event_dt_format(start: datetime, end: datetime, groups: Optional[list[str]] = None):
     """
     Formats the time string that gets displayed on the booklet
     """
-    start = datetime.fromisoformat(start_string)
-    end = datetime.fromisoformat(end_string)
     out = start.strftime("%a")
 
     if groups is None:
@@ -62,7 +59,7 @@ def get_date_bucket(event: Event, cutoff: int):
     Returns the date that an event "occurs" on. This method treats all events starting
     before hour_cutoff as occurring on the date before.
     """
-    dt = datetime.fromisoformat(event["start"])
+    dt = event.start
     if dt.hour < cutoff:
         return dt.date() - timedelta(days=1)
     return dt.date()
@@ -70,14 +67,12 @@ def get_date_bucket(event: Event, cutoff: int):
 
 def generate_booklet(api: APIResponse, config: Config, extra_events: list[Event]):
     # Bucket events into dates
-    start_date = date.fromisoformat(api["start"])
-    end_date = date.fromisoformat(api["end"])
+    start_date = api.start
+    end_date = api.end
 
-    all_events = [e.copy() for e in api["events"] + extra_events]
+    all_events = [e.copy() for e in api.events + extra_events]
 
-    all_dates = set(
-        get_date_bucket(e, config["dates"]["hour_cutoff"]) for e in all_events
-    )
+    all_dates = set(get_date_bucket(e, config.dates.hour_cutoff) for e in all_events)
     dates = {
         "before": sorted(list(filter(lambda d: d < start_date, all_dates))),
         "rex": sorted(list(filter(lambda d: start_date <= d <= end_date, all_dates))),
@@ -88,38 +83,31 @@ def generate_booklet(api: APIResponse, config: Config, extra_events: list[Event]
     # Sort events into date buckets, separating out tours
     by_dates: dict[date, list[Event]] = {d: [] for d in all_dates}
     for event in all_events:
-        event = cast(
-            EventWithEmoji,
+        event = EventWithEmoji.model_validate(
             dict(
-                event,
+                event.model_dump(),
                 emoji=[
-                    config["tags"][tag]["emoji"]  # type: ignore
-                    for tag in event["tags"]
-                    if tag in config["tags"] and "emoji" in config["tags"][tag]
+                    config.tags[tag].emoji
+                    for tag in event.tags
+                    if tag in config.tags and config.tags[tag].emoji
                 ],
-            ),
+            )
         )
 
         # Tours are separated and put at the front of the booklet
-        if "tour" in event["tags"]:
+        if "tour" in event.tags:
             tours.append(event)
         else:
-            by_dates[get_date_bucket(event, config["dates"]["hour_cutoff"])].append(
-                event
-            )
+            by_dates[get_date_bucket(event, config.dates.hour_cutoff)].append(event)
 
     # Order inside buckets by start, then end.
     for by_date in by_dates:
-        by_dates[by_date].sort(key=lambda e: datetime.fromisoformat(e["end"]))
-        by_dates[by_date].sort(key=lambda e: datetime.fromisoformat(e["start"]))
+        by_dates[by_date].sort(key=attrgetter("start", "end"))
 
-    tours.sort(key=lambda e: datetime.fromisoformat(e["end"]))
-    tours.sort(key=lambda e: datetime.fromisoformat(e["start"]))
+    tours.sort(key=attrgetter("start", "end"))
 
-    published_string = (
-        datetime.fromisoformat(api["published"])
-        .astimezone(eastern)
-        .strftime("%B %d, %Y at %I:%M %p")
+    published_string = api.published.astimezone(eastern).strftime(
+        "%B %d, %Y at %I:%M %p"
     )
 
     return env.get_template("guide.html").render(
@@ -130,12 +118,12 @@ def generate_booklet(api: APIResponse, config: Config, extra_events: list[Event]
         start=start_date,
         end=end_date,
         emoji=[
-            config["tags"][tag]["emoji"]  # type: ignore
-            for tag in api["tags"]
-            if tag in config["tags"] and "emoji" in config["tags"][tag]
+            config.tags[tag].emoji
+            for tag in api.tags
+            if tag in config.tags and config.tags[tag].emoji
         ],
         published=published_string,
-        cover_dorms=[d for d in api["dorms"] if d in config["dorms"].keys()],
+        cover_dorms=[d for d in api.dorms if d in config.dorms.keys()],
     )
 
 

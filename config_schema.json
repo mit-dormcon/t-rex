@@ -1,0 +1,171 @@
+{
+  "$defs": {
+    "CSVConfig": {
+      "properties": {
+        "date_format": {
+          "description": "String format used for parsing dates in the CSV, see strftime.net",
+          "title": "Date Format",
+          "type": "string"
+        }
+      },
+      "required": [
+        "date_format"
+      ],
+      "title": "CSVConfig",
+      "type": "object"
+    },
+    "DatesConfig": {
+      "description": "Start and end dates of REX, in YYYY-MM-DD",
+      "properties": {
+        "start": {
+          "description": "Saturday after FPOPs end",
+          "format": "date",
+          "title": "Start",
+          "type": "string"
+        },
+        "end": {
+          "description": "Date of FYRE",
+          "format": "date",
+          "title": "End",
+          "type": "string"
+        },
+        "hour_cutoff": {
+          "description": "Events that start before this hour will be considered as starting the day before in the booklet",
+          "title": "Hour Cutoff",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "start",
+        "end",
+        "hour_cutoff"
+      ],
+      "title": "DatesConfig",
+      "type": "object"
+    },
+    "DormsConfig": {
+      "properties": {
+        "contact": {
+          "description": "REX chair contact emails, available at https://groups.mit.edu/webmoira/list/dorms-rex",
+          "title": "Contact",
+          "type": "string"
+        },
+        "color": {
+          "description": "Hardcoding a color for each dorm based on the primary color on their website",
+          "format": "color",
+          "title": "Color",
+          "type": "string"
+        },
+        "rename_to": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "If the dorm is renamed, this is the new name to use in the booklet and on the website",
+          "title": "Rename To"
+        }
+      },
+      "required": [
+        "contact",
+        "color"
+      ],
+      "title": "DormsConfig",
+      "type": "object"
+    },
+    "OrientationConfig": {
+      "properties": {
+        "filename": {
+          "title": "Filename",
+          "type": "string"
+        },
+        "mandatory_tag": {
+          "title": "Mandatory Tag",
+          "type": "string"
+        },
+        "include_in_booklet": {
+          "title": "Include In Booklet",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "filename",
+        "mandatory_tag",
+        "include_in_booklet"
+      ],
+      "title": "OrientationConfig",
+      "type": "object"
+    },
+    "TagsConfig": {
+      "properties": {
+        "color": {
+          "description": "Hex color code for the tag, used on the website",
+          "format": "color",
+          "title": "Color",
+          "type": "string"
+        },
+        "emoji": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional emoji to display next to the tag name in the booklet",
+          "title": "Emoji"
+        }
+      },
+      "required": [
+        "color"
+      ],
+      "title": "TagsConfig",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "orientation": {
+      "$ref": "#/$defs/OrientationConfig"
+    },
+    "csv": {
+      "$ref": "#/$defs/CSVConfig"
+    },
+    "dates": {
+      "$ref": "#/$defs/DatesConfig"
+    },
+    "dorms": {
+      "additionalProperties": {
+        "$ref": "#/$defs/DormsConfig"
+      },
+      "title": "Dorms",
+      "type": "object"
+    },
+    "tags": {
+      "additionalProperties": {
+        "$ref": "#/$defs/TagsConfig"
+      },
+      "title": "Tags",
+      "type": "object"
+    }
+  },
+  "required": [
+    "name",
+    "orientation",
+    "csv",
+    "dates",
+    "dorms",
+    "tags"
+  ],
+  "title": "Config",
+  "type": "object"
+}
