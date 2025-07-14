@@ -3,7 +3,7 @@ name = "REX 2025"
 
 [orientation]
 mandatory_tag = "mandatory"
-filename = "orientation.csv"
+file_name = "orientation.csv"
 include_in_booklet = true
 
 [csv]
@@ -52,50 +52,50 @@ emoji = "🎨"
 # DORMS
 
 [dorms."Baker House"]
-contact = "baker-rex-chairs"
+contact = "baker-rex-chairs@mit.edu"
 color = "#005399"
 
 [dorms."Burton Conner"]
-contact = "bc-rush"
+contact = "bc-rush@mit.edu"
 color = "#cc4331"
 
 [dorms."East Campus"]
-contact = "ec-rex-chairs-25"
+contact = "ec-rex-chairs-25@mit.edu"
 color = "#aa0000"
 
 [dorms."MacGregor House"]
-contact = "mac-rex-chairs"
+contact = "mac-rex-chairs@mit.edu"
 color = "#ad6f65"
 
 [dorms."Maseeh Hall"]
-contact = "maseeh-rex-chair"
+contact = "maseeh-rex-chair@mit.edu"
 color = "#1f3a6c"
 
 [dorms."McCormick Hall"]
-contact = "mccormick-rex"
+contact = "mccormick-rex@mit.edu"
 color = "#293142"
 
 [dorms."New House"]
-contact = "nh-rush"
+contact = "nh-rush@mit.edu"
 color = "#e7e9f6"
 
 [dorms."New Vassar"]
-contact = "nv-rex-chair"
+contact = "nv-rex-chair@mit.edu"
 color = "#A62B0C"
 
 [dorms."Next House"]
-contact = "next-rex-comm"
+contact = "next-rex-comm@mit.edu"
 color = "#34495e"
 
 [dorms."Random Hall"]
-contact = "random-rush-chair"
+contact = "random-rush-chair@mit.edu"
 color = "#cf2661"
 
 [dorms."Simmons Hall"]
-contact = "simmons-frosh-chairs"
+contact = "simmons-frosh-chairs@mit.edu"
 color = "#25aae1"
 
 [dorms."DormCon"]
-contact = "dormcon-rexvp"
+contact = "dormcon-rexvp@mit.edu"
 color = "#618ca0"
 rename_to = "Campus Wide!"

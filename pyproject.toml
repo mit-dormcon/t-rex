@@ -21,6 +21,7 @@ tzdata = "^2025.2"
 pydantic = "^2.11.7"
 pydantic-extra-types = "^2.10.5"
 openapi-pydantic = "^0.5.1"
+email-validator = "^2.1.2"
 
 
 [tool.poetry.group.dev.dependencies]

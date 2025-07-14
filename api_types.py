@@ -4,8 +4,9 @@ from typing import Optional
 
 from openapi_pydantic import OpenAPI
 from openapi_pydantic.util import PydanticSchema, construct_open_api_with_schema_class
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, EmailStr, Field, FilePath, field_validator
 from pydantic_extra_types.color import Color
+from typing_extensions import Annotated
 
 
 class Event(BaseModel):
@@ -16,7 +17,7 @@ class Event(BaseModel):
     end: datetime
     description: str
     tags: list[str]
-    group: Optional[list[str]] = None
+    group: Annotated[Optional[list[str]], Field(default=None)]
 
 
 class EventWithEmoji(Event):
@@ -24,15 +25,38 @@ class EventWithEmoji(Event):
 
 
 class OrientationConfig(BaseModel):
-    filename: str
+    file_name: Annotated[
+        Optional[FilePath],
+        Field(
+            default=None,
+            description="CSV file containing orientation events. Assumed to be in events folder.",
+        ),
+    ]
     mandatory_tag: str
     include_in_booklet: bool
 
+    @field_validator("file_name", mode="before")
+    @classmethod
+    def validate_file_name(cls, v: Optional[str]):
+        return "events/" + v if v and not v.startswith("events/") else v
+
 
 class CSVConfig(BaseModel):
-    date_format: str = Field(
-        description="String format used for parsing dates in the CSV, see strftime.net"
-    )
+    date_format: Annotated[
+        str,
+        Field(
+            description="String format used for parsing dates in the CSV, see strftime.net"
+        ),
+    ]
+
+    @field_validator("date_format", mode="after")
+    @classmethod
+    def validate_date_format(cls, v: str):
+        try:
+            datetime.today().strftime(v)
+        except ValueError as e:
+            raise ValueError(f"Invalid datetime formatter: {v}. Error: {e}")
+        return v
 
 
 class DatesConfig(BaseModel):
@@ -40,11 +64,16 @@ class DatesConfig(BaseModel):
     Start and end dates of REX, in YYYY-MM-DD
     """
 
-    start: date = Field(description="Saturday after FPOPs end")
-    end: date = Field(description="Date of FYRE")
-    hour_cutoff: int = Field(
-        description="Events that start before this hour will be considered as starting the day before in the booklet"
-    )
+    start: Annotated[date, Field(description="Saturday after FPOPs end")]
+    end: Annotated[date, Field(description="Date of FYRE")]
+    hour_cutoff: Annotated[
+        int,
+        Field(
+            description="Events that start before this hour will be considered as starting the day before in the booklet",
+            ge="0",
+            lt="24",
+        ),
+    ]
 
 
 class ColorsAPIResponse(BaseModel):
@@ -53,24 +82,38 @@ class ColorsAPIResponse(BaseModel):
 
 
 class DormsConfig(BaseModel):
-    contact: str = Field(
-        description="REX chair contact emails, available at https://groups.mit.edu/webmoira/list/dorms-rex"
-    )
-    color: Color = Field(
-        description="Hardcoding a color for each dorm based on the primary color on their website"
-    )
-    rename_to: Optional[str] = Field(
-        default=None,
-        description="If the dorm is renamed, this is the new name to use in the booklet and on the website",
-    )
+    contact: Annotated[
+        EmailStr,
+        Field(
+            description="REX chair contact emails, available at https://groups.mit.edu/webmoira/list/dorms-rex"
+        ),
+    ]
+    color: Annotated[
+        Color,
+        Field(
+            description="Hardcoding a color for each dorm based on the primary color on their website"
+        ),
+    ]
+    rename_to: Annotated[
+        Optional[str],
+        Field(
+            default=None,
+            description="If the dorm is renamed, this is the new name to use in the booklet and on the website",
+        ),
+    ]
 
 
 class TagsConfig(BaseModel):
-    color: Color = Field(description="Hex color code for the tag, used on the website")
-    emoji: Optional[str] = Field(
-        default=None,
-        description="Optional emoji to display next to the tag name in the booklet",
-    )
+    color: Annotated[
+        Color, Field(description="Hex color code for the tag, used on the website")
+    ]
+    emoji: Annotated[
+        Optional[str],
+        Field(
+            default=None,
+            description="Optional emoji to display next to the tag name in the booklet",
+        ),
+    ]
 
 
 class Config(BaseModel):
@@ -92,8 +135,6 @@ class APIResponse(BaseModel):
     colors: ColorsAPIResponse
     start: date
     end: date
-
-    model_config = ConfigDict()
 
 
 def get_api_schema():

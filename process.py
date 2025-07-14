@@ -1,9 +1,9 @@
 import csv
-import os
 import shutil
 import tomllib
 from datetime import datetime, timezone
 from operator import attrgetter
+from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import yaml
@@ -83,12 +83,12 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
 
             for dorm in dorms_list:
                 if dorm in config.dorms:
-                    contact_emails.append(config.dorms[dorm].contact + "@mit.edu")
+                    contact_emails.append(config.dorms[dorm].contact)
                 else:
                     # If the dorm is not in the config, find if it was renamed
                     for dorm_name, dorm_config in config.dorms.items():
                         if dorm == dorm_config.rename_to or dorm_name == dorm:
-                            contact_emails.append(dorm_config.contact + "@mit.edu")
+                            contact_emails.append(dorm_config.contact)
                             break
 
             errors[error_key] = (
@@ -144,7 +144,7 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
     return errors
 
 
-def process_csv(filename: str):
+def process_csv(filename: Path) -> list[Event]:
     events: list[Event] = []
     # NOTE: If you saved this with Excel as a CSV file with UTF-8 encoding, you might
     # need to open it with encoding="utf-8-sig" instead of "utf-8".
@@ -218,14 +218,14 @@ if __name__ == "__main__":
         }
     )
     orientation_events: list[Event] = []
-    for filename in os.listdir("events"):
-        if not filename.endswith(".csv"):
+    for filename in Path.iterdir(Path("events")):
+        if not filename.name.endswith(".csv"):
             continue
         print(f"Processing {filename}...")
-        if filename == config.orientation.filename:
-            orientation_events = process_csv("events/" + filename)
+        if filename == config.orientation.file_name:
+            orientation_events = process_csv(filename)
         else:
-            api_response.events.extend(process_csv("events/" + filename))
+            api_response.events.extend(process_csv(filename))
 
     # Order events by start time, then by end time.
     # api_response.events.sort(key=lambda e: e["end"])
@@ -282,19 +282,20 @@ if __name__ == "__main__":
 
     print("Outputting booklet and JSON...")
 
-    if os.path.exists("output"):
-        shutil.rmtree("output")
-    os.mkdir("output")
-    shutil.copytree("static", "output", dirs_exist_ok=True)
-    with open("output/api.json", "w", encoding="utf-8") as w:
+    output_dir = Path("output")
+    if output_dir.exists():
+        shutil.rmtree(output_dir)
+    output_dir.mkdir(exist_ok=True)
+    shutil.copytree("static", output_dir, dirs_exist_ok=True)
+    with open(output_dir / "api.json", "w", encoding="utf-8") as w:
         w.write(api_response.model_dump_json())
-    with open("output/booklet.html", "w", encoding="utf-8") as b:
+    with open(output_dir / "booklet.html", "w", encoding="utf-8") as b:
         b.write(booklet_html)
-    with open("output/index.html", "w", encoding="utf-8") as i:
+    with open(output_dir / "index.html", "w", encoding="utf-8") as i:
         i.write(index_html)
-    with open("output/errors.html", "w", encoding="utf-8") as e:
+    with open(output_dir / "errors.html", "w", encoding="utf-8") as e:
         e.write(errors_html)
-    with open("output/openapi.yaml", "w", encoding="utf-8") as o:
+    with open(output_dir / "openapi.yaml", "w", encoding="utf-8") as o:
         yaml.dump(
             get_api_schema().model_dump(mode="json", by_alias=True, exclude_none=True),
             o,

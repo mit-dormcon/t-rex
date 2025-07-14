@@ -31,6 +31,8 @@
         },
         "hour_cutoff": {
           "description": "Events that start before this hour will be considered as starting the day before in the booklet",
+          "exclusiveMaximum": "24",
+          "minimum": "0",
           "title": "Hour Cutoff",
           "type": "integer"
         }
@@ -47,6 +49,7 @@
       "properties": {
         "contact": {
           "description": "REX chair contact emails, available at https://groups.mit.edu/webmoira/list/dorms-rex",
+          "format": "email",
           "title": "Contact",
           "type": "string"
         },
@@ -79,9 +82,19 @@
     },
     "OrientationConfig": {
       "properties": {
-        "filename": {
-          "title": "Filename",
-          "type": "string"
+        "file_name": {
+          "anyOf": [
+            {
+              "format": "file-path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "CSV file containing orientation events. Assumed to be in events folder.",
+          "title": "File Name"
         },
         "mandatory_tag": {
           "title": "Mandatory Tag",
@@ -93,7 +106,6 @@
         }
       },
       "required": [
-        "filename",
         "mandatory_tag",
         "include_in_booklet"
       ],
