@@ -5,6 +5,7 @@ from typing import Optional
 from openapi_pydantic import OpenAPI
 from openapi_pydantic.util import PydanticSchema, construct_open_api_with_schema_class
 from pydantic import (
+    AwareDatetime,
     BaseModel,
     EmailStr,
     Field,
@@ -139,7 +140,7 @@ class Config(BaseModel):
 
 class APIResponse(BaseModel):
     name: str
-    published: datetime
+    published: AwareDatetime
     events: list[Event]
     dorms: list[str]
     groups: dict[str, list[str]]

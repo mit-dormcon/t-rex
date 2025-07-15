@@ -1,20 +1,27 @@
 import csv
 import shutil
-import tomllib
 from datetime import datetime, timezone
 from operator import attrgetter
 from pathlib import Path
-from zoneinfo import ZoneInfo
 
 import yaml
 
-from .api_types import APIResponse, Config, Event, get_api_schema, save_config_schema
+from .api_types import (
+    APIResponse,
+    ColorsAPIResponse,
+    Event,
+    get_api_schema,
+)
 from .booklet import generate_booklet, generate_errors, generate_index, get_date_bucket
+from .helpers import (
+    check_if_events_conflict,
+    event_with_same_name_exists,
+    get_dorm_group,
+    load_config,
+    process_dt_from_csv,
+)
 
-eastern_tz = ZoneInfo("America/New_York")
-
-with open("config.toml", "rb") as c:
-    config = Config.model_validate(tomllib.load(c))
+config = load_config()
 
 
 def get_main_dorm(dorm: str) -> str:
@@ -22,40 +29,6 @@ def get_main_dorm(dorm: str) -> str:
         return config.dorms[dorm].rename_to or dorm
 
     return dorm
-
-
-def process_dt_from_csv(time_string: str) -> datetime:
-    """
-    Uses the config setting `date_format` to convert a time string into ISO format
-    """
-    return datetime.strptime(time_string, config.csv.date_format).replace(
-        tzinfo=eastern_tz
-    )
-
-
-def get_dorm_group(dorms: list[str]) -> str:
-    return ", ".join(dorms)
-
-
-def event_with_same_name_exists(event: Event, events: list[Event]) -> bool:
-    for e in events:
-        if e.name == event.name and e.start != event.start and e.end != event.end:
-            return True
-    return False
-
-
-def check_if_events_conflict(
-    event_one_start: datetime,
-    event_one_end: datetime,
-    event_two_start: datetime,
-    event_two_end: datetime,
-) -> bool:
-    return (
-        (event_two_start <= event_one_start < event_two_end)
-        or (event_two_start < event_one_end <= event_two_end)
-        or (event_one_start <= event_two_start < event_one_end)
-        or (event_one_start < event_two_end <= event_one_end)
-    )
 
 
 def get_invalid_events(orientation_events: list[Event], api_response: APIResponse):
@@ -158,65 +131,62 @@ def process_csv(filename: Path) -> list[Event]:
             if event["Published"] != "TRUE":
                 continue
             events.append(
-                Event.model_validate(
-                    {
-                        "name": event["Event Name"],
-                        "dorm": [
-                            (
-                                dorm.strip()
-                                if config.dorms.get(dorm.strip()) is None
-                                else config.dorms[dorm.strip()].rename_to
-                                or dorm.strip()
-                            )
-                            for dorm in event["Dorm"].split(",")
-                            if dorm
-                        ],
-                        "location": event["Event Location"],
-                        "start": process_dt_from_csv(event["Start Date and Time"]),
-                        "end": process_dt_from_csv(event["End Date and Time"]),
-                        "description": event["Event Description"],
-                        "tags": [
-                            tag.strip().lower()
-                            for tag in event["Tags"].split(",")
-                            if tag
-                        ],
-                        "group": (
-                            [group.strip() for group in event["Group"].split(",")]
-                            if event["Group"]
-                            else None
-                        ),
-                        "id": event["ID"],
-                    }
+                Event(
+                    name=event["Event Name"],
+                    dorm=[
+                        (
+                            dorm.strip()
+                            if config.dorms.get(dorm.strip()) is None
+                            else config.dorms[dorm.strip()].rename_to or dorm.strip()
+                        )
+                        for dorm in event["Dorm"].split(",")
+                        if dorm
+                    ],
+                    location=event["Event Location"],
+                    start=process_dt_from_csv(
+                        event["Start Date and Time"], config.csv.date_format
+                    ),
+                    end=process_dt_from_csv(
+                        event["End Date and Time"], config.csv.date_format
+                    ),
+                    description=event["Event Description"],
+                    tags=[
+                        tag.strip().lower() for tag in event["Tags"].split(",") if tag
+                    ],
+                    group=(
+                        [group.strip() for group in event["Group"].split(",")]
+                        if event["Group"]
+                        else None
+                    ),
+                    id=event["ID"],
                 )
             )
     return events
 
 
 if __name__ == "__main__":
-    save_config_schema()
-    api_response = APIResponse.model_validate(
-        {
-            "name": config.name,
-            "published": datetime.now(timezone.utc),
-            "events": [],
-            "dorms": [],
-            "groups": {},
-            "tags": [],
-            "colors": {
-                "dorms": {
-                    (config.dorms[dorm].rename_to or dorm): dorm_val.color
-                    for dorm, dorm_val in config.dorms.items()
-                },
-                "tags": {
-                    tag: tag_val.color
-                    for tag, tag_val in config.tags.items()
-                    if tag_val.color
-                },
+    api_response = APIResponse(
+        name=config.name,
+        published=datetime.now(timezone.utc),
+        events=[],
+        dorms=[],
+        groups={},
+        tags=[],
+        colors=ColorsAPIResponse(
+            dorms={
+                (config.dorms[dorm].rename_to or dorm): dorm_val.color
+                for dorm, dorm_val in config.dorms.items()
             },
-            "start": config.dates.start,
-            "end": config.dates.end,
-        }
+            tags={
+                tag: tag_val.color
+                for tag, tag_val in config.tags.items()
+                if tag_val.color
+            },
+        ),
+        start=config.dates.start,
+        end=config.dates.end,
     )
+
     orientation_events: list[Event] = []
     for filename in Path.iterdir(Path("events")):
         if not filename.name.endswith(".csv"):
@@ -228,8 +198,6 @@ if __name__ == "__main__":
             api_response.events.extend(process_csv(filename))
 
     # Order events by start time, then by end time.
-    # api_response.events.sort(key=lambda e: e["end"])
-    # api_response.events.sort(key=lambda e: e["start"])
     api_response.events.sort(key=attrgetter("start", "end"))
 
     # Add extra data from events and config file
@@ -271,7 +239,7 @@ if __name__ == "__main__":
 
     print("Processing complete!")
 
-    print("Generating the ..")
+    print("Generating the booklet..")
     booklet_html = generate_booklet(api_response, config, booklet_only_events)
 
     print("Processing index.md...")
