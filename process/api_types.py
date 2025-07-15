@@ -160,7 +160,7 @@ def get_api_schema():
                 "title": "T-REX",
                 "summary": "The DormCon REX API!",
                 "version": "2025.0.0",
-                "description": "This API hosts the structured data and information for the [REX Events page](https://dormcon.mit.edu/rex/events). Feel free to use it for your own purposes! The structure of the JSON is documented as `TRexAPIResponse` in [types.ts](https://github.com/mit-dormcon/website/blob/main/components/t-rex/types.ts) in the main DormCon website repository.",
+                "description": "This API hosts the structured data and information for the [REX Events page](https://dormcon.mit.edu/rex/events). Feel free to use it for your own purposes!",
                 "contact": {
                     "name": "DormCon Tech Chair",
                     "email": "dormcon-tech-chair@mit.edu",
