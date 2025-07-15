@@ -185,6 +185,7 @@ def process_csv(filename: Path) -> list[Event]:
                             if event["Group"]
                             else None
                         ),
+                        "id": event["ID"],
                     }
                 )
             )

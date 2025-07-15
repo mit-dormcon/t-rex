@@ -18,6 +18,7 @@ class Event(BaseModel):
     description: str
     tags: list[str]
     group: Annotated[Optional[list[str]], Field(default=None)]
+    id: Annotated[str, Field(description="Unique identifier for the event")]
 
 
 class EventWithEmoji(Event):
