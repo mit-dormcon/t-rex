@@ -4,21 +4,32 @@ from typing import Optional
 
 from openapi_pydantic import OpenAPI
 from openapi_pydantic.util import PydanticSchema, construct_open_api_with_schema_class
-from pydantic import BaseModel, EmailStr, Field, FilePath, field_validator
+from pydantic import (
+    BaseModel,
+    EmailStr,
+    Field,
+    FilePath,
+    StringConstraints,
+    field_validator,
+)
 from pydantic_extra_types.color import Color
 from typing_extensions import Annotated
 
 
 class Event(BaseModel):
-    name: str
+    name: Annotated[str, StringConstraints(max_length=100)]
     dorm: list[str]
-    location: str
+    location: Annotated[str, StringConstraints(max_length=50)]
     start: datetime
     end: datetime
-    description: str
+    description: Annotated[str, StringConstraints(max_length=280)]
     tags: list[str]
     group: Annotated[Optional[list[str]], Field(default=None)]
-    id: Annotated[str, Field(description="Unique identifier for the event")]
+    id: Annotated[
+        str,
+        Field(description="Unique identifier for the event"),
+        StringConstraints(max_length=16),
+    ]
 
 
 class EventWithEmoji(Event):
