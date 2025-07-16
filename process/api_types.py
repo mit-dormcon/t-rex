@@ -68,7 +68,7 @@ class CSVConfig(BaseModel):
         try:
             datetime.today().strftime(v)
         except ValueError as e:
-            raise ValueError(f"Invalid datetime formatter: {v}. Error: {e}")
+            raise ValueError(f"Invalid datetime formatter: {v}.") from e
         return v
 
 
@@ -207,7 +207,7 @@ def get_api_schema():
 
 
 def save_config_schema():
-    with open("config_schema.json", "w") as f:
+    with open("config_schema.json", "w", encoding="utf-8") as f:
         json.dump(Config.model_json_schema(), f, indent=2)
 
 

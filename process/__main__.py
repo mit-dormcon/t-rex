@@ -6,12 +6,7 @@ from pathlib import Path
 
 import yaml
 
-from .api_types import (
-    APIResponse,
-    ColorsAPIResponse,
-    Event,
-    get_api_schema,
-)
+from .api_types import APIResponse, ColorsAPIResponse, Event, get_api_schema
 from .booklet import generate_booklet, generate_errors, generate_index, get_date_bucket
 from .helpers import (
     check_if_events_conflict,
@@ -24,23 +19,23 @@ from .helpers import (
 config = load_config()
 
 
-def get_main_dorm(dorm: str) -> str:
-    if dorm in config.dorms:
-        return config.dorms[dorm].rename_to or dorm
+def get_main_dorm(dorm_main: str) -> str:
+    if dorm_main in config.dorms:
+        return config.dorms[dorm_main].rename_to or dorm_main
 
-    return dorm
+    return dorm_main
 
 
-def get_invalid_events(orientation_events: list[Event], api_response: APIResponse):
+def get_invalid_events(o_events: list[Event], api_events: list[Event]):
     """
     Get list of error messages for invalid events.
     Formatted as a dict, with dorms as the key and a tuple of the contact emails and list of events as the value.
     """
 
-    errors: dict[str, tuple[list[str], list[str]]] = dict()
+    event_errors: dict[str, tuple[list[str], list[str]]] = {}
 
     # Check for conflicts with mandatory events and invalid events
-    all_events = orientation_events + api_response.events
+    all_events = o_events + api_events
     mandatory_events = list(
         event_to_check
         for event_to_check in all_events
@@ -51,34 +46,34 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
         dorms_list = [get_main_dorm(dorm) for dorm in dorms]
         error_key = get_dorm_group(dorms_list)
 
-        if errors.get(error_key) is None:
+        if event_errors.get(error_key) is None:
             contact_emails = []
 
-            for dorm in dorms_list:
-                if dorm in config.dorms:
-                    contact_emails.append(config.dorms[dorm].contact)
+            for check_dorm in dorms_list:
+                if check_dorm in config.dorms:
+                    contact_emails.append(config.dorms[check_dorm].contact)
                 else:
                     # If the dorm is not in the config, find if it was renamed
                     for dorm_name, dorm_config in config.dorms.items():
-                        if dorm == dorm_config.rename_to or dorm_name == dorm:
+                        if check_dorm in (dorm_config.rename_to, dorm_name):
                             contact_emails.append(dorm_config.contact)
                             break
 
-            errors[error_key] = (
+            event_errors[error_key] = (
                 contact_emails,
                 [],
             )
 
-        errors[error_key][1].append(error_string)
+        event_errors[error_key][1].append(error_string)
 
-    for event in api_response.events:
+    for event in api_events:
         event_start = event.start
         event_end = event.end
 
         if event_end < event_start:
             event_date = (
                 " on " + get_date_bucket(event, config.dates.hour_cutoff).strftime("%x")
-                if event_with_same_name_exists(event, api_response.events)
+                if event_with_same_name_exists(event, api_events)
                 else ""
             )
             create_error_dorm_entry(
@@ -103,15 +98,15 @@ def get_invalid_events(orientation_events: list[Event], api_response: APIRespons
                 )
                 continue
 
-    for dorm in config.dorms:
-        dorm_config = config.dorms[dorm]
+    for dorm_to_check in config.dorms:
+        dorm_config = config.dorms[dorm_to_check]
         if dorm_config.rename_to:
-            # If the dorm has a rename_to, check if it exists in the errors dict
-            if errors.get(dorm_config.rename_to) is not None:
+            # If the dorm has a rename_to, check if it exists in the event_errors dict
+            if event_errors.get(dorm_config.rename_to) is not None:
                 # If it does, move the errors to the renamed dorm
-                errors[dorm] = errors.pop(dorm_config.rename_to)
+                event_errors[dorm_to_check] = event_errors.pop(dorm_config.rename_to)
 
-    return errors
+    return event_errors
 
 
 def process_csv(filename: Path) -> list[Event]:
@@ -119,11 +114,11 @@ def process_csv(filename: Path) -> list[Event]:
     # NOTE: If you saved this with Excel as a CSV file with UTF-8 encoding, you might
     # need to open it with encoding="utf-8-sig" instead of "utf-8".
     with open(filename, encoding="utf-8") as f:
-        reader = [row for row in csv.DictReader(f)]
+        reader = list(csv.DictReader(f))
 
         events_list: list[dict[str, str]] = []
         for index, row in enumerate(reader):
-            events_list.append(dict())
+            events_list.append({})
             for key, val in row.items():
                 events_list[index][key.strip()] = val.strip() if val else ""
 
@@ -188,14 +183,14 @@ if __name__ == "__main__":
     )
 
     orientation_events: list[Event] = []
-    for filename in Path.iterdir(Path("events")):
-        if not filename.name.endswith(".csv"):
+    for event_file in Path.iterdir(Path("events")):
+        if not event_file.name.endswith(".csv"):
             continue
-        print(f"Processing {filename}...")
-        if filename == config.orientation.file_name:
-            orientation_events = process_csv(filename)
+        print(f"Processing {event_file}...")
+        if event_file == config.orientation.file_name:
+            orientation_events = process_csv(event_file)
         else:
-            api_response.events.extend(process_csv(filename))
+            api_response.events.extend(process_csv(event_file))
 
     # Order events by start time, then by end time.
     api_response.events.sort(key=attrgetter("start", "end"))
@@ -235,7 +230,7 @@ if __name__ == "__main__":
         orientation_events if config.orientation.include_in_booklet else []
     )
 
-    errors = get_invalid_events(orientation_events, api_response)
+    errors = get_invalid_events(orientation_events, api_response.events)
 
     print("Processing complete!")
 
