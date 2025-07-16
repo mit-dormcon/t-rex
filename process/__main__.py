@@ -114,15 +114,9 @@ def process_csv(filename: Path) -> list[Event]:
     # NOTE: If you saved this with Excel as a CSV file with UTF-8 encoding, you might
     # need to open it with encoding="utf-8-sig" instead of "utf-8".
     with open(filename, encoding="utf-8") as f:
-        reader = list(csv.DictReader(f))
+        reader = csv.DictReader(f, strict=True)
 
-        events_list: list[dict[str, str]] = []
-        for index, row in enumerate(reader):
-            events_list.append({})
-            for key, val in row.items():
-                events_list[index][key.strip()] = val.strip() if val else ""
-
-        for event in events_list:
+        for event in reader:
             if event["Published"] != "TRUE":
                 continue
             events.append(
@@ -132,7 +126,7 @@ def process_csv(filename: Path) -> list[Event]:
                         (
                             dorm.strip()
                             if config.dorms.get(dorm.strip()) is None
-                            else config.dorms[dorm.strip()].rename_to or dorm.strip()
+                            else (config.dorms[dorm.strip()].rename_to or dorm).strip()
                         )
                         for dorm in event["Dorm"].split(",")
                         if dorm
