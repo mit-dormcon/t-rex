@@ -22,8 +22,11 @@ the index.md file.
 A template spreadsheet is provided in `template.csv`. Events spreadsheets must
 contain the following columns:
 
+- `ID`: Event ID. Used to uniquely distinguish each event, even if it gets
+  renamed or moved to a different time.
 - `Event Name`: Name of the event
-- `Dorm`: Dorm or living group hosting the event
+- `Dorm`: Dorm(s) hosting the event
+- `Group`: Group(s) or living community(ies) hosting the event
 - `Event Location`: Location of the event
 - `Start Date and Time`: Start time in EDT formatted as `MM/DD/YYYY HH:MM`, in
   24-hour time
@@ -52,7 +55,8 @@ You can add orientation or official events to the booklet using the
 events, and add "mandatory" to the list of tags.
 
 These events are **skipped** for generating the JSON that populates the web UI,
-but they will show up in the booklet.
+but they will show up in the booklet if `orientation.include_in_booklet` is set
+to true. These are also used to check blackout time conflicts.
 
 ## Running a local server
 

@@ -1,21 +1,21 @@
 ID,Event Name,Dorm,Group,Event Location,Start Date and Time,End Date and Time,Event Description,Tags,Published
 nv_waffles1,New Vassar Street Waffles,New Vassar,,Country Kitchen,8/26/2025 8:00,8/26/2025 9:30,Come grab the best waffles on campus and meet new friends!,meal,FALSE
 nv_waffles2,Street Waffles,New Vassar,,Country Kitchen,8/25/2025 8:00,8/25/2025 9:30,Come and grab the best waffles on campus and meet new friends!,meal,FALSE
-nv_gamenight,Game Night,New Vassar,,Game Room,8/25/2025 19:00,8/25/2025 21:00,"Calling all gamers! From switches to board games to ping pong, come play some games and eat snacks!","snacks, games",FALSE
-nv_camp1,Camp New Vassar,New Vassar,,courtyard,8/27/2025 15:00,8/27/2025 17:00,Summer camp at NV! Come eat snow cones and tie dye shirts!,"snacks, social",FALSE
+nv_gamenight,Game Night,New Vassar,,Game Room,8/25/2025 19:00,8/25/2025 21:00,"Calling all gamers! From switches to board games to ping pong, come play some games and eat snacks!","snacks,games",FALSE
+nv_camp1,Camp New Vassar,New Vassar,,courtyard,8/27/2025 15:00,8/27/2025 17:00,Summer camp at NV! Come eat snow cones and tie dye shirts!,"snacks,social",FALSE
 nv_explore1,Explore NV - A Night at NV,New Vassar,,New Vassar Lobby,8/26/2025 19:00,8/26/2025 20:00,"Take a peek inside your future home with a New Vassar tour, guided by a New Vassar resident.",tour,FALSE
-nv_slice,SLICE to Meet You,New Vassar,,Mezzanine,8/25/2025 20:00,8/25/2025 22:00,Come to meet some new friends while eating pizza!,"meal, social",FALSE
-nv_laser,Laser Tag,New Vassar,,Mezzanine,8/27/2025 17:00,8/27/2025 19:00,Get a tactical edge in the annual New Vassar Laser Tag competition!,"social, games",FALSE
-nv_poker,Poker Night,New Vassar,,Mezzanine,8/26/2025 20:30,8/26/2025 22:30,Feeling lucky? Participate in our infamous poker tournament!,"signature, snacks",FALSE
+nv_slice,SLICE to Meet You,New Vassar,,Mezzanine,8/25/2025 20:00,8/25/2025 22:00,Come to meet some new friends while eating pizza!,"meal,social",FALSE
+nv_laser,Laser Tag,New Vassar,,Mezzanine,8/27/2025 17:00,8/27/2025 19:00,Get a tactical edge in the annual New Vassar Laser Tag competition!,"social,games",FALSE
+nv_poker,Poker Night,New Vassar,,Mezzanine,8/26/2025 20:30,8/26/2025 22:30,Feeling lucky? Participate in our infamous poker tournament!,"signature,snacks",FALSE
 nv_explore2,Explore NV,New Vassar,,Lobby,8/23/2025 13:00,8/23/2025 14:00,"Take a peek inside your future home with a New Vassar tour, guided by a New Vassar resident (tours will run every 15 minutes)",tour,FALSE
-nv_arts,Art & Crafts Night,New Vassar,,Courtyard,8/27/2025 19:00,8/27/2025 21:00,Come paint and make crafts under the city stars,"social, art",FALSE
-nv_karaoke,Karaoke,New Vassar,,Mezzanine,8/23/2025 15:00,8/23/2025 16:30,Come sing your heart out to your favorite songs and make some new friends!,"snacks, social",FALSE
+nv_arts,Art & Crafts Night,New Vassar,,Courtyard,8/27/2025 19:00,8/27/2025 21:00,Come paint and make crafts under the city stars,"social,art",FALSE
+nv_karaoke,Karaoke,New Vassar,,Mezzanine,8/23/2025 15:00,8/23/2025 16:30,Come sing your heart out to your favorite songs and make some new friends!,"snacks,social",FALSE
 nv_explore3,Explore NV,New Vassar,,New Vassar Lobby,8/24/2025 12:00,8/24/2025 13:00,"Take a peek inside your future home with a New Vassar tour, guided by a New Vassar resident",tour,FALSE
-nv_movie,Movie Night,New Vassar,,Mezzanine,8/23/2025 19:00,8/23/2025 21:00,"Swing by NV for a fun movie night, popcorn, snacks, and more!","snacks, social",FALSE
+nv_movie,Movie Night,New Vassar,,Mezzanine,8/23/2025 19:00,8/23/2025 21:00,"Swing by NV for a fun movie night, popcorn, snacks, and more!","snacks,social",FALSE
 nv_waffles3,Street Waffles,New Vassar,,Country Kitchen,8/28/2025 8:00,8/28/2025 9:30,Come and grab the best waffles on campus and meet new friends!,meal,FALSE
-nv_craft,Get CRAFTea,New Vassar,,Mezzanine,8/24/2025 13:00,8/24/2025 15:00,Unleash your creativity! Make a custom cup of boba and decorate plants pots!,"social, art",FALSE
-nv_camp2,Camp NV,New Vassar,,Courtyard,8/29/2025 14:30,8/29/2025 16:30,Summer camp at NV! Come eat snow cones and tie dye shirts!,"snacks, social",FALSE
-nv_college1,College Classics,New Vassar,,Mezanine,8/28/2025 21:00,8/29/2025 1:00,"Prepare to eat all of the college student midnight classics (ft. McDonalds, ramen, and more)!","meal, social",FALSE
-nv_pizza,BYO Pizza,New Vassar,,Country Kitchen,8/24/2025 17:00,8/24/2025 18:30,Come create your own custom pizza! Winner's pizza get added to the NV menu.,"meal, social",FALSE
-nv_gov,Meet House Gov and Grub,New Vassar,,Conference Room,8/29/2025 17:30,8/29/2025 18:30,Come meet the New Vassar House Government and eat food!,"meal, social",FALSE
-nv_college2,College Classics,New Vassar,,Mezzanine,8/24/2025 23:00,8/25/2025 1:00,"Prepare to eat all of the college student midnight classics (ft. McDonalds, ramen, and more)!","meal, social",FALSE
+nv_craft,Get CRAFTea,New Vassar,,Mezzanine,8/24/2025 13:00,8/24/2025 15:00,Unleash your creativity! Make a custom cup of boba and decorate plants pots!,"social,art",FALSE
+nv_camp2,Camp NV,New Vassar,,Courtyard,8/29/2025 14:30,8/29/2025 16:30,Summer camp at NV! Come eat snow cones and tie dye shirts!,"snacks,social",FALSE
+nv_college1,College Classics,New Vassar,,Mezanine,8/28/2025 21:00,8/29/2025 1:00,"Prepare to eat all of the college student midnight classics (ft. McDonalds, ramen, and more)!","meal,social",FALSE
+nv_pizza,BYO Pizza,New Vassar,,Country Kitchen,8/24/2025 17:00,8/24/2025 18:30,Come create your own custom pizza! Winner's pizza get added to the NV menu.,"meal,social",FALSE
+nv_gov,Meet House Gov and Grub,New Vassar,,Conference Room,8/29/2025 17:30,8/29/2025 18:30,Come meet the New Vassar House Government and eat food!,"meal,social",FALSE
+nv_college2,College Classics,New Vassar,,Mezzanine,8/24/2025 23:00,8/25/2025 1:00,"Prepare to eat all of the college student midnight classics (ft. McDonalds, ramen, and more)!","meal,social",FALSE
