@@ -3,7 +3,7 @@ name = "REX 2025"
 
 [orientation]
 mandatory_tag = "mandatory"
-file_name = "orientation.csv"
+file_name = "events/orientation.csv"
 include_in_booklet = true
 
 [csv]

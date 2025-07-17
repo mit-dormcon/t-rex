@@ -6,14 +6,18 @@ from pathlib import Path
 
 import yaml
 
-from .api_types import APIResponse, ColorsAPIResponse, Event, get_api_schema
+from .api_types import (
+    APIResponse,
+    ColorsAPIResponse,
+    Event,
+    get_api_schema,
+    load_config,
+)
 from .booklet import generate_booklet, generate_errors, generate_index, get_date_bucket
 from .helpers import (
     check_if_events_conflict,
     event_with_same_name_exists,
     get_dorm_group,
-    load_config,
-    process_dt_from_csv,
 )
 
 config = load_config()
@@ -42,7 +46,7 @@ def get_invalid_events(o_events: list[Event], api_events: list[Event]):
         if config.orientation.mandatory_tag.strip().lower() in event_to_check.tags
     )
 
-    def create_error_dorm_entry(dorms: list[str], error_string: str) -> None:
+    def create_error_dorm_entry(dorms: set[str], error_string: str) -> None:
         dorms_list = [get_main_dorm(dorm) for dorm in dorms]
         error_key = get_dorm_group(dorms_list)
 
@@ -110,47 +114,13 @@ def get_invalid_events(o_events: list[Event], api_events: list[Event]):
 
 
 def process_csv(filename: Path) -> list[Event]:
-    events: list[Event] = []
     # NOTE: If you saved this with Excel as a CSV file with UTF-8 encoding, you might
     # need to open it with encoding="utf-8-sig" instead of "utf-8".
     with open(filename, encoding="utf-8") as f:
         reader = csv.DictReader(f, strict=True)
+        events = [Event.model_validate(row) for row in reader]
 
-        for event in reader:
-            if event["Published"] != "TRUE":
-                continue
-            events.append(
-                Event(
-                    name=event["Event Name"],
-                    dorm=[
-                        (
-                            dorm.strip()
-                            if config.dorms.get(dorm.strip()) is None
-                            else (config.dorms[dorm.strip()].rename_to or dorm).strip()
-                        )
-                        for dorm in event["Dorm"].split(",")
-                        if dorm
-                    ],
-                    location=event["Event Location"],
-                    start=process_dt_from_csv(
-                        event["Start Date and Time"], config.csv.date_format
-                    ),
-                    end=process_dt_from_csv(
-                        event["End Date and Time"], config.csv.date_format
-                    ),
-                    description=event["Event Description"],
-                    tags=[
-                        tag.strip().lower() for tag in event["Tags"].split(",") if tag
-                    ],
-                    group=(
-                        [group.strip() for group in event["Group"].split(",")]
-                        if event["Group"]
-                        else None
-                    ),
-                    id=event["ID"],
-                )
-            )
-    return events
+    return [e for e in events if e.published]
 
 
 if __name__ == "__main__":

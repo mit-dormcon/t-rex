@@ -1,6 +1,9 @@
 import json
+import tomllib
 from datetime import date, datetime
+from pathlib import Path
 from typing import Optional
+from zoneinfo import ZoneInfo
 
 from openapi_pydantic import OpenAPI
 from openapi_pydantic.util import PydanticSchema, construct_open_api_with_schema_class
@@ -17,32 +20,12 @@ from pydantic_extra_types.color import Color
 from typing_extensions import Annotated
 
 
-class Event(BaseModel):
-    name: Annotated[str, StringConstraints(max_length=100)]
-    dorm: list[str]
-    location: Annotated[str, StringConstraints(max_length=50)]
-    start: datetime
-    end: datetime
-    description: Annotated[str, StringConstraints(max_length=280)]
-    tags: list[str]
-    group: Annotated[Optional[list[str]], Field(default=None)]
-    id: Annotated[
-        str,
-        Field(description="Unique identifier for the event"),
-        StringConstraints(max_length=16),
-    ]
-
-
-class EventWithEmoji(Event):
-    emoji: list[str]
-
-
 class OrientationConfig(BaseModel):
     file_name: Annotated[
         Optional[FilePath],
         Field(
             default=None,
-            description="CSV file containing orientation events. Assumed to be in events folder.",
+            description="CSV file containing orientation events.",
         ),
     ]
     mandatory_tag: str
@@ -50,8 +33,20 @@ class OrientationConfig(BaseModel):
 
     @field_validator("file_name", mode="before")
     @classmethod
-    def validate_file_name(cls, v: Optional[str]):
-        return "events/" + v if v and not v.startswith("events/") else v
+    def validate_file_name(cls, v: object) -> object:
+        if isinstance(v, str):
+            v = v.strip()
+            if not v:
+                return None
+            if not v.startswith("events/"):
+                raise ValueError("Orientation file must be in the 'events' directory.")
+            return v
+        elif isinstance(v, Path):
+            if not v.is_absolute():
+                v = Path("events") / v
+            if not v.exists():
+                raise ValueError(f"Orientation file {v} does not exist.")
+            return v
 
 
 class CSVConfig(BaseModel):
@@ -87,11 +82,6 @@ class DatesConfig(BaseModel):
             lt="24",
         ),
     ]
-
-
-class ColorsAPIResponse(BaseModel):
-    dorms: dict[str, Color]
-    tags: dict[str, Color]
 
 
 class DormsConfig(BaseModel):
@@ -136,6 +126,133 @@ class Config(BaseModel):
     dates: DatesConfig
     dorms: dict[str, DormsConfig]
     tags: dict[str, TagsConfig]
+
+
+def save_config_schema():
+    with open("config_schema.json", "w", encoding="utf-8") as f:
+        json.dump(Config.model_json_schema(), f, indent=2)
+
+
+def load_config():
+    save_config_schema()
+    with open("config.toml", "rb") as c:
+        config = Config.model_validate(tomllib.load(c))
+
+    return config
+
+
+def process_dt_from_csv(time_string: str, date_format: str) -> datetime:
+    """
+    Uses the config setting `date_format` to convert a time string into ISO format
+    """
+    return datetime.strptime(time_string, date_format).replace(
+        tzinfo=ZoneInfo("America/New_York")
+    )
+
+
+config = load_config()
+
+
+class Event(BaseModel):
+    name: Annotated[
+        str,
+        StringConstraints(max_length=100, strip_whitespace=True),
+        Field(validation_alias="Event Name"),
+    ]
+    dorm: Annotated[
+        set[Annotated[str, StringConstraints(strip_whitespace=True)]],
+        Field(validation_alias="Dorm"),
+    ]
+    location: Annotated[
+        str,
+        StringConstraints(max_length=50, strip_whitespace=True),
+        Field(validation_alias="Event Location"),
+    ]
+    start: Annotated[datetime, Field(validation_alias="Start Date and Time")]
+    end: Annotated[datetime, Field(validation_alias="End Date and Time")]
+    description: Annotated[
+        str,
+        StringConstraints(max_length=280, strip_whitespace=True),
+        Field(validation_alias="Event Description"),
+    ]
+    tags: Annotated[
+        set[Annotated[str, StringConstraints(strip_whitespace=True, to_lower=True)]],
+        Field(validation_alias="Tags"),
+    ]
+    group: Annotated[
+        Optional[set[Annotated[str, StringConstraints(strip_whitespace=True)]]],
+        Field(default=None, validation_alias="Group"),
+    ]
+    id: Annotated[
+        str,
+        StringConstraints(max_length=16, strip_whitespace=True),
+        Field(description="Unique identifier for the event", validation_alias="ID"),
+    ]
+    published: bool = Field(default=False, validation_alias="Published", exclude=True)
+
+    model_config = {
+        "json_schema_mode_override": "serialization",
+    }
+
+    @field_validator("dorm", mode="before")
+    @classmethod
+    def validate_dorm(cls, v: object) -> object:
+        if isinstance(v, str):
+            v = v.strip()
+            v = (
+                []
+                if v == ""
+                else (
+                    (
+                        dorm
+                        if config.dorms.get(dorm) is None
+                        else (config.dorms[dorm].rename_to or dorm)
+                    )
+                    for dorm in v.split(",")
+                )
+            )
+        return v
+
+    @field_validator("start", mode="before")
+    @classmethod
+    def validate_start(cls, v: object) -> object:
+        if isinstance(v, str):
+            v = v.strip()
+            return process_dt_from_csv(v, config.csv.date_format)
+        return v
+
+    @field_validator("end", mode="before")
+    @classmethod
+    def validate_end(cls, v: object) -> object:
+        if isinstance(v, str):
+            v = v.strip()
+            return process_dt_from_csv(v, config.csv.date_format)
+        return v
+
+    @field_validator("tags", mode="before")
+    @classmethod
+    def validate_tags(cls, v: object) -> object:
+        if isinstance(v, str):
+            v = v.strip()
+            return [] if v == "" else v.split(",")
+        return v
+
+    @field_validator("group", mode="before")
+    @classmethod
+    def validate_group(cls, v: object) -> object:
+        if isinstance(v, str):
+            v = v.strip()
+            return None if v == "" else v.split(",")
+        return v
+
+
+class EventWithEmoji(Event):
+    emoji: set[str]
+
+
+class ColorsAPIResponse(BaseModel):
+    dorms: dict[str, Color]
+    tags: dict[str, Color]
 
 
 class APIResponse(BaseModel):
@@ -191,7 +308,7 @@ def get_api_schema():
                                 "content": {
                                     "application/json": {
                                         "schema": PydanticSchema(
-                                            schema_class=APIResponse
+                                            schema_class=APIResponse,
                                         )
                                     }
                                 },
@@ -204,11 +321,6 @@ def get_api_schema():
     )
 
     return construct_open_api_with_schema_class(open_api)
-
-
-def save_config_schema():
-    with open("config_schema.json", "w", encoding="utf-8") as f:
-        json.dump(Config.model_json_schema(), f, indent=2)
 
 
 if __name__ == "__main__":

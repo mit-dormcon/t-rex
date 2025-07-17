@@ -93,7 +93,7 @@
             }
           ],
           "default": null,
-          "description": "CSV file containing orientation events. Assumed to be in events folder.",
+          "description": "CSV file containing orientation events.",
           "title": "File Name"
         },
         "mandatory_tag": {

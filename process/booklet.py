@@ -70,7 +70,7 @@ def generate_booklet(api: APIResponse, config: Config, extra_events: list[Event]
     start_date = api.start
     end_date = api.end
 
-    all_events = [e.copy() for e in api.events + extra_events]
+    all_events = [e.model_copy() for e in api.events + extra_events]
 
     all_dates = set(get_date_bucket(e, config.dates.hour_cutoff) for e in all_events)
     dates = {
@@ -83,15 +83,13 @@ def generate_booklet(api: APIResponse, config: Config, extra_events: list[Event]
     # Sort events into date buckets, separating out tours
     by_dates: dict[date, list[Event]] = {d: [] for d in all_dates}
     for event in all_events:
-        event = EventWithEmoji.model_validate(
-            dict(
-                event.model_dump(),
-                emoji=[
-                    config.tags[tag].emoji
-                    for tag in event.tags
-                    if tag in config.tags and config.tags[tag].emoji
-                ],
-            )
+        event = EventWithEmoji.model_construct(
+            **event.model_dump(),
+            emoji=[
+                config.tags[tag].emoji
+                for tag in event.tags
+                if tag in config.tags and config.tags[tag].emoji
+            ],
         )
 
         # Tours are separated and put at the front of the booklet
