@@ -1,8 +1,11 @@
 from datetime import datetime
+from functools import cache
+from typing import Iterable
 
 from .api_types import Event
 
 
+@cache
 def check_if_events_conflict(
     event_one_start: datetime,
     event_one_end: datetime,
@@ -17,11 +20,12 @@ def check_if_events_conflict(
     )
 
 
-def get_dorm_group(dorms: list[str]) -> str:
+@cache
+def get_dorm_group(dorms: Iterable[str]) -> str:
     return ", ".join(dorms)
 
 
-def event_with_same_name_exists(event: Event, events: list[Event]) -> bool:
+def event_with_same_name_exists(event: Event, events: Iterable[Event]) -> bool:
     for e in events:
         if e.name == event.name and e.start != event.start and e.end != event.end:
             return True

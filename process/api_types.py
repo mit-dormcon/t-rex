@@ -28,7 +28,9 @@ class OrientationConfig(BaseModel):
             description="CSV file containing orientation events.",
         ),
     ]
-    mandatory_tag: str
+    mandatory_tag: Annotated[
+        str, StringConstraints(strip_whitespace=True, to_lower=True)
+    ]
     include_in_booklet: bool
 
     @field_validator("file_name", mode="before")

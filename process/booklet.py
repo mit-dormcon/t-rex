@@ -13,14 +13,14 @@ env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
 eastern = ZoneInfo("America/New_York")
 
 
-def event_dt_format(start: datetime, end: datetime, groups: Optional[list[str]] = None):
+def event_dt_format(start: datetime, end: datetime, groups: Optional[set[str]] = None):
     """
     Formats the time string that gets displayed on the booklet
     """
     out = start.strftime("%a")
 
     if groups is None:
-        groups = []
+        groups = set()
 
     time_strings: list[str] = []
     for dt in (start, end):
@@ -33,13 +33,11 @@ def event_dt_format(start: datetime, end: datetime, groups: Optional[list[str]] 
                 time_strings.append(dt.strftime("%I %p").lstrip("0"))
             elif dt.minute % 10 == 3 and bool(
                 # If the group is B3rd or Burton Third, use "rd" for the time
-                set(group.lower() for group in groups)
-                & set(
-                    [
-                        "b3rd",
-                        "burton third",
-                    ]
-                )
+                {group.lower() for group in groups}
+                & {
+                    "b3rd",
+                    "burton third",
+                }
             ):
                 time_strings.append(
                     f"{dt.strftime('%I:%M').lstrip('0')}rd {dt.strftime('%p')}"
@@ -71,17 +69,17 @@ def generate_booklet(api: APIResponse, config: Config, extra_events: list[Event]
     end_date = api.end
 
     all_events = [e.model_copy() for e in api.events + extra_events]
-
     all_dates = set(get_date_bucket(e, config.dates.hour_cutoff) for e in all_events)
+
     dates = {
-        "before": sorted(list(filter(lambda d: d < start_date, all_dates))),
-        "rex": sorted(list(filter(lambda d: start_date <= d <= end_date, all_dates))),
-        "after": sorted(list(filter(lambda d: d > end_date, all_dates))),
+        "before": sorted(filter(lambda d: d < start_date, all_dates)),
+        "rex": sorted(filter(lambda d: start_date <= d <= end_date, all_dates)),
+        "after": sorted(filter(lambda d: d > end_date, all_dates)),
     }
 
     tours: list[Event] = []
     # Sort events into date buckets, separating out tours
-    by_dates: dict[date, list[Event]] = {d: [] for d in all_dates}
+    by_dates: dict[date, list[EventWithEmoji]] = {d: [] for d in all_dates}
     for event in all_events:
         event = EventWithEmoji.model_construct(
             **event.model_dump(),

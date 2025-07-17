@@ -3,6 +3,7 @@ import shutil
 from datetime import datetime, timezone
 from operator import attrgetter
 from pathlib import Path
+from typing import Generator
 
 import yaml
 
@@ -30,7 +31,7 @@ def get_main_dorm(dorm_main: str) -> str:
     return dorm_main
 
 
-def get_invalid_events(o_events: list[Event], api_events: list[Event]):
+def get_invalid_events(api_events: list[Event], extra_events: list[Event]):
     """
     Get list of error messages for invalid events.
     Formatted as a dict, with dorms as the key and a tuple of the contact emails and list of events as the value.
@@ -39,15 +40,15 @@ def get_invalid_events(o_events: list[Event], api_events: list[Event]):
     event_errors: dict[str, tuple[list[str], list[str]]] = {}
 
     # Check for conflicts with mandatory events and invalid events
-    all_events = o_events + api_events
-    mandatory_events = list(
+    all_events = api_events + extra_events
+    mandatory_events = [
         event_to_check
         for event_to_check in all_events
-        if config.orientation.mandatory_tag.strip().lower() in event_to_check.tags
-    )
+        if config.orientation.mandatory_tag in event_to_check.tags
+    ]
 
     def create_error_dorm_entry(dorms: set[str], error_string: str) -> None:
-        dorms_list = [get_main_dorm(dorm) for dorm in dorms]
+        dorms_list = frozenset(get_main_dorm(dorm) for dorm in dorms)
         error_key = get_dorm_group(dorms_list)
 
         if event_errors.get(error_key) is None:
@@ -113,14 +114,15 @@ def get_invalid_events(o_events: list[Event], api_events: list[Event]):
     return event_errors
 
 
-def process_csv(filename: Path) -> list[Event]:
+def process_csv(filename: Path) -> Generator[Event, None, None]:
     # NOTE: If you saved this with Excel as a CSV file with UTF-8 encoding, you might
     # need to open it with encoding="utf-8-sig" instead of "utf-8".
     with open(filename, encoding="utf-8") as f:
         reader = csv.DictReader(f, strict=True)
-        events = [Event.model_validate(row) for row in reader]
-
-    return [e for e in events if e.published]
+        for row in reader:
+            event = Event.model_validate(row)
+            if event.published:
+                yield event
 
 
 if __name__ == "__main__":
@@ -152,7 +154,7 @@ if __name__ == "__main__":
             continue
         print(f"Processing {event_file}...")
         if event_file == config.orientation.file_name:
-            orientation_events = process_csv(event_file)
+            orientation_events.extend(process_csv(event_file))
         else:
             api_response.events.extend(process_csv(event_file))
 
@@ -161,7 +163,7 @@ if __name__ == "__main__":
 
     # Add extra data from events and config file
     api_response.dorms = sorted(
-        list(set(dorm for e in api_response.events for dorm in e.dorm)),
+        set(dorm for e in api_response.events for dorm in e.dorm),
         key=str.lower,
     )
     for dorm in config.dorms:
@@ -173,28 +175,24 @@ if __name__ == "__main__":
 
     for dorm in api_response.dorms:
         groups = sorted(
-            list(
-                set(
-                    group.strip()
-                    for e in api_response.events
-                    if dorm in e.dorm and e.group
-                    for group in e.group
-                )
+            set(
+                group.strip()
+                for e in api_response.events
+                if dorm in e.dorm and e.group
+                for group in e.group
             ),
             key=str.lower,
         )
         if groups:
             api_response.groups[dorm] = groups
 
-    api_response.tags = sorted(
-        list(set(t for e in api_response.events for t in e.tags))
-    )
+    api_response.tags = sorted(set(t for e in api_response.events for t in e.tags))
 
     booklet_only_events = (
         orientation_events if config.orientation.include_in_booklet else []
     )
 
-    errors = get_invalid_events(orientation_events, api_response.events)
+    errors = get_invalid_events(api_response.events, orientation_events)
 
     print("Processing complete!")
 
