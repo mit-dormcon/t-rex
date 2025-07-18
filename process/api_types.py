@@ -25,7 +25,7 @@ T = TypeVar("T", bound=Hashable)
 
 
 def _validate_unique_list(v: list[T]) -> list[T]:
-    if len(v) != len(set(v)):
+    if len(v) != len({*v}):
         raise PydanticCustomError("unique_list", "List must be unique")
     return v
 

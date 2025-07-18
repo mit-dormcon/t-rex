@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 from operator import attrgetter
 from typing import Optional
 from zoneinfo import ZoneInfo
@@ -22,7 +22,7 @@ def event_dt_format(start: datetime, end: datetime, groups: Optional[set[str]] =
     if groups is None:
         groups = set()
 
-    time_strings: list[str] = []
+    time_strings = list[str]()
     for dt in (start, end):
         if dt.hour == 12 and dt.minute == 0:
             time_strings.append("noon")
@@ -69,7 +69,7 @@ def generate_booklet(api: APIResponse, config: Config, extra_events: list[Event]
     end_date = api.end
 
     all_events = [e.model_copy() for e in api.events + extra_events]
-    all_dates = set(get_date_bucket(e, config.dates.hour_cutoff) for e in all_events)
+    all_dates = {get_date_bucket(e, config.dates.hour_cutoff) for e in all_events}
 
     dates = {
         "before": sorted(filter(lambda d: d < start_date, all_dates)),
@@ -77,9 +77,9 @@ def generate_booklet(api: APIResponse, config: Config, extra_events: list[Event]
         "after": sorted(filter(lambda d: d > end_date, all_dates)),
     }
 
-    tours: list[Event] = []
+    tours = list[Event]()
     # Sort events into date buckets, separating out tours
-    by_dates: dict[date, list[EventWithEmoji]] = {d: [] for d in all_dates}
+    by_dates = {d: list[EventWithEmoji]() for d in all_dates}
     for event in all_events:
         event = EventWithEmoji.model_construct(
             **event.model_dump(),

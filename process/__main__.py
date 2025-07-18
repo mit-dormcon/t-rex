@@ -155,12 +155,12 @@ if __name__ == "__main__":
         print(f"Processing orientation events from {config.orientation.file_name}...")
         orientation_events = list(process_csv(config.orientation.file_name))
 
-    event_files = set(
+    event_files = {
         event_file
         for event_file in Path.iterdir(Path("events"))
         if event_file.name.endswith(".csv")
         and event_file != config.orientation.file_name
-    )
+    }
     print(f"Processing events from {', '.join(str(f) for f in event_files)}...")
     api_response.events = sorted(
         # Get all events from other CSV files
@@ -171,7 +171,7 @@ if __name__ == "__main__":
 
     # Add extra data from events and config file
     api_response.dorms = sorted(
-        set(dorm for e in api_response.events for dorm in e.dorm),
+        {dorm for e in api_response.events for dorm in e.dorm},
         key=str.lower,
     )
     for dorm in config.dorms:
@@ -183,24 +183,28 @@ if __name__ == "__main__":
 
     for dorm in api_response.dorms:
         groups = sorted(
-            set(
+            {
                 group
                 for e in api_response.events
                 if dorm in e.dorm and e.group
                 for group in e.group
-            ),
+            },
             key=str.lower,
         )
         if groups:
             api_response.groups[dorm] = groups
 
-    api_response.tags = sorted(set(t for e in api_response.events for t in e.tags))
+    api_response.tags = sorted({t for e in api_response.events for t in e.tags})
 
     booklet_only_events = (
         orientation_events if config.orientation.include_in_booklet else []
     )
 
     errors = get_invalid_events(api_response.events, orientation_events)
+
+    api_schema = (
+        get_api_schema().model_dump(mode="json", by_alias=True, exclude_none=True),
+    )
 
     print("Processing complete!")
 
@@ -219,6 +223,7 @@ if __name__ == "__main__":
     if output_dir.exists():
         shutil.rmtree(output_dir)
     output_dir.mkdir(exist_ok=True)
+
     shutil.copytree("static", output_dir, dirs_exist_ok=True)
     with open(output_dir / "api.json", "w", encoding="utf-8") as w:
         w.write(api_response.model_dump_json())
@@ -229,9 +234,6 @@ if __name__ == "__main__":
     with open(output_dir / "errors.html", "w", encoding="utf-8") as e:
         e.write(errors_html)
     with open(output_dir / "openapi.yaml", "w", encoding="utf-8") as o:
-        yaml.dump(
-            get_api_schema().model_dump(mode="json", by_alias=True, exclude_none=True),
-            o,
-        )
+        yaml.dump(api_schema, o)
 
     print("Complete!")
