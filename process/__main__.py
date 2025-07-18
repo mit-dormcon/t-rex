@@ -202,8 +202,8 @@ if __name__ == "__main__":
 
     errors = get_invalid_events(api_response.events, orientation_events)
 
-    api_schema = (
-        get_api_schema().model_dump(mode="json", by_alias=True, exclude_none=True),
+    api_schema = get_api_schema().model_dump(
+        mode="json", by_alias=True, exclude_none=True
     )
 
     print("Processing complete!")
