@@ -1,13 +1,15 @@
 import json
 import tomllib
+from collections.abc import Hashable
 from datetime import date, datetime
 from pathlib import Path
-from typing import Optional
+from typing import Annotated, Optional, TypeVar
 from zoneinfo import ZoneInfo
 
 from openapi_pydantic import OpenAPI
 from openapi_pydantic.util import PydanticSchema, construct_open_api_with_schema_class
 from pydantic import (
+    AfterValidator,
     AwareDatetime,
     BaseModel,
     EmailStr,
@@ -16,8 +18,23 @@ from pydantic import (
     StringConstraints,
     field_validator,
 )
+from pydantic_core import PydanticCustomError
 from pydantic_extra_types.color import Color
-from typing_extensions import Annotated
+
+T = TypeVar("T", bound=Hashable)
+
+
+def _validate_unique_list(v: list[T]) -> list[T]:
+    if len(v) != len(set(v)):
+        raise PydanticCustomError("unique_list", "List must be unique")
+    return v
+
+
+UniqueList = Annotated[
+    list[T],
+    AfterValidator(_validate_unique_list),
+    Field(json_schema_extra={"uniqueItems": True}),
+]
 
 
 class OrientationConfig(BaseModel):
@@ -43,12 +60,14 @@ class OrientationConfig(BaseModel):
             if not v.startswith("events/"):
                 raise ValueError("Orientation file must be in the 'events' directory.")
             return v
-        elif isinstance(v, Path):
+        if isinstance(v, Path):
             if not v.is_absolute():
                 v = Path("events") / v
             if not v.exists():
                 raise ValueError(f"Orientation file {v} does not exist.")
             return v
+
+        return v
 
 
 class CSVConfig(BaseModel):
@@ -138,9 +157,7 @@ def save_config_schema():
 def load_config():
     save_config_schema()
     with open("config.toml", "rb") as c:
-        config = Config.model_validate(tomllib.load(c))
-
-    return config
+        return Config.model_validate(tomllib.load(c))
 
 
 def process_dt_from_csv(time_string: str, date_format: str) -> datetime:
@@ -261,9 +278,13 @@ class APIResponse(BaseModel):
     name: str
     published: AwareDatetime
     events: list[Event]
-    dorms: list[str]
-    groups: dict[str, list[str]]
-    tags: list[str]
+    dorms: UniqueList[Annotated[str, StringConstraints(strip_whitespace=True)]]
+    groups: dict[
+        str, UniqueList[Annotated[str, StringConstraints(strip_whitespace=True)]]
+    ]
+    tags: UniqueList[
+        Annotated[str, StringConstraints(strip_whitespace=True, to_lower=True)]
+    ]
     colors: ColorsAPIResponse
     start: date
     end: date

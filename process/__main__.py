@@ -1,6 +1,7 @@
 import csv
 import shutil
 from datetime import datetime, timezone
+from itertools import chain
 from operator import attrgetter
 from pathlib import Path
 from typing import Generator
@@ -114,7 +115,7 @@ def get_invalid_events(api_events: list[Event], extra_events: list[Event]):
     return event_errors
 
 
-def process_csv(filename: Path) -> Generator[Event, None, None]:
+def process_csv(filename: Path) -> Generator[Event]:
     # NOTE: If you saved this with Excel as a CSV file with UTF-8 encoding, you might
     # need to open it with encoding="utf-8-sig" instead of "utf-8".
     with open(filename, encoding="utf-8") as f:
@@ -148,18 +149,25 @@ if __name__ == "__main__":
         end=config.dates.end,
     )
 
+    # Get orientation events if they exist
     orientation_events: list[Event] = []
-    for event_file in Path.iterdir(Path("events")):
-        if not event_file.name.endswith(".csv"):
-            continue
-        print(f"Processing {event_file}...")
-        if event_file == config.orientation.file_name:
-            orientation_events.extend(process_csv(event_file))
-        else:
-            api_response.events.extend(process_csv(event_file))
+    if config.orientation.file_name:
+        print(f"Processing orientation events from {config.orientation.file_name}...")
+        orientation_events = list(process_csv(config.orientation.file_name))
 
-    # Order events by start time, then by end time.
-    api_response.events.sort(key=attrgetter("start", "end"))
+    event_files = set(
+        event_file
+        for event_file in Path.iterdir(Path("events"))
+        if event_file.name.endswith(".csv")
+        and event_file != config.orientation.file_name
+    )
+    print(f"Processing events from {', '.join(str(f) for f in event_files)}...")
+    api_response.events = sorted(
+        # Get all events from other CSV files
+        # Order events by start time, then by end time.
+        chain.from_iterable(process_csv(event_file) for event_file in event_files),
+        key=attrgetter("start", "end"),
+    )
 
     # Add extra data from events and config file
     api_response.dorms = sorted(
@@ -176,7 +184,7 @@ if __name__ == "__main__":
     for dorm in api_response.dorms:
         groups = sorted(
             set(
-                group.strip()
+                group
                 for e in api_response.events
                 if dorm in e.dorm and e.group
                 for group in e.group
