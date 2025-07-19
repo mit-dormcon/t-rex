@@ -1,9 +1,10 @@
 {
   "$defs": {
     "CSVConfig": {
+      "description": "Configuration for parsing CSV files.",
       "properties": {
         "date_format": {
-          "description": "String format used for parsing dates in the CSV, see strftime.net",
+          "description": "String format used for parsing dates in the CSV, see [strftime.net](https://strftime.net/)",
           "title": "Date Format",
           "type": "string"
         }
@@ -46,9 +47,10 @@
       "type": "object"
     },
     "DormsConfig": {
+      "description": "Configuration for a dorm within the REX system.",
       "properties": {
         "color": {
-          "description": "Hardcoding a color based on the primary color on their website",
+          "description": "A representative color, usually based on the primary color on their website.",
           "format": "color",
           "title": "Color",
           "type": "string"
@@ -85,6 +87,7 @@
             }
           ],
           "default": null,
+          "description": "Subcommunities within the dorm, e.g. 'B3rd' in Burton Conner or 'La Casa' in New House",
           "title": "Groups"
         }
       },
@@ -96,9 +99,10 @@
       "type": "object"
     },
     "GroupConfig": {
+      "description": "Configuration for a group within a dorm.",
       "properties": {
         "color": {
-          "description": "Hardcoding a color based on the primary color on their website",
+          "description": "A representative color, usually based on the primary color on their website.",
           "format": "color",
           "title": "Color",
           "type": "string"
@@ -111,6 +115,7 @@
       "type": "object"
     },
     "OrientationConfig": {
+      "description": "Configuration for orientation events.",
       "properties": {
         "file_name": {
           "anyOf": [
@@ -127,10 +132,12 @@
           "title": "File Name"
         },
         "mandatory_tag": {
+          "description": "Tag used to mark mandatory (blackout) events, used for validation and display.",
           "title": "Mandatory Tag",
           "type": "string"
         },
         "include_in_booklet": {
+          "description": "Whether to include orientation events in the booklet.",
           "title": "Include In Booklet",
           "type": "boolean"
         }
@@ -143,6 +150,7 @@
       "type": "object"
     },
     "TagsConfig": {
+      "description": "Configuration for tags within the REX system.",
       "properties": {
         "color": {
           "description": "Hex color code for the tag, used on the website",
@@ -171,24 +179,30 @@
       "type": "object"
     }
   },
+  "description": "Configuration for the REX API.",
   "properties": {
     "name": {
+      "description": "Name of the REX season, e.g. 'REX 2025'",
       "title": "Name",
       "type": "string"
     },
     "orientation": {
-      "$ref": "#/$defs/OrientationConfig"
+      "$ref": "#/$defs/OrientationConfig",
+      "description": "Orientation configuration"
     },
     "csv": {
-      "$ref": "#/$defs/CSVConfig"
+      "$ref": "#/$defs/CSVConfig",
+      "description": "Configuration for parsing CSV files"
     },
     "dates": {
-      "$ref": "#/$defs/DatesConfig"
+      "$ref": "#/$defs/DatesConfig",
+      "description": "REX date configuration"
     },
     "dorms": {
       "additionalProperties": {
         "$ref": "#/$defs/DormsConfig"
       },
+      "description": "Dorm information",
       "title": "Dorms",
       "type": "object"
     },
@@ -196,6 +210,7 @@
       "additionalProperties": {
         "$ref": "#/$defs/TagsConfig"
       },
+      "description": "Tags configuration",
       "title": "Tags",
       "type": "object"
     }

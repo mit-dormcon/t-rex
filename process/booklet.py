@@ -1,3 +1,11 @@
+"""
+This module contains functions to generate the REX booklet and index page.
+
+It uses Jinja2 for templating and Markdown for rendering the index page.
+
+It also includes functions to format event dates and handle errors.
+"""
+
 from datetime import datetime, timedelta
 from operator import attrgetter
 from typing import Optional
@@ -55,7 +63,14 @@ env.globals["format_date"] = event_dt_format
 def get_date_bucket(event: Event, cutoff: int):
     """
     Returns the date that an event "occurs" on. This method treats all events starting
-    before hour_cutoff as occurring on the date before.
+    before `hour_cutoff` as occurring on the date before.
+
+    Args:
+        event (Event): The event to get the date bucket for.
+        cutoff (int): The hour cutoff to determine the date bucket.
+
+    Returns:
+        date: The date that the event occurs on, adjusted for the hour cutoff.
     """
     dt = event.start
     if dt.hour < cutoff:
@@ -63,7 +78,21 @@ def get_date_bucket(event: Event, cutoff: int):
     return dt.date()
 
 
-def generate_booklet(api: APIResponse, config: Config, extra_events: list[Event]):
+def generate_booklet(
+    api: APIResponse, config: Config, extra_events: list[Event]
+) -> str:
+    """
+    Generates the REX booklet HTML.
+
+    Args:
+        api (APIResponse): The API response object containing event data.
+        config (Config): The configuration object.
+        extra_events (list[Event]): A list of extra events to include in the booklet.
+
+    Returns:
+        str: The rendered HTML for the booklet.
+    """
+
     # Bucket events into dates
     start_date = api.start
     end_date = api.end
@@ -123,10 +152,13 @@ def generate_booklet(api: APIResponse, config: Config, extra_events: list[Event]
     )
 
 
-def generate_index():
+def generate_index() -> str:
     """
     Generates homepage index.html using the Markdown file at index.md,
     with the template at templates/template.html
+
+    Returns:
+        str: The rendered HTML for the index page.
     """
     page = frontmatter.load("templates/index.md")
     content = markdown.markdown(page.content)
@@ -134,10 +166,20 @@ def generate_index():
     return env.get_template("template.html").render(content=content, **page.metadata)
 
 
-def generate_errors(errors: dict[str, tuple[list[str], list[str]]], name: str):
+def generate_errors(errors: dict[str, tuple[list[str], list[str]]], name: str) -> str:
     """
     Generates the error page using the template at templates/errors.html
+
+    Args:
+        errors (dict[str, tuple[list[str], list[str]]]):
+            A dictionary mapping event names to a tuple of (contact_emails, list_of_errors).
+
+        name (str): The name of the event.
+
+    Returns:
+        str: The rendered HTML for the error page.
     """
+
     return env.get_template("template.html").render(
         title=f"{name} Event Errors",
         content=env.get_template("errors.html").render(errors=errors),

@@ -1,3 +1,12 @@
+"""
+Primary script for processing REX events and generating the booklet.
+
+This script reads event data from CSV files, validates the events,
+and generates HTML files for the booklet, index, and errors.
+
+It also generates an OpenAPI schema for the API response.
+"""
+
 import csv
 import shutil
 from datetime import datetime, timezone
@@ -26,16 +35,37 @@ config = load_config()
 
 
 def get_main_dorm(dorm_main: str) -> str:
+    """
+    Get the main dorm name, considering renames in the configuration.
+
+    Args:
+        dorm_main (str): The main dorm name to check.
+
+    Returns:
+        str: The main dorm name, or the renamed version if it exists in the config.
+    """
     if dorm_main in config.dorms:
         return config.dorms[dorm_main].rename_to or dorm_main
 
     return dorm_main
 
 
-def get_invalid_events(api_events: list[Event], extra_events: list[Event]):
+def get_invalid_events(
+    api_events: list[Event], extra_events: list[Event]
+) -> dict[str, tuple[list[str], list[str]]]:
     """
     Get list of error messages for invalid events.
-    Formatted as a dict, with dorms as the key and a tuple of the contact emails and list of events as the value.
+
+    Formatted as a dict, with dorms as the key and
+    a tuple of the contact emails and list of events as the value.
+
+    Args:
+        api_events (list[Event]): The list of API events to check.
+        extra_events (list[Event]): The list of extra events to check.
+
+    Returns:
+        dict[str, tuple[list[str], list[str]]]: A dictionary with dorms as the key
+        and a tuple of the contact emails and list of events as the value.
     """
 
     event_errors: dict[str, tuple[list[str], list[str]]] = {}
@@ -115,10 +145,22 @@ def get_invalid_events(api_events: list[Event], extra_events: list[Event]):
     return event_errors
 
 
-def process_csv(filename: Path) -> Generator[Event]:
-    # NOTE: If you saved this with Excel as a CSV file with UTF-8 encoding, you might
-    # need to open it with encoding="utf-8-sig" instead of "utf-8".
-    with open(filename, encoding="utf-8") as f:
+def process_csv(filename: Path, encoding="utf-8") -> Generator[Event]:
+    """
+    Processes a CSV file and yields Event objects.
+
+    .. note::
+        If you saved this with Excel as a CSV file with UTF-8 encoding, you might
+        need to open it with encoding="utf-8-sig" instead of "utf-8".
+
+    Args:
+        filename (Path): The path to the CSV file to process.
+        encoding (str, optional): The encoding of the CSV file. Defaults to "utf-8".
+
+    Yields:
+        Event: An Event object for each row in the CSV file.
+    """
+    with open(filename, encoding=encoding) as f:
         reader = csv.DictReader(f, strict=True)
         for row in reader:
             event = Event.model_validate(row)
