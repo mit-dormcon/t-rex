@@ -187,8 +187,8 @@ class Event(BaseModel):
         StringConstraints(max_length=50, strip_whitespace=True),
         Field(validation_alias="Event Location"),
     ]
-    start: Annotated[datetime, Field(validation_alias="Start Date and Time")]
-    end: Annotated[datetime, Field(validation_alias="End Date and Time")]
+    start: Annotated[AwareDatetime, Field(validation_alias="Start Date and Time")]
+    end: Annotated[AwareDatetime, Field(validation_alias="End Date and Time")]
     description: Annotated[
         str,
         StringConstraints(max_length=280, strip_whitespace=True),
