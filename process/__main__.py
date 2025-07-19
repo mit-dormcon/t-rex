@@ -144,6 +144,14 @@ if __name__ == "__main__":
                 for tag, tag_val in config.tags.items()
                 if tag_val.color
             },
+            groups={
+                dorm: {
+                    group: group_val.color
+                    for group, group_val in dorm_val.groups.items()
+                }
+                for dorm, dorm_val in config.dorms.items()
+                if dorm_val.groups
+            },
         ),
         start=config.dates.start,
         end=config.dates.end,

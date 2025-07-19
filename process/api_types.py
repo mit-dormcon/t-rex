@@ -105,17 +105,20 @@ class DatesConfig(BaseModel):
     ]
 
 
-class DormsConfig(BaseModel):
+class GroupConfig(BaseModel):
+    color: Annotated[
+        Color,
+        Field(
+            description="Hardcoding a color based on the primary color on their website"
+        ),
+    ]
+
+
+class DormsConfig(GroupConfig):
     contact: Annotated[
         EmailStr,
         Field(
             description="REX chair contact emails, available at https://groups.mit.edu/webmoira/list/dorms-rex"
-        ),
-    ]
-    color: Annotated[
-        Color,
-        Field(
-            description="Hardcoding a color for each dorm based on the primary color on their website"
         ),
     ]
     rename_to: Annotated[
@@ -125,6 +128,7 @@ class DormsConfig(BaseModel):
             description="If the dorm is renamed, this is the new name to use in the booklet and on the website",
         ),
     ]
+    groups: Optional[dict[str, GroupConfig]] = None
 
 
 class TagsConfig(BaseModel):
@@ -271,6 +275,7 @@ class EventWithEmoji(Event):
 
 class ColorsAPIResponse(BaseModel):
     dorms: dict[str, Color]
+    groups: dict[str, dict[str, Color]]
     tags: dict[str, Color]
 
 

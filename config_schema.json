@@ -47,16 +47,16 @@
     },
     "DormsConfig": {
       "properties": {
+        "color": {
+          "description": "Hardcoding a color based on the primary color on their website",
+          "format": "color",
+          "title": "Color",
+          "type": "string"
+        },
         "contact": {
           "description": "REX chair contact emails, available at https://groups.mit.edu/webmoira/list/dorms-rex",
           "format": "email",
           "title": "Contact",
-          "type": "string"
-        },
-        "color": {
-          "description": "Hardcoding a color for each dorm based on the primary color on their website",
-          "format": "color",
-          "title": "Color",
           "type": "string"
         },
         "rename_to": {
@@ -71,13 +71,43 @@
           "default": null,
           "description": "If the dorm is renamed, this is the new name to use in the booklet and on the website",
           "title": "Rename To"
+        },
+        "groups": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/GroupConfig"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Groups"
         }
       },
       "required": [
-        "contact",
-        "color"
+        "color",
+        "contact"
       ],
       "title": "DormsConfig",
+      "type": "object"
+    },
+    "GroupConfig": {
+      "properties": {
+        "color": {
+          "description": "Hardcoding a color based on the primary color on their website",
+          "format": "color",
+          "title": "Color",
+          "type": "string"
+        }
+      },
+      "required": [
+        "color"
+      ],
+      "title": "GroupConfig",
       "type": "object"
     },
     "OrientationConfig": {

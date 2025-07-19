@@ -77,7 +77,7 @@ color = "#293142"
 
 [dorms."New House"]
 contact = "nh-rush@mit.edu"
-color = "#e7e9f6"
+color = "#2a5fbb"
 
 [dorms."New Vassar"]
 contact = "nv-rex-chair@mit.edu"
@@ -99,3 +99,59 @@ color = "#25aae1"
 contact = "dormcon-rexvp@mit.edu"
 color = "#4a8faf"
 rename_to = "Campus Wide!"
+
+# GROUPS
+
+[dorms."Burton Conner".groups]
+"B1" = { color = "#0041a5" }
+"B2" = { color = "rgb(44, 196, 188)" }
+"B3rd" = { color = "#ff9900" }
+"B4" = { color = "#dc3545" }
+# "B5" = { color = "" } COULDNT FIND :(
+"C2" = { color = "#ff3b3b" }
+"C3" = { color = "#38761d" }
+"C4" = { color = "rgb(200, 129, 255)" }
+"C5" = { color = "#b9e3f0" }
+
+[dorms."MacGregor House".groups]
+"J Entry" = { color = "rgba(76,76,254,1)" }
+"A Entry" = { color = "rgba(5,93,243,1)" }
+"B Entry" = { color = "rgba(5,180,93,1)" }
+"C Entry" = { color = "rgba(5,140,40,1)" }
+"D Entry" = { color = "rgba(40,140,240,1)" }
+"E Entry" = { color = "rgba(221,162,126,1)" }
+"F Entry" = { color = "rgba(200,125,150,1)" }
+"G Entry" = { color = "rgba(250,150,50,1)" }
+"H Entry" = { color = "rgba(50,175,50,1)" }
+
+[dorms."New House".groups]
+"Chocolate City" = { color = "#ffed2e" }
+"iHouse" = { color = "#c78665" }
+"La Casa" = { color = "#e10909" }
+"New House 3" = { color = "#1F618D" }
+"French House" = { color = "#3357cc" }
+"Desmond / House 5" = { color = "#2617d3" }
+"Juniper" = { color = "#06446c" }
+"German House" = { color = "#ff0000" }
+"House 4" = { color = "#6d1fca" }
+
+# couldnt find any :(
+# [dorms."Next House".groups]
+# "2W" = { color = "" }
+# "3 West" = { color = "" }
+# "4 East" = { color = "" }
+# "4W" = { color = "" }
+# "5W" = { color = "" }
+# "Next 2E" = { color = "" }
+# "Next House" = { color = "" }
+
+
+[dorms."Random Hall".groups]
+"Bonfire" = { color = "#c70000" }
+"Clam" = { color = "#ff922b" }
+"Loop" = { color = "#0cc3c2" }
+"Destiny" = { color = "#f29f58" }
+"Pecker" = { color = "#ffff00" }
+"BMF" = { color = "#90195f" }
+"Black Hole" = { color = "#000000" }
+"Foo" = { color = "#399d6e" }
