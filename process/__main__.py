@@ -135,23 +135,9 @@ if __name__ == "__main__":
         groups={},
         tags=[],
         colors=ColorsAPIResponse(
-            dorms={
-                (config.dorms[dorm].rename_to or dorm): dorm_val.color
-                for dorm, dorm_val in config.dorms.items()
-            },
-            tags={
-                tag: tag_val.color
-                for tag, tag_val in config.tags.items()
-                if tag_val.color
-            },
-            groups={
-                dorm: {
-                    group: group_val.color
-                    for group, group_val in dorm_val.groups.items()
-                }
-                for dorm, dorm_val in config.dorms.items()
-                if dorm_val.groups
-            },
+            dorms={},
+            tags={},
+            groups={},
         ),
         start=config.dates.start,
         end=config.dates.end,
@@ -203,6 +189,25 @@ if __name__ == "__main__":
             api_response.groups[dorm] = groups
 
     api_response.tags = sorted({t for e in api_response.events for t in e.tags})
+
+    api_response.colors.dorms = {
+        (config.dorms[dorm].rename_to or dorm): dorm_val.color
+        for dorm, dorm_val in config.dorms.items()
+        if ((config.dorms[dorm].rename_to or dorm) in api_response.dorms)
+    }
+
+    api_response.colors.tags = {
+        tag: tag_val.color
+        for tag, tag_val in config.tags.items()
+        if tag_val.color and tag in api_response.tags
+    }
+    api_response.colors.groups = {
+        (config.dorms[dorm].rename_to or dorm): {
+            group: group_val.color for group, group_val in dorm_val.groups.items()
+        }
+        for dorm, dorm_val in config.dorms.items()
+        if dorm_val.groups and dorm in api_response.dorms
+    }
 
     booklet_only_events = (
         orientation_events if config.orientation.include_in_booklet else []
