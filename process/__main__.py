@@ -83,7 +83,7 @@ def get_invalid_events(
         error_key = get_dorm_group(dorms_list)
 
         if event_errors.get(error_key) is None:
-            contact_emails = []
+            contact_emails = list[str]()
 
             for check_dorm in dorms_list:
                 if check_dorm in config.dorms:
@@ -145,7 +145,7 @@ def get_invalid_events(
     return event_errors
 
 
-def process_csv(filename: Path, encoding="utf-8") -> Generator[Event]:
+def process_csv(filename: Path, encoding: str = "utf-8") -> Generator[Event]:
     """
     Processes a CSV file and yields Event objects.
 

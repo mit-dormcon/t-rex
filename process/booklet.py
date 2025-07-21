@@ -57,7 +57,7 @@ def event_dt_format(start: datetime, end: datetime, groups: Optional[set[str]] =
     return out
 
 
-env.globals["format_date"] = event_dt_format
+env.globals["format_date"] = event_dt_format  # type:  ignore
 
 
 def get_date_bucket(event: Event, cutoff: int):
@@ -160,7 +160,9 @@ def generate_index() -> str:
     Returns:
         str: The rendered HTML for the index page.
     """
-    page = frontmatter.load("templates/index.md")
+    with open("templates/index.md", encoding="utf-8") as f:
+        page = frontmatter.load(f)
+
     content = markdown.markdown(page.content)
 
     return env.get_template("template.html").render(content=content, **page.metadata)
@@ -180,7 +182,9 @@ def generate_errors(errors: dict[str, tuple[list[str], list[str]]], name: str) -
         str: The rendered HTML for the error page.
     """
 
+    content = env.get_template("errors.html").render(errors=errors)
+
     return env.get_template("template.html").render(
         title=f"{name} Event Errors",
-        content=env.get_template("errors.html").render(errors=errors),
+        content=content,
     )

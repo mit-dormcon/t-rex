@@ -215,7 +215,7 @@ class Config(BaseModel):
     """Tags configuration"""
 
 
-def save_config_schema(path=Path("config_schema.json")) -> None:
+def save_config_schema(path: Path = Path("config_schema.json")) -> None:
     """
     Save the JSON schema for the configuration.
 
@@ -227,7 +227,7 @@ def save_config_schema(path=Path("config_schema.json")) -> None:
         json.dump(Config.model_json_schema(), f, indent=2)
 
 
-def load_config(path=Path("config.toml")) -> Config:
+def load_config(path: Path = Path("config.toml")) -> Config:
     """
     Load the configuration from the TOML file. Also validates the configuration
 
@@ -246,7 +246,7 @@ def load_config(path=Path("config.toml")) -> Config:
 def process_dt_from_csv(
     time_string: str,
     date_format: str,
-    timezone=ZoneInfo("America/New_York"),
+    timezone: ZoneInfo = ZoneInfo("America/New_York"),
 ) -> datetime:
     """
     Processes a datetime string from the CSV file into a timezone-aware datetime object.
@@ -511,7 +511,9 @@ def get_api_schema():
                 "title": "T-REX",
                 "summary": "The DormCon REX API!",
                 "version": "2025.0.0",
-                "description": "This API hosts the structured data and information for the [REX Events page](https://dormcon.mit.edu/rex/events). Feel free to use it for your own purposes!",
+                "description": "This API hosts the structured data and information for the "
+                "[REX Events page](https://dormcon.mit.edu/rex/events). "
+                "Feel free to use it for your own purposes!",
                 "contact": {
                     "name": "DormCon Tech Chair",
                     "email": "dormcon-tech-chair@mit.edu",
@@ -533,7 +535,8 @@ def get_api_schema():
                 "/api.json": {
                     "get": {
                         "summary": "All REX event data",
-                        "description": "Returns a JSON object with all REX data. This includes data about the REX API, a list of all events, and more.",
+                        "description": "Returns a JSON object with all REX data. "
+                        "This includes data about the REX API, a list of all events, and more.",
                         "tags": ["Raw Data"],
                         "responses": {
                             "200": {
