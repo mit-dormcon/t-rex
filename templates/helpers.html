@@ -8,7 +8,7 @@
 
     <span class="title">{{ event.name }}</span>
 
-    {% if event.dorm[0] != 'Orientation' %}
+    {% if 'Orientation' not in event.dorm %}
       <span class="dorm"
         >@
         {{ ', '.join(event.dorm) }}{% if event.group %}{{ ": " + ', '.join(event.group) }}{% endif %}</span
