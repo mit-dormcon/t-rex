@@ -39,8 +39,8 @@ contain the following columns:
 
 ### Tag behavior
 
-- Events tagged with a tag will be printed with an icon in the booklet, if the
-  emoji field is present
+- Events tagged will be printed with an icon in the booklet, if the emoji field
+  is present
 - Events tagged with `mandatory` will be printed with a bold outline in the
   booklet
 - Events tagged with `signature` will be printed with a dashed outline to
@@ -51,12 +51,13 @@ contain the following columns:
 ### Orientation Events
 
 You can add orientation or official events to the booklet using the
-`events/orientation.csv` sheet. Set the dorm field to "Orientation" for these
-events, and add "mandatory" to the list of tags.
+`events/orientation.csv` sheet. Leave the dorm field blank for these events, and
+add "mandatory" to the list of tags if it's a blackout time.
 
 These events are **skipped** for generating the JSON that populates the web UI,
 but they will show up in the booklet if `orientation.include_in_booklet` is set
-to true. These are also used to check blackout time conflicts.
+to true. Events with the "mandatory" tag will also be used to used to check
+blackout time conflicts.
 
 ## Running a local server
 

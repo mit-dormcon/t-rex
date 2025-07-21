@@ -21,10 +21,7 @@
         <span class="day-title">Residence Hall Tours</span>
         {% for event in tours %}{{ event_box(event) }}{% endfor %}
       {% endif %}
-      {%
-        if
-        dates.before
-      %}
+      {% if dates.before %}
         <div class="fpop">
           <span class="fpop-title">FPOP Week Events</span>
           During the week before REX begins, FPOPs are happening on campus. If
@@ -34,10 +31,7 @@
             <span class="day-title">{{ day.strftime("%A %D") }}</span>
             {% for key, events in by_dates.items() %}
               {% if key == day %}
-                {%
-                  for
-                  event in events
-                %}
+                {% for event in events %}
                   {{ event_box(event) }}
                 {% endfor %}
               {% endif %}
@@ -50,10 +44,7 @@
           <span class="day-title">{{ day.strftime("%A %D") }}</span>
           {% for key, events in by_dates.items() %}
             {% if key == day %}
-              {%
-                for
-                event in events
-              %}
+              {% for event in events %}
                 {{ event_box(event) }}
               {% endfor %}
             {% endif %}
@@ -69,10 +60,7 @@
             <span class="day-title">{{ day.strftime("%A %D") }}</span>
             {% for key, events in by_dates.items() %}
               {% if key == day %}
-                {%
-                  for
-                  event in events
-                %}
+                {% for event in events %}
                   {{ event_box(event) }}
                 {% endfor %}
               {% endif %}

@@ -8,11 +8,11 @@
 
     <span class="title">{{ event.name }}</span>
 
-    {% if 'Orientation' not in event.dorm %}
-      <span class="dorm"
-        >@
-        {{ ', '.join(event.dorm) }}{% if event.group %}{{ ": " + ', '.join(event.group) }}{% endif %}</span
-      >
+    {% if event.dorm %}
+      <span class="dorm">
+        @
+        {{ ', '.join(event.dorm) }}{% if event.group %}{{ ": " + ', '.join(event.group) }}{% endif %}
+      </span>
     {% endif %}
     {% if event.location %}
       <span class="location">({{ event.location }})</span>
