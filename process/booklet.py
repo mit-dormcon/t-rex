@@ -11,7 +11,6 @@ from operator import attrgetter
 from typing import Optional
 from zoneinfo import ZoneInfo
 
-import frontmatter
 import jinja2
 import markdown
 
@@ -160,12 +159,16 @@ def generate_index() -> str:
     Returns:
         str: The rendered HTML for the index page.
     """
+    md = markdown.Markdown(extensions=["meta"])
+
     with open("templates/index.md", encoding="utf-8") as f:
-        page = frontmatter.load(f)
+        content = md.convert(f.read())
 
-    content = markdown.markdown(page.content)
-
-    return env.get_template("template.html").render(content=content, **page.metadata)
+    metadata = {
+        k: (v[0] if isinstance(v, list) else v)
+        for k, v in (md.Meta or {}).items()  # pylint: disable=no-member # type: ignore
+    }
+    return env.get_template("template.html").render(content=content, **metadata)
 
 
 def generate_errors(errors: dict[str, tuple[list[str], list[str]]], name: str) -> str:
