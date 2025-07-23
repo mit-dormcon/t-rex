@@ -515,10 +515,10 @@ class APIResponse(BaseModel):
         json_schema_mode_override="serialization",
     )
 
-    name: str = config.name
+    name: str = Field(default_factory=lambda: config.name)
     """Name of the REX season, e.g. 'REX 2025'"""
 
-    published: AwareDatetime = datetime.now(timezone.utc)
+    published: AwareDatetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     """When the API was published, used for display in the booklet and on the website"""
 
     events: list[Event] = []
@@ -545,10 +545,10 @@ class APIResponse(BaseModel):
     colors: ColorsAPIResponse = ColorsAPIResponse()
     """Colors used in the REX system, used for display in the booklet and on the website."""
 
-    start: date = config.dates.start
+    start: date = Field(default_factory=lambda: config.dates.start)
     """Start date of REX, used for display in the booklet and on the website."""
 
-    end: date = config.dates.end
+    end: date = Field(default_factory=lambda: config.dates.end)
     """End date of REX, used for display in the booklet and on the website."""
 
 
