@@ -69,7 +69,7 @@ def get_invalid_events(
         if config.orientation.mandatory_tag in event_to_check.tags
     ]
 
-    def create_error_dorm_entry(dorms: set[str], error_string: str) -> None:
+    def create_error_dorm_entry(dorms: list[str], error_string: str) -> None:
         dorms_list = frozenset(get_main_dorm(dorm) for dorm in dorms)
         error_key = get_dorm_group(dorms_list)
 

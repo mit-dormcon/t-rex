@@ -20,14 +20,14 @@ env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
 eastern = ZoneInfo("America/New_York")
 
 
-def event_dt_format(start: datetime, end: datetime, groups: Optional[set[str]] = None):
+def event_dt_format(start: datetime, end: datetime, groups: Optional[list[str]] = None):
     """
     Formats the time string that gets displayed on the booklet
     """
     out = start.strftime("%a")
 
     if groups is None:
-        groups = set()
+        groups = []
 
     time_strings = list[str]()
     for dt in (start, end):

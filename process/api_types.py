@@ -284,7 +284,7 @@ class Event(BaseModel):
     """Event name"""
 
     dorm: Annotated[
-        set[Annotated[str, StringConstraints(strip_whitespace=True)]],
+        UniqueList[Annotated[str, StringConstraints(strip_whitespace=True)]],
         Field(validation_alias="Dorm"),
     ]
     """Dorms hosting the event. While typically a single dorm, this can also be multiple dorms."""
@@ -310,13 +310,15 @@ class Event(BaseModel):
     """Event description, displayed in the booklet"""
 
     tags: Annotated[
-        set[Annotated[str, StringConstraints(strip_whitespace=True, to_lower=True)]],
+        UniqueList[
+            Annotated[str, StringConstraints(strip_whitespace=True, to_lower=True)]
+        ],
         Field(validation_alias="Tags"),
     ]
     """Tags associated with the event, used for filtering and display"""
 
     group: Annotated[
-        Optional[set[Annotated[str, StringConstraints(strip_whitespace=True)]]],
+        Optional[UniqueList[Annotated[str, StringConstraints(strip_whitespace=True)]]],
         Field(validation_alias="Group"),
     ] = None
     """Subcommunities running/hosting the event"""
@@ -336,15 +338,15 @@ class Event(BaseModel):
     """Whether the event is published and visible on the website. Defaults to False."""
 
     @property
-    def emoji(self) -> set[str]:
-        """Set of emojis associated with the event, used for display in the booklet"""
-        emojis: set[str] = set()
+    def emoji(self) -> UniqueList[str]:
+        """List of emojis associated with the event, used for display in the booklet"""
+        emojis: UniqueList[str] = []
 
         for tag in self.tags:
             if tag in config.tags and config.tags[tag].emoji:
                 emoji = config.tags[tag].emoji
                 if isinstance(emoji, str):
-                    emojis.add(emoji)
+                    emojis.append(emoji)
 
         return emojis
 
@@ -353,7 +355,7 @@ class Event(BaseModel):
     def validate_dorm(cls, v: object) -> object:
         """
         Validates the dorm field. Converts a comma-separated string into a
-        set of dorms, and renames if necessary.
+        list of dorms, and renames if necessary.
 
         Args:
             v (object): The value to validate.
@@ -417,13 +419,13 @@ class Event(BaseModel):
     @classmethod
     def validate_tags(cls, v: object) -> object:
         """
-        Validates the tags field. Converts a comma-separated string into a set of tags.
+        Validates the tags field. Converts a comma-separated string into a list of tags.
 
         Args:
             v (object): The value to validate.
 
         Returns:
-            object: The validated value, a set of tags.
+            object: The validated value, a list of tags.
         """
         if isinstance(v, str):
             v = v.strip()
@@ -432,42 +434,39 @@ class Event(BaseModel):
 
     @field_validator("tags", mode="after")
     @classmethod
-    def rename_tags(cls, v: set) -> set:
+    def rename_tags(cls, v: UniqueList[str]) -> UniqueList[str]:
         """
         Renames tags based on the configuration. If a tag matches `rename_from`, it will be renamed
         to the corresponding tag.
 
         Args:
-            v (set): The value to validate.
+            v (UniqueList[str]): The value to validate.
 
         Returns:
-            set: The validated value, a set of tags with renamed tags.
+            UniqueList[str]: The validated value, a list of tags with renamed tags.
         """
 
-        if isinstance(v, set):
-            new_tags = v.copy()
-            for tag in new_tags:
-                if tag in config.tags:
-                    pass
-                elif tag in map(
-                    lambda t: t.rename_from.lower() if t.rename_from else "",
-                    config.tags.values(),
-                ):
-                    # Find the tag that matches rename_from
-                    matching_tag = next(
-                        (
-                            tag_key
-                            for tag_key, tag_val in config.tags.items()
-                            if tag_val.rename_from is not None
-                            and tag_val.rename_from.lower() == tag
-                        )
+        for tag in v:
+            if tag in config.tags:
+                pass
+            elif tag in map(
+                lambda t: t.rename_from.lower() if t.rename_from else "",
+                config.tags.values(),
+            ):
+                # Find the tag that matches rename_from
+                matching_tag = next(
+                    (
+                        tag_key
+                        for tag_key, tag_val in config.tags.items()
+                        if tag_val.rename_from is not None
+                        and tag_val.rename_from.lower() == tag
                     )
+                )
 
-                    new_tags.remove(tag)
-                    new_tags.add(matching_tag)
-                else:
-                    pass
-            v = new_tags
+                v.remove(tag)
+                v.append(matching_tag)
+            else:
+                pass
 
         return v
 
@@ -475,13 +474,13 @@ class Event(BaseModel):
     @classmethod
     def validate_group(cls, v: object) -> object:
         """
-        Validates the group field. Converts a comma-separated string into a set of groups.
+        Validates the group field. Converts a comma-separated string into a list of groups.
 
         Args:
             v (object): The value to validate.
 
         Returns:
-            object: The validated value, a set of groups.
+            object: The validated value, a list of groups.
         """
         if isinstance(v, str):
             v = v.strip()
