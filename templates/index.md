@@ -4,7 +4,7 @@ Description: This website hosts raw data about DormCon REX Events.
 GitHub: [mit-dormcon/t-rex][repo]
 
 > **If you're looking to learn more about REX or see what events are happening,
-> please visit the official site at [dormcon.mit.edu/rex][rex]. **
+> please visit the official site at [dormcon.mit.edu/rex][rex].**
 
 ## What's this website?
 
