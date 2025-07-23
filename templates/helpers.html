@@ -18,6 +18,8 @@
       <span class="location">({{ event.location }})</span>
     {% endif %}
     &middot;
-    <span class="description">{{ event.description }}</span>
+    <span class="description">
+      {{ event.description|replace("\n", "<br />") }}
+    </span>
   </div>
 {% endmacro %}
