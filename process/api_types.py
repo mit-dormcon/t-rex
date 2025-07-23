@@ -434,13 +434,17 @@ class Event(BaseModel):
             for tag in v:
                 if tag in config.tags:
                     new_tags.add(tag)
-                elif tag in map(lambda t: t.rename_from, config.tags.values()):
+                elif tag in map(
+                    lambda t: t.rename_from.lower() if t.rename_from else "",
+                    config.tags.values(),
+                ):
                     # Find the tag that matches rename_from
                     matching_tag = next(
                         (
                             tag
                             for tag, tag_val in config.tags.items()
-                            if tag_val.rename_from == tag
+                            if tag_val.rename_from
+                            and tag_val.rename_from.lower() == tag
                         ),
                         None,
                     )
@@ -448,6 +452,7 @@ class Event(BaseModel):
                         new_tags.add(matching_tag)
                 else:
                     new_tags.add(tag)
+            v = new_tags
 
         return v
 
