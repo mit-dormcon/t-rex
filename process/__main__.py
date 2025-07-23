@@ -10,10 +10,8 @@ It also generates an OpenAPI schema for the API response.
 import csv
 import shutil
 from datetime import datetime, timezone
-from itertools import chain
 from operator import attrgetter
 from pathlib import Path
-from typing import Generator
 
 import yaml
 
@@ -71,10 +69,10 @@ def get_invalid_events(
     event_errors: dict[str, tuple[list[str], list[str]]] = {}
 
     # Check for conflicts with mandatory events and invalid events
-    all_events = api_events + extra_events
+    combined_events = api_events + extra_events
     mandatory_events = [
         event_to_check
-        for event_to_check in all_events
+        for event_to_check in combined_events
         if config.orientation.mandatory_tag in event_to_check.tags
     ]
 
@@ -114,7 +112,7 @@ def get_invalid_events(
             )
             create_error_dorm_entry(
                 event.dorm,
-                f"{event.name}{event_date} has an end time before its start time.",
+                f"{event.name} ({event.id}) {event_date} has an end time before its start time.",
             )
             continue
 
@@ -130,7 +128,7 @@ def get_invalid_events(
                 ).strftime("%x")
                 create_error_dorm_entry(
                     event.dorm,
-                    f"{event.name} conflicts with {mandatory_event.name}{event_date}.",
+                    f"{event.name} ({event.id}) conflicts with {mandatory_event.name} ({mandatory_event.id}){event_date}.",
                 )
                 continue
 
@@ -145,7 +143,7 @@ def get_invalid_events(
     return event_errors
 
 
-def process_csv(filename: Path, encoding: str = "utf-8") -> Generator[Event]:
+def process_csv(filename: Path, encoding: str = "utf-8") -> list[Event]:
     """
     Processes a CSV file and yields Event objects.
 
@@ -157,15 +155,12 @@ def process_csv(filename: Path, encoding: str = "utf-8") -> Generator[Event]:
         filename (Path): The path to the CSV file to process.
         encoding (str, optional): The encoding of the CSV file. Defaults to "utf-8".
 
-    Yields:
-        Event: An Event object for each row in the CSV file.
+    Returns:
+        list[Event]: A list of Event objects for each row in the CSV file.
     """
     with open(filename, encoding=encoding) as f:
         reader = csv.DictReader(f, strict=True)
-        for row in reader:
-            event = Event.model_validate(row)
-            if event.published:
-                yield event
+        return [Event.model_validate(row) for row in reader]
 
 
 if __name__ == "__main__":
@@ -186,10 +181,10 @@ if __name__ == "__main__":
     )
 
     # Get orientation events if they exist
-    orientation_events: list[Event] = []
+    orientation_events = list[Event]()
     if config.orientation.file_name:
         print(f"Processing orientation events from {config.orientation.file_name}...")
-        orientation_events = list(process_csv(config.orientation.file_name))
+        orientation_events = process_csv(config.orientation.file_name)
 
     event_files = {
         event_file
@@ -198,10 +193,15 @@ if __name__ == "__main__":
         and event_file != config.orientation.file_name
     }
     print(f"Processing events from {', '.join(str(f) for f in event_files)}...")
+
+    all_events = [
+        event for event_file in event_files for event in process_csv(event_file)
+    ]
+
     api_response.events = sorted(
         # Get all events from other CSV files
         # Order events by start time, then by end time.
-        chain.from_iterable(process_csv(event_file) for event_file in event_files),
+        (event for event in all_events if event.published),
         key=attrgetter("start", "end"),
     )
 
@@ -255,7 +255,7 @@ if __name__ == "__main__":
         orientation_events if config.orientation.include_in_booklet else []
     )
 
-    errors = get_invalid_events(api_response.events, orientation_events)
+    errors = get_invalid_events(all_events, orientation_events)
 
     api_schema = get_api_schema().model_dump(
         mode="json", by_alias=True, exclude_none=True
