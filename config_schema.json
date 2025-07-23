@@ -19,7 +19,7 @@
       "description": "Start and end dates of REX, in YYYY-MM-DD",
       "properties": {
         "start": {
-          "description": "Saturday after FPOPs end",
+          "description": "Sunday after FPOPs end",
           "format": "date",
           "title": "Start",
           "type": "string"

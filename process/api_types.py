@@ -136,7 +136,7 @@ class DatesConfig(BaseModel):
     model_config = ConfigDict(use_attribute_docstrings=True)
 
     start: date
-    """Saturday after FPOPs end"""
+    """Sunday after FPOPs end"""
 
     end: date
     """Date of FYRE"""
