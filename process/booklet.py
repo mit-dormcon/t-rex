@@ -132,11 +132,11 @@ def generate_booklet(
         dates=dates,
         start=start_date,
         end=end_date,
-        emoji=[
-            config.tags[tag].emoji
+        emoji={
+            tag: config.tags[tag].emoji
             for tag in api.tags
             if tag in config.tags and config.tags[tag].emoji
-        ],
+        },
         published=published_string,
         cover_dorms=[d for d in api.dorms if d in config.dorms.keys()],
     )
