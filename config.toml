@@ -150,11 +150,11 @@ rename_to = "Campus Wide!"
 
 
 [dorms."Random Hall".groups]
-"Bonfire" = { color = "#c70000" }
-"Clam" = { color = "#ff922b" }
-"Loop" = { color = "#0cc3c2" }
-"Destiny" = { color = "#f29f58" }
-"Pecker" = { color = "#ffff00" }
-"BMF" = { color = "#90195f" }
-"Black Hole" = { color = "#000000" }
-"Foo" = { color = "#399d6e" }
+"Bonfire" = { color = "rgb(255, 0, 0)" }
+"BMF" = { color = "rgb(173, 20, 87)" }
+"Clam" = { color = "rgb(231, 76, 60)" }
+"Black Hole" = { color = "rgb(155, 89, 182)" }
+"Loop" = { color = "rgb(255, 0, 249)" }
+"Destiny" = { color = "rgb(88, 155, 0)" }
+"Pecker" = { color = "rgb(243, 255, 0)" }
+"Foo" = { color = "rgb(51, 255, 51)" }
