@@ -5,7 +5,7 @@ All types used in the REX API are stored here.
 import json
 import tomllib
 from collections.abc import Hashable
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Annotated, Optional, TypeVar
 from zoneinfo import ZoneInfo
@@ -249,7 +249,7 @@ def load_config(path: Path = Path("config.toml")) -> Config:
 def process_dt_from_csv(
     time_string: str,
     date_format: str,
-    timezone: ZoneInfo = ZoneInfo("America/New_York"),
+    tz: ZoneInfo = ZoneInfo("America/New_York"),
 ) -> datetime:
     """
     Processes a datetime string from the CSV file into a timezone-aware datetime object.
@@ -257,10 +257,10 @@ def process_dt_from_csv(
     Args:
         time_string (str): The time string to convert.
         date_format (str): The date format to use for conversion.
-        timezone (ZoneInfo, optional): The timezone to use for the datetime object.
+        tz (ZoneInfo, optional): The timezone to use for the datetime object.
             Defaults to `ZoneInfo("America/New_York")`.
     """
-    return datetime.strptime(time_string, date_format).replace(tzinfo=timezone)
+    return datetime.strptime(time_string, date_format).replace(tzinfo=tz)
 
 
 config = load_config()
@@ -317,8 +317,8 @@ class Event(BaseModel):
 
     group: Annotated[
         Optional[set[Annotated[str, StringConstraints(strip_whitespace=True)]]],
-        Field(default=None, validation_alias="Group"),
-    ]
+        Field(validation_alias="Group"),
+    ] = None
     """Subcommunities running/hosting the event"""
 
     id: Annotated[
@@ -330,7 +330,9 @@ class Event(BaseModel):
     ]
     """4-Digit Event Code, used for linking, bookmarking, and making event revisions."""
 
-    published: bool = Field(default=False, validation_alias="Published", exclude=True)
+    published: Annotated[bool, Field(validation_alias="Published", exclude=True)] = (
+        False
+    )
     """Whether the event is published and visible on the website. Defaults to False."""
 
     @property
@@ -490,57 +492,63 @@ class Event(BaseModel):
 class ColorsAPIResponse(BaseModel):
     """API response for colors used in the REX system."""
 
-    model_config = ConfigDict(use_attribute_docstrings=True)
+    model_config = ConfigDict(
+        use_attribute_docstrings=True,
+        json_schema_mode_override="serialization",
+    )
 
-    dorms: dict[str, Color]
+    dorms: dict[str, Color] = {}
     """Colors for dorms, used for display in the booklet and on the website"""
 
-    groups: dict[str, dict[str, Color]]
+    groups: dict[str, dict[str, Color]] = {}
     """Colors for groups within dorms, used for display in the booklet and on the website"""
 
-    tags: dict[str, Color]
+    tags: dict[str, Color] = {}
     """Colors for tags, used for display in the booklet and on the website"""
 
 
 class APIResponse(BaseModel):
     """API response for the REX system."""
 
-    model_config = ConfigDict(use_attribute_docstrings=True)
+    model_config = ConfigDict(
+        use_attribute_docstrings=True,
+        json_schema_mode_override="serialization",
+    )
 
-    name: str
+    name: str = config.name
     """Name of the REX season, e.g. 'REX 2025'"""
 
-    published: AwareDatetime
+    published: AwareDatetime = datetime.now(timezone.utc)
     """When the API was published, used for display in the booklet and on the website"""
 
-    events: list[Event]
+    events: list[Event] = []
     """
     List of events in the REX system, used for display in the booklet and on the website. 
     Can be uniquely identified by the `Event.id` field.
     """
 
-    dorms: UniqueList[Annotated[str, StringConstraints(strip_whitespace=True)]]
+    dorms: UniqueList[Annotated[str, StringConstraints(strip_whitespace=True)]] = []
     """All dorms in the REX system, used for display in the booklet and on the website."""
 
     groups: dict[
         str, UniqueList[Annotated[str, StringConstraints(strip_whitespace=True)]]
-    ]
+    ] = {}
     """
     A dictionary mapping dorms to their groups, used for display in the booklet and on the website.
     """
 
     tags: UniqueList[
         Annotated[str, StringConstraints(strip_whitespace=True, to_lower=True)]
-    ]
+    ] = []
     """All tags in the REX system, used for display in the booklet and on the website."""
 
-    colors: ColorsAPIResponse
+    colors: ColorsAPIResponse = ColorsAPIResponse()
     """Colors used in the REX system, used for display in the booklet and on the website."""
 
-    start: date
+    start: date = config.dates.start
     """Start date of REX, used for display in the booklet and on the website."""
 
-    end: date
+    end: date = config.dates.end
     """End date of REX, used for display in the booklet and on the website."""
 
 

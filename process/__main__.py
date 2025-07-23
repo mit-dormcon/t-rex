@@ -9,19 +9,12 @@ It also generates an OpenAPI schema for the API response.
 
 import csv
 import shutil
-from datetime import datetime, timezone
 from operator import attrgetter
 from pathlib import Path
 
 import yaml
 
-from .api_types import (
-    APIResponse,
-    ColorsAPIResponse,
-    Event,
-    get_api_schema,
-    load_config,
-)
+from .api_types import APIResponse, Event, get_api_schema, load_config
 from .booklet import generate_booklet, generate_errors, generate_index, get_date_bucket
 from .helpers import (
     check_if_events_conflict,
@@ -128,7 +121,8 @@ def get_invalid_events(
                 ).strftime("%x")
                 create_error_dorm_entry(
                     event.dorm,
-                    f"{event.name} ({event.id}) conflicts with {mandatory_event.name} ({mandatory_event.id}){event_date}.",
+                    f"{event.name} ({event.id}) conflicts with "
+                    f"{mandatory_event.name} ({mandatory_event.id}){event_date}.",
                 )
                 continue
 
@@ -164,21 +158,7 @@ def process_csv(filename: Path, encoding: str = "utf-8") -> list[Event]:
 
 
 if __name__ == "__main__":
-    api_response = APIResponse(
-        name=config.name,
-        published=datetime.now(timezone.utc),
-        events=[],
-        dorms=[],
-        groups={},
-        tags=[],
-        colors=ColorsAPIResponse(
-            dorms={},
-            tags={},
-            groups={},
-        ),
-        start=config.dates.start,
-        end=config.dates.end,
-    )
+    api_response = APIResponse()
 
     # Get orientation events if they exist
     orientation_events = list[Event]()
