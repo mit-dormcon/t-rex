@@ -72,36 +72,45 @@
     in doubt, heed the wise words of Ms. Frizzle: "Take chances, make mistakes,
     and get messy!"
   </p>
-  <p>With that in mind, here's a quick guide to the guide:</p>
+  {% if api.tags %}
+    <p>With that in mind, here's a quick guide to the guide:</p>
 
-  <div class="event tag-mandatory">
-    <span class="title"> Mandatory Event </span>
-    <span class="description">
-      Events that look like this are mandatory. Make sure you go to them, or
-      you'll miss important information!
-    </span>
-  </div>
+    {% if "mandatory" in api.tags %}
+      <div class="event tag-mandatory">
+        <span class="title"> Mandatory Event </span>
+        <span class="description">
+          Events that look like this are mandatory. Make sure you go to them, or
+          you'll miss important information!
+        </span>
+      </div>
+    {% endif %}
 
-  <div class="event tag-signature">
-    <span class="title"> Signature Event </span>
-    <span class="dorm"> @ Dorm </span>
-    <span class="description">
-      This is Dorm's absolute <em>favorite</em> event. The Dorm REX chairs
-      picked it because they think it'll be the most fun event out of all of REX
-      and it'll do the best job of showcasing everything that's fantastic about
-      Dorm! If you can only go to one event from Dorm, go to this one.
-    </span>
-  </div>
+    {% if "signature" in api.tags %}
+      <div class="event tag-signature">
+        <span class="title"> Signature Event </span>
+        <span class="dorm"> @ Dorm </span>
+        <span class="description">
+          This is Dorm's absolute <em>favorite</em> event. The Dorm REX chairs
+          picked it because they think it'll be the most fun event out of all of
+          REX and it'll do the best job of showcasing everything that's
+          fantastic about Dorm! If you can only go to one event from Dorm, go to
+          this one.
+        </span>
+      </div>
+    {% endif %}
 
-  <p>
-    Also, look out for icons like
-    {% for name, emoji in emojis.items() %}
-      {% if loop.last %}and{% endif %}
-      {{ emoji }}
-      ({{ name }}),
-    {% endfor %}
-    which will tell you some extra information about the event.
-  </p>
+    {% if emojis %}
+      <p>
+        Also, look out for icons like
+        {% for name, emoji in emojis.items() %}
+          {% if loop.last %}and{% endif %}
+          {{ emoji }}
+          ({{ name }}),
+        {% endfor %}
+        which will tell you some extra information about the event.
+      </p>
+    {% endif %}
+  {% endif %}
 
   <p style="font-style: italic">
     This booklet was created on {{ published }}. Some events may have changed
