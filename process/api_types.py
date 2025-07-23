@@ -320,10 +320,12 @@ class Event(BaseModel):
 
     id: Annotated[
         str,
-        StringConstraints(max_length=16, strip_whitespace=True),
-        Field(description="Unique identifier for the event", validation_alias="ID"),
+        StringConstraints(
+            min_length=4, max_length=4, strip_whitespace=True, to_lower=True
+        ),
+        Field(validation_alias="ID"),
     ]
-    """Unique identifier for the event, used for linking and bookmarking"""
+    """4-Digit Event Code, used for linking, bookmarking, and making event revisions."""
 
     published: bool = Field(default=False, validation_alias="Published", exclude=True)
     """Whether the event is published and visible on the website. Defaults to False."""
