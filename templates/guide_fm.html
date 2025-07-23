@@ -94,8 +94,13 @@
   </div>
 
   <p>
-    Also, look out for icons like {{ emoji.meal }} (meal) and {{ emoji.party }}
-    (party), which will tell you some extra information about the event.
+    Also, look out for icons like
+    {% for name, emoji in emojis.items() %}
+      {% if loop.last %}and{% endif %}
+      {{ emoji }}
+      ({{ name }}),
+    {% endfor %}
+    which will tell you some extra information about the event.
   </p>
 
   <p style="font-style: italic">

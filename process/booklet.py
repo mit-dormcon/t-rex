@@ -132,7 +132,7 @@ def generate_booklet(
         dates=dates,
         start=start_date,
         end=end_date,
-        emoji={
+        emojis={
             tag: config.tags[tag].emoji
             for tag in api.tags
             if tag in config.tags and config.tags[tag].emoji
