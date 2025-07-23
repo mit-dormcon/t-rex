@@ -333,6 +333,19 @@ class Event(BaseModel):
     published: bool = Field(default=False, validation_alias="Published", exclude=True)
     """Whether the event is published and visible on the website. Defaults to False."""
 
+    @property
+    def emoji(self) -> set[str]:
+        """Set of emojis associated with the event, used for display in the booklet"""
+        emojis: set[str] = set()
+
+        for tag in self.tags:
+            if tag in config.tags and config.tags[tag].emoji:
+                emoji = config.tags[tag].emoji
+                if isinstance(emoji, str):
+                    emojis.add(emoji)
+
+        return emojis
+
     @field_validator("dorm", mode="before")
     @classmethod
     def validate_dorm(cls, v: object) -> object:
@@ -430,10 +443,10 @@ class Event(BaseModel):
         """
 
         if isinstance(v, set):
-            new_tags = set()
-            for tag in v:
+            new_tags = v.copy()
+            for tag in new_tags:
                 if tag in config.tags:
-                    new_tags.add(tag)
+                    pass
                 elif tag in map(
                     lambda t: t.rename_from.lower() if t.rename_from else "",
                     config.tags.values(),
@@ -448,9 +461,10 @@ class Event(BaseModel):
                         )
                     )
 
+                    new_tags.remove(tag)
                     new_tags.add(matching_tag)
                 else:
-                    new_tags.add(tag)
+                    pass
             v = new_tags
 
         return v
@@ -471,18 +485,6 @@ class Event(BaseModel):
             v = v.strip()
             return None if v == "" else v.split(",")
         return v
-
-
-class EventWithEmoji(Event):
-    """Emoji-enhanced event model. Only used for the booklet, not the API."""
-
-    model_config = ConfigDict(
-        use_attribute_docstrings=True,
-        json_schema_mode_override="serialization",
-    )
-
-    emoji: set[str]
-    """Set of emojis associated with the event, used for display in the booklet"""
 
 
 class ColorsAPIResponse(BaseModel):
