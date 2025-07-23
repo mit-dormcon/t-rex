@@ -4,7 +4,7 @@ Description: This website hosts raw data about DormCon REX Events.
 GitHub: [mit-dormcon/t-rex][repo]
 
 > **If you're looking to learn more about REX or see what events are happening,
-> please visit the official site at [dormcon.mit.edu/rex](rex).**
+> please visit the official site at [dormcon.mit.edu/rex][rex]. **
 
 ## What's this website?
 
@@ -14,7 +14,7 @@ website. The code that generates this website produces a few files:
 - [index.html](./index.html) - This is the page you're reading right now!
 - [api.json](./api.json) - This structured data is provided to the [REX Events
   page][events]. Feel free to use it for your own purposes! The structure of the
-  JSON is documented on the [main DormCon website](docs), and you can also look
+  JSON is documented on the [main DormCon website][docs], and you can also look
   at the schema by viewing [openapi.yaml](./openapi.yaml).
 - [booklet.html](./booklet.html) - This is the web version of the REX booklet,
   always up to date with the latest changes.
