@@ -441,12 +441,11 @@ class Event(BaseModel):
                     # Find the tag that matches rename_from
                     matching_tag = next(
                         (
-                            tag
-                            for tag, tag_val in config.tags.items()
-                            if tag_val.rename_from
+                            tag_key
+                            for tag_key, tag_val in config.tags.items()
+                            if tag_val.rename_from is not None
                             and tag_val.rename_from.lower() == tag
-                        ),
-                        None,
+                        )
                     )
                     if matching_tag:
                         new_tags.add(matching_tag)
