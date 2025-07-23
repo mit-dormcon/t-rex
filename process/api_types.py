@@ -447,8 +447,8 @@ class Event(BaseModel):
                             and tag_val.rename_from.lower() == tag
                         )
                     )
-                    if matching_tag:
-                        new_tags.add(matching_tag)
+
+                    new_tags.add(matching_tag)
                 else:
                     new_tags.add(tag)
             v = new_tags
