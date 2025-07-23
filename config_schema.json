@@ -170,6 +170,19 @@
           "default": null,
           "description": "Optional emoji to display next to the tag name in the booklet",
           "title": "Emoji"
+        },
+        "rename_from": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Tags that match rename_from will be renamed to this tag in the booklet and on the website",
+          "title": "Rename From"
         }
       },
       "required": [

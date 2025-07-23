@@ -188,6 +188,9 @@ class TagsConfig(BaseModel):
     emoji: Optional[str] = None
     """Optional emoji to display next to the tag name in the booklet"""
 
+    rename_from: Optional[str] = None
+    """Tags that match rename_from will be renamed to this tag in the booklet and on the website"""
+
 
 class Config(BaseModel):
     """
@@ -410,6 +413,42 @@ class Event(BaseModel):
         if isinstance(v, str):
             v = v.strip()
             return [] if v == "" else v.split(",")
+        return v
+
+    @field_validator("tags", mode="after")
+    @classmethod
+    def rename_tags(cls, v: set) -> set:
+        """
+        Renames tags based on the configuration. If a tag matches `rename_from`, it will be renamed
+        to the corresponding tag.
+
+        Args:
+            v (set): The value to validate.
+
+        Returns:
+            set: The validated value, a set of tags with renamed tags.
+        """
+
+        if isinstance(v, set):
+            new_tags = set()
+            for tag in v:
+                if tag in config.tags:
+                    new_tags.add(tag)
+                elif tag in map(lambda t: t.rename_from, config.tags.values()):
+                    # Find the tag that matches rename_from
+                    matching_tag = next(
+                        (
+                            tag
+                            for tag, tag_val in config.tags.items()
+                            if tag_val.rename_from == tag
+                        ),
+                        None,
+                    )
+                    if matching_tag:
+                        new_tags.add(matching_tag)
+                else:
+                    new_tags.add(tag)
+
         return v
 
     @field_validator("group", mode="before")

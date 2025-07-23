@@ -18,6 +18,7 @@ hour_cutoff = 4
 
 [tags.tour]
 color = "#1E90FF"
+rename_from = "Dorm Tour"
 
 [tags.signature]
 color = "#FFD700"
@@ -28,10 +29,12 @@ color = "#808080"
 [tags.meal]
 color = "#FF6347"
 emoji = "🍴"
+rename_from = "Food (meal)"
 
 [tags.snacks]
 color = "#FFB347"
 emoji = "🍪"
+rename_from = "Food (snacks)"
 
 [tags.party]
 color = "#C71585"
