@@ -112,7 +112,7 @@ rename_to = "Campus Wide!"
 "B3rd" = { color = "#ff9900" }
 "B4" = { color = "#dc3545" }
 # "B5" = { color = "" } COULDNT FIND :(
-"C2" = { color = "#ff3b3b" }
+"C2" = { color = "#cc0000" }
 "C3" = { color = "#38761d" }
 "C4" = { color = "rgb(200, 129, 255)" }
 "C5" = { color = "#b9e3f0" }
