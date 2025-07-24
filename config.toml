@@ -108,14 +108,15 @@ rename_to = "Campus Wide!"
 
 [dorms."Burton-Conner House".groups]
 "B1" = { color = "#0041a5" }
-"B2" = { color = "rgb(44, 196, 188)" }
+"B2" = { color = "#2cc4bc" }
 "B3rd" = { color = "#ff9900" }
-"B4" = { color = "#dc3545" }
-# "B5" = { color = "" } COULDNT FIND :(
+"B4" = { color = "#5c1515" }
+"B5" = { color = "#d1581b" }
 "C2" = { color = "#cc0000" }
 "C3" = { color = "#38761d" }
-"C4" = { color = "rgb(200, 129, 255)" }
+"C4" = { color = "#c881ff" }
 "C5" = { color = "#b9e3f0" }
+"ILC" = { color = "#ba8617" }
 
 [dorms."MacGregor House".groups]
 "J Entry" = { color = "rgba(76,76,254,1)" }
