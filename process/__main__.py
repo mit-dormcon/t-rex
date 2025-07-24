@@ -20,6 +20,7 @@ from .helpers import (
     check_if_events_conflict,
     event_with_same_name_exists,
     get_dorm_group,
+    validate_unique_events,
 )
 
 config = load_config()
@@ -154,7 +155,7 @@ def process_csv(filename: Path, encoding: str = "utf-8") -> list[Event]:
     """
     with open(filename, encoding=encoding) as f:
         reader = csv.DictReader(f, strict=True)
-        return [Event.model_validate(row) for row in reader]
+        return validate_unique_events(*(Event.model_validate(row) for row in reader))
 
 
 if __name__ == "__main__":

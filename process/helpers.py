@@ -6,6 +6,8 @@ from datetime import datetime
 from functools import cache
 from typing import Iterable
 
+from pydantic import ValidationError, validate_call
+
 from .api_types import Event
 
 
@@ -66,3 +68,21 @@ def event_with_same_name_exists(event: Event, events: Iterable[Event]) -> bool:
         if e.name == event.name and e.start != event.start and e.end != event.end:
             return True
     return False
+
+
+@validate_call
+def validate_unique_events(*events: Event) -> list[Event]:
+    """
+    Validates that the events are unique by their ID.
+    Args:
+        *events (Event): The events to validate.
+
+    Raises:
+        ValueError: If the events are not unique by ID.
+
+    Returns:
+        list[Event]: The validated list of unique events.
+    """
+    if len(events) != len({event.id for event in events}):
+        raise ValidationError("Events must be unique by ID")
+    return list(events)
