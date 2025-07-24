@@ -58,9 +58,10 @@ emoji = "🎨"
 contact = "baker-rex-chairs@mit.edu"
 color = "#005399"
 
-[dorms."Burton Conner"]
+[dorms."Burton-Conner House"]
 contact = "bc-rush@mit.edu"
 color = "#cc4331"
+rename_to = "Burton Conner"
 
 [dorms."East Campus"]
 contact = "ec-rex-chairs-25@mit.edu"
@@ -105,7 +106,7 @@ rename_to = "Campus Wide!"
 
 # GROUPS
 
-[dorms."Burton Conner".groups]
+[dorms."Burton-Conner House".groups]
 "B1" = { color = "#0041a5" }
 "B2" = { color = "rgb(44, 196, 188)" }
 "B3rd" = { color = "#ff9900" }

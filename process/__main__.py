@@ -191,12 +191,6 @@ if __name__ == "__main__":
         {dorm for e in api_response.events for dorm in e.dorm},
         key=str.lower,
     )
-    for dorm in config.dorms:
-        rename_to = config.dorms[dorm].rename_to
-        if rename_to in api_response.dorms:
-            # If the dorm has a rename_to, put that at the front of the list
-            api_response.dorms.remove(rename_to)
-            api_response.dorms.insert(0, rename_to)
 
     for dorm in api_response.dorms:
         groups = sorted(
@@ -228,10 +222,12 @@ if __name__ == "__main__":
         (config.dorms[dorm].rename_to or dorm): {
             group: group_val.color
             for group, group_val in dorm_val.groups.items()
-            if group in api_response.groups.get(dorm, [])
+            if group
+            in api_response.groups.get(((config.dorms[dorm].rename_to or dorm)), [])
         }
         for dorm, dorm_val in config.dorms.items()
-        if dorm_val.groups and dorm in api_response.dorms
+        if dorm_val.groups
+        and (config.dorms[dorm].rename_to or dorm) in api_response.dorms
     }
 
     errors = get_invalid_events(all_events, orientation_events)
