@@ -234,11 +234,17 @@ if __name__ == "__main__":
         if dorm_val.groups and dorm in api_response.dorms
     }
 
-    booklet_only_events = (
-        orientation_events if config.orientation.include_in_booklet else []
-    )
-
     errors = get_invalid_events(all_events, orientation_events)
+
+    booklet_only_events = (
+        [
+            orientation_event
+            for orientation_event in orientation_events
+            if orientation_event.published
+        ]
+        if config.orientation.include_in_booklet
+        else []
+    )
 
     api_schema = get_api_schema().model_dump(
         mode="json", by_alias=True, exclude_none=True

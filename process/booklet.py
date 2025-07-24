@@ -132,6 +132,7 @@ def generate_booklet(
         dates=dates,
         start=start_date,
         end=end_date,
+        tags={tag for event in all_events for tag in event.tags},
         emojis={
             tag: config.tags[tag].emoji
             for tag in api.tags

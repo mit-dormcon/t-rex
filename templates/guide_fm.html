@@ -72,10 +72,10 @@
     in doubt, heed the wise words of Ms. Frizzle: "Take chances, make mistakes,
     and get messy!"
   </p>
-  {% if api.tags %}
+  {% if tags %}
     <p>With that in mind, here's a quick guide to the guide:</p>
 
-    {% if "mandatory" in api.tags %}
+    {% if "mandatory" in tags %}
       <div class="event tag-mandatory">
         <span class="title"> Mandatory Event </span>
         <span class="description">
@@ -85,7 +85,7 @@
       </div>
     {% endif %}
 
-    {% if "signature" in api.tags %}
+    {% if "signature" in tags %}
       <div class="event tag-signature">
         <span class="title"> Signature Event </span>
         <span class="dorm"> @ Dorm </span>
