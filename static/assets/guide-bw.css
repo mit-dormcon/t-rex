@@ -14,6 +14,9 @@ body {
 
 .qrcode {
   width: 300px;
+  height: 300px;
+  margin-top: 0vh;
+  margin-bottom: 5vh;
 }
 
 .byline {
@@ -48,7 +51,8 @@ body {
   border: 1px solid;
   border-radius: 10px;
   padding: 6px;
-  background-color: #eaeaea; /* sports, it's in the game */
+  /* sports, it's in the game */
+  background-color: #eaeaea;
   text-align: left;
   break-inside: avoid;
 }
@@ -112,6 +116,7 @@ body {
   body {
     font-size: 16pt;
   }
+
   .day-title,
   .fpop-title,
   .post-title {
@@ -120,12 +125,15 @@ body {
     break-before: avoid;
     break-inside: avoid;
   }
+
   .main-title {
     font-size: 72pt;
   }
+
   .main-body {
     font-size: 24pt;
   }
+
   .byline {
     position: absolute;
     left: 0;
@@ -133,16 +141,20 @@ body {
     text-align: center;
     bottom: 0;
   }
+
   .credit {
     display: block;
   }
+
   .event {
     /* necessary to not have the top border show up on the previous page */
     transform: translateY(2px);
   }
+
   #booklet-info {
     font-size: 16pt;
   }
+
   /* style all links as unvisited */
   a {
     color: #00e;
@@ -152,4 +164,12 @@ body {
 @page {
   size: A3 portrait;
   margin: 0.5in;
+}
+
+.center {
+  text-align: center;
+}
+
+.italic {
+  font-style: italic;
 }

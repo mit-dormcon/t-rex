@@ -217,7 +217,7 @@ if __name__ == "__main__":
             group: group_val.color
             for group, group_val in dorm_val.groups.items()
             if group
-            in api_response.groups.get(((config.dorms[dorm].rename_to or dorm)), [])
+            in api_response.groups.get((config.dorms[dorm].rename_to or dorm), [])
         }
         for dorm, dorm_val in config.dorms.items()
         if dorm_val.groups

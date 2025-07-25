@@ -1,14 +1,16 @@
 {# REX Booklet Front Matter #}
 <div class="page">
-  <div style="text-align: center">
+  <div class="center">
     <h1 class="main-title">DORMCON {{ api.name | upper }}</h1>
-    <img
-      src="assets/qrcode.png"
-      class="qrcode"
-      style="margin-top: 0vh; margin-bottom: 5vh"
-    /><br />
+    <img src="assets/qrcode.png"
+         class="qrcode"
+         width="450"
+         height="450"
+         alt="QR code for DormCon {{ api.name }}" />
+    <br />
     <div class="main-body">
-      <b> &middot; {{ " &middot; ".join(cover_dorms) }} &middot;</b><br />
+      <b> · {{ " · ".join(cover_dorms) }} ·</b>
+      <br />
       <p>
         Find all the events online at
         <a href="https://dormcon.mit.edu/rex">dormcon.mit.edu/rex</a>.
@@ -34,7 +36,6 @@
     yourself, meet as many people as possible, freshmen and upperclassmen, and
     get a feel for what MIT has to offer socially.
   </p>
-
   <h4>FYRE</h4>
   <p>
     FYRE, the First-Year Residence Exchange, is a system that allows you to
@@ -45,7 +46,6 @@
     we strongly encourage you to participate. You can find more information at
     <a href="https://studentlife.mit.edu/fyre">studentlife.mit.edu/fyre</a>.
   </p>
-
   <h4>DormCon</h4>
   <p>
     The Dormitory Council, or DormCon, is a student government body formed by
@@ -54,14 +54,11 @@
     Learn more about DormCon and how to get involved at
     <a href="https://dormcon.mit.edu">dormcon.mit.edu</a>, and either add
     yourself to the
-    <a href="https://groups.mit.edu/webmoira/list/dormcon-announce"
-      >dormcon-announce mailing list</a
-    >
+    <a href="https://groups.mit.edu/webmoira/list/dormcon-announce">dormcon-announce mailing list</a>
     or email
     <a href="mailto:dormcon-secretary@mit.edu">dormcon-secretary@mit.edu</a> to
     get invited to meetings. Enjoy the booklet we made!
   </p>
-
   <h4>How to Make the Most of This Guide</h4>
   <p>
     There is no wrong way to do REX. Plan it out carefully! Mark a couple
@@ -74,21 +71,19 @@
   </p>
   {% if tags %}
     <p>With that in mind, here's a quick guide to the guide:</p>
-
     {% if "mandatory" in tags %}
       <div class="event tag-mandatory">
-        <span class="title"> Mandatory Event </span>
+        <span class="title">Mandatory Event</span>
         <span class="description">
           Events that look like this are mandatory. Make sure you go to them, or
           you'll miss important information!
         </span>
       </div>
     {% endif %}
-
     {% if "signature" in tags %}
       <div class="event tag-signature">
-        <span class="title"> Signature Event </span>
-        <span class="dorm"> @ Dorm </span>
+        <span class="title">Signature Event</span>
+        <span class="dorm">@ Dorm</span>
         <span class="description">
           This is Dorm's absolute <em>favorite</em> event. The Dorm REX chairs
           picked it because they think it'll be the most fun event out of all of
@@ -98,7 +93,6 @@
         </span>
       </div>
     {% endif %}
-
     {% if emojis %}
       <p>
         Also, look out for icons like
@@ -111,8 +105,7 @@
       </p>
     {% endif %}
   {% endif %}
-
-  <p style="font-style: italic">
+  <p class="italic">
     This booklet was created on {{ published }}. Some events may have changed
     since then. For the latest information, visit
     <a href="https://dormcon.mit.edu/rex">dormcon.mit.edu/rex</a>.

@@ -40,8 +40,7 @@ def event_dt_format(start: datetime, end: datetime, groups: Optional[list[str]] 
                 time_strings.append(dt.strftime("%I %p").lstrip("0"))
             elif dt.minute % 10 == 3 and bool(
                 # If the group is B3rd or Burton Third, use "rd" for the time
-                {group.lower() for group in groups}
-                & {"b3rd", "burton third", "b3"}
+                {group.lower() for group in groups} & {"b3rd", "burton third", "b3"}
             ):
                 time_strings.append(
                     f"{dt.strftime('%I:%M').lstrip('0')}rd {dt.strftime('%p')}"

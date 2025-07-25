@@ -1,8 +1,8 @@
 {
   "recommendations": [
-    "esbenp.prettier-vscode",
     "tamasfe.even-better-toml",
-    "ms-python.black-formatter",
-    "mechatroner.rainbow-csv"
+    "mechatroner.rainbow-csv",
+    "charliermarsh.ruff",
+    "monosans.djlint"
   ]
 }

@@ -1,25 +1,21 @@
 {% macro event_box(event) %}
   <div class="event {% for tag in event.tags %}tag-{{ tag + ' ' }}{% endfor %}">
     <span class="id">{{ event.id }}</span>
-    <span class="date"
-      >{{ format_date(event.start, event.end, event.group) }}</span
-    >
-    &middot; {% for emoji in event.emoji %}{{ emoji }}{% endfor %}
-
+    <span class="date">{{ format_date(event.start, event.end, event.group) }}</span>
+    ·
+    {% for emoji in event.emoji %}{{ emoji }}{% endfor %}
     <span class="title">{{ event.name }}</span>
-
     {% if event.dorm %}
       <span class="dorm">
         @
-        {{ ', '.join(event.dorm) }}{% if event.group %}{{ ": " + ', '.join(event.group) }}{% endif %}
+        {{ ', '.join(event.dorm) }}
+        {% if event.group %}{{ ": " + ', '.join(event.group) }}{% endif %}
       </span>
     {% endif %}
-    {% if event.location %}
-      <span class="location">({{ event.location }})</span>
-    {% endif %}
-    &middot;
+    {% if event.location %}<span class="location">({{ event.location }})</span>{% endif %}
+    ·
     <span class="description">
-      {{ event.description|replace("\n", "<br />") }}
+      {{ event.description|replace('\n', '<br />') }}
     </span>
   </div>
 {% endmacro %}

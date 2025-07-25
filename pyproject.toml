@@ -25,8 +25,13 @@ PyYaml = "^6.0.2"
 
 
 [tool.poetry.group.dev.dependencies]
-black = "^25.1.0"
+ruff = "^0.12.5"
+djlint = "^1.36.4"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.djlint]
+profile = "jinja"
+use_gitignore = true
