@@ -468,7 +468,6 @@ class Event(BaseModel):
             for group in dorm.groups.values()
             if group.rename_from is not None
         ]
-        print(rename_from_groups)
 
         for dorm in config.dorms.values():
             if dorm.groups:
