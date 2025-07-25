@@ -7,7 +7,7 @@ bk01,Baker Carnival ,Baker House,,Baker Lawn (front entrance of Baker house),08/
 bc18,BC Dorm Tour,Burton-Conner House,,BC Lobby,08/23/2025 19:00,08/23/2025 19:30,"get a tour of burton conner, the one with the (cute) mice",Dorm Tour,TRUE
 bc15,theoretical pancakes,Burton-Conner House,C2,C223 Suite,08/23/2025 23:00,08/24/2025 01:00,"it's too late to be awake, too early to go to sleep... luckily, we have just the thing. come flip with us","Food (meal), Social",TRUE
 bc24,b3rd's bottomless brunch,Burton-Conner House,B3,B341 Suite,08/24/2025 10:03,08/24/2025 12:03,Bottomless (mock) mimosa brunch at the only club in Boston worth going to,"Food (meal), Social",TRUE
-bc36,Lemonade Stand,Burton-Conner House,B2,Outside BC,08/24/2025 11:00,08/25/2025 11:00,"Lemonade, it's what plants crave.",Food (snacks),FALSE
+bc36,Lemonade Stand,Burton-Conner House,B2,Outside BC,08/24/2025 11:00,08/25/2025 11:00,"Lemonade, it's what plants crave.",Food (snacks),TRUE
 bc09,Tea and Tattoos,Burton-Conner House,C2,C2 Floor Lounge,08/24/2025 12:00,08/24/2025 14:00,Do you like to drink tea (and spill tea)? Do you like making adult decisions but hate the commitment of sticking to said decisions? Then come join C2 (aka the British Floor) for tea and tattoos! The tattoos may be temporary but tea time is forever.,Social,TRUE
 bc33,P4int Our B4loor,Burton-Conner House,B4,B4 Hallways,08/24/2025 12:00,08/24/2025 14:00,"""P4int! 4oodle! Dr4w! Our wall, your canvas. Stop by anytime during REX and your ideas to B4! (disclaimer: there'll be sheets. HRS don't hate us <3)
 
@@ -288,7 +288,6 @@ rn10,Woodpecker Bakery,Random Hall,Pecker,Pecker Kitchen,08/23/2025 12:17,08/23/
 rn32,Shabbes Lunch with MIT JCL!			,Random Hall,,Crafts Room,08/23/2025 12:17,08/23/2025 14:17,"Join MIT JCL for a vegetarian-friendly meal to learn about the group, its members, and its activities! All are welcome!","Food (meal), Social",TRUE
 rn20,Random Hall Tour 1,Random Hall,,Foo (Random First Floor),08/23/2025 15:17,08/23/2025 16:17,Get a tour of Random Hall!,Dorm Tour,TRUE
 rn41,python bee,Random Hall,,AiW,08/23/2025 15:17,08/23/2025 17:47,"the python bee is like a spelling bee, but instead of spelling a word you’re spelling a python program. the winner will get a bee of their very own.","Social, Games",TRUE
-rn17,Quilting 101,Random Hall,Clam,Craft Room (Basement),08/23/2025 15:47,08/23/2025 17:47,Learn the basics of quilting!,"Social, Art",TRUE
 rn33,Quilting 101			,Random Hall,,Crafts Room,08/23/2025 15:47,08/23/2025 17:47,Learn the basics of quilting! ,"Social, Art",TRUE
 rn16,oodles of noodles,Random Hall,Clam,Clam Kitchen,08/23/2025 18:47,08/23/2025 20:17,eat various noodles! mostly spaghetti and ramen. veggies and meat included,"Food (meal), Social",TRUE
 rn05,Words and Waffles,Random Hall,Loop,Loop Kitchen,08/23/2025 19:17,08/23/2025 21:17,"join the loop waffle night tradition, and come play a word game with our poetry magnets! and feel free to bring your favorite non-magnet poem to share :)","Food (meal), Games",TRUE
@@ -312,8 +311,7 @@ rn01,Are you a Drawer? [Pictionary / Art meetup],Random Hall,Clam,Random Hall Cl
 rn08,open your eyes! all scifi media is connected!! they've been lying to you!!!,Random Hall,Loop,Loop Lounge,08/25/2025 20:17,08/25/2025 21:47,they've been lying to us!! all scifi media is connected in some vast extended universe!! come with your most harebrained scifi conspiracy theories and put red string all over our walls,Social,TRUE
 rn30,Find your REAL-LIFE D&D Score,Random Hall,Bonfire,bonfire lounge,08/25/2025 21:47,08/25/2025 23:17,"Have you ever played D&D and wondered what your real-life ability score would be? Maybe you play as a barbarian, but can barely deadlift. Maybe you play as a bard, but are horribly tone-deaf. Come unveil your TRUE D&D class. Expect snacks and good company :)","Food (snacks), Games",TRUE
 rn36,BEFOUL OUR WALLS			,Random Hall,,Blackhole Kitchen,08/25/2025 21:47,08/25/2025 23:47,Unleash your creative energy and leave your mark on Black Hole! Paint and brushes provided.,"Social, Art",TRUE
-rn13,real food for breakfast,Random Hall,Clam,AiW (Basement),08/26/2025 08:17,08/26/2025 09:30,"Tired of dessert for breakfast? Come for rice, veggies, fish, chicken, and hashbrowns!",Food (meal),TRUE
-rn42,real food for breakfast,Random Hall,,Basement,08/26/2025 08:17,08/26/2025 09:27,"Tired of dessert for breakfast? Come for rice, veggies, fish, chicken, and hashbrowns!","Food (meal), Social",TRUE
+rn42,real food for breakfast,Random Hall,Clam,Basement,08/26/2025 08:17,08/26/2025 09:27,"Tired of dessert for breakfast? Come for rice, veggies, fish, chicken, and hashbrowns!","Food (meal), Social",TRUE
 rn06,Queer Ladies’ Movie Night,Random Hall,Loop,Loop Lounge,08/26/2025 19:17,08/26/2025 21:47,"Are you queer? Are you a lady? Are you a movie? Are you a night? Are you none of the above but want to eat cookies, make friends, and watch a sapphic movie? Then come to queer ladies’ movie night!","Food (snacks), Social",TRUE
 rn15,eat your (chinese) veggies!,Random Hall,Clam,Clam Kitchen,08/26/2025 19:17,08/26/2025 20:47,"they will never serve this at a dining hall. comes with pork bone broth, rice, and snacks",Food (meal),TRUE
 rn25,mario kart wii,Random Hall,BMF,BMF lounge,08/26/2025 19:17,08/26/2025 21:17,"eat snacks, play mario kart, prove your motion control abilities!","Food (snacks), Games",TRUE
@@ -343,7 +341,7 @@ sm09,Queer as Duck,Simmons Hall,,Simmons Party Room,08/23/2025 23:00,08/24/2025 
 sm51,Hungry Hungry Hippos,Simmons Hall,,MPR,08/24/2025 10:00,08/24/2025 12:00,A human-sized version of the classic game. ,"Social, Games",TRUE
 sm10,Miracle on the Sponge,Simmons Hall,,MPR,08/24/2025 12:00,08/24/2025 14:00,"Oh no! A terrible emergency has just occured on your flight, and worst of all: you are the captain! Can you safely land an Airbus A320 in varying conditions—sunny, rainy, and hurricane-like? Land in premiere spots such as Boston Logan Airport and Briggs Field!","Food (snacks), Games",TRUE
 sm46,Volleyball,Simmons Hall,,Briggs Field outside Simmons,08/24/2025 12:00,08/24/2025 15:00,Come play volleyball with fellow Sims!,Games,TRUE
-sm11,Simmons Hall Tour,Simmons Hall,,Simmons Lobby,08/24/2025 13:00,08/24/2025 14:00,Get a tour of Simmons Hall!,Dorm Tour,TRUE
+sm11,Simmons Hall Dorm Tour,Simmons Hall,,Simmons Lobby,08/24/2025 13:00,08/24/2025 14:00,Get a tour of Simmons Hall!,Dorm Tour,TRUE
 sm12,Talk and Tanghulu,Simmons Hall,,Simmons Country Kitchen,08/24/2025 17:00,08/24/2025 18:30,Enjoy tasty Asian treats while you attempt to make tanghulu with various fruits! Talk to fellow Sims and relax after the craziness of orientation!,"Food (snacks), Social",TRUE
 sm13,Simmons Hall Dorm Tour,Simmons Hall,,Simmons Lobby,08/24/2025 18:00,08/24/2025 19:00,Get a tour of Simmons Hall!,Dorm Tour,TRUE
 sm14,Jackbox,Simmons Hall,,Simmons TV Lounge,08/24/2025 18:00,08/24/2025 20:00,Play jackbox with Simmons residents! ,"Food (snacks), Games",TRUE
