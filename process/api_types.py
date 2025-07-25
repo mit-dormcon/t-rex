@@ -174,6 +174,9 @@ class DormsConfig(GroupConfig):
     groups: Optional[dict[str, GroupConfig]] = None
     """Subcommunities within the dorm, e.g. 'B3rd' in Burton Conner or 'La Casa' in New House"""
 
+    include_on_cover: bool = True
+    """Whether to include the dorm on the cover of the booklet. Defaults to True."""
+
 
 class TagsConfig(BaseModel):
     """

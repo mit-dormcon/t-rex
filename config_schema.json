@@ -89,6 +89,12 @@
           "default": null,
           "description": "Subcommunities within the dorm, e.g. 'B3rd' in Burton Conner or 'La Casa' in New House",
           "title": "Groups"
+        },
+        "include_on_cover": {
+          "default": true,
+          "description": "Whether to include the dorm on the cover of the booklet. Defaults to True.",
+          "title": "Include On Cover",
+          "type": "boolean"
         }
       },
       "required": [

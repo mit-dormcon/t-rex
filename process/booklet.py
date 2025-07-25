@@ -125,6 +125,19 @@ def generate_booklet(
         "%B %d, %Y at %I:%M %p"
     )
 
+    cover_dorms = list[str]()
+    for dorm in api.dorms:
+        if dorm in config.dorms and config.dorms[dorm].include_on_cover:
+            cover_dorms.append(dorm)
+        else:
+            # check if the dorm was renamed
+            for dorm_name, dorm_config in config.dorms.items():
+                if (
+                    dorm in (dorm_config.rename_to, dorm_name)
+                    and dorm_config.include_on_cover
+                ):
+                    cover_dorms.append(dorm)
+
     return env.get_template("guide.html").render(
         api=api,
         by_dates=by_dates,
@@ -139,7 +152,7 @@ def generate_booklet(
             if tag in config.tags and config.tags[tag].emoji
         },
         published=published_string,
-        cover_dorms=[d for d in api.dorms if d in config.dorms.keys()],
+        cover_dorms=cover_dorms,
     )
 
 

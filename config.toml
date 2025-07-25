@@ -103,6 +103,7 @@ color = "#25aae1"
 contact = "dormcon-rexvp@mit.edu"
 color = "#4a8faf"
 rename_to = "Campus Wide!"
+include_on_cover = false
 
 # GROUPS
 
