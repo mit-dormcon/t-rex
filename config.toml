@@ -135,8 +135,8 @@ include_on_cover = false
 "iHouse" = { color = "#c78665" }
 "La Casa" = { color = "#e10909" }
 "New House 3" = { color = "#1F618D" }
-"French House" = { color = "#3357cc" }
-"Desmond / House 5" = { color = "#2617d3" }
+"La Maison Française" = { color = "#3357cc" }
+"Desmond" = { color = "#2617d3" }
 "Juniper" = { color = "#06446c" }
 "German House" = { color = "#ff0000" }
 "House 4" = { color = "#6d1fca" }
