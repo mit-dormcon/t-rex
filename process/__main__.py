@@ -95,10 +95,7 @@ def get_invalid_events(
         event_errors[error_key][1].append(error_string)
 
     for event in api_events:
-        event_start = event.start
-        event_end = event.end
-
-        if event_end < event_start:
+        if event.end < event.start:
             event_date = (
                 " on " + get_date_bucket(event, config.dates.hour_cutoff).strftime("%x")
                 if event_with_same_name_exists(event, api_events)
@@ -111,11 +108,8 @@ def get_invalid_events(
             continue
 
         for mandatory_event in mandatory_events:
-            mandatory_event_start = mandatory_event.start
-            mandatory_event_end = mandatory_event.end
-
             if check_if_events_conflict(
-                event_start, event_end, mandatory_event_start, mandatory_event_end
+                event.start, event.end, mandatory_event.start, mandatory_event.end
             ):
                 event_date = " on " + get_date_bucket(
                     event, config.dates.hour_cutoff
