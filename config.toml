@@ -10,7 +10,7 @@ include_in_booklet = true
 date_format = "%m/%d/%Y %H:%M"
 
 [dates]
-start = "2025-08-24"
+start = "2025-08-23"
 end = "2025-08-27"
 hour_cutoff = 4
 
