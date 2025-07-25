@@ -110,7 +110,7 @@ include_on_cover = false
 [dorms."Burton-Conner House".groups]
 "B1" = { color = "#0041a5" }
 "B2" = { color = "#2cc4bc" }
-"B3rd" = { color = "#ff9900" }
+"B3rd" = { color = "#ff9900", rename_from = "B3" }
 "B4" = { color = "#5c1515" }
 "B5" = { color = "#d1581b" }
 "C2" = { color = "#cc0000" }

@@ -157,6 +157,9 @@ class GroupConfig(BaseModel):
     color: Color
     """A representative color, usually based on the primary color on their website."""
 
+    rename_from: Optional[str] = None
+    """If a group with rename_from is found, it will be renamed to this group in the booklet and on the website."""
+
 
 class DormsConfig(GroupConfig):
     """
@@ -435,6 +438,82 @@ class Event(BaseModel):
             return [] if v == "" else v.split(",")
         return v
 
+    @field_validator("group", mode="after")
+    @classmethod
+    def rename_groups(cls, v: Optional[UniqueList[str]]) -> Optional[UniqueList[str]]:
+        """
+        Renames groups based on the configuration. If a group matches `rename_from`, it will be renamed
+        to the corresponding group.
+
+        Args:
+            v (UniqueList[str]): The value to validate.
+
+        Returns:
+            UniqueList[str]: The validated value, a list of tags with renamed tags.
+        """
+
+        if v is None:
+            return v
+
+        all_groups = [
+            group
+            for dorm in config.dorms.values()
+            if dorm.groups
+            for group in dorm.groups.keys()
+        ]
+        rename_from_groups = [
+            group.rename_from
+            for dorm in config.dorms.values()
+            if dorm.groups
+            for group in dorm.groups.values()
+            if group.rename_from is not None
+        ]
+        print(rename_from_groups)
+
+        for dorm in config.dorms.values():
+            if dorm.groups:
+                all_groups.extend(dorm.groups.keys())
+
+        for group in v:
+            if group in all_groups:
+                pass
+            elif group in rename_from_groups:
+                # Find the group that matches rename_from
+                matching_group = next(
+                    (
+                        group_key
+                        for _, dorm_values in config.dorms.items()
+                        if dorm_values.groups is not None
+                        for group_key, group_val in dorm_values.groups.items()
+                        if group_val.rename_from is not None
+                        and group_val.rename_from == group
+                    )
+                )
+
+                v.remove(group)
+                v.append(matching_group)
+            else:
+                pass
+
+        return v
+
+    @field_validator("group", mode="before")
+    @classmethod
+    def validate_group(cls, v: object) -> object:
+        """
+        Validates the group field. Converts a comma-separated string into a list of groups.
+
+        Args:
+            v (object): The value to validate.
+
+        Returns:
+            object: The validated value, a list of groups.
+        """
+        if isinstance(v, str):
+            v = v.strip()
+            return None if v == "" else v.split(",")
+        return v
+
     @field_validator("tags", mode="after")
     @classmethod
     def rename_tags(cls, v: UniqueList[str]) -> UniqueList[str]:
@@ -471,23 +550,6 @@ class Event(BaseModel):
             else:
                 pass
 
-        return v
-
-    @field_validator("group", mode="before")
-    @classmethod
-    def validate_group(cls, v: object) -> object:
-        """
-        Validates the group field. Converts a comma-separated string into a list of groups.
-
-        Args:
-            v (object): The value to validate.
-
-        Returns:
-            object: The validated value, a list of groups.
-        """
-        if isinstance(v, str):
-            v = v.strip()
-            return None if v == "" else v.split(",")
         return v
 
 
