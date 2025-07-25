@@ -1,13 +1,13 @@
 ID,Event Name,Dorm,Group,Event Location,Start Date and Time,End Date and Time,Event Description,Tags,Published
 or01,FPOPs,,,,8/23/2025 08:00,8/23/2025 12:00,,mandatory,FALSE
 or02,TBD,,,,8/24/2025 08:00,8/24/2025 10:00,,mandatory,FALSE
-or03,TBD,,,,8/24/2025 15:00,8/24/2025 17:00,,mandatory,FALSE
-or04,Orientation,,,,8/25/2025 11:00,8/25/2025 19:00,,mandatory,FALSE
-or05,Orientation,,,,8/26/2025 09:30,8/26/2025 19:00,,mandatory,FALSE
-or06,Orientation,,,,8/27/2025 10:30,8/27/2025 15:00,,mandatory,FALSE
+or03,Convocation,,,,8/24/2025 15:00,8/24/2025 17:00,,mandatory,FALSE
+or04,Orientation Day 1,,,,8/25/2025 11:00,8/25/2025 19:00,,mandatory,FALSE
+or05,Orientation Day 2,,,,8/26/2025 09:30,8/26/2025 19:00,,mandatory,FALSE
+or06,Orientation Day 3,,,,8/27/2025 10:30,8/27/2025 15:00,,mandatory,FALSE
 or07,Academic Expo,,,Johnson Athletic Center,8/27/2025 15:00,8/27/2025 16:30,,signature,TRUE
 or08,In-House Rooming Processes,,,,8/27/2025 19:00,8/27/2025 23:00,,signature,TRUE
-or09,Mandatory House Meetings,,,,8/28/2025 19:00,8/28/2025 21:00,,mandatory,TRUE
-or10,Orientation,,,,8/29/2025 9:30,8/29/2025 14:30,,mandatory,FALSE
+or09,Mandatory House Meetings and Welcome,,,,8/28/2025 19:00,8/28/2025 21:00,,mandatory,TRUE
+or10,Orientation Day 5,,,,8/29/2025 9:30,8/29/2025 14:30,,mandatory,FALSE
 or11,Activities Midway,,,Johnson Athletic Center,8/29/2025 14:30,8/29/2025 16:30,,signature,TRUE
-or12,Orientation,,,,8/29/2025 19:00,8/30/2025 01:00,,mandatory,FALSE
+or12,DSL Special Event,,,,8/29/2025 19:00,8/30/2025 01:00,,mandatory,FALSE
