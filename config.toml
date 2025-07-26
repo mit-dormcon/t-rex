@@ -132,24 +132,28 @@ include_on_cover = false
 
 [dorms."New House".groups]
 "Chocolate City" = { color = "#ffed2e" }
-"iHouse" = { color = "#c78665" }
+"iHouse" = { color = "#238db1" }
 "La Casa" = { color = "#e10909" }
 "New House 3" = { color = "#1F618D" }
 "La Maison Française" = { color = "#3357cc" }
 "Desmond" = { color = "#2617d3" }
-"Juniper" = { color = "#06446c" }
+"Juniper" = { color = "#32c13c" }
 "German House" = { color = "#ff0000" }
 "House 4" = { color = "#6d1fca" }
 
-# couldnt find any :(
-# [dorms."Next House".groups]
-# "2W" = { color = "" }
-# "3 West" = { color = "" }
-# "4 East" = { color = "" }
-# "4W" = { color = "" }
-# "5W" = { color = "" }
-# "Next 2E" = { color = "" }
-# "Next House" = { color = "" }
+# based on next residents saying colors...
+[dorms."Next House".groups]
+"2E" = { color = "ghostwhite" }
+"2W" = { color = "darkturquoise" }
+"3W" = { color = "mediumpurple" }
+"4E" = { color = "darkcyan" }
+"5E" = { color = "darkseagreen" }
+"Next Act" = { color = "#9C1712" }
+"Next CS" = { color = "#de9b35" }
+"Next Haunt" = { color = "#c2ebff" }
+"Next Salon" = { color = "thistle" }
+"Next Sing" = { color = "#007bff" }
+"VGO" = { color = "#4eb7fa" }
 
 
 [dorms."Random Hall".groups]
