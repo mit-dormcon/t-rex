@@ -120,7 +120,6 @@ include_on_cover = false
 "ILC" = { color = "#ba8617" }
 
 [dorms."MacGregor House".groups]
-"J Entry" = { color = "rgba(76,76,254,1)" }
 "A Entry" = { color = "rgba(5,93,243,1)" }
 "B Entry" = { color = "rgba(5,180,93,1)" }
 "C Entry" = { color = "rgba(5,140,40,1)" }
@@ -129,17 +128,18 @@ include_on_cover = false
 "F Entry" = { color = "rgba(200,125,150,1)" }
 "G Entry" = { color = "rgba(250,150,50,1)" }
 "H Entry" = { color = "rgba(50,175,50,1)" }
+"J Entry" = { color = "rgba(76,76,254,1)" }
 
 [dorms."New House".groups]
 "Chocolate City" = { color = "#ffed2e" }
-"iHouse" = { color = "#238db1" }
-"La Casa" = { color = "#e10909" }
-"New House 3" = { color = "#1F618D" }
-"La Maison Française" = { color = "#3357cc" }
 "Desmond" = { color = "#2617d3" }
-"Juniper" = { color = "#32c13c" }
 "German House" = { color = "#ff0000" }
+"House 3" = { color = "#1F618D" }
 "House 4" = { color = "#6d1fca" }
+"iHouse" = { color = "#238db1" }
+"Juniper" = { color = "#32c13c" }
+"La Casa" = { color = "#e10909" }
+"La Maison Française" = { color = "#3357cc" }
 
 # based on next residents saying colors...
 [dorms."Next House".groups]
@@ -157,11 +157,11 @@ include_on_cover = false
 
 
 [dorms."Random Hall".groups]
-"Bonfire" = { color = "rgb(255, 0, 0)" }
-"BMF" = { color = "rgb(173, 20, 87)" }
-"Clam" = { color = "rgb(231, 76, 60)" }
 "Black Hole" = { color = "rgb(155, 89, 182)" }
-"Loop" = { color = "rgb(255, 0, 249)" }
+"BMF" = { color = "rgb(173, 20, 87)" }
+"Bonfire" = { color = "rgb(255, 0, 0)" }
+"Clam" = { color = "rgb(231, 76, 60)" }
 "Destiny" = { color = "rgb(88, 155, 0)" }
-"Pecker" = { color = "rgb(243, 255, 0)" }
 "Foo" = { color = "rgb(51, 255, 51)" }
+"Loop" = { color = "rgb(255, 0, 249)" }
+"Pecker" = { color = "rgb(243, 255, 0)" }
