@@ -6,6 +6,11 @@
   are any issues, please reach out to
   <a href="mailto:dormcon-rex-chairs@mit.edu">dormcon-rex-chairs@mit.edu</a>.
 </blockquote>
+{% if errors %}
+  <p>Errors were found in the following event groups:</p>
+{% else %}
+  <p>No errors were found in any event groups!</p>
+{% endif %}
 {% for error_group, (contact_emails, list_of_errors) in errors.items() %}
   <section>
     <h2>{{ error_group }}</h2>

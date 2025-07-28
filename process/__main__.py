@@ -126,7 +126,7 @@ def get_invalid_events(
         if dorm_config.rename_to:
             # If the dorm has a rename_to, check if it exists in the event_errors dict
             if event_errors.get(dorm_config.rename_to) is not None:
-                # If it does, move the errors to the renamed dorm
+                # If it does, move the errors to the original name
                 event_errors[dorm_to_check] = event_errors.pop(dorm_config.rename_to)
 
     return event_errors
