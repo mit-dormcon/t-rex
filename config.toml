@@ -4,7 +4,7 @@ name = "REX 2025"
 [orientation]
 mandatory_tag = "mandatory"
 file_name = "events/orientation.csv"
-include_in_booklet = true
+include_in_booklet = false
 
 [csv]
 date_format = "%m/%d/%Y %H:%M"
