@@ -25,7 +25,7 @@ PyYaml = "^6.0.2"
 
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.12.5"
+ruff = "^0.12.7"
 djlint = "^1.36.4"
 
 [build-system]
