@@ -8,7 +8,7 @@ from typing import Iterable
 
 from pydantic import ValidationError, validate_call
 
-from .api_types import Event
+from api_types import Event
 
 
 @cache

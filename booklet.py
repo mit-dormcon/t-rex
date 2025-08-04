@@ -14,7 +14,7 @@ from zoneinfo import ZoneInfo
 import jinja2
 import markdown
 
-from .api_types import APIResponse, Config, Event
+from api_types import APIResponse, Config, Event
 
 env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
 eastern = ZoneInfo("America/New_York")

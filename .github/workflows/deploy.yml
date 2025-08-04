@@ -14,18 +14,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Install poetry
-        run: pipx install poetry
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version-file: "pyproject.toml"
-          cache: "poetry"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
       - name: Setup packages
-        # Skips installing dev dependencies
-        run: poetry install --only main
+        run: uv sync --locked --all-extras --dev
+
       - name: Process Data
-        run: poetry run python -m process
+        run: uv run main.py
+
       - name: Upload result
         uses: actions/upload-pages-artifact@v3
         with:

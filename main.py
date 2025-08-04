@@ -14,9 +14,9 @@ from pathlib import Path
 
 import yaml
 
-from .api_types import APIResponse, Event, get_api_schema, load_config
-from .booklet import generate_booklet, generate_errors, generate_index, get_date_bucket
-from .helpers import (
+from api_types import APIResponse, Event, get_api_schema, load_config
+from booklet import generate_booklet, generate_errors, generate_index, get_date_bucket
+from helpers import (
     check_if_events_conflict,
     event_with_same_name_exists,
     get_dorm_group,
@@ -152,7 +152,12 @@ def process_csv(filename: Path, encoding: str = "utf-8") -> list[Event]:
         return validate_unique_events(*(Event.model_validate(row) for row in reader))
 
 
-if __name__ == "__main__":
+def main() -> None:
+    """
+    Main function to process events and generate the booklet.
+    Reads event data from CSV files, validates the events, and generates HTML files
+    for the booklet, index, and errors. Also generates an OpenAPI schema for the API response.
+    """
     api_response = APIResponse()
 
     # Get orientation events if they exist
@@ -271,3 +276,7 @@ if __name__ == "__main__":
         yaml.dump(api_schema, o)
 
     print("Complete!")
+
+
+if __name__ == "__main__":
+    main()

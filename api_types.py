@@ -3,13 +3,13 @@ All types used in the REX API are stored here.
 """
 
 import json
+import tomllib
 from collections.abc import Hashable
 from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Annotated, Optional, TypeVar
 from zoneinfo import ZoneInfo
 
-import tomllib
 from openapi_pydantic import OpenAPI
 from openapi_pydantic.util import PydanticSchema, construct_open_api_with_schema_class
 from pydantic import (

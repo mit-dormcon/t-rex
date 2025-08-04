@@ -5,6 +5,8 @@ The DormCon REX API, published to [rex.mit.edu].
 For public-facing information about this project, visit [rex.mit.edu] or read
 the index.md file.
 
+We are using [`uv`](https://docs.astral.sh/uv/) to manage the Python environment.
+
 [rex.mit.edu]: https://rex.mit.edu
 
 ## config.toml
@@ -75,7 +77,7 @@ python -m http.server 8080 --directory output/
 Then, every time you make changes, run
 
 ```shell
-poetry run python -m process
+uv run main.py
 ```
 
 and refresh the page to see the new output!

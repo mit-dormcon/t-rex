@@ -1,36 +1,26 @@
-[tool.poetry]
+[project]
 name = "t-rex"
 version = "2025.0.0"
 description = "A Python project that generates a structured format for REX events and an HTML file that can get converted into a booklet"
 authors = [
-    "Cameron Kleiman <ckleiman@mit.edu>",
-    "DormCon Tech Chair <dormcon-tech-chair@mit.edu>",
+    { name = "Cameron Kleiman", email = "ckleiman@mit.edu" },
+    { name = "DormCon Tech Chair", email = "dormcon-tech-chair@mit.edu" },
 ]
 readme = "README.md"
-homepage = "https://rex.mit.edu/"
-repository = "https://github.com/mit-dormcon/t-rex"
-packages = []
-package-mode = false
+requires-python = ">=3.13"
+dependencies = [
+    "Jinja2 >=3.1.6",
+    "markdown >=3.8",
+    "tzdata >=2025.2",
+    "pydantic >=2.11.7",
+    "pydantic-extra-types >=2.10.5",
+    "openapi-pydantic >=0.5.1",
+    "email-validator >=2.1.2",
+    "PyYaml >=6.0.2",
+]
 
-[tool.poetry.dependencies]
-python = "^3.13"
-Jinja2 = "^3.1.6"
-markdown = "^3.8"
-tzdata = "^2025.2"
-pydantic = "^2.11.7"
-pydantic-extra-types = "^2.10.5"
-openapi-pydantic = "^0.5.1"
-email-validator = "^2.1.2"
-PyYaml = "^6.0.2"
-
-
-[tool.poetry.group.dev.dependencies]
-ruff = "^0.12.5"
-djlint = "^1.36.4"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[dependency-groups]
+dev = ["ruff >=0.12.5", "djlint >=1.36.4"]
 
 [tool.djlint]
 profile = "jinja"
