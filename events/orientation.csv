@@ -5,9 +5,9 @@ or03,Convocation,,,,8/24/2025 15:00,8/24/2025 17:00,,mandatory,FALSE
 or04,Orientation Day 1,,,,8/25/2025 11:00,8/25/2025 19:00,,mandatory,FALSE
 or05,Orientation Day 2,,,,8/26/2025 09:30,8/26/2025 19:00,,mandatory,FALSE
 or06,Orientation Day 3,,,,8/27/2025 10:30,8/27/2025 15:00,,mandatory,FALSE
-or07,Academic Expo,,,Johnson Athletic Center,8/27/2025 15:00,8/27/2025 16:30,,signature,TRUE
-or08,In-House Rooming Processes,,,,8/27/2025 19:00,8/27/2025 23:00,,signature,TRUE
-or09,House Meetings and & Residence Hall Welcome,,,,8/28/2025 19:00,8/28/2025 21:00,,mandatory,TRUE
+or07,Academic Expo & DAPER Gateway,,,Johnson Athletic Center,8/27/2025 15:00,8/27/2025 16:30,"Talk and interact with faculty members, administrators, and students from MIT's academic departments and offices in the Johnson Ice Rink. In addition, the Department of Athletics, Physical Education and Recreation (DAPER) Gateway will be happening in the Johnson Indoor Track.",signature,TRUE
+or08,In-House Rooming Processes,,,,8/27/2025 19:00,8/27/2025 23:00,"All students will report to the building they are currently assigned to or have switched into. Every residence hall has a different process for selecting an internal room assignment, so it is very important to arrive to your assigned building on time.",signature,TRUE
+or09,House Meetings and & Residence Hall Welcome,,,,8/28/2025 19:00,8/28/2025 21:00,"Meet the Heads of House, Area Directors, GRAs, and other leadership staff in your dorm!",mandatory,TRUE
 or10,Orientation Day 5,,,,8/29/2025 9:30,8/29/2025 14:30,,mandatory,FALSE
-or11,Activities Midway,,,Johnson Athletic Center,8/29/2025 14:30,8/29/2025 16:30,,signature,TRUE
-or12,DSL Special Event,,,,8/29/2025 19:00,8/30/2025 01:00,,mandatory,FALSE
+or11,Activities Midway,,,Johnson Athletic Center,8/29/2025 14:30,8/29/2025 16:30,"check out all of mit's awesome clubs! see them perform, stock up on stickers, and join a couple <s>or a lot</s>!",signature,TRUE
+or12,DSL Special Event: Silent Beats & City Lights,,,Samberg Conference Center,8/29/2025 19:00,8/30/2025 01:00,"A silent disco with panoramic Boston views, head-bobbing beats, karaoke throwdowns, live puzzles by MIT’s Puzzle Club, and a photobooth to capture the memories. Whether you're dancing, singing, solving, or just vibing, Class of 2029 this night is yours!",mandatory,TRUE
