@@ -11,9 +11,9 @@ bc36,Lemonade Stand,Burton-Conner House,B2,Outside BC,08/24/2025 11:00,08/24/202
 bc41,Lemonade Stand,Burton-Conner House,B2,Outside BC,08/24/2025 17:00,08/25/2025 01:00,"Lemonade, it's what plants crave.",Food (snacks),TRUE
 bc42,Lemonade Stand,Burton-Conner House,B2,Outside BC,08/25/2025 08:00,08/25/2025 11:00,"Lemonade, it's what plants crave.",Food (snacks),TRUE
 bc09,Tea and Tattoos,Burton-Conner House,C2,C2 Floor Lounge,08/24/2025 12:00,08/24/2025 14:00,Do you like to drink tea (and spill tea)? Do you like making adult decisions but hate the commitment of sticking to said decisions? Then come join C2 (aka the British Floor) for tea and tattoos! The tattoos may be temporary but tea time is forever.,Social,TRUE
-bc33,P4int Our B4loor,Burton-Conner House,B4,B4 Hallways,08/24/2025 12:00,08/24/2025 14:00,"""P4int! 4oodle! Dr4w! Our wall, your canvas. Stop by anytime during REX and your ideas to B4! (disclaimer: there'll be sheets. HRS don't hate us <3)
+bc33,P4int Our B4loor,Burton-Conner House,B4,B4 Hallways,08/24/2025 12:00,08/24/2025 14:00,"P4int! 4oodle! Dr4w! Our wall, your canvas. Stop by anytime during REX and your ideas to B4! (disclaimer: there'll be sheets. HRS don't hate us <3)
 
-P.S. - PASS BY OFFICIAL REX TIME TO MEET B4 PLAYERS 🦞""","Social, Art",TRUE
+P.S. - PASS BY OFFICIAL REX TIME TO MEET B4 PLAYERS 🦞","Social, Art",TRUE
 bc40,Berries & Basket Weaving,Burton-Conner House,ILC,BC TV Lounge,08/24/2025 13:00,08/24/2025 15:00,"Join the Indigenous Living Community in learning how to weave reed baskets & eat delicious Wabanaki berry slump (biscuits cooked in thick berry sauce)! No experience necessary, and all are welcome :)","Food (snacks), Social",TRUE
 bc25,Hot Ones with Hot Ones,Burton-Conner House,B3,B341 suite,08/24/2025 14:03,08/24/2025 14:53,hot wings and hotter questions from the hottest people,"Food (meal), Social",TRUE
 bc10,blind cake decorating,Burton-Conner House,C3,C3 Floor Lounge,08/24/2025 17:00,08/24/2025 19:00,"Ever watched the Great British baking show? Like that, but instead of British it’s Irish*. And instead of professional bakers it’s college students. And instead of unobstructed vision it’s blindfolded. No hand-eye coordination required! *we aren’t actually Irish","Food (snacks), Social",TRUE
@@ -350,7 +350,7 @@ sm15,Pancake Breakfast,Simmons Hall,,Simmons Country Kitchen & Old Late Night,08
 sm47,WATER WARS TROJAN DUCK BUILD SESSION 1,Simmons Hall,,Front of Simmons,08/25/2025 08:00,08/25/2025 11:00,War is coming to MIT. Build a duck shaped tank (cart)!,Social,TRUE
 sm24,Stupid Pacer Tests,Simmons Hall,,Mailbox Lounge,08/25/2025 09:30,08/25/2025 11:00,a multistage random bs capacity test that progressively gets more difficult as it continues,"Food (snacks), Games",TRUE
 sm16,Simmons Hall Dorm Tour,Simmons Hall,,Simmons Lobby,08/25/2025 10:00,08/25/2025 11:00,Get a tour of Simmons Hall!,Dorm Tour,TRUE
-sm17,"""Just Dance (Gonna be okay, da-da-doo-doot-n Just dance)""",Simmons Hall,,Simmons MPR,08/25/2025 19:00,08/25/2025 21:00,Come dance with us!,"Food (snacks), Social",TRUE
+sm17,"Just Dance (Gonna be okay, da-da-doo-doot-n Just dance)",Simmons Hall,,Simmons MPR,08/25/2025 19:00,08/25/2025 21:00,Come dance with us!,"Food (snacks), Social",TRUE
 sm18,Simmons Sunset,Simmons Hall,,7th Floor Terrace,08/25/2025 19:00,08/25/2025 20:00,"Enjoy the views of Boston, Cambridge, and the sunset from the 7th floor terrace.","Food (snacks), Social",TRUE
 sm19,Board Games & Ice Cream,Simmons Hall,,Simmons Party Room,08/25/2025 19:00,08/25/2025 22:00,Play Catan! Play Codenames! Play Risk! Play any game you want from the Simmons board game collection and/or enjoy a sweet ice cream snack!,"Food (snacks), Games",TRUE
 sm20,WATER WARS TROJAN DUCK BUILD SESSION 2,Simmons Hall,,"Outside, in front of Simmons",08/25/2025 19:00,08/25/2025 22:00,War is coming to MIT. Build a duck shaped tank (cart)!,,TRUE
