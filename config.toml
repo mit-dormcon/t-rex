@@ -32,7 +32,7 @@ emoji = "🍴"
 rename_from = "Food (meal)"
 
 [tags.snacks]
-color = "#df9c3f"
+color = "#CD853F"
 emoji = "🍪"
 rename_from = "Food (snacks)"
 
