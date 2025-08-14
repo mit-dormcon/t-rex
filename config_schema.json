@@ -65,7 +65,7 @@
             }
           ],
           "default": null,
-          "description": "If a group with rename_from is found, it will be renamed to this group in the booklet and on the website.",
+          "description": "If a group with rename_from is found, it will be renamed \nto this group in the booklet and on the website.",
           "title": "Rename From"
         },
         "contact": {
@@ -136,7 +136,7 @@
             }
           ],
           "default": null,
-          "description": "If a group with rename_from is found, it will be renamed to this group in the booklet and on the website.",
+          "description": "If a group with rename_from is found, it will be renamed \nto this group in the booklet and on the website.",
           "title": "Rename From"
         }
       },

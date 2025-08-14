@@ -3,6 +3,7 @@
     "tamasfe.even-better-toml",
     "mechatroner.rainbow-csv",
     "charliermarsh.ruff",
-    "monosans.djlint"
+    "monosans.djlint",
+    "ms-python.vscode-pylance"
   ]
 }

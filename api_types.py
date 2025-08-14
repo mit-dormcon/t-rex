@@ -42,12 +42,16 @@ UniqueList = Annotated[
 ]
 
 
-class OrientationConfig(BaseModel):
+class ParentModel(BaseModel):
+    """Base model for all configuration classes."""
+
+    model_config = ConfigDict(use_attribute_docstrings=True)
+
+
+class OrientationConfig(ParentModel):
     """
     Configuration for orientation events.
     """
-
-    model_config = ConfigDict(use_attribute_docstrings=True)
 
     file_name: Optional[FilePath] = None
     """CSV file containing orientation events."""
@@ -94,12 +98,10 @@ class OrientationConfig(BaseModel):
         return v
 
 
-class CSVConfig(BaseModel):
+class CSVConfig(ParentModel):
     """
     Configuration for parsing CSV files.
     """
-
-    model_config = ConfigDict(use_attribute_docstrings=True)
 
     date_format: str
     """String format used for parsing dates in the CSV, see [strftime.net](https://strftime.net/)"""
@@ -128,12 +130,10 @@ class CSVConfig(BaseModel):
         return v
 
 
-class DatesConfig(BaseModel):
+class DatesConfig(ParentModel):
     """
     Start and end dates of REX, in YYYY-MM-DD
     """
-
-    model_config = ConfigDict(use_attribute_docstrings=True)
 
     start: date
     """Sunday after FPOPs end"""
@@ -147,26 +147,25 @@ class DatesConfig(BaseModel):
     """
 
 
-class GroupConfig(BaseModel):
+class GroupConfig(ParentModel):
     """
     Configuration for a group within a dorm.
     """
-
-    model_config = ConfigDict(use_attribute_docstrings=True)
 
     color: Color
     """A representative color, usually based on the primary color on their website."""
 
     rename_from: Optional[str] = None
-    """If a group with rename_from is found, it will be renamed to this group in the booklet and on the website."""
+    """
+    If a group with rename_from is found, it will be renamed 
+    to this group in the booklet and on the website.
+    """
 
 
 class DormsConfig(GroupConfig):
     """
     Configuration for a dorm within the REX system.
     """
-
-    model_config = ConfigDict(use_attribute_docstrings=True)
 
     contact: EmailStr
     """REX chair contact emails, available at https://groups.mit.edu/webmoira/list/dorms-rex"""
@@ -181,12 +180,10 @@ class DormsConfig(GroupConfig):
     """Whether to include the dorm on the cover of the booklet. Defaults to True."""
 
 
-class TagsConfig(BaseModel):
+class TagsConfig(ParentModel):
     """
     Configuration for tags within the REX system.
     """
-
-    model_config = ConfigDict(use_attribute_docstrings=True)
 
     color: Color
     """Hex color code for the tag, used on the website"""
@@ -198,12 +195,10 @@ class TagsConfig(BaseModel):
     """Tags that match rename_from will be renamed to this tag in the booklet and on the website"""
 
 
-class Config(BaseModel):
+class Config(ParentModel):
     """
     Configuration for the REX API.
     """
-
-    model_config = ConfigDict(use_attribute_docstrings=True)
 
     name: str
     """Name of the REX season, e.g. 'REX 2025'"""
@@ -272,15 +267,18 @@ def process_dt_from_csv(
 config = load_config()
 
 
-class Event(BaseModel):
+class APIModel(ParentModel):
+    """
+    Base class for all API models.
+    """
+
+    model_config = ConfigDict(json_schema_mode_override="serialization")
+
+
+class Event(APIModel):
     """
     Represents an event in the REX system.
     """
-
-    model_config = ConfigDict(
-        use_attribute_docstrings=True,
-        json_schema_mode_override="serialization",
-    )
 
     name: Annotated[
         str,
@@ -442,8 +440,8 @@ class Event(BaseModel):
     @classmethod
     def rename_groups(cls, v: Optional[UniqueList[str]]) -> Optional[UniqueList[str]]:
         """
-        Renames groups based on the configuration. If a group matches `rename_from`, it will be renamed
-        to the corresponding group.
+        Renames groups based on the configuration. If a group matches `rename_from`,
+        it will be renamed to the corresponding group.
 
         Args:
             v (UniqueList[str]): The value to validate.
@@ -552,13 +550,8 @@ class Event(BaseModel):
         return v
 
 
-class ColorsAPIResponse(BaseModel):
+class ColorsAPIResponse(APIModel):
     """API response for colors used in the REX system."""
-
-    model_config = ConfigDict(
-        use_attribute_docstrings=True,
-        json_schema_mode_override="serialization",
-    )
 
     dorms: dict[str, Color] = {}
     """Colors for dorms, used for display in the booklet and on the website"""
@@ -570,13 +563,8 @@ class ColorsAPIResponse(BaseModel):
     """Colors for tags, used for display in the booklet and on the website"""
 
 
-class APIResponse(BaseModel):
+class APIResponse(APIModel):
     """API response for the REX system."""
-
-    model_config = ConfigDict(
-        use_attribute_docstrings=True,
-        json_schema_mode_override="serialization",
-    )
 
     name: str = Field(default_factory=lambda: config.name)
     """Name of the REX season, e.g. 'REX 2025'"""
