@@ -1,6 +1,6 @@
 ID,Event Name,Dorm,Group,Event Location,Start Date and Time,End Date and Time,Event Description,Tags,Published
 bk05,Baker House Dorm Tour,Baker House,,Baker Lobby,08/24/2025 13:00,08/24/2025 14:30,"A tour around Baker House. Tours will start at 1:00, 1:30, and 2:00 and each tour will last 20-30 minutes.",Dorm Tour,TRUE
-bk02,Brunch on the Bricks,Baker House,,Baker Roof,08/25/2025 08:00,08/25/2025 10:00,"Enjoy an amazing view, bagels, yogurt, and great company while meeting fellow Baker students—and don’t forget to grab some cool Baker merch!","Food (meal), Social",TRUE
+bk02,Brunch on the Bricks,Baker House,,Baker Upper Lobby,08/25/2025 08:00,08/25/2025 10:00,"Enjoy an amazing view, bagels, yogurt, and great company while meeting fellow Baker students—and don’t forget to grab some cool Baker merch!","Food (meal), Social, Updated",TRUE
 bk03,Baker Blackout,Baker House,,Baker Dinning Hall,08/26/2025 20:30,08/26/2025 23:00,"Kick off the semester with good vibes, great food, and great music—plus a chance to score some vintage Baker merch!","Party, Social",TRUE
 bk04,Baker Adopt-a-Brick,Baker House,,Baker Upper Lobby,08/27/2025 09:00,08/27/2025 10:30,Discover what makes Baker unique and decorate your own Baker Brick keepsake! Meet fellow Bakerites and take home a piece of the tradition.,"Social, Art",TRUE
 bk01,Baker Carnival ,Baker House,,Baker Lawn (front entrance of Baker house),08/28/2025 12:00,08/28/2025 14:00,"Cool off and unwind on Baker Lawn with a cold sweet treat, cuddly animals at our petting zoo, and fun lawn games!","Signature, Food (snacks)",TRUE
@@ -20,7 +20,7 @@ bc14,wheel of gameshow,Burton-Conner House,C2,C2 Floor Lounge,08/24/2025 17:00,0
 bc10,blind cake decorating,Burton-Conner House,C3,C3 Floor Lounge,08/24/2025 17:00,08/24/2025 19:00,"Ever watched the Great British baking show? Like that, but instead of British it’s Irish*. And instead of professional bakers it’s college students. And instead of unobstructed vision it’s blindfolded. No hand-eye coordination required! *we aren’t actually Irish","Food (snacks), Social",TRUE
 bc41,Lemonade Stand,Burton-Conner House,B2,Outside BC,08/24/2025 17:00,08/25/2025 01:00,"Lemonade, it's what plants crave.",Food (snacks),TRUE
 bc26,carter's country hoedown,Burton-Conner House,B3,BC Grills,08/24/2025 18:03,08/24/2025 20:03,"grills, games, good times","Food (meal), Social",TRUE
-bc21,BREAK THE WALL,Burton-Conner House,B1,BC Conner Side Courtyard,08/24/2025 18:51,08/24/2025 20:01,Do it. You won’t,"Social, Updated",FALSE
+bc21,K1NG OF THE H1LL,Burton-Conner House,B1,BC Porter Room,08/24/2025 19:51,08/24/2025 21:01,r1se to the top,"Social, Games, Updated",FALSE
 bc42,Lemonade Stand,Burton-Conner House,B2,Outside BC,08/25/2025 08:00,08/25/2025 11:00,"Lemonade, it's what plants crave.",Food (snacks),TRUE
 bc19,BC Dorm Tour,Burton-Conner House,,BC Lobby,08/25/2025 09:00,08/25/2025 09:30,"come get a tour of burton conner, the one with the (rad) mice",Dorm Tour,TRUE
 bc11,gr33n 3ggs and ham,Burton-Conner House,C3,C313 Suite and C3 Floor Lounge,08/25/2025 09:30,08/25/2025 11:00,do you like green eggs and ham? Come enjoy green breakfast with Conner 3 to find out! ,"Food (meal), Social",TRUE
