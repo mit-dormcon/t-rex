@@ -1,5 +1,5 @@
 #:schema ./config_schema.json
-name = "REX 2025"
+name = "REX 2026"
 
 [orientation]
 mandatory_tag = "mandatory"
@@ -10,8 +10,8 @@ include_in_booklet = true
 date_format = "%m/%d/%Y %H:%M"
 
 [dates]
-start = "2025-08-23"
-end = "2025-08-27"
+start = "2026-08-22"
+end = "2026-08-26"
 hour_cutoff = 4
 
 # TAGS
