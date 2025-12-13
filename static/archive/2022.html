@@ -1,0 +1,6044 @@
+
+<!doctype html>
+<html>
+
+<head>
+  <title>DormCon Guide for REX 2022</title>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Emoji&family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    .page {
+      page-break-after: always;
+    }
+
+    body {
+      background-color: #ffffff;
+      font-family: "Noto Sans", Helvetica, Arial, sans-serif, "Noto Emoji";
+    }
+
+    .main-title {
+      font-weight: bold;
+      font-size: 48pt;
+    }
+
+    .qrcode {
+      width: 300px;
+    }
+
+    .byline {
+      text-align: center;
+    }
+
+    .event .date,
+    .event .time,
+    .event .title,
+    .event .dorm,
+    .event .location {
+      font-weight: bold;
+    }
+
+    .day-title,
+    .fpop-title,
+    .post-title {
+      background-color: #e0e0e0;
+      display: block;
+      padding: 10px;
+      margin-top: 10px;
+    }
+
+    .id {
+      display: none;
+    }
+
+    .event {
+      display: block;
+      width: auto;
+      margin: 10px 10px;
+      border: 1px solid;
+      border-radius: 10px;
+      padding: 6px;
+      background-color: #eaeaea; /* sports, it's in the game */
+      text-align: left;
+      page-break-inside: avoid;
+    }
+
+    .tag-mandatory {
+      border: 3px solid;
+      border-radius: 10px;
+      background-color: #ffffff;
+    }
+
+    .tag-favorite {
+      border: 5px dotted;
+      border-radius: 10px;
+    }
+
+    .fpop {
+      page-break-before: always;
+      page-break-after: always;
+      display: block;
+      width: auto;
+      margin: 10px 10px;
+      border: 4px dashed;
+      border-radius: 15px;
+      padding: 6px;
+      text-align: center;
+    }
+
+    .fpop-title {
+      text-align: center;
+    }
+
+    .post {
+      page-break-before: always;
+      page-break-after: always;
+      display: block;
+      width: auto;
+      margin: 5px 10px;
+      border: 4px dashed;
+      border-radius: 15px;
+      padding: 6px;
+      text-align: center;
+    }
+
+    .fpop-title,
+    .post-title {
+      font-size: 24pt;
+      font-weight: bold;
+    }
+
+    .day-title {
+      font-weight: bold;
+      font-size: 14pt;
+    }
+
+    @media print {
+      body {
+        font-size: 18pt;
+      }
+      .day-title,
+      .fpop-title,
+      .post-title {
+        font-size: 24pt;
+        page-break-after: avoid;
+        page-break-before: avoid;
+        page-break-inside: avoid;
+      }
+      .main-title {
+        font-size: 72pt;
+      }
+      .byline {
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-align: center;
+        bottom: 0;
+      }
+      .event {
+        /* necessary to not have the top border show up on the previous page */
+        transform: translateY(2px);
+      }
+      #booklet-info {
+        font-size: 16pt;
+      }
+      /* may want to style visited links */
+    }
+  </style>
+</head>
+
+<body>
+  
+<div class="page">
+    <div style="text-align: center">
+        <h1 class="main-title">DORMCON REX 2022</h1>
+        <img src="data:image/png;base64,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" class="qrcode" style="margin-top: 0vh; margin-bottom: 5vh;" /><br />
+        <b> &middot; Baker &middot; Burton Conner &middot; CC &middot; Desmond (House 5) &middot; DormCon &middot; East Campus &middot; German House &middot; House 4 &middot; Juniper &middot; LMF &middot; La Casa &middot; MacGregor &middot; Maseeh &middot; McCormick &middot; New Vassar &middot; Next &middot; Random &middot; Simmons Hall &middot; iHouse &middot;</b><br />
+        <p>
+            Find all the events online at <a href="https://dormcon.mit.edu/rex">dormcon.mit.edu/rex</a>.
+        </p>
+    </div>
+    <p class="byline">Made with ❤️ by DormCon Tech+REX Chairs</p>
+</div>
+<div id="booklet-info" class="page">
+    <b>REX 2022 runs from Sunday August 28, 2022 to Wednesday August 31, 2022.</b>
+    <h4>REX</h4>
+    <p>
+        REX (Residence EXploration) is a fun time filled with tons of events that will help you get to know the
+        different residential communities at MIT. For those of you who haven't already decided where you're going to
+        live, REX is
+        the perfect time to explore MIT’s dorms and pick the place where you fit in best with the culture and residents.
+        For
+        the rest of you, REX is a great opportunity to find out about the different parts of campus that you otherwise
+        might
+        not experience. Most of all, REX is a time to enjoy yourself, meet as many people as possible, freshmen and
+        upperclassmen, and get a feel for what MIT has to offer socially.
+    </p>
+
+    <h4>FYRE</h4>
+    <p>FYRE, the First-Year Residence Exchange, is a system that allows you to request to swap from your temp dorm into
+        another dorm you'd prefer living in. Different people are drawn to different communities, and we want everyone
+        to be placed where they'll be happiest. FYRE will not move you without your consent - if you're interested in a
+        different residence hall, we strongly encourage you to participate. You can find more information at
+        <a href="https://studentlife.mit.edu/fyre">studentlife.mit.edu/fyre</a>.
+    </p>
+
+    <h4>DormCon</h4>
+    <p>The Dormitory Council, or DormCon, is a student government body formed by the dormitory presidents to represent
+        dorm residents and facilitate interdorm events. You’re now a dorm resident, so DormCon represents you! Learn
+        more
+        about DormCon and how to get involved at <a href="https://dormcon.mit.edu">dormcon.mit.edu</a>, and
+        add yourself to <a href="https://groups.mit.edu/webmoira/list/dormcon-announce">dormcon-announce@mit.edu</a> to
+        get
+        invited to meetings. Enjoy the booklet we made!</p>
+
+    <h4>How to Make the Most of This Guide</h4>
+    <p>There is no wrong way to do REX. Plan it out carefully! Mark a couple fun-looking events and play the rest by
+        ear! Wander aimlessly around campus until an upperclassman drags you into their dorm for a card game! Hit every
+        single food event on the list! However you spend these first few days at MIT, remember that now is the time to
+        make friends and make memories. When in doubt, heed the wise words of Ms. Frizzle: "Take chances, make mistakes, and
+        get messy!"
+    </p>
+    <p>With that in mind, here's a quick guide to the guide:</p>
+    <!--
+    <div class="event mandatory">
+        <span class="title">Mandatory Event</span>
+        <span class="description">Events that look like this are mandatory. Make sure you go to them, or
+            you'll miss important information!</span>
+    </div>
+    -->
+
+    <div class="event favorite">
+        <span class="title">Signature Event</span>
+        <span class="dorm">@ Dorm</span>
+        <span class="description">This is Dorm's absolute <em>favorite</em> event. The Dorm REX chairs
+            picked it because they think it'll be the most fun event out of all of REX and it'll do the best
+            job of showcasing everything that's fantastic about Dorm! If you can only go to one event from
+            Dorm, go to this one.</span>
+    </div>
+    
+    <p>Also, look out for icons like 🍴 (food) and 🎉 (party), which will tell you some extra information about the event.</p>
+
+    <p style="font-style: italic">This booklet was created on December 13, 2025 at 03:12 PM. Some events may have changed since then. For the latest information, visit <a href="https://dormcon.mit.edu/rex">dormcon.mit.edu/rex</a>.</p>
+</div>
+  <div>
+    <span class="day-title">Residence Hall Tours</span>
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Sat 10 AM - noon</span>
+  &middot; 
+
+  <span class="title">EC Dorm Tour</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(Talbot)</span>
+   &middot;
+  <span class="description">The real question is, what're THOSE? Find a friendly tourguide in the courtyard for an East Campus dorm tour! Leaves approximately every half hour.</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Sun 9 AM - 9:30 AM</span>
+  &middot; 
+
+  <span class="title">Dorm Tour</span>
+
+  
+  <span class="dorm">@ Maseeh</span>
+   
+  <span class="location">(Maseeh Lobby)</span>
+   &middot;
+  <span class="description">What do different rooms look like? How do I use the washer? What's the meaning of my life? All these questions and more will be answered on dorm tours! </span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Sun 9 AM - 10 AM</span>
+  &middot; 
+
+  <span class="title">Burton Conner Student Tours</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Burton Conner)</span>
+   &middot;
+  <span class="description">See all the wonders that BC has to offer, including our favorite bathroom</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Sun 10 AM - noon</span>
+  &middot; 
+
+  <span class="title">EC Dorm Tour</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(Talbot)</span>
+   &middot;
+  <span class="description">Do people live here? Find a friendly tourguide in the courtyard for an East Campus dorm tour! Leaves approximately every half hour</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Sun 10:30 AM - 11 AM</span>
+  &middot; 
+
+  <span class="title">Next House Tour</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House Lobby)</span>
+   &middot;
+  <span class="description">Tour around Next House, led by a current Next House resident. Learn more about Next House culture. Open to parents.</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Sun 3:30 PM - 4 PM</span>
+  &middot; 
+
+  <span class="title">Next Hour Tour</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House Lobby)</span>
+   &middot;
+  <span class="description">Tour around Next House, led by a current Next House resident. Learn more about Next House culture. Open to parents.</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Sun 4 PM - 5 PM</span>
+  &middot; 
+
+  <span class="title">Burton Conner Student Tours</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Burton Conner)</span>
+   &middot;
+  <span class="description">See all the wonders that BC has to offer, including our favorite bathroom</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Sun 8 PM - 8:30 PM</span>
+  &middot; 
+
+  <span class="title">Tour New Vassar</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Lobby)</span>
+   &middot;
+  <span class="description">Take a peek inside your future home with a New Vassar tour, guided by a New Vassar resident.</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Mon 10 AM - noon</span>
+  &middot; 
+
+  <span class="title">EC Dorm Tour</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(Talbot)</span>
+   &middot;
+  <span class="description">Warning: Wild student-humans in their natural habitat - Do not feed! Find a friendly tourguide in the courtyard for an East Campus dorm tour! Leaves approximately every half hour.</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Mon 10:30 AM - 11 AM</span>
+  &middot; 
+
+  <span class="title">Next House Tour</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House Lobby)</span>
+   &middot;
+  <span class="description">Tour around Next House, led by a current Next House resident. Learn more about Next House culture. Open to parents.</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Mon 2 PM - 5 PM</span>
+  &middot; 
+
+  <span class="title">McCormick Tours</span>
+
+  
+  <span class="dorm">@ McCormick</span>
+   
+  <span class="location">(Front Lobby)</span>
+   &middot;
+  <span class="description">New tour every hour, on the hour! Get an insider tour of McCormick, including the Penthouse, Dance Studio, Craft Room, Country Kitchen, Gym, and more!</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Mon 3:30 PM - 4 PM</span>
+  &middot; 
+
+  <span class="title">Next House Tour</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House Lobby)</span>
+   &middot;
+  <span class="description">Tour around Next House, led by a current Next House resident. Learn more about Next House culture. Open to parents.</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Mon 5:17 PM - 6:17 PM</span>
+  &middot; 
+
+  <span class="title">Parent Tours</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(foo)</span>
+   &middot;
+  <span class="description">come see what it's like to live in Random Hall</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Mon 7 PM - 8 PM</span>
+  &middot; 
+
+  <span class="title">Burton Conner Student Tours</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Burton Conner)</span>
+   &middot;
+  <span class="description">See all the wonders that BC has to offer, including our favorite bathroom</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Mon 8 PM - 8:30 PM</span>
+  &middot; 
+
+  <span class="title">Tour New Vassar</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Lobby)</span>
+   &middot;
+  <span class="description">Take a peek inside your future home with a New Vassar tour, guided by a New Vassar resident.</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Tue 9 AM - 9:30 AM</span>
+  &middot; 
+
+  <span class="title">Dorm Tour</span>
+
+  
+  <span class="dorm">@ Maseeh</span>
+   
+  <span class="location">(Maseeh Lobby)</span>
+   &middot;
+  <span class="description">What do different rooms look like? How do I use the washer? What's the meaning of my life? All these questions and more will be answered on dorm tours! </span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Tue 9 AM - 10 AM</span>
+  &middot; 
+
+  <span class="title">Burton Conner Student Tours</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Burton Conner)</span>
+   &middot;
+  <span class="description">See all the wonders that BC has to offer, including our favorite bathroom</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Tue 10 AM - noon</span>
+  &middot; 
+
+  <span class="title">EC Dorm Tour</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(Talbot)</span>
+   &middot;
+  <span class="description">"EAST THE DORM" Find a friendly tourguide in the courtyard for an East Campus dorm tour! Leaves approximately every half hour.</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Tue 5:47 PM - 6:47 PM</span>
+  &middot; 
+
+  <span class="title">Parent Tours</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(foo)</span>
+   &middot;
+  <span class="description">come see what it's like to live in Random Hall</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Tue 6:30 PM - 9 PM</span>
+  &middot; 
+
+  <span class="title">McCormick Tours</span>
+
+  
+  <span class="dorm">@ McCormick</span>
+   
+  <span class="location">(Front Lobby)</span>
+   &middot;
+  <span class="description">New tour every hour, on the hour! Get an insider tour of McCormick, including the Penthouse, Dance Studio, Craft Room, Country Kitchen, Gym, and more!</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Tue 7 PM - 8 PM</span>
+  &middot; 
+
+  <span class="title">Burton Conner Student Tours</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Burton Conner)</span>
+   &middot;
+  <span class="description">See all the wonders that BC has to offer, including our favorite bathroom</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Tue 8 PM - 8:30 PM</span>
+  &middot; 
+
+  <span class="title">Tour New Vassar</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Lobby)</span>
+   &middot;
+  <span class="description">Take a peek inside your future home with a New Vassar tour, guided by a New Vassar resident.</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Wed 9 AM - 9:30 AM</span>
+  &middot; 
+
+  <span class="title">Dorm Tour</span>
+
+  
+  <span class="dorm">@ Maseeh</span>
+   
+  <span class="location">(Maseeh Lobby)</span>
+   &middot;
+  <span class="description">What do different rooms look like? How do I use the washer? What's the meaning of my life? All these questions and more will be answered on dorm tours! </span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Wed 10 AM - noon</span>
+  &middot; 
+
+  <span class="title">EC Dorm Tour</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(Talbot)</span>
+   &middot;
+  <span class="description">East Campus? I thought you said WEAST Campus! Find a friendly tourguide in the courtyard for an East Campus dorm tour! Leaves approximately every half hour.</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Wed 2:17 PM - 3:17 PM</span>
+  &middot; 
+
+  <span class="title">Parent Tours</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(foo)</span>
+   &middot;
+  <span class="description">come see what it's like to live in Random Hall</span>
+</div>
+
+    
+    
+<div class="event tag-tour ">
+  <span class="id"></span>
+  <span class="date">Wed 8 PM - 8:30 PM</span>
+  &middot; 
+
+  <span class="title">Tour New Vassar</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Lobby)</span>
+   &middot;
+  <span class="description">Take a peek inside your future home with a New Vassar tour, guided by a New Vassar resident.</span>
+</div>
+
+    
+
+    <div class="fpop">
+      <span class="fpop-title">FPOP Week Events</span>
+      During the week before REX begins, FPOPs are happening on campus. If you happen to be around in the afternoon
+      after your FPOP ends, feel free to drop by one of the events below!
+      
+      <span class="day-title">Saturday 08/27/22</span>
+      
+        
+          
+          
+<div class="event tag-social ">
+  <span class="id"></span>
+  <span class="date">Sat noon - 1 PM</span>
+  &middot; 👥 
+
+  <span class="title">Hair Dying</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">Exercise your freedom of expression by dying your hair ALL OF THE COLORS.</span>
+</div>
+
+          
+          
+<div class="event tag-social tag-food tag-build ">
+  <span class="id"></span>
+  <span class="date">Sat noon - 9 PM</span>
+  &middot; 👥 🍴 
+
+  <span class="title">Grill, Chill, and Build</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">Ahoy mateys! Come join us to sail the seven seas, here for a short time right at East Campus! Come enjoy a burger, some construction, and a nice chitchat.</span>
+</div>
+
+          
+          
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Sat 10 PM - 10:22 PM</span>
+  &middot; 
+
+  <span class="title">We're Not Here</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">Where’s “here” <thinking emoji>?</span>
+</div>
+
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+      
+    </div>
+
+    
+    <div class="page">
+      <span class="day-title">Sunday 08/28/22</span>
+      
+      
+      
+      
+      
+      
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Sun 8 AM - 10 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Pancake breakfast: a new batch of prefrosh</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Late Night Cafe)</span>
+   &middot;
+  <span class="description">Not so long ago, in a dorm kitchen not so far far away, there were many pancakes waiting to be eaten. Come meet some great people, chat about simmons and MIT, and eat some delicious (FREE) pancakes! </span>
+</div>
+
+      
+      
+<div class="event tag-food tag-breakfast ">
+  <span class="id"></span>
+  <span class="date">Sun 9 AM - 11 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Continental Breakfast</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Game Room)</span>
+   &middot;
+  <span class="description">Come grab some free breakfast and meet new friends at the New Vassar Continental Breakfast!</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Sun 9:30 AM - 10:30 AM</span>
+  &middot; 
+
+  <span class="title">Chalk Mural Pallooza!</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+    &middot;
+  <span class="description">Have you ever seen the iconic art pieces which fill the simmons halls? Join the ranks of the great sponge artists today! We'll provide the chalk</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Sun 10 AM - 11 AM</span>
+  &middot; 
+
+  <span class="title">Shield Decoration (water war)</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Front Lawn)</span>
+   &middot;
+  <span class="description">Prepare for the water war by painting shields for West Campus!</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-all-day tag-snack tag-tea ">
+  <span class="id"></span>
+  <span class="date">Sun 10:47 AM - 6:47 PM</span>
+  &middot; 
+
+  <span class="title">Smoothie, Snack and Tea</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(clam kitchen)</span>
+   &middot;
+  <span class="description">Come by anytime to relax and grab free smoothie & snack! (≧◉◡◉≦)    </span>
+</div>
+
+      
+      
+<div class="event tag-active ">
+  <span class="id"></span>
+  <span class="date">Sun 11 AM - 12:30 PM</span>
+  &middot; 
+
+  <span class="title">Capture the Sponge</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(MPR)</span>
+   &middot;
+  <span class="description">Prospective ducks join one another in spongey, squishy warfare, complete with the juxtaposition of theft and wholesome quantities of oxytocin</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-info ">
+  <span class="id"></span>
+  <span class="date">Sun 11 AM - 1 PM</span>
+  &middot; 🍴 
+
+  <span class="title">MacG Entry Panel Event</span>
+
+  
+  <span class="dorm">@ MacGregor</span>
+   
+  <span class="location">(MacGregor A Entry Lounge)</span>
+   &middot;
+  <span class="description">Cookies and a Look Into MacG's Entry System</span>
+</div>
+
+      
+      
+<div class="event tag-games ">
+  <span class="id"></span>
+  <span class="date">Sun 11 AM - 2 PM</span>
+  &middot; 🎲 
+
+  <span class="title">Ultimate Frisbee</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(Briggs Field)</span>
+   &middot;
+  <span class="description">Move your body and make new friends on Briggs Field while playing Ultimate Frisbee!</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-casual tag-diy ">
+  <span class="id"></span>
+  <span class="date">Sun 11:17 AM - 1:17 PM</span>
+  &middot; 🍴 
+
+  <span class="title">BYOP (Build Your Own Pizza)</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(loop kitchen)</span>
+   &middot;
+  <span class="description">Pizza just doesn't get any better than when you make it yourself! Come choose from a truly ludicrous number of toppings and try your hand at tossing pizza dough. Pineapple pizza, pickle pizza, pesto pizza, pizza for dessert?!?  Vegan and gluten-free options available.</span>
+</div>
+
+      
+      
+<div class="event tag-chill ">
+  <span class="id"></span>
+  <span class="date">Sun 11:30 AM - 12:30 PM</span>
+  &middot; 
+
+  <span class="title">Pop bubble wrap</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Mailbox Lounge)</span>
+   &middot;
+  <span class="description">Come destress and pop bubbles. Who can resist??</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-snack tag-cooking ">
+  <span class="id"></span>
+  <span class="date">Sun 11:47 AM - 1:47 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Pierogi Power Hour</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(bonfire kitchen)</span>
+   &middot;
+  <span class="description">Did your babtsya or vecmāmiņa never teach you how to make pierogies? Don't worry! We'll be your local grandmothers and show you the way :)</span>
+</div>
+
+      
+      
+<div class="event tag-social ">
+  <span class="id"></span>
+  <span class="date">Sun noon - 1 PM</span>
+  &middot; 👥 
+
+  <span class="title">Hair Dying</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">Hair is temporary, bleach is permanent, instagam likes are forever.</span>
+</div>
+
+      
+      
+<div class="event tag-social tag-food ">
+  <span class="id"></span>
+  <span class="date">Sun noon - 1 PM</span>
+  &middot; 👥 🍴 
+
+  <span class="title">Trader Jack's</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">Asking questions in exchange for some sweet treats from Trader Joes!</span>
+</div>
+
+      
+      
+<div class="event tag-chill ">
+  <span class="id"></span>
+  <span class="date">Sun noon - 1 PM</span>
+  &middot; 
+
+  <span class="title">Origami!</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Athena Cluster)</span>
+   &middot;
+  <span class="description">Come fold paper into fun shapes and talk to us!! Paper and instructions will be provided, or you can wow us with your own amazing creations ;)</span>
+</div>
+
+      
+      
+<div class="event tag-social tag-food tag-build ">
+  <span class="id"></span>
+  <span class="date">Sun noon - 6 PM</span>
+  &middot; 👥 🍴 
+
+  <span class="title">Grill, Chill, and Build</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">Power tools! Ladders! Safety! No experience required, burgers provided</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-b3rd ">
+  <span class="id"></span>
+  <span class="date">Sun 12:03 PM - 1:03 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Awakenings and Bakenings</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(burton third center suite (341))</span>
+   &middot;
+  <span class="description">grab some brunch & baked goods with burton third! </span>
+</div>
+
+      
+      
+<div class="event tag-casual ">
+  <span class="id"></span>
+  <span class="date">Sun 12:17 PM - 1:17 PM</span>
+  &middot; 
+
+  <span class="title">make dnd characters (5e)</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(bonfire lounge)</span>
+   &middot;
+  <span class="description">ever wanted to play dungeons & dragons? do you already? amazing. chat with us as you are taken through the mechanics of creating a dnd character. we'll help you come up with ideas!</span>
+</div>
+
+      
+      
+<div class="event tag-social tag-art tag-food ">
+  <span class="id"></span>
+  <span class="date">Sun 1 PM - 2 PM</span>
+  &middot; 👥 🎨 🍴 
+
+  <span class="title">Queer Poetry and Snacks</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">Join us on the East Campus courtyard for an evening of poetry and a safe space for queer expression. Bring your favorite poems or just come along to listen. Snacks will be provided!</span>
+</div>
+
+      
+      
+<div class="event tag-energy ">
+  <span class="id"></span>
+  <span class="date">Sun 1 PM - 2 PM</span>
+  &middot; 
+
+  <span class="title">Gatas</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(2nd Floor Pool Table)</span>
+   &middot;
+  <span class="description">pool table madness with this simmons classic</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-chill ">
+  <span class="id"></span>
+  <span class="date">Sun 1 PM - 3 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Memes and Cereal</span>
+
+  
+  <span class="dorm">@ MacGregor</span>
+   
+  <span class="location">(J Entry Lounge)</span>
+   &middot;
+  <span class="description">Watch memes, eat cereal, and hang out with the residents of J entry</span>
+</div>
+
+      
+      
+<div class="event tag-favorite ">
+  <span class="id"></span>
+  <span class="date">Sun 1 PM - 4 PM</span>
+  &middot; 
+
+  <span class="title">BC Field Day!</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Briggs Field C)</span>
+   &middot;
+  <span class="description">Remember field day? Compete in fun games with Burton Conner!! Including but not limited to: tug of war, forehead oreo challenge, dizzy bat, jell-o slurping race, 3-legged race, a bunch of other races, you get the idea...</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-chaotic tag-snack ">
+  <span class="id"></span>
+  <span class="date">Sun 1:17 PM - 2:47 PM</span>
+  &middot; 🍴 
+
+  <span class="title">spicy ramen taste test</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(bmf kitchen)</span>
+   &middot;
+  <span class="description">Test your spice tolerance by building your own bowl of spicy ramen! Variety of hot sauce and ramens provided.</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Sun 1:30 PM - 3 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Cookies in the Country Kitchen</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Country Kitchen)</span>
+   &middot;
+  <span class="description">Bake cookies with oldies in the Simmons country kitchen!</span>
+</div>
+
+      
+      
+<div class="event tag-art tag-casual tag-outdoors ">
+  <span class="id"></span>
+  <span class="date">Sun 1:47 PM - 3:47 PM</span>
+  &middot; 🎨 
+
+  <span class="title">mandatory art time</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(random roofdeck)</span>
+   &middot;
+  <span class="description">okay, it's not actually mandatory but what really is? come do art with us! it doesn't matter if you think you're any good! art isn't about being good anyway :)</span>
+</div>
+
+      
+      
+<div class="event tag-making ">
+  <span class="id"></span>
+  <span class="date">Sun 2 PM - 5 PM</span>
+  &middot; 
+
+  <span class="title">Make with NV</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Makerspace)</span>
+   &middot;
+  <span class="description">Create and assemble a unique desk light in New Vassar's state-of-the-art makerspace.</span>
+</div>
+
+      
+      
+<div class="event tag-build ">
+  <span class="id"></span>
+  <span class="date">Sun 2 PM - 5 PM</span>
+  &middot; 
+
+  <span class="title">Build-a-duck</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Stadium Steps)</span>
+   &middot;
+  <span class="description">Masterful craftspeople (and upperclassmen) work together at the most porous dorm to construct a mighty war engine to do battle in the water war</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Sun 2:17 PM - 4:17 PM</span>
+  &middot; 
+
+  <span class="title">Hypnosis!</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(black hole lounge)</span>
+   &middot;
+  <span class="description">Close your eyes. Press on my hands. Sleep! Come learn 'science' MIT won't teach you -- with practical demonstrations!</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-chaotic ">
+  <span class="id"></span>
+  <span class="date">Sun 2:17 PM - 4:17 PM</span>
+  &middot; 
+
+  <span class="title">Random Board Games</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(bmf lounge)</span>
+   &middot;
+  <span class="description">Come play your choice of board game from our randomly selected pool of games</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Sun 2:30 PM - 4 PM</span>
+  &middot; 
+
+  <span class="title">Scootah Hockey</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Simmons Dining)</span>
+   &middot;
+  <span class="description">What happens when you take the scootahs from PE class and combine it with hockey? Do you get a sporting bout worthy of the Olympics? No! Far greater! Olympians wish they could play scootah hockey! Around 5% of applicants get into MIT and less than 1% of them will be crowned Scootah Hockey champions! Will it be you?</span>
+</div>
+
+      
+      
+<div class="event tag-craft tag-casual tag-art ">
+  <span class="id"></span>
+  <span class="date">Sun 2:47 PM - 4:47 PM</span>
+  &middot; 🎨 
+
+  <span class="title">Crochet the Hilbert Curve</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(loop lounge)</span>
+   &middot;
+  <span class="description">Come explore the world of mathematical crochet, and help make a Hilbert curve quilt! Never touched a crochet hook? No problem. Never touched a Hilbert curve? Now's your chance! There will be plenty of yarn, a small quantity of math, and lots of good conversation.</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Sun 3 PM - 4 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Flaming Fruit</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">Grill various fruit, I don't care if it makes sense, if it's a fruit, it's gonna be aflame eg: pineapple, peaches, tomato (genuinely good), bananas (weirdly good), oranges (genuinely bad), grapes, lychee, apples, berries, mango, basically anything I can get my hands on.</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-chill ">
+  <span class="id"></span>
+  <span class="date">Sun 3 PM - 5 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Bentry Beach Bash</span>
+
+  
+  <span class="dorm">@ MacGregor</span>
+   
+  <span class="location">(B Entry Lounge)</span>
+   &middot;
+  <span class="description">Escape the heat and cool off with ice pops and mocktails while enjoying the B entry view</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-fun tag-games ">
+  <span class="id"></span>
+  <span class="date">Sun 3 PM - 5 PM</span>
+  &middot; 🍴 🎲 
+
+  <span class="title">Speedfriending in BLR</span>
+
+  
+  <span class="dorm">@ McCormick</span>
+   
+  <span class="location">(Brown Living Room)</span>
+   &middot;
+  <span class="description">Ready to make some friends to spend a fun REX week with? We are here to help!</span>
+</div>
+
+      
+      
+<div class="event tag-b3rd ">
+  <span class="id"></span>
+  <span class="date">Sun 3:33 PM - 5:03 PM</span>
+  &middot; 
+
+  <span class="title">so you wanna work on wall street?</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(in front of BC, Amherst Alley side)</span>
+   &middot;
+  <span class="description">1 business degree is guaranteed after a simple session with corporate aficionados Anna Heritance and Ned Potism. You can't miss out on this deal!</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-creative tag-chaotic tag-casual ">
+  <span class="id"></span>
+  <span class="date">Sun 3:47 PM - 5:47 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Fish Waffles? Fish Everything!</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(bonfire kitchen)</span>
+   &middot;
+  <span class="description">Fish shaped waffles... Fish shaped cupcakes... Fish shaped whatever you can dream. Come join us as we explore the limits of what can be cooked in a fish shaped waffle iron. Cupcakes? Marshmallows? Fruit? Ice cream? Come find out. </span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-creative tag-art ">
+  <span class="id"></span>
+  <span class="date">Sun 3:47 PM - 5:47 PM</span>
+  &middot; 🎨 
+
+  <span class="title">Applied Knot Theory</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(pecker lounge)</span>
+   &middot;
+  <span class="description">An introduction to the art of tying up pretty people with pretty knots in practical and ornamental ways! WARNING: This event can expose you to adult-themed conversations, which are known to the State of California to cause discomfort in select individuals.</span>
+</div>
+
+      
+      
+<div class="event tag-social tag-art ">
+  <span class="id"></span>
+  <span class="date">Sun 4 PM - 5 PM</span>
+  &middot; 👥 🎨 
+
+  <span class="title">Rad Tats</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">Come tattoo yourself or get tattooed with inkbox or henna! Such ink is temporary, but the rad is 5ever.</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-cooking ">
+  <span class="id"></span>
+  <span class="date">Sun 4 PM - 6 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Fentry Feast</span>
+
+  
+  <span class="dorm">@ MacGregor</span>
+   
+  <span class="location">(F Entry Lounge (Up the stone staircase in the courtyard))</span>
+   &middot;
+  <span class="description">A variety of homecooked food made by the residents of F Entry.</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Sun 4 PM - 6 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Fire & Ice II</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House TFL)</span>
+   &middot;
+  <span class="description">Come by if you would like to consume some Spicy Noodles! (Bringing your own container and utensils are Highly Encouraged!)</span>
+</div>
+
+      
+      
+<div class="event tag-games ">
+  <span class="id"></span>
+  <span class="date">Sun 4 PM - 6 PM</span>
+  &middot; 🎲 
+
+  <span class="title">rejected REX ideas</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House 4W Main Lounge)</span>
+   &middot;
+  <span class="description">We run all our rejected REX ideas at the same time in the same place. Some events include: - cornhole with actual corn: "the description is self explanatory" - saturday morning cursed cartoons: "not your typical saturday morning" - ? drawing competition: "not a drawing competition of an unknown subject, but a drawing competition of ?s" - 1000 piece custom puzzle: "Jeffery (adj.): having the quality of a Jeffer" (who's Jeffery? come and find out!) snaccs will be provided</span>
+</div>
+
+      
+      
+<div class="event tag-tv tag-chill tag-snack ">
+  <span class="id"></span>
+  <span class="date">Sun 4 PM - 6 PM</span>
+  &middot; 
+
+  <span class="title">Spongebob in the Sponge</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(TV Lounge)</span>
+   &middot;
+  <span class="description">Need a break from some crazy REX activities? Come eat snacks and watch everyone's favorite Sponge in the sponge!</span>
+</div>
+
+      
+      
+<div class="event tag-craft tag-outdoors ">
+  <span class="id"></span>
+  <span class="date">Sun 4:17 PM - 5:17 PM</span>
+  &middot; 
+
+  <span class="title">Foamsmithing</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(random roofdeck)</span>
+   &middot;
+  <span class="description">Let us forge a hoard of mighty weapons to defend our honor and the honor of our livestock! Come forth ye brave hero and make a foam sword. Henceforth thou shalt smack thine enemies with glorious purpose!</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Sun 4:30 PM - 5:30 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Head of House Study Break</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(stadium steps)</span>
+   &middot;
+  <span class="description">eat homemade ice cream with the simmons house team!</span>
+</div>
+
+      
+      
+<div class="event tag-social tag-food tag-queer ">
+  <span class="id"></span>
+  <span class="date">Sun 5 PM - 6 PM</span>
+  &middot; 👥 🍴 
+
+  <span class="title">Gaysian Tea Party</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(Beast (2E) lounge)</span>
+   &middot;
+  <span class="description">Queer? Asian? Both? Neither? Whatever, come have some bubble tea (with RAINBOW TAPIOCA! oooh, ahhh) and chat with us :))</span>
+</div>
+
+      
+      
+<div class="event tag-social tag-art ">
+  <span class="id"></span>
+  <span class="date">Sun 5 PM - 6 PM</span>
+  &middot; 👥 🎨 
+
+  <span class="title">Project or Craft circle</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(4E Lounge)</span>
+   &middot;
+  <span class="description">Come sit around and work on various crafts/projects with EC residents, types of projects/crafts can include, but are not limited to: clothes alteration, painting, crocheting/knitting, clay creations, origami, construction paper & felt work, and more!!</span>
+</div>
+
+      
+      
+<div class="event tag-dance ">
+  <span class="id"></span>
+  <span class="date">Sun 7:30 PM - 8:30 PM</span>
+  &middot; 
+
+  <span class="title">Crab Rave (just dance with the sims!)</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(MPR)</span>
+   &middot;
+  <span class="description">Come have some fun and show off your best dance moves with the Sims in a Just Dance marathon of epic proportions! </span>
+</div>
+
+      
+      
+<div class="event tag-cooking tag-food tag-games tag-chill ">
+  <span class="id"></span>
+  <span class="date">Sun 7:30 PM - 9:30 PM</span>
+  &middot; 🍴 🎲 
+
+  <span class="title">Centry Cookie-ng and Chill</span>
+
+  
+  <span class="dorm">@ MacGregor</span>
+   
+  <span class="location">(C Entry Kitchen/ Lounge)</span>
+   &middot;
+  <span class="description">Show up to bake some yummy yummy cookies, and enjoy them while playing games in the lounge!</span>
+</div>
+
+      
+      
+<div class="event tag-games tag-food ">
+  <span class="id"></span>
+  <span class="date">Sun 7:30 PM - 9:30 PM</span>
+  &middot; 🎲 🍴 
+
+  <span class="title">Game Night + Smoothies</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Game Room)</span>
+   &middot;
+  <span class="description">Play your favorite game, learn a new one, and drink delicious smoothies with new friends in the best game room on campus.</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Sun 7:30 PM - 9:30 PM</span>
+  &middot; 
+
+  <span class="title">Spaghetti Dinner</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Late Night Cafe)</span>
+   &middot;
+  <span class="description">Hungry? I hope so. We've prepared a classic spaghetti dinner just for you, where you can make your own pasta dinner ahd choose sauces, meats, and veggies. Gluten free and vegan options available. [this time with enough pasta]</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Sun 7:47 PM - 8:47 PM</span>
+  &middot; 
+
+  <span class="title">Lindt™ Elite Butlering Academy</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(black hole kitchen)</span>
+   &middot;
+  <span class="description">We are a sophisticated service Management education corporation teaching the art form of Lindt LINDOR truffle Chocolate Service. In our 1 hour speed butlering academy, you will understand chocolate pairing and service, interacting with your clientele, and earn a certificate of butlerology.</span>
+</div>
+
+      
+      
+<div class="event tag-art ">
+  <span class="id"></span>
+  <span class="date">Sun 7:47 PM - 9:17 PM</span>
+  &middot; 🎨 
+
+  <span class="title">Beak, Feather + Bone</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(pecker lounge)</span>
+   &middot;
+  <span class="description">Collaborative city building through a map labelling tabletop RPG. Come join us!</span>
+</div>
+
+      
+      
+<div class="event tag-watch party tag-snack tag-casual ">
+  <span class="id"></span>
+  <span class="date">Sun 7:47 PM - 4:47 AM</span>
+  &middot; 
+
+  <span class="title">Starkid musical marathon</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(bonfire lounge)</span>
+   &middot;
+  <span class="description">Enjoy the height of musical theater, eat snacks, and get ready for several hours of wacky adventures! </span>
+</div>
+
+      
+      
+<div class="event tag-food tag-games tag-social ">
+  <span class="id"></span>
+  <span class="date">Sun 8 PM - 9 PM</span>
+  &middot; 🍴 🎲 👥 
+
+  <span class="title">Smash and Pass</span>
+
+  
+  <span class="dorm">@ MacGregor</span>
+   
+  <span class="location">(A Entry Lounge)</span>
+   &middot;
+  <span class="description">Play some smash then pass it off while you meet the members of A entry</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Sun 8 PM - 9 PM</span>
+  &middot; 
+
+  <span class="title">Whine and Cheese</span>
+
+  
+  <span class="dorm">@ LMF</span>
+   
+  <span class="location">(LMF kitchen (W70 4111))</span>
+   &middot;
+  <span class="description">Join French House in sampling cheeses and teas as we spill the proverbial tea on life at MIT!</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Sun 8 PM - 9 PM</span>
+  &middot; 
+
+  <span class="title">Next House Housing Lottery Info Session</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House TFL, TV Area)</span>
+   &middot;
+  <span class="description">living in next? unsure of how our housing process works? come talk to our housing chair and get any questions you may have answered.</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Sun 8 PM - 10 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Strawberry Shortcake's Berry MITty Adventures</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House Country Kitchen)</span>
+   &middot;
+  <span class="description">We're going to make something short, sweet, and berry delicious (STRAWBERRY SHORTCAKE). Don't be fooled by our childlike theme, this is serious business—at least, our baking is! Try your hand at this delicate dessert and whip up some cake and cream with Next Bake. We (just might) be watching Strawberry Shortcakes Berry Bitty Adventures in the background (no copyright infringement, and also 23% chance we do this), so there won't be a dull moment!</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Sun 8 PM - 10 PM</span>
+  &middot; 
+
+  <span class="title">Not throwing away my duck!</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(7th Floor Terrace)</span>
+   &middot;
+  <span class="description">young, spongy, and ducky?</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-movie tag-water tag-games tag-show ">
+  <span class="id"></span>
+  <span class="date">Sun 8 PM - 11 PM</span>
+  &middot; 🍴 🎲 
+
+  <span class="title">Velociraptor Pool Party</span>
+
+  
+  <span class="dorm">@ MacGregor</span>
+   
+  <span class="location">(MacGregor Courtyard)</span>
+   &middot;
+  <span class="description">A Showing of The VelociPastor, Pool Volleyball, and Dinosaur Chicken Nuggets</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Sun 8 PM - 11 PM</span>
+  &middot; 
+
+  <span class="title">Jewelry Making</span>
+
+  
+  <span class="dorm">@ Juniper</span>
+   
+  <span class="location">(Juniper Lounge)</span>
+   &middot;
+  <span class="description">Need new accessories for the start of the school year? Come learn how to make jewelry with the members of Juniper!</span>
+</div>
+
+      
+      
+<div class="event tag-social tag-music ">
+  <span class="id"></span>
+  <span class="date">Sun 8 PM - 1 AM</span>
+  &middot; 👥 
+
+  <span class="title">East Side Party</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">Ahoy mateys! East Side Party, where the songs don't stop coming. Ride our student-made attractions, get space trained, and wrestle in substances never before wrestled in. And as you dance and get to experience our pirate den, you too will taste the sweet nectar of freedom. Shiver me timbers!</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-cooking ">
+  <span class="id"></span>
+  <span class="date">Sun 8:01 PM - 9:01 PM</span>
+  &middot; 🍴 
+
+  <span class="title">bone app the teeth</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(B1 floor lounge)</span>
+   &middot;
+  <span class="description">have you ever had blue p1zza? neither have we. make your own (mostly) blue pizza. the more creative (or graphic), the better.</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-games ">
+  <span class="id"></span>
+  <span class="date">Sun 8:17 PM - 9:17 PM</span>
+  &middot; 🎲 
+
+  <span class="title">Words with Nerds</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(loop kitchen)</span>
+   &middot;
+  <span class="description">Do you have an extensive vocabulary you can't wait to share? Or do you simply love learning new words? Come join us as we play various word games that test your vocab and word association skills!</span>
+</div>
+
+      
+      
+<div class="event tag-tea tag-craft tag-casual ">
+  <span class="id"></span>
+  <span class="date">Sun 8:17 PM - 9:47 PM</span>
+  &middot; 
+
+  <span class="title">Friendship (Bracelets) and Tea</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(loop kitchen)</span>
+   &middot;
+  <span class="description">Come for the tea and bracelets, stay for the friendship! We have a cozy kitchen, everything you need to make your own tea blends, and way too much embroidery floss.</span>
+</div>
+
+      
+      
+<div class="event tag-art tag-casual ">
+  <span class="id"></span>
+  <span class="date">Sun 8:17 PM - 10:17 PM</span>
+  &middot; 🎨 
+
+  <span class="title">painting ceiling tiles</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(bmf lounge)</span>
+   &middot;
+  <span class="description">Did you know that Random Hall has ceiling murals? I wonder how they got up there hmmm... Come decorate your future living spaces by painting the walls!</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Sun 8:30 PM - 11 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Poker and Potatoes</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(B5 center suite)</span>
+   &middot;
+  <span class="description">Come play potatoes and eat poker on B5!</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Sun 8:47 PM - 10:47 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Nekomimi Maid Cafe</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(foo)</span>
+   &middot;
+  <span class="description">Come to Random to be served delicious food by maids with cat ears! kawaii neko maid cafe (=^-.-^=)/ nyaa~</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Sun 9 PM - 10 PM</span>
+  &middot; 
+
+  <span class="title">Next House Hot Ones</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House TFL)</span>
+   &middot;
+  <span class="description">A panel of Next House students. Spicy questions. Spicy food.</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-c5 tag-favorite ">
+  <span class="id"></span>
+  <span class="date">Sun 9 PM - 10:30 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Hadrosaurus and Habaneros</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Conner 5 Flounge)</span>
+   &middot;
+  <span class="description">Help C5 fix our dino nugget overpopulation problem by drowning them in hot sauce</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-chill ">
+  <span class="id"></span>
+  <span class="date">Sun 9 PM - 11 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Night at the Sponge</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(MPR)</span>
+   &middot;
+  <span class="description">Grab some pizza, meet some Simms, or just relax after an action-packed day!</span>
+</div>
+
+      
+      
+<div class="event tag-chaotic tag-nighttime ">
+  <span class="id"></span>
+  <span class="date">Sun 9:17 PM - 5:17 AM</span>
+  &middot; 
+
+  <span class="title">climb all night</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(Walker climbing gym (Building 50))</span>
+   &middot;
+  <span class="description">Climb, watch climbing movies, eat some food</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-b4 tag-favorite ">
+  <span class="id"></span>
+  <span class="date">Sun 9:30 PM - 11 PM</span>
+  &middot; 🍴 
+
+  <span class="title">will it w4ffle??</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(B4 Center Suite Kitchen)</span>
+   &middot;
+  <span class="description">disrespect our waffle makers by waffling things that really shouldn't be waffled</span>
+</div>
+
+      
+      
+<div class="event tag-movie ">
+  <span class="id"></span>
+  <span class="date">Sun 9:30 PM - 11:30 PM</span>
+  &middot; 
+
+  <span class="title">Movie Night</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Mezzanine)</span>
+   &middot;
+  <span class="description">Kick back and watch a movie with friends in New Vassar's beautiful mezzanine.</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-outdoors tag-nighttime ">
+  <span class="id"></span>
+  <span class="date">Sun 9:47 PM - 10:47 PM</span>
+  &middot; 
+
+  <span class="title">Roofdeck Skygazing</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(random roofdeck)</span>
+   &middot;
+  <span class="description">It's been a long day.  Come lie down, relax, and watch the sky.</span>
+</div>
+
+      
+      
+<div class="event tag-tv tag-watch party ">
+  <span class="id"></span>
+  <span class="date">Sun 10 PM - 11 PM</span>
+  &middot; 
+
+  <span class="title">B99 with B2</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Burton 2 flounge)</span>
+   &middot;
+  <span class="description">In which we watch Brooklyn99 </span>
+</div>
+
+      
+      
+<div class="event tag-video games ">
+  <span class="id"></span>
+  <span class="date">Sun 10 PM - 11:30 PM</span>
+  &middot; 
+
+  <span class="title">Smash Ultimate Tournament</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(party room)</span>
+   &middot;
+  <span class="description">Put your gamer skills to the test to defeat Old Simms, New Simms, and everyone in between in Smash Ultimate!</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-making ">
+  <span class="id"></span>
+  <span class="date">Sun 10:30 PM - 1 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Nailed It!</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Country Kitchen)</span>
+   &middot;
+  <span class="description">Amateur chefs + fancy cake recipe = ???</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Sun 10:55 PM - 1 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Waffel Nacht</span>
+
+  
+  <span class="dorm">@ German House</span>
+   
+  <span class="location">(German House Lounge)</span>
+   &middot;
+  <span class="description">It's midnight(ish), we got waffles, we got loads of whipped cream and other toppings. What more is there to say?</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-weird ">
+  <span class="id"></span>
+  <span class="date">Sun 11 PM - 1 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Gourds and Music and Pringles</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House 2E Main Lounge)</span>
+   &middot;
+  <span class="description">Come vibe with 2e. Listen to music mashups. Debate the best Pringles flavor. Ask us about King Gourd.</span>
+</div>
+
+      
+      
+<div class="event tag-romcom tag-movie ">
+  <span class="id"></span>
+  <span class="date">Sun 11 PM - 2 AM</span>
+  &middot; 
+
+  <span class="title">Corny Movie Night</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House TFL, TV Area)</span>
+   &middot;
+  <span class="description">Popcorn. Other types of corn. Mixins. Corny movie. (Options may include Never Have I Ever, Alex Strangelove, Princess Diaries, Mean Girls, The Half of It.)</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Sun 11:30 PM - 12:30 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Extreme Ice Cream</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Late Night Cafe)</span>
+   &middot;
+  <span class="description">It's sick and twisted how cookie dough ice cream doesn't have enough cookie dough. Let's solve that by smashing some massive chunks of heavenly cookie dough into ice cream. Join us to make some extreme ice cream sundaes from big ol' cakes, cookies, pastries, and candies.</span>
+</div>
+
+      
+      
+<div class="event tag-chill ">
+  <span class="id"></span>
+  <span class="date">Mon 1 AM - 3 AM</span>
+  &middot; 
+
+  <span class="title">Cookie Night</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House Country Kitchen)</span>
+   &middot;
+  <span class="description">Various amounts of cookies. Cookie variants may include: dough made that day; dough made the night before and chilled overnight, vegan/gluten/nut-free, chocolate chip.</span>
+</div>
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </div>
+    
+    <div class="page">
+      <span class="day-title">Monday 08/29/22</span>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Mon 8 AM - 10 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Pancake breakfast: return of the syrup</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Late Night Cafe)</span>
+   &middot;
+  <span class="description">Though the first batch may have been eaten already, many pancakes still remain. Come hang out and get a delicious breakfast made of the 3 key nutritional food groups: Pancakes, toppings, and syrup!</span>
+</div>
+
+      
+      
+<div class="event tag-craft tag-tea tag-art ">
+  <span class="id"></span>
+  <span class="date">Mon 8:30 AM - 11 AM</span>
+  &middot; 🎨 
+
+  <span class="title">Crafty Tea Party</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House TFL)</span>
+   &middot;
+  <span class="description">Drink tea, do crafts, wear your favorite crazy (or not-so-crazy) hat, and discuss life, the universe, and everything with a bunch of friendly Nexties! If you don't have any hats, come use our miscellaneous art/craft supplies to make one! If you have too many hats... wear all of them?</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-breakfast ">
+  <span class="id"></span>
+  <span class="date">Mon 9 AM - 10 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Indoor breakfast</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(5E kitchen)</span>
+   &middot;
+  <span class="description">Cook and/or eat breakfast in a kitchen and hang out with residents.</span>
+</div>
+
+      
+      
+<div class="event tag-activity tag-indoors tag-social ">
+  <span class="id"></span>
+  <span class="date">Mon 9 AM - 10 AM</span>
+  &middot; 👥 
+
+  <span class="title">Dorm Tours + Scavenger Hunt</span>
+
+  
+  <span class="dorm">@ Maseeh</span>
+   
+  <span class="location">(Maseeh Lobby)</span>
+   &middot;
+  <span class="description">What do different rooms look like? How do I use the washer? What's the meaning of my life? All these questions and more will be answered on dorm tours + perhaps you'll find some swimming surprises(quack quack)!</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-breakfast ">
+  <span class="id"></span>
+  <span class="date">Mon 9 AM - 11 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Breakfast with Bentry</span>
+
+  
+  <span class="dorm">@ MacGregor</span>
+   
+  <span class="location">(B Entry Lounge)</span>
+   &middot;
+  <span class="description">Get ready for the day with a pancake and waffle bar, including bacon and OJ</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-craft ">
+  <span class="id"></span>
+  <span class="date">Mon 9 AM - 11 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Paint the Skyline</span>
+
+  
+  <span class="dorm">@ McCormick</span>
+   
+  <span class="location">(East Penthouse)</span>
+   &middot;
+  <span class="description">What's better than free art supplies? Painting the best view in MIT with those supplies, of course! Paint the Boston skyline from the penthouse, and make a personalized door sign as a bonus! Art supplies and snacks provided :)</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-breakfast ">
+  <span class="id"></span>
+  <span class="date">Mon 9 AM - 11 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Continental Breakfast</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Game Room)</span>
+   &middot;
+  <span class="description">Come grab some free breakfast and meet new friends at the New Vassar Continental Breakfast!</span>
+</div>
+
+      
+      
+<div class="event tag-dog tag-chill ">
+  <span class="id"></span>
+  <span class="date">Mon 9:30 AM - 10:30 AM</span>
+  &middot; 
+
+  <span class="title">Kaito Event</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(front lawn)</span>
+   &middot;
+  <span class="description">Do you like doggos? Big floofers? Absolute units of cuddles? Well, come meet Kaito!</span>
+</div>
+
+      
+      
+<div class="event tag-puzzles ">
+  <span class="id"></span>
+  <span class="date">Mon 9:30 AM - 10 PM</span>
+  &middot; 
+
+  <span class="title">Giant Puzzle Doing!</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+    &middot;
+  <span class="description">One giant, puzzlingly-shaped dorm. One giant, actual (jigsaw) puzzle. One entire day. If you want to help us put this puzzle together, feel free to stop by for as long or short as you want!</span>
+</div>
+
+      
+      
+<div class="event tag-chill ">
+  <span class="id"></span>
+  <span class="date">Mon 10 AM - 3 AM</span>
+  &middot; 
+
+  <span class="title">Lying Down on a  Carpet I</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House TFL, TV Area)</span>
+   &middot;
+  <span class="description">Pillows. A carpet. Hot chocolate. Maybe chill music. No brain just vibes.</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Mon 10 AM - 11 AM</span>
+  &middot; 
+
+  <span class="title">Wheely Chair Yousting</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+    &middot;
+  <span class="description">You joust, but with wheely chairs and pool noodles. </span>
+</div>
+
+      
+      
+<div class="event tag-social tag-food ">
+  <span class="id"></span>
+  <span class="date">Mon noon - 9 PM</span>
+  &middot; 👥 🍴 
+
+  <span class="title">Grill and Chill</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">Burgers and friends ALL DAY</span>
+</div>
+
+      
+      
+<div class="event tag-social ">
+  <span class="id"></span>
+  <span class="date">Mon noon - 1 PM</span>
+  &middot; 👥 
+
+  <span class="title">Hair Dying</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">What better way to appreciate the spirit of individualism and self-reliance than to get your hair dyed in ALL OF THE COLORS because you can and why not.</span>
+</div>
+
+      
+      
+<div class="event tag-info tag-queer ">
+  <span class="id"></span>
+  <span class="date">Mon 2 PM - 3 PM</span>
+  &middot; 
+
+  <span class="title">Queer Panel</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(Talbot)</span>
+   &middot;
+  <span class="description">An informative panel about what it's like to be queer at MIT, including resources and firsthand accounts from queer studets in East Campus (this event not open to parents)</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-chill ">
+  <span class="id"></span>
+  <span class="date">Mon 2 PM - 3 PM</span>
+  &middot; 🍴 
+
+  <span class="title">We Ball(oon)</span>
+
+  
+  <span class="dorm">@ MacGregor</span>
+   
+  <span class="location">(G Entry Lounge)</span>
+   &middot;
+  <span class="description">Come grab a balloon animal or a balloon sword and eat popcorn with Gentry residents!</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-chill tag-social ">
+  <span class="id"></span>
+  <span class="date">Mon 2 PM - 3 PM</span>
+  &middot; 🍴 👥 
+
+  <span class="title">Chipotle and Chill</span>
+
+  
+  <span class="dorm">@ MacGregor</span>
+   
+  <span class="location">(A Entry Lounge)</span>
+   &middot;
+  <span class="description">Chill at the top of the high rise with a entry and get to know our entry and residents. Did we mention there’s chipotle?</span>
+</div>
+
+      
+      
+<div class="event tag-energy ">
+  <span class="id"></span>
+  <span class="date">Mon 2 PM - 3 PM</span>
+  &middot; 
+
+  <span class="title">Floor is Lava</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(2nd floor hammock lounge and hallways/lounge staircases on the way to 7th floor terrace, plus Celevator to return chairs to 2nd floor hammock lounge)</span>
+   &middot;
+  <span class="description">Roll around the erupting Mount Simmons in chairs. Move from lounge to lounge without touching the floor and boucing off the walls. Velociraptor repelent not provided.</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Mon 2 PM - 3 PM</span>
+  &middot; 
+
+  <span class="title">Some kinda field trip event</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Mailbox Lounge, then Country Kitchen)</span>
+   &middot;
+  <span class="description">Come take a tour of Main Street and visit H-MART! If you miss us leaving, meet us coming back to the Sponge with our spoils (ramen).</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Mon 2 PM - 4 PM</span>
+  &middot; 🍴 
+
+  <span class="title">The Great McCormick Bakeoff</span>
+
+  
+  <span class="dorm">@ McCormick</span>
+   
+  <span class="location">(Front Lawn)</span>
+   &middot;
+  <span class="description">Craving the sweet tase of victory? Face off against teams and come help us demolish decorate and eat some cakes and cupcakes! </span>
+</div>
+
+      
+      
+<div class="event tag-party tag-food tag-tours ">
+  <span class="id"></span>
+  <span class="date">Mon 2 PM - 4 PM</span>
+  &middot; 🎉 🍴 
+
+  <span class="title">Baker Carnival</span>
+
+  
+  <span class="dorm">@ Baker</span>
+   
+  <span class="location">(Front lawn)</span>
+   &middot;
+  <span class="description">Stresed out already? Come to pet some cute animals and eat from some A++ food carts! We'll also have dorm tours running is ya want to get an inside look of Baker. </span>
+</div>
+
+      
+      
+<div class="event tag-making ">
+  <span class="id"></span>
+  <span class="date">Mon 2 PM - 5 PM</span>
+  &middot; 
+
+  <span class="title">Make with New Vassar</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Makerspace)</span>
+   &middot;
+  <span class="description">Create and assemble a unique desk light in New Vassar's state-of-the-art makerspace.</span>
+</div>
+
+      
+      
+<div class="event tag-build ">
+  <span class="id"></span>
+  <span class="date">Mon 2 PM - 5 PM</span>
+  &middot; 
+
+  <span class="title">Build-a-duck</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Stadium Steps)</span>
+   &middot;
+  <span class="description">Masterful craftspeople (and upperclassmen) work together at the most porous dorm to construct a mighty war engine to do battle in the water war</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-outdoors tag-social ">
+  <span class="id"></span>
+  <span class="date">Mon 2 PM - 5 PM</span>
+  &middot; 🍴 👥 
+
+  <span class="title">Maseeh Olympics</span>
+
+  
+  <span class="dorm">@ Maseeh</span>
+   
+  <span class="location">(Maseeh Courtyard)</span>
+   &middot;
+  <span class="description">Join us and celebrate the Olympics by competing with and against your fellow first years in various Olympic events & yard games.</span>
+</div>
+
+      
+      
+<div class="event tag-games tag-food ">
+  <span class="id"></span>
+  <span class="date">Mon 2 PM - 5:30 PM</span>
+  &middot; 🎲 🍴 
+
+  <span class="title">Bricks on Wheels</span>
+
+  
+  <span class="dorm">@ MacGregor</span>
+   
+  <span class="location">(MacGregor Courtyard)</span>
+   &middot;
+  <span class="description">RC CAR COMPETITION! 
+HOMEMADE RACETRACK!</span>
+</div>
+
+      
+      
+<div class="event tag-chaotic tag-active ">
+  <span class="id"></span>
+  <span class="date">Mon 2:17 PM - 3:17 PM</span>
+  &middot; 
+
+  <span class="title">the 20th dimension of the self</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(bonfire kitchen)</span>
+   &middot;
+  <span class="description">there is nothing like determining your own d&d stats (via a series of challenges) to inspire self-reflection. fifth edition, of course. we're not animals.</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-outdoors ">
+  <span class="id"></span>
+  <span class="date">Mon 2:17 PM - 3:17 PM</span>
+  &middot; 
+
+  <span class="title">DOG.</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(random roofdeck)</span>
+   &middot;
+  <span class="description">FEED AND PET THE DESTINY DOG IMPA</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-craft ">
+  <span class="id"></span>
+  <span class="date">Mon 2:17 PM - 3:47 PM</span>
+  &middot; 
+
+  <span class="title">maps. maps? maps! maps‽ maps...</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(black hole lounge)</span>
+   &middot;
+  <span class="description">i like trains. and maps! do you? come chat with me about them while we collage cut up maps onto a wall</span>
+</div>
+
+      
+      
+<div class="event tag-creative tag-casual ">
+  <span class="id"></span>
+  <span class="date">Mon 2:17 PM - 3:47 PM</span>
+  &middot; 
+
+  <span class="title">Powerpoint Karaoke</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(AiW)</span>
+   &middot;
+  <span class="description">Are you ready for your presentation? What do you mean "what presentation"? Yes, right now! What, you've never seen these slides before? No problem! Powerpoint Karaoke: we've got random slides you've never seen before, and it's your turn to present!</span>
+</div>
+
+      
+      
+<div class="event tag-diy tag-casual tag-craft tag-snack ">
+  <span class="id"></span>
+  <span class="date">Mon 2:17 PM - 4:17 PM</span>
+  &middot; 
+
+  <span class="title">Hyperbolic Scrunchies</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(pecker lounge)</span>
+   &middot;
+  <span class="description">Do you enjoy crochet or want to learn this delightful fiber art? Come make Cool Wiggly Shapes!</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Mon 2:30 PM - 4 PM</span>
+  &middot; 
+
+  <span class="title">Celebrity with LMF</span>
+
+  
+  <span class="dorm">@ LMF</span>
+   
+  <span class="location">(LMF kitchen (W70 4111))</span>
+   &middot;
+  <span class="description">Feeling like you want to make some friends and enemies in a competitive environment? Come play celebrity/fishbowl/salad toss!</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-c4 tag-favorite ">
+  <span class="id"></span>
+  <span class="date">Mon 2:30 PM - 4:30 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Boba & Beauty</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Conner 4 (floor 4))</span>
+   &middot;
+  <span class="description">Come for a relaxing session of nail painting, face masks, and enjoying boba!</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-boba tag-b5 ">
+  <span class="id"></span>
+  <span class="date">Mon 2:30 PM - 4:30 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Boba and Chat</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(B5 Center Suite)</span>
+   &middot;
+  <span class="description">social, indoors, food, drink, games, video games</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-c3 tag-favorite ">
+  <span class="id"></span>
+  <span class="date">Mon 2:30 PM - 4:30 PM</span>
+  &middot; 🍴 
+
+  <span class="title">C3 Fruit-a-palooza</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Field A)</span>
+   &middot;
+  <span class="description">Are you ever overcome by the spontaneous urge to smash fruit? Eat fruit? Smash fruit and eat it? Eat fruit and smash it? Come satisfy these desires with Conner 3! </span>
+</div>
+
+      
+      
+<div class="event tag-weird tag-food ">
+  <span class="id"></span>
+  <span class="date">Mon 2:30 PM - 5 PM</span>
+  &middot; 🍴 
+
+  <span class="title">exotic waters</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House 3E Main Lounge)</span>
+   &middot;
+  <span class="description">calling all water connoisseurs  </span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Mon 2:30 PM - 5 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Fire & Ice I</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House Courtyard)</span>
+   &middot;
+  <span class="description">Come eat some delicious liquid nitrogen ice cream! </span>
+</div>
+
+      
+      
+<div class="event tag-dance ">
+  <span class="id"></span>
+  <span class="date">Mon 2:31 PM - 3:31 PM</span>
+  &middot; 
+
+  <span class="title">gettin j1ggy with 1t</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(BC Dance Studio)</span>
+   &middot;
+  <span class="description">imag1ne: an open dancefloor, your local b-oners, an absolute banger of a bop. What. Do. You. Do. Come learn how to drop it like a b-oner from our very own MIT dance biddies (no dance skills required) </span>
+</div>
+
+      
+      
+<div class="event tag-b3rd ">
+  <span class="id"></span>
+  <span class="date">Mon 2:33 PM - 3:33 PM</span>
+  &middot; 
+
+  <span class="title">no more table</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(burton third flounge)</span>
+   &middot;
+  <span class="description">No. More table.</span>
+</div>
+
+      
+      
+<div class="event tag-craft ">
+  <span class="id"></span>
+  <span class="date">Mon 2:47 PM - 4:47 PM</span>
+  &middot; 
+
+  <span class="title">Make Everything Rainbow</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(black hole kitchen)</span>
+   &middot;
+  <span class="description">Don't own anything rainbow? You can fix that! Own anything not rainbow? You can fix that too! Make new rainbow items or decorate your existing belongings.</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-art ">
+  <span class="id"></span>
+  <span class="date">Mon 3 PM - 4 PM</span>
+  &middot; 🍴 🎨 
+
+  <span class="title">Blackout Poetry and Fruit</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">Come hang out and make some blackout poetry! We'll take some sharpies 
+and redact random book pages until poetry emerges. Fruits provided, for 
+some much-needed REX-time vitamin C! Fruity poetry welcomed.</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Mon 3 PM - 4:30 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Giant Stuff with Mini Food</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Mailbox Lounge)</span>
+   &middot;
+  <span class="description">Come play with some giant stuff while eating some mini food! We'll have objects from giant teddy bears and a giant chess set, and some giant games as well!</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-favorite ">
+  <span class="id"></span>
+  <span class="date">Mon 3 PM - 5 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Carne Asada</span>
+
+  
+  <span class="dorm">@ La Casa</span>
+   
+  <span class="location">(New House Courtyard)</span>
+   &middot;
+  <span class="description">Come meet La Casa and enjoy our bi-annual Carne Asada</span>
+</div>
+
+      
+      
+<div class="event tag-activity ">
+  <span class="id"></span>
+  <span class="date">Mon 3 PM - 5 PM</span>
+  &middot; 
+
+  <span class="title">w4ter is wet/not wet</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(BC BBQ Pits)</span>
+   &middot;
+  <span class="description">Is water wet? Come find out and get wet/not wet</span>
+</div>
+
+      
+      
+<div class="event tag-c2 ">
+  <span class="id"></span>
+  <span class="date">Mon 3:02 PM - 4:02 PM</span>
+  &middot; 
+
+  <span class="title">Tinsel+Kombucha</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(C2 flounge)</span>
+   &middot;
+  <span class="description">Come relive the early 2000s and get tinsel put in your hair! Kombucha will be made as well as to drink!</span>
+</div>
+
+      
+      
+<div class="event tag-social tag-indoors tag-food tag-games tag-video games ">
+  <span class="id"></span>
+  <span class="date">Mon 3:05 PM - 4:35 PM</span>
+  &middot; 👥 🍴 🎲 
+
+  <span class="title">Board Games for Bored Gamers</span>
+
+  
+  <span class="dorm">@ Desmond (House 5)</span>
+   
+  <span class="location">(Desmond Lounge (W70 1181))</span>
+   &middot;
+  <span class="description">Whether you want to come face off against our assortment of King K. Rool mains in Smash Ultimate, question literally everything and everyone while playing Secret Hitler and Codenames, or take part in a team challenge in Hanabi or The Mind, Desmond's got the game for you.  Come for snacks freshly delivered from H-Mart and good vibes guaranteed. </span>
+</div>
+
+      
+      
+<div class="event tag-outdoors tag-diy tag-active ">
+  <span class="id"></span>
+  <span class="date">Mon 3:17 PM - 4:47 PM</span>
+  &middot; 
+
+  <span class="title">Spinning on the roofdeck</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(random roofdeck)</span>
+   &middot;
+  <span class="description">Learn to spin balls on strings and staffs around your head without hitting yourself! Come hang out on our lovely roofdeck and learn the basics of fire spinning, just without the fire.</span>
+</div>
+
+      
+      
+<div class="event tag-trivia tag-snack tag-casual ">
+  <span class="id"></span>
+  <span class="date">Mon 3:17 PM - 5:17 PM</span>
+  &middot; 
+
+  <span class="title">Harry Potter Trivia</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(bonfire lounge)</span>
+   &middot;
+  <span class="description">Think you know the Harry Potter Series inside out and backwards? Test your whit and knowledge against other Harry Potter nerds while enjoying some chocolate based foods to fend of the dementors.</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-favorite ">
+  <span class="id"></span>
+  <span class="date">Mon 3:30 PM - 4:30 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Water Balloon Fight</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Burton Conner Courtyard)</span>
+   &middot;
+  <span class="description">WATER BALLOON FIGHTTT!! 'nuff said. Plus, if you get tired, you can also chill in our ac'd Conner 4 lounge and drink our free boba.</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Mon 3:30 PM - 5 PM</span>
+  &middot; 
+
+  <span class="title">Escape the Room</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(MPR)</span>
+   &middot;
+  <span class="description">Telegrams, velociraptors, and maybe even a dog. All locked with you in one room. Will you survive? Probably not, and the velociraptors deserve a snack anyway.</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-social tag-games ">
+  <span class="id"></span>
+  <span class="date">Mon 3:30 PM - 5:30 PM</span>
+  &middot; 🍴 👥 🎲 
+
+  <span class="title">Overcooked! to panenes</span>
+
+  
+  <span class="dorm">@ MacGregor</span>
+   
+  <span class="location">(E Entry Lounge)</span>
+   &middot;
+  <span class="description">We will press your very own custom artisanal panEnE! As you eat, join us playing on the Switch or help decorate our lounge.</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Mon 3:31 PM - 5:01 PM</span>
+  &middot; 🍴 
+
+  <span class="title">b-oner carv1val</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(In front of BC, Amherst Alley side)</span>
+   &middot;
+  <span class="description">make a mess (did some1 say ooblek kiddie pool?), be a mess (temporary tatt any1?), & eat some sweet snaccs at the b-oner c1rcus</span>
+</div>
+
+      
+      
+<div class="event tag-b3rd ">
+  <span class="id"></span>
+  <span class="date">Mon 3:33 PM - 5:03 PM</span>
+  &middot; 
+
+  <span class="title">hoochie daddy slam poetry</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(burton third flounge)</span>
+   &middot;
+  <span class="description">an anthropological deep dive</span>
+</div>
+
+      
+      
+<div class="event tag-social tag-art ">
+  <span class="id"></span>
+  <span class="date">Mon 4 PM - 5 PM</span>
+  &middot; 👥 🎨 
+
+  <span class="title">Painting Fridges</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(4E Kitchen)</span>
+   &middot;
+  <span class="description">Paint the 4E fridges blue! Come help paint the fridges for a beautiful kitchen for EC's last year before renovations! Fun designs or just solid, we are painting them blue</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-chaotic tag-snack tag-games ">
+  <span class="id"></span>
+  <span class="date">Mon 4:17 PM - 5:17 PM</span>
+  &middot; 🎲 
+
+  <span class="title">Family guy death event</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(destiny lounge)</span>
+   &middot;
+  <span class="description">Compete in a trial with some of Destiny's best Family Guy death pose impersonators to see who can Family Guy death pose the longest. Participation trophies will be provided.</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-trivia ">
+  <span class="id"></span>
+  <span class="date">Mon 4:47 PM - 5:17 PM</span>
+  &middot; 
+
+  <span class="title">See You Ladder</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(loop lounge)</span>
+   &middot;
+  <span class="description">It's simple: at any given moment there are at least 17 wild ladders around MIT's campus. We will show you pictures of ladders and you must guess which ones have been spotted at MIT. simple.</span>
+</div>
+
+      
+      
+<div class="event tag-energy ">
+  <span class="id"></span>
+  <span class="date">Mon 7:30 PM - 8:30 PM</span>
+  &middot; 
+
+  <span class="title">Gatas</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(2nd Floor Pool Table)</span>
+   &middot;
+  <span class="description">pool table madness with this simmons classic</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-outdoors tag-social tag-activity ">
+  <span class="id"></span>
+  <span class="date">Mon 7:30 PM - 9 PM</span>
+  &middot; 🍴 👥 
+
+  <span class="title">CHILL N GRILL</span>
+
+  
+  <span class="dorm">@ House 4</span>
+   
+  <span class="location">(New House Courtyard Grills)</span>
+   &middot;
+  <span class="description">Groovy music, juicy burgers, and a sunset by the river. Come hang out with House 4 for a chill vibe-y time :-)</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Mon 7:30 PM - 9 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Grill, fill, chill</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Front Lawn)</span>
+   &middot;
+  <span class="description">eat bbq at the simmons grills! we've got burgers & dogs(hot), as well as veggie options!</span>
+</div>
+
+      
+      
+<div class="event tag-social tag-food ">
+  <span class="id"></span>
+  <span class="date">Mon 7:30 PM - 9:30 PM</span>
+  &middot; 👥 🍴 
+
+  <span class="title">Waffle Night</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(Beast (2E) lounge)</span>
+   &middot;
+  <span class="description">Come for: sugar, carbs, friendship, enough food to induce a coma, and napping locations if need be <3
+
+Do not come for: waffles, vegetables, dignity in what you put in your body (unless that means CRUELTY-FREE, BABY!), or kite-flying </span>
+</div>
+
+      
+      
+<div class="event tag-social tag-food ">
+  <span class="id"></span>
+  <span class="date">Mon 7:30 PM - 9:30 PM</span>
+  &middot; 👥 🍴 
+
+  <span class="title">Tumblr Support Group</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(4E Lounge)</span>
+   &middot;
+  <span class="description">if you were on tumblr in middle school, you may be entitled to financial compensation. you're probably not going to get it though so come watch good omens and our flag means death instead. Comes with snacks!</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Mon 7:30 PM - 9:30 PM</span>
+  &middot; 
+
+  <span class="title">Banana Bread and Broadway</span>
+
+  
+  <span class="dorm">@ LMF</span>
+   
+  <span class="location">(LMF kitchen (W70 4111))</span>
+   &middot;
+  <span class="description">Choose your own adventure banana bread baking - the only requirements are bananas and broadway tunes!</span>
+</div>
+
+      
+      
+<div class="event tag-games ">
+  <span class="id"></span>
+  <span class="date">Mon 7:30 PM - 9:30 PM</span>
+  &middot; 🎲 
+
+  <span class="title">Laser Tag</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Mezzanine)</span>
+   &middot;
+  <span class="description">Get a tactical edge in the annual New Vassar Laser Tag competition!</span>
+</div>
+
+      
+      
+<div class="event tag-movie tag-snack ">
+  <span class="id"></span>
+  <span class="date">Mon 7:30 PM - 1 AM</span>
+  &middot; 
+
+  <span class="title">Movie Marathon Night</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(TV Lounge)</span>
+   &middot;
+  <span class="description">-Dark Knight Trilogy with popcorn and snacks.                   -Jurassic Park Trilogy(original) with popcorn and snacks.             -Star Wars Trilogy(Original) with popcorn and snacks.               -Toy Story Trilogy(no four due to time)  with popcorn and snacks.       *These are options and not all will be played, depending on scheduling, movie availabitlity, etc. Therefore only a few of these sentences will be used for the booklet*</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-casual ">
+  <span class="id"></span>
+  <span class="date">Mon 7:47 PM - 9:47 PM</span>
+  &middot; 🍴 
+
+  <span class="title">LN2 Ice cream</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(foo)</span>
+   &middot;
+  <span class="description">Reeallllyy cold ice cream</span>
+</div>
+
+      
+      
+<div class="event tag-all-day tag-watch party ">
+  <span class="id"></span>
+  <span class="date">Mon 7:47 PM - 7:47 PM</span>
+  &middot; 
+
+  <span class="title">24 hours of Nickelodeon Show video essays</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(black hole lounge)</span>
+   &middot;
+  <span class="description">Remember when a long video essay was an hour? Now spend a whole day watching video essays about nickelodeon shows you might remember from your childhood </span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Mon 8 PM - 9 PM</span>
+  &middot; 
+
+  <span class="title">Next House Housing Lottery Info Session</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House TFL, TV Area)</span>
+   &middot;
+  <span class="description">living in next? unsure of how our housing process works? come talk to our housing chair and get any questions you may have answered.</span>
+</div>
+
+      
+      
+<div class="event tag-water ">
+  <span class="id"></span>
+  <span class="date">Mon 8 PM - 9 PM</span>
+  &middot; 
+
+  <span class="title">B2 Water Mocktails</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Burton 2 flounge)</span>
+   &middot;
+  <span class="description">In which you sample the effervescence of various water sources</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-indoors tag-social tag-movie ">
+  <span class="id"></span>
+  <span class="date">Mon 8 PM - 10 PM</span>
+  &middot; 🍴 👥 
+
+  <span class="title">Movie Night</span>
+
+  
+  <span class="dorm">@ iHouse</span>
+   
+  <span class="location">(iHouse Kitchen (next to New House front desk))</span>
+   &middot;
+  <span class="description">Too much exploration in these residences? Come to the iHouse kitchen, where there's an equal chance our TV will play the 5hr iCarly analysis, anime, or a documentary at any point in the day! Dining on our donuts while watching docus is (almost) a must!</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-outdoors ">
+  <span class="id"></span>
+  <span class="date">Mon 8 PM - 10 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Waffle Night</span>
+
+  
+  <span class="dorm">@ Maseeh</span>
+   
+  <span class="location">(Maseeh Courtyard)</span>
+   &middot;
+  <span class="description">Belgian waffles, fresh fruit, and ungodly amounts of chocolate can only mean one thingâ€¦ the annual Maseeh Waffle Night! </span>
+</div>
+
+      
+      
+<div class="event tag-food tag-c3 ">
+  <span class="id"></span>
+  <span class="date">Mon 8 PM - 10 PM</span>
+  &middot; 🍴 
+
+  <span class="title">C3 Blind Cake Decorating</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Burton Conner, C323 Suite)</span>
+   &middot;
+  <span class="description">Ever watched the Great British baking show? Like that, but instead of British it's Irish*. And instead of professional bakers it's college students. And instead of unobstructed vision it's blindfolded. On the brightside, no hand-eye coordination required!
+*we aren't even fully Irish</span>
+</div>
+
+      
+      
+<div class="event tag-video games tag-snack ">
+  <span class="id"></span>
+  <span class="date">Mon 8 PM - 10:05 PM</span>
+  &middot; 
+
+  <span class="title">Videospiele Nacht</span>
+
+  
+  <span class="dorm">@ German House</span>
+   
+  <span class="location">(German House Lounge)</span>
+   &middot;
+  <span class="description">Bored? Come play BOARD games with German House! We have snacks galore, and German Housers who will crush you in Mario Kart.</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-puzzles tag-improv tag-show ">
+  <span class="id"></span>
+  <span class="date">Mon 8 PM - 11 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Murder Mystery Dinner</span>
+
+  
+  <span class="dorm">@ MacGregor</span>
+   
+  <span class="location">(MacGregor Dining Room)</span>
+   &middot;
+  <span class="description">Enjoy dinner and a show with J entry as you work together to solve a murder mystery</span>
+</div>
+
+      
+      
+<div class="event tag-dnd ">
+  <span class="id"></span>
+  <span class="date">Mon 8 PM - 11 PM</span>
+  &middot; 
+
+  <span class="title">Morzak's Institute of Thaumaturgy</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House TFL)</span>
+   &middot;
+  <span class="description">Welcome to MIT. One challenge remains before you can truly lay claim to your place here at the school: find and bring back one of three tokens before time runs out. You and your group will pass or fail as one. Join Next Quest for our first one-off event of the year! No prior experience with D&D 5e, other editions, or other TTRPG systems required.</span>
+</div>
+
+      
+      
+<div class="event tag-c2 ">
+  <span class="id"></span>
+  <span class="date">Mon 8:02 PM - 9:32 PM</span>
+  &middot; 
+
+  <span class="title">C2 Building Pillow Forts!!</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(C2 flounge)</span>
+   &middot;
+  <span class="description">come build pillow forts with C2!!! pj's optional. other activities include nail painting and stuffed animal show and tell ;D</span>
+</div>
+
+      
+      
+<div class="event tag-social tag-indoors tag-food tag-music tag-karaoke ">
+  <span class="id"></span>
+  <span class="date">Mon 8:05 PM - 11:05 PM</span>
+  &middot; 👥 🍴 
+
+  <span class="title">Canes and Karaoke</span>
+
+  
+  <span class="dorm">@ Desmond (House 5)</span>
+   
+  <span class="location">(Desmond Lounge (W70 1181))</span>
+   &middot;
+  <span class="description">Are you America's next superstar waiting to be discovered? Or perhaps you just like belting classics like Country Roads in the car? You've seen it at CPW, but get ready for Season 2 of Desmond's Got Talent! We invite you to take on the stage (or rather, the lounge karaoke machine) once again at our Late Night Karaoke session! Come cavort, caper, and consume Canes' crispy fried chicken while you sing!</span>
+</div>
+
+      
+      
+<div class="event tag-casual ">
+  <span class="id"></span>
+  <span class="date">Mon 8:17 PM - 9:17 PM</span>
+  &middot; 
+
+  <span class="title">Get Buried in the Largest Plushie Pit</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(clam lounge)</span>
+   &middot;
+  <span class="description">Here we try to break the Random record of number of plushies in a giant pile! We have a lot already (squishmallows are very large) but bring your own plushies if you have them so they can be part of this momentous occasion in Random history.</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-snack tag-cooking ">
+  <span class="id"></span>
+  <span class="date">Mon 8:17 PM - 10:17 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Takotakoyaki Time</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(bmf kitchen)</span>
+   &middot;
+  <span class="description">Takoyaki? Whatchu tako 'bout? Come learn what takoyaki is and how to make some! Or just come to eat delicious food and spectate as people furiously rotate balls of golden doughy goodness. (Vegetarian option available)</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-party ">
+  <span class="id"></span>
+  <span class="date">Mon 8:30 PM - 11 PM</span>
+  &middot; 🍴 🎉 
+
+  <span class="title">5E: ic5crEam + kAraoke Singing + mochi donuT baking party</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House Country Kitchen)</span>
+   &middot;
+  <span class="description">Party with Next House's Five East (EA5T) as we chaotically eat prebought ice cream and make mochi donuts while we sing along to party throwback hits!</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-nighttime tag-snack ">
+  <span class="id"></span>
+  <span class="date">Mon 8:47 PM - 11:47 PM</span>
+  &middot; 
+
+  <span class="title">PG13 Shades of Grey</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(destiny lounge)</span>
+   &middot;
+  <span class="description">Have you ever wanted to watch the critically acclaimed film 50 Shades of Grey but avoided it for its crude nature? Fear not! We have tastefully curated an edited version of the film for your viewing pleasure. Afterwards, participate in a scholarly discussion about the films merits and weaknesses.</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-b2 tag-favorite ">
+  <span class="id"></span>
+  <span class="date">Mon 9 PM - 10 PM</span>
+  &middot; 🍴 
+
+  <span class="title">B2 Challah Baking</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Burton 2 Suite 254)</span>
+   &middot;
+  <span class="description">In which the kosher suites teach you to braid bread </span>
+</div>
+
+      
+      
+<div class="event tag-romcom tag-movie ">
+  <span class="id"></span>
+  <span class="date">Mon 9 PM - 11 PM</span>
+  &middot; 
+
+  <span class="title">mamma mia watch party</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House 4W Main Lounge)</span>
+   &middot;
+  <span class="description">Come watch and sing along to the absolutely fantastic 2008 movie musical, Mamma Mia! There will be snacks!</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Mon 9 PM - 11 PM</span>
+  &middot; 
+
+  <span class="title">SIMFEST!</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(WHOLE SPONGE)</span>
+   &middot;
+  <span class="description">Explore what it means to be a Sim at Simfest, Simmons most Simmonsy event featuring mini events throughout the dorm. Come play mahjong, tape our dorm president to the wall, or decorate rubber ducks! Participate in sports like gatas, ping pong, and mario kart! Eat some cheese, gelatinized foods, or miracle berries! There are even more events to discover at this crash course of Simmons culture.</span>
+</div>
+
+      
+      
+<div class="event tag-b3rd tag-favorite ">
+  <span class="id"></span>
+  <span class="date">Mon 9:03 PM - 10:33 PM</span>
+  &middot; 
+
+  <span class="title">deep talks with shallow people</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(burton third flounge)</span>
+   &middot;
+  <span class="description">discuss the meaning of life, et al.</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-games tag-trivia ">
+  <span class="id"></span>
+  <span class="date">Mon 9:17 PM - 10:47 PM</span>
+  &middot; 🎲 
+
+  <span class="title">Jackbox :o</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(loop lounge)</span>
+   &middot;
+  <span class="description">Join us as we play a variety of games in the Jackbox collection.</span>
+</div>
+
+      
+      
+<div class="event tag-indoors tag-activity ">
+  <span class="id"></span>
+  <span class="date">Mon 9:30 PM - 11:30 PM</span>
+  &middot; 
+
+  <span class="title">Kitchen Karaoke</span>
+
+  
+  <span class="dorm">@ House 4</span>
+   
+  <span class="location">(House 4 Kitchen)</span>
+   &middot;
+  <span class="description">A karaoke event like you've never experienced before. Join House 4's favorite weeknight tradition of singing and dancing your heart out in the kitchen!</span>
+</div>
+
+      
+      
+<div class="event tag-movie ">
+  <span class="id"></span>
+  <span class="date">Mon 9:30 PM - 11:30 PM</span>
+  &middot; 
+
+  <span class="title">Movie Night</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Mezzanine)</span>
+   &middot;
+  <span class="description">Kick back and watch a movie with friends in New Vassar's beautiful mezzanine.</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-watch party tag-outdoors tag-nighttime ">
+  <span class="id"></span>
+  <span class="date">Mon 9:47 PM - 5:47 AM</span>
+  &middot; 
+
+  <span class="title">Roofdeck Movies</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(random roofdeck)</span>
+   &middot;
+  <span class="description">watch late night movies from Random's lovely roofdeck</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Mon 10 PM - 10:22 PM</span>
+  &middot; 
+
+  <span class="title">Where Did We Go?</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">Come join us in not-being-here.</span>
+</div>
+
+      
+      
+<div class="event tag-boston ">
+  <span class="id"></span>
+  <span class="date">Mon 10 PM - 11:59 PM</span>
+  &middot; 
+
+  <span class="title">B2 Dire, Dire Docks Trip</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(meet in Burton 2 flounge)</span>
+   &middot;
+  <span class="description">In which we take a stroll to the Esplanade and look at the stars</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Mon 10 PM - 1 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Poker Chips & Chips</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House Dining Hall)</span>
+   &middot;
+  <span class="description">Craving a late-night snack? Want to learn how to play poker in a casual, low-stakes setting? Both? Come feast on chips with Next House's poker enthusiasts! (just don't snack on the poker chips)</span>
+</div>
+
+      
+      
+<div class="event tag-chaotic ">
+  <span class="id"></span>
+  <span class="date">Mon 10:17 PM - 10:47 PM</span>
+  &middot; 
+
+  <span class="title">toss baby yoda up the 282 stairwell speedrun</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(bonfire front stairwell)</span>
+   &middot;
+  <span class="description">It takes ~1.4 seconds for baby yoda to fall down the entire 282 stairwell from bonfire to destiny. Can we toss him back up faster?</span>
+</div>
+
+      
+      
+<div class="event tag-weird ">
+  <span class="id"></span>
+  <span class="date">Mon 10:30 PM - 11:30 PM</span>
+  &middot; 
+
+  <span class="title">Celebrate All Holidays Of The Year At The Same Time</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House 3E Main Lounge)</span>
+   &middot;
+  <span class="description">merry christmas happy thanksgiving</span>
+</div>
+
+      
+      
+<div class="event tag-puzzles ">
+  <span class="id"></span>
+  <span class="date">Mon 11 PM - 1 AM</span>
+  &middot; 
+
+  <span class="title">The Museum of Frightening Adventures</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House Private Dining Room (PDR))</span>
+   &middot;
+  <span class="description">"Ah, hello, and welcome to my Frightful museum! Come, enter and see my personal CollEction of Puzzles. but beware: only the brAvest of you will be able to escape the room of... the museum of frIghteNing advenTures! come alone or with friends, early or late - i look forward to meeting you. you may turn into a Zombie in these halls" - The Curator Come to the back of the Next House dining hall for a frightening time</span>
+</div>
+
+      
+      
+<div class="event tag-chill ">
+  <span class="id"></span>
+  <span class="date">Mon 11 PM - 1 AM</span>
+  &middot; 
+
+  <span class="title">Lying Down on a  Carpet II</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House TFL, TV Area)</span>
+   &middot;
+  <span class="description">Pillows. A carpet. Hot chocolate. Maybe chill music. No brain just vibes.</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Mon 11 PM - 1 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Happy 🥳 (lassi) Hour ⏱with 2W 2️⃣⬅️</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House Country Kitchen)</span>
+   &middot;
+  <span class="description">Come one, come all to 2W’s Lassi* 🥛 Bar 🍫! Enjoy a carefully curated collection of concoctions** 🍶(say that four times fast), from the delicious 😋😍 (mango 🥭! rose 🌹! strawberry 🍓!) to the dubious 🧐🤔 to the downright ⬇️➡️dastardly 😈😱– try to guess our mystery 🤫 flavor 👀👀. Try lassis blended at our bar 🍾 or whip up your own 👩🏽‍🍳! We’ll have funny fruits 🍅🥑🍌🍈 and fishy 🐟🐠🐡flavorings – and the best vibes in Next House 💙🧡💙🧡. *Flavored yogurt drink **Lactose-free options available</span>
+</div>
+
+      
+      
+<div class="event tag-queer ">
+  <span class="id"></span>
+  <span class="date">Mon 11:30 PM - 12:30 AM</span>
+  &middot; 
+
+  <span class="title">Magical Rainbow Sponge</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+    &middot;
+  <span class="description">Wondering what it's like to be queer at MIT/Simmons? Come chat with some residents about their MIT experience to ask any questions you have and meet some extremely cool (gay) people. There will be rainbows galore, and I dare say it will be magical.</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Mon 11:30 PM - 1 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Late Night Nugs</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Late Night Cafe)</span>
+   &middot;
+  <span class="description">A meal of delicious, exquisite chicken nuggets will be provided for our amazing freshmen. Come join and get to eat with your new simmons pals.  Which dipping sauce is superior in your opinion??? Let's find out at late night nugs :) </span>
+</div>
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </div>
+    
+    <div class="page">
+      <span class="day-title">Tuesday 08/30/22</span>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Tue 8 AM - 10 AM</span>
+  &middot; 🍴 
+
+  <span class="title">McCormick Breakfast House</span>
+
+  
+  <span class="dorm">@ McCormick</span>
+   
+  <span class="location">(Green Living Room)</span>
+   &middot;
+  <span class="description">Have a chill breakfast before rushing off to REX events!</span>
+</div>
+
+      
+      
+<div class="event tag-chill ">
+  <span class="id"></span>
+  <span class="date">Tue 8 AM - 10 AM</span>
+  &middot; 
+
+  <span class="title">Cats (2019) Showing</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(MPR)</span>
+   &middot;
+  <span class="description">scream. cry. feel the wrath of the sponge. most importantly, point your eyes towards humanoid cats</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Tue 8 AM - 10 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Pancake breakfast: the syrup strikes back</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Late Night Cafe)</span>
+   &middot;
+  <span class="description">We're you so busy soaking in all our other toppings that you forgot about the syrup? Syrup doesn't like to be forgotten.</span>
+</div>
+
+      
+      
+<div class="event tag-breakfast tag-food ">
+  <span class="id"></span>
+  <span class="date">Tue 8 AM - 10 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Breakfa5st Time with B5</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(B5 center suite)</span>
+   &middot;
+  <span class="description">"Early riser? Start your day the right way.
+
+*Cue the music*
+
+B5, top of the pancake stack
+more syrup than any other flapjack
+more spirit than any other maniac
+unforgettable, just like an amnesiac..."</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-breakfast tag-c3 ">
+  <span class="id"></span>
+  <span class="date">Tue 8 AM - 10 AM</span>
+  &middot; 🍴 
+
+  <span class="title">C3 Green Eggs and Ham</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Burton Conner, C323 Suite)</span>
+   &middot;
+  <span class="description">Do you like green eggs and ham? Come enjoy green breakfast with Conner 3 to find out! </span>
+</div>
+
+      
+      
+<div class="event tag-food tag-breakfast ">
+  <span class="id"></span>
+  <span class="date">Tue 9 AM - 10 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Indoor breakfast</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(5E kitchen)</span>
+   &middot;
+  <span class="description">Cook and/or eat breakfast in a kitchen and hang out with residents.</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Tue 9 AM - 11 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Continental Breakfast</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Lobby)</span>
+   &middot;
+  <span class="description">Come grab some free breakfast and meet new friends at the New Vassar Continental Breakfast!</span>
+</div>
+
+      
+      
+<div class="event tag-social ">
+  <span class="id"></span>
+  <span class="date">Tue noon - 1 PM</span>
+  &middot; 👥 
+
+  <span class="title">Hair Dying</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">If you're worried about what your parents will think, natural colors such as leaf green, sky blue, and grape purple also available.</span>
+</div>
+
+      
+      
+<div class="event tag-social tag-food ">
+  <span class="id"></span>
+  <span class="date">Tue noon - 9 PM</span>
+  &middot; 👥 🍴 
+
+  <span class="title">Grill and Chill</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">Burgers and friends ALL DAY</span>
+</div>
+
+      
+      
+<div class="event tag-b2 tag-favorite ">
+  <span class="id"></span>
+  <span class="date">Tue noon - noon</span>
+  &middot; 
+
+  <span class="title">B2 Lemonade</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Burton-Conner grill tables (if weather permits, otherwise in B2 flounge))</span>
+   &middot;
+  <span class="description">In which we run a full ☀️24h🌛 lemonade stand 🍋</span>
+</div>
+
+      
+      
+<div class="event tag-games tag-food tag-chill ">
+  <span class="id"></span>
+  <span class="date">Tue 1 PM - 3 PM</span>
+  &middot; 🎲 🍴 
+
+  <span class="title">Coffee, Brownees, and Board Gamees!</span>
+
+  
+  <span class="dorm">@ MacGregor</span>
+   
+  <span class="location">(E Entry Lounge)</span>
+   &middot;
+  <span class="description">Come play board games with E entry, while enjoying brownees and freshly hand-made coffee! (or tea, or hot chocolate)</span>
+</div>
+
+      
+      
+<div class="event tag-outdoors tag-chaotic ">
+  <span class="id"></span>
+  <span class="date">Tue 1:17 PM - 2:17 PM</span>
+  &middot; 
+
+  <span class="title">no strings attached</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(random roofdeck)</span>
+   &middot;
+  <span class="description">no, really. there are no strings on this parachute. come play games with us on the roofdeck!</span>
+</div>
+
+      
+      
+<div class="event tag-competition tag-prizes tag-casual ">
+  <span class="id"></span>
+  <span class="date">Tue 1:17 PM - 2:17 PM</span>
+  &middot; 
+
+  <span class="title">Odd Freshman Out</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(clam lounge)</span>
+   &middot;
+  <span class="description">Resolve your impostor syndrome by finding the impostor upperclassmen in a group of freshmen!</span>
+</div>
+
+      
+      
+<div class="event tag-snack tag-boba tag-casual ">
+  <span class="id"></span>
+  <span class="date">Tue 1:47 PM - 2:47 PM</span>
+  &middot; 
+
+  <span class="title">🅱MF 🅱oba Lab</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(bmf kitchen)</span>
+   &middot;
+  <span class="description">Boba is always best when you build it yourself. Discover your favorite boba/topping combinations today at the BMF Boba Lab.</span>
+</div>
+
+      
+      
+<div class="event tag-activity tag-outdoors ">
+  <span class="id"></span>
+  <span class="date">Tue 2 PM - 7 PM</span>
+  &middot; 
+
+  <span class="title">EC Rollercoaster!!</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">The EC Rollercoaster will be coasting 2pm to 7pm Tuesday and Wednesday (and even later if you can sweet talk enough upperclassmen in the EC Courtyard to operate it!).</span>
+</div>
+
+      
+      
+<div class="event tag-casual ">
+  <span class="id"></span>
+  <span class="date">Tue 2:17 PM - 2:47 PM</span>
+  &middot; 
+
+  <span class="title">Wonders of the Laundry Server</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(random hall laundry room)</span>
+   &middot;
+  <span class="description">Come listen to the stories and wonders of MIT's only laundry server of Random Hall. Stick to the end to have a chance to give our machines brand new names!</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Tue 6:30 PM - 7 PM</span>
+  &middot; 
+
+  <span class="title">Water War Prep</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Stadium Steps)</span>
+   &middot;
+  <span class="description">Come fill some water balloons and buckets to prep for the ultimate battle. </span>
+</div>
+
+      
+      
+<div class="event tag-social tag-competition ">
+  <span class="id"></span>
+  <span class="date">Tue 6:30 PM - 7:30 PM</span>
+  &middot; 👥 
+
+  <span class="title">Water Wars</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">We shall fight to the death and WIN!!!!! (and by death I mean we shall soak them completely)</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-indoors ">
+  <span class="id"></span>
+  <span class="date">Tue 6:30 PM - 8 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Astrology Sweets</span>
+
+  
+  <span class="dorm">@ House 4</span>
+   
+  <span class="location">(House 4 Kitchen)</span>
+   &middot;
+  <span class="description">Curious about your past, present, or future self? Or just want to chill and eat levain cookies? Come get your (tarot) cards or (astrology) chart read by your resident house 4 astrologers!</span>
+</div>
+
+      
+      
+<div class="event tag-chill tag-making tag-snack ">
+  <span class="id"></span>
+  <span class="date">Tue 6:30 PM - 8 PM</span>
+  &middot; 
+
+  <span class="title">The blocks are strong with us</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(TV Lounge)</span>
+   &middot;
+  <span class="description">May the 4th be with you.. wait what it's not May any more? Join us to chill, chat and snack as we take on a build from the LEGO Star Wars collection!</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-cooking ">
+  <span class="id"></span>
+  <span class="date">Tue 6:30 PM - 8:30 PM</span>
+  &middot; 🍴 
+
+  <span class="title">New Vassar Cookout</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Courtyard & Mezzanine)</span>
+   &middot;
+  <span class="description">Advance your culinary skills, eat free food, and meet friends at the New Vassar Cookout!</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-karaoke tag-chill ">
+  <span class="id"></span>
+  <span class="date">Tue 6:30 PM - 9:30 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Ramen And Karaoke</span>
+
+  
+  <span class="dorm">@ MacGregor</span>
+   
+  <span class="location">(G Entry Lounge)</span>
+   &middot;
+  <span class="description">Come sing tunes and eat some delicious ramen with H and G entry, also known as HEX!</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-art ">
+  <span class="id"></span>
+  <span class="date">Tue 6:32 PM - 8:02 PM</span>
+  &middot; 🍴 🎨 
+
+  <span class="title">✨Classy✨ Produce Carving</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(C2 Flounge)</span>
+   &middot;
+  <span class="description">Because carving your own marble is unBritish (and won't win you the Apple Bake). Venus de Milo? More like Venus de Milocalfarmers'market.</span>
+</div>
+
+      
+      
+<div class="event tag-social tag-indoors tag-food ">
+  <span class="id"></span>
+  <span class="date">Tue 6:35 PM - 8:05 PM</span>
+  &middot; 👥 🍴 
+
+  <span class="title">The Great Baking Bonanza</span>
+
+  
+  <span class="dorm">@ Desmond (House 5)</span>
+   
+  <span class="location">(Desmond Lounge (W70 1181))</span>
+   &middot;
+  <span class="description">Cloud Bread? Cheesecake Cookie Bars? Chocolate Chip Banana Bread? We've got you covered. Armed with our arsenal of bowls, flour, and whisks, you'll be able to work with a team of friends or Desmondites to make all of your confectionary dreams come true! In the end, we'll all have one big feast and share our creations—both the instagram-worthy and the inevitable monstrosities ;)</span>
+</div>
+
+      
+      
+<div class="event tag-outdoors tag-activity ">
+  <span class="id"></span>
+  <span class="date">Tue 6:45 PM - 7:45 PM</span>
+  &middot; 
+
+  <span class="title">WATER(less) WAR!!</span>
+
+  
+  <span class="dorm">@ All dorms</span>
+   
+  <span class="location">(Saxon Court)</span>
+   &middot;
+  <span class="description">Support your dorm in an annual battle between the West and East sides involving color-filled ammunition. Show up in white to show off the colors. Who will emerge victorious?</span>
+</div>
+
+      
+      
+<div class="event tag-snack tag-games tag-casual ">
+  <span class="id"></span>
+  <span class="date">Tue 6:47 PM - 7:47 PM</span>
+  &middot; 🎲 
+
+  <span class="title">Dino Nuggets Prehistoric Reenactment</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(pecker kitchen)</span>
+   &middot;
+  <span class="description">You are a dinousaur, a ferocious, crispy, powerful dino nugget. You're on a mission to take over the prehistoric world, but that won't come without friendship, betrayal, monching, and ponching. Join us for a yummy dino nug roleplaying game, and play ouut your nuggiest power fantasy. *Dino emoji*</span>
+</div>
+
+      
+      
+<div class="event tag-games tag-activity tag-casual ">
+  <span class="id"></span>
+  <span class="date">Tue 6:47 PM - 8:17 PM</span>
+  &middot; 🎲 
+
+  <span class="title">Overcooked and Panic</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(AiW)</span>
+   &middot;
+  <span class="description">Develop your culinary abilities and panic in the four-player cooperative video game Overcooked.</span>
+</div>
+
+      
+      
+<div class="event tag-craft ">
+  <span class="id"></span>
+  <span class="date">Tue 6:47 PM - 8:47 PM</span>
+  &middot; 
+
+  <span class="title">H.P. Lovecrafting</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(black hole kitchen)</span>
+   &middot;
+  <span class="description">Make that cuddly Eldritch Horror friend you've always wanted! Rend some plushies asunder and reform them in your own image! A dog head here, some bat wings there, a lizard tail to pull the whole thing together and ta da! Perfection.</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-creative tag-chaotic tag-snack ">
+  <span class="id"></span>
+  <span class="date">Tue 6:47 PM - 8:47 PM</span>
+  &middot; 
+
+  <span class="title">Bagels and Locks</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(pecker lounge)</span>
+   &middot;
+  <span class="description">You know what's even better than free food? Picking locks. Fortunately, we won't make you choose between them. Come pick your way through locks and eat through bagels, or vice versa depending on the quality of your dentist.</span>
+</div>
+
+      
+      
+<div class="event tag-watch party tag-snack tag-casual ">
+  <span class="id"></span>
+  <span class="date">Tue 6:47 PM - 9:17 PM</span>
+  &middot; 
+
+  <span class="title">Queer Ladies' Movie Night</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(loop lounge)</span>
+   &middot;
+  <span class="description">Come hang out and watch a queer movie with us while decorating (and eating) cookies! All identities welcome :)</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Tue 7 PM - 8 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Chocolate Tasting Party</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Late Night Cafe)</span>
+   &middot;
+  <span class="description">You like chocolates! We have chocolates! Come get a taste.</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Tue 7 PM - 8 PM</span>
+  &middot; 
+
+  <span class="title">Water War</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Front Lawn)</span>
+   &middot;
+  <span class="description">The ultimate water balloon fight. West campus vs. East Campus. Come support the trojan duck in our quest for glory</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-outdoors ">
+  <span class="id"></span>
+  <span class="date">Tue 7 PM - 8 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Ultimate Spice Night</span>
+
+  
+  <span class="dorm">@ Maseeh</span>
+   
+  <span class="location">(Maseeh Courtyard)</span>
+   &middot;
+  <span class="description">Think you can take the heat? Join us for Maseeh Spice Night to put your taste buds to the test with free super spicy wings and ramen! </span>
+</div>
+
+      
+      
+<div class="event tag-food tag-games ">
+  <span class="id"></span>
+  <span class="date">Tue 7 PM - 8:30 PM</span>
+  &middot; 🍴 🎲 
+
+  <span class="title">Games and Tacos</span>
+
+  
+  <span class="dorm">@ La Casa</span>
+   
+  <span class="location">(La Casa Kitchen (New House 4th floor))</span>
+   &middot;
+  <span class="description">Join La Casa for a night of board games and tacos. Secret Hitler, Exploding Kittens, and more! (No actual kittens were or will be harmed)</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-weird ">
+  <span class="id"></span>
+  <span class="date">Tue 7 PM - 8:30 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Fruit Anarchy</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House Courtyard)</span>
+   &middot;
+  <span class="description">One of the only times that you'll be encouraged to play with your food! We have lots of fruit, come do whatever you want with it (within legal/safety boundaries) >:-) Examples include speed-peeling citrus fruits, snapping apples and bananas with your hands, or enjoying smoothies if that's more your thing.</span>
+</div>
+
+      
+      
+<div class="event tag-music tag-black tag-food tag-social ">
+  <span class="id"></span>
+  <span class="date">Tue 7 PM - 9 PM</span>
+  &middot; 🍴 👥 
+
+  <span class="title">Album Listening Party</span>
+
+  
+  <span class="dorm">@ CC</span>
+   
+  <span class="location">(CC Lounge)</span>
+   &middot;
+  <span class="description">Come through and listen to some classics in RnB, Hip Hop, Rap, Soul, and much more!</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-indoors tag-social ">
+  <span class="id"></span>
+  <span class="date">Tue 7 PM - 9 PM</span>
+  &middot; 🍴 👥 
+
+  <span class="title">Hotpot</span>
+
+  
+  <span class="dorm">@ iHouse</span>
+   
+  <span class="location">(iHouse Kitchen (next to New House front desk))</span>
+   &middot;
+  <span class="description">Come check out the iHouse kitchen and lounge with some hotpot! We'll have meat and vegetarian broths</span>
+</div>
+
+      
+      
+<div class="event tag-social tag-indoors tag-craft tag-art ">
+  <span class="id"></span>
+  <span class="date">Tue 7 PM - 9 PM</span>
+  &middot; 👥 🎨 
+
+  <span class="title">Doorstop painting</span>
+
+  
+  <span class="dorm">@ LMF</span>
+   
+  <span class="location">(LMF kitchen (W70 4111))</span>
+   &middot;
+  <span class="description">Don't lock yourself out of your room, in style</span>
+</div>
+
+      
+      
+<div class="event tag-chill ">
+  <span class="id"></span>
+  <span class="date">Tue 7 PM - 9 PM</span>
+  &middot; 
+
+  <span class="title">Bubble Tea Social</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House Country Kitchen)</span>
+   &middot;
+  <span class="description">WHO DOESN'T LIKE BOB...A??? Pull through to enjoy tapioca pearls with an assortment of beverages, jigsaw puzzles, and the company of current Nexties!</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Tue 7 PM - 9 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Ab ripper, smoothies, and orbeez</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House 5W Main Lounge)</span>
+   &middot;
+  <span class="description">Start off the semester healthy by building your muscles with Next House 5W. Join us for P90X-Ab Ripper X, recover with smoothies, and relax with orbeez!</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Tue 7 PM - 9 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Tie-Dye & Fabric Design</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Burton Conner Courtyard)</span>
+   &middot;
+  <span class="description">Bring your t-shirts to life with tie-dye, fabric pens, and fabric scissors! We'll also have free white t-shirts, as well as snacks and ice cream! </span>
+</div>
+
+      
+      
+<div class="event tag-art tag-games tag-karaoke tag-trivia ">
+  <span class="id"></span>
+  <span class="date">Tue 7 PM - 9:30 PM</span>
+  &middot; 🎨 🎲 
+
+  <span class="title">MacGregor Could Use A Little Color</span>
+
+  
+  <span class="dorm">@ MacGregor</span>
+   
+  <span class="location">(MacGregor Courtyard)</span>
+   &middot;
+  <span class="description">Color the sidewalks of MacG with chalk, then stick around for trivia and karaoke!</span>
+</div>
+
+      
+      
+<div class="event tag-social ">
+  <span class="id"></span>
+  <span class="date">Tue 7:30 PM - 8:30 PM</span>
+  &middot; 👥 
+
+  <span class="title">Fluffy Town</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(Tetazoo (3E) Lounge)</span>
+   &middot;
+  <span class="description">Come build & hang out in a fun blanket fort on EC 3rd East (Tetazoo)! Will start right after folks come home from the water war</span>
+</div>
+
+      
+      
+<div class="event tag-games tag-food ">
+  <span class="id"></span>
+  <span class="date">Tue 7:30 PM - 9:30 PM</span>
+  &middot; 🎲 🍴 
+
+  <span class="title">Game Night + Chocolate Strawberries</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Game Room)</span>
+   &middot;
+  <span class="description">Play your favorite game, learn a new one, and eat chocolate strawberries with new friends in the best game room on campus.</span>
+</div>
+
+      
+      
+<div class="event tag-b3rd ">
+  <span class="id"></span>
+  <span class="date">Tue 7:33 PM - 8:33 PM</span>
+  &middot; 
+
+  <span class="title">goose on the loose</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(burton third flounge)</span>
+   &middot;
+  <span class="description">The goose is loose. Can you find his caboose? Solve clues to locate this feathery recluse.</span>
+</div>
+
+      
+      
+<div class="event tag-snack tag-outdoors tag-casual ">
+  <span class="id"></span>
+  <span class="date">Tue 7:47 PM - 8:47 PM</span>
+  &middot; 
+
+  <span class="title">Roofdeck Mochi Donuts -- Let's talk about cooking at MIT!</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(Pecker Kitchen)</span>
+   &middot;
+  <span class="description">What's that sizzle you hear? It's a delectable, golden-brown mochii donut deep-frying in canola oil, ready to be slathered with glaze and topped with chocolate spinkles. The surface of the donut crackles as your teeth diig into the chewy mochi center, the texture mingling with flavors of matcha and black sesame. Mouth watering yet?</span>
+</div>
+
+      
+      
+<div class="event tag-watch party ">
+  <span class="id"></span>
+  <span class="date">Tue 7:47 PM - 9:17 PM</span>
+  &middot; 
+
+  <span class="title">Spongebob Skin Theory: The Shocking Truth</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(clam lounge)</span>
+   &middot;
+  <span class="description">Spongebob seems like an innocent show at first, but some things just don't add up...
+Here we watch how one man finally discovered the truth: the Spongebob Skin Theory.</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-watch party ">
+  <span class="id"></span>
+  <span class="date">Tue 7:47 PM - 6:47 AM</span>
+  &middot; 
+
+  <span class="title">Water. Earth. Fire. Vibes.</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(black hole lounge)</span>
+   &middot;
+  <span class="description">Long ago, you watched children's television in harmony. Then everything changed when higher education attacked... Come watch ATLA and chat!</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Tue 8 PM - 9 PM</span>
+  &middot; 
+
+  <span class="title">Next House Housing Lottery Info Session</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House TFL, TV Area)</span>
+   &middot;
+  <span class="description">living in next? unsure of how our housing process works? come talk to our housing chair and get any questions you may have answered.</span>
+</div>
+
+      
+      
+<div class="event tag-weird ">
+  <span class="id"></span>
+  <span class="date">Tue 8 PM - 9:30 PM</span>
+  &middot; 
+
+  <span class="title">2W 2WLympics - REX Edition</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House 2W Main Lounge)</span>
+   &middot;
+  <span class="description">Immerse yourself in Next 2W lore firsthand with 2Wlympics! Drink some unlabeled and not sus liquids. Assist the one and only Ayyub in his never-ending quest to find his pennyboard. Assert your taste-testing, skateboard-sleuthing dominance and live the 2Wester life for an afternoon.</span>
+</div>
+
+      
+      
+<div class="event tag-party tag-food tag-games tag-improv ">
+  <span class="id"></span>
+  <span class="date">Tue 8 PM - 10 PM</span>
+  &middot; 🎉 🍴 🎲 
+
+  <span class="title">PowerPoint Karaoke and Kookies</span>
+
+  
+  <span class="dorm">@ MacGregor</span>
+   
+  <span class="location">(F Entry Lounge (Up the stone staircase in the courtyard))</span>
+   &middot;
+  <span class="description">Come compete in our festival of improv goodness, or come simply to enjoy the spectacle of your friends presenting nonsensical powepoints prepared by Fentry. No previous experience needed, showing up for food and entertainment also encouraged.</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-outdoors tag-social ">
+  <span class="id"></span>
+  <span class="date">Tue 8 PM - 10 PM</span>
+  &middot; 🍴 👥 
+
+  <span class="title">Smash Tournament</span>
+
+  
+  <span class="dorm">@ Maseeh</span>
+   
+  <span class="location">(Maseeh Courtyard)</span>
+   &middot;
+  <span class="description">Join us for a Maseeh traditional of Smash bracket tournament style! Prizes will be given to the winners.</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-video games ">
+  <span class="id"></span>
+  <span class="date">Tue 8 PM - 10 PM</span>
+  &middot; 🍴 
+
+  <span class="title">C5 Snacks, Smash, and Mario Kart</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(BC C5 Floor Lounge)</span>
+   &middot;
+  <span class="description">Want to show off your god gamer skillz? Just wanna hang out and play video games with some chill people and even better snacks? Do both with C5!</span>
+</div>
+
+      
+      
+<div class="event tag-video games ">
+  <span class="id"></span>
+  <span class="date">Tue 8 PM - 10 PM</span>
+  &middot; 
+
+  <span class="title">B2 Game Knight</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Burton 2 flounge)</span>
+   &middot;
+  <span class="description">What did you say to me, you little…. I'll have you know B2 graduated top of their class and we've been involved in numerous board game and video game nights. We are trained in Jackbox, Mariokart, and Overcooked, and we're the top Smashers in the entire MIT armed forces. </span>
+</div>
+
+      
+      
+<div class="event tag-food tag-tv ">
+  <span class="id"></span>
+  <span class="date">Tue 8 PM - 10:05 PM</span>
+  &middot; 🍴 
+
+  <span class="title">DH Pretzel Bonanza</span>
+
+  
+  <span class="dorm">@ German House</span>
+   
+  <span class="location">(German House Lounge)</span>
+   &middot;
+  <span class="description">Is REX getting to be too much and you'd rather KNOT for a while?  Come chill for a bit while we bake pretzels and watch game shows!</span>
+</div>
+
+      
+      
+<div class="event tag-party tag-food tag-fun ">
+  <span class="id"></span>
+  <span class="date">Tue 8 PM - 11:59 PM</span>
+  &middot; 🎉 🍴 
+
+  <span class="title">Penthouse Party</span>
+
+  
+  <span class="dorm">@ McCormick</span>
+   
+  <span class="location">(East Penthouse)</span>
+   &middot;
+  <span class="description">Come enjoy our party on McCormick's East Penthouse ! Bring a date! or 2, or 3! (no but like please come, we've spent insane amounts of money on this )</span>
+</div>
+
+      
+      
+<div class="event tag-chaotic tag-art tag-b1 tag-favorite ">
+  <span class="id"></span>
+  <span class="date">Tue 8:01 PM - 9:01 PM</span>
+  &middot; 🎨 
+
+  <span class="title">everything is b1ue</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(B1 floor lounge)</span>
+   &middot;
+  <span class="description">a 4D experience of burton one blue - Pantone's color of the year. the mission is simple: paint everything (people included) blue</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Tue 8:02 PM - 9:32 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Mountain Dew Baking</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Conner 2 - 223/24 kitchens)</span>
+   &middot;
+  <span class="description">Come test your baking skills with a very special ingredient - Mountain Dew!</span>
+</div>
+
+      
+      
+<div class="event tag-activity ">
+  <span class="id"></span>
+  <span class="date">Tue 8:17 PM - 9:17 PM</span>
+  &middot; 
+
+  <span class="title">Problematic meowmeow roulette</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(AiW)</span>
+   &middot;
+  <span class="description">Oh, your poor little meowmeow, how misunderstood... wait, who's this again? Defend your problematic fave, PowerPoint roulette version.</span>
+</div>
+
+      
+      
+<div class="event tag-water ">
+  <span class="id"></span>
+  <span class="date">Tue 8:30 PM - 9:30 PM</span>
+  &middot; 
+
+  <span class="title">duck duck SPONGE</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Front Lawn)</span>
+   &middot;
+  <span class="description">Have you ever wanted the chance to run around a group of strangers you just met and arbitrarily choose one to soak with a giant sponge? ME TOO! Come play duck duck sponge! It's like duck duck goose but literally better :)</span>
+</div>
+
+      
+      
+<div class="event tag-puzzles tag-chill tag-snack ">
+  <span class="id"></span>
+  <span class="date">Tue 8:30 PM - 11 PM</span>
+  &middot; 
+
+  <span class="title">Puzzle Hunt</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Late Night Cafe)</span>
+   &middot;
+  <span class="description">Whether you have participated in MIT Mystery Hunt before or you think this is an event that somehow combines jigsaw puzzles and scavenger hunts, come chill and solve some puzzles with us! - 01101010</span>
+</div>
+
+      
+      
+<div class="event tag-b3rd ">
+  <span class="id"></span>
+  <span class="date">Tue 8:33 PM - 10:03 PM</span>
+  &middot; 
+
+  <span class="title">virgin fun on the beach</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(burton third center suite (341))</span>
+   &middot;
+  <span class="description">burnt out from all that running around? join us to chill, chat, and have a mocktail (or 3rd)</span>
+</div>
+
+      
+      
+<div class="event tag-trivia tag-casual tag-competition ">
+  <span class="id"></span>
+  <span class="date">Tue 8:47 PM - 10:47 PM</span>
+  &middot; 
+
+  <span class="title">Um, Actually</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(bonfire lounge)</span>
+   &middot;
+  <span class="description">From Peter Parker to Jonathan Harker, nerds love a lot of things, but there's one thing they love above all else and that is correcting people. Welcome to Um, Actually! Your host will present incorrect statements about the media you know and love. It's your job to correct them.</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-activity ">
+  <span class="id"></span>
+  <span class="date">Tue 9 PM - 10:30 PM</span>
+  &middot; 🍴 
+
+  <span class="title">S4RDINES</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(B4 floor lounge)</span>
+   &middot;
+  <span class="description">you are a fish</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-games ">
+  <span class="id"></span>
+  <span class="date">Tue 9 PM - 11 PM</span>
+  &middot; 🍴 🎲 
+
+  <span class="title">Board Games with Bentry</span>
+
+  
+  <span class="dorm">@ MacGregor</span>
+   
+  <span class="location">(B Entry Lounge)</span>
+   &middot;
+  <span class="description">Enjoy snacks while playing board games and meeting some B entry residents</span>
+</div>
+
+      
+      
+<div class="event tag-games tag-c3 tag-snack tag-food ">
+  <span class="id"></span>
+  <span class="date">Tue 9 PM - 11 PM</span>
+  &middot; 🎲 🍴 
+
+  <span class="title">C3 Game Night</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Burton Conner, C3 Floor Lounge)</span>
+   &middot;
+  <span class="description">Come play board games, card games, video games, or just chill with us and listen to music. Snacks, drink, and maybe even leftover cake provided!</span>
+</div>
+
+      
+      
+<div class="event tag-favorite tag-social tag-indoors tag-food ">
+  <span class="id"></span>
+  <span class="date">Tue 9 PM - 1 AM</span>
+  &middot; 👥 🍴 
+
+  <span class="title">LET'S GLOW CR4ZY</span>
+
+  
+  <span class="dorm">@ House 4</span>
+   
+  <span class="location">(House 4 Kitchen)</span>
+   &middot;
+  <span class="description">U read that right, you're invited to GLOW ALL OUT AT HOUSE 4!! We're talking glow sticks, LED lights, and music that won't disappoint. get ready to dance and party all night long!</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Tue 9 PM - 1 AM</span>
+  &middot; 
+
+  <span class="title">Top of the Sponge Party (TOTS)</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(7th Floor Terrace)</span>
+   &middot;
+  <span class="description">come party atop the most porous dorm! we have music & mocktails. bad dancing is encouraged</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-chaotic ">
+  <span class="id"></span>
+  <span class="date">Tue 9:17 PM - 10:17 PM</span>
+  &middot; 
+
+  <span class="title">League of Legends Roleplay</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(destiny lounge)</span>
+   &middot;
+  <span class="description">Have you ever heard of the hit game League of Legends? Or do you despise it with every atom of your being? Become a character from your favorite game in spirit and associate with like-minded leaguers or become a warrior to defeat those little league players - the choice is yours. Let's light it up!</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-food ">
+  <span class="id"></span>
+  <span class="date">Tue 9:17 PM - 10:17 PM</span>
+  &middot; 🍴 
+
+  <span class="title">beans cake</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(bmf kitchen)</span>
+   &middot;
+  <span class="description">baked beans cupcakes. also chat time</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-chaotic tag-games ">
+  <span class="id"></span>
+  <span class="date">Tue 9:17 PM - 11:17 PM</span>
+  &middot; 🎲 
+
+  <span class="title">Weird TTRPGs</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(pecker lounge)</span>
+   &middot;
+  <span class="description">Letter writing game that's actually just analog stardew valley? Radical cat girl anarchy? If any of these sound interesting to you come try out some table top roleplaying games that we've decided have weird or unconventional premises and/or systems</span>
+</div>
+
+      
+      
+<div class="event tag-movie ">
+  <span class="id"></span>
+  <span class="date">Tue 9:30 PM - 11:30 PM</span>
+  &middot; 
+
+  <span class="title">Movie Night</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Mezzanine)</span>
+   &middot;
+  <span class="description">Kick back and watch a movie with friends in New Vassar's beautiful mezzanine.</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-games tag-food ">
+  <span class="id"></span>
+  <span class="date">Tue 9:47 PM - 11:17 PM</span>
+  &middot; 🎲 🍴 
+
+  <span class="title">Bughouse Mughouse</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(loop kitchen)</span>
+   &middot;
+  <span class="description">Do you like to play chess? Are you hungry? Come play the classic 2v2 chess variant (bughouse) and enjoy food in mugs!</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Tue 10 PM - 10:22 PM</span>
+  &middot; 
+
+  <span class="title">Disappearance Act</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">Time, much like our existence during this block of time, is but an illusion</span>
+</div>
+
+      
+      
+<div class="event tag-party tag-food tag-dance ">
+  <span class="id"></span>
+  <span class="date">Tue 10 PM - 11:59 PM</span>
+  &middot; 🎉 🍴 
+
+  <span class="title">Baker Skyline</span>
+
+  
+  <span class="dorm">@ Baker</span>
+   
+  <span class="location">(Lower Dining)</span>
+   &middot;
+  <span class="description">Come to get lit lit lit :-)))) We will have yummy pizza, a hot dance floor, and an amazing time waiting for ya</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Tue 10 PM - 2 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Midnight Pancakes</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House Country Kitchen)</span>
+   &middot;
+  <span class="description">Come to one of Next House's signature events following a warm wholesome karaoke session. Catch pancakes in the Next House country kitchen (literally)! Chill and talk to Nexties! Warm up with hot chocolate and the vibes ~</span>
+</div>
+
+      
+      
+<div class="event tag-karaoke ">
+  <span class="id"></span>
+  <span class="date">Tue 10 PM - 2 AM</span>
+  &middot; 
+
+  <span class="title">Karaoke with Next Sing!</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House Basement)</span>
+   &middot;
+  <span class="description">Meet the members of Next Sing and belt your heart out to your favorite tunes! Eat pancakes with Nexties at the same time! *Next Sing is a campus-wide singing group open to everyone, regardless of skill or experience, based out of Next House.</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-chaotic ">
+  <span class="id"></span>
+  <span class="date">Tue 10:17 PM - 11:47 PM</span>
+  &middot; 
+
+  <span class="title">Ao(MI)3</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(bmf lounge)</span>
+   &middot;
+  <span class="description">Nobody wants to learn about MIT from MIT students. MIT AU fanfics are the best way to learn about MIT. (Accuracy not guaranteed.)</span>
+</div>
+
+      
+      
+<div class="event tag-karaoke ">
+  <span class="id"></span>
+  <span class="date">Tue 11 PM - 11:59 PM</span>
+  &middot; 
+
+  <span class="title">B2 Karaoke</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Burton 2 flounge)</span>
+   &middot;
+  <span class="description">In which we try not to love musicals and Disney films too much 🎤</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-trivia ">
+  <span class="id"></span>
+  <span class="date">Tue 11 PM - 12:30 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Cheesecake and Sporcle</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(MPR)</span>
+   &middot;
+  <span class="description">LET THEM EAT CAKE! Come enjoy some cheescake as we all try to complete trivia games and eventually end of screaming together!</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Tue 11:30 PM - 1 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Dumpling Party</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Late Night Cafe)</span>
+   &middot;
+  <span class="description">Come make and eat dumplings! (Vegetarian and non-pork dumplings included)</span>
+</div>
+
+      
+      
+      
+    </div>
+    
+    <div class="page">
+      <span class="day-title">Wednesday 08/31/22</span>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Wed 8 AM - 10 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Lego My Eggo</span>
+
+  
+  <span class="dorm">@ Next</span>
+   
+  <span class="location">(Next House Country Kitchen)</span>
+   &middot;
+  <span class="description">Did someone say Legos? And Eggo Waffles?!? Come through to relive your childhood (and maybe even adulthood) in the best possible way! Get delicious breakfast to keep you running for the rest of the day AND channel your Mens et Manus by building stuff out of Lego!</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Wed 8 AM - 10 AM</span>
+  &middot; 🍴 
+
+  <span class="title">pancake breakfast: orange you sad it's over?</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Late Night Cafe)</span>
+   &middot;
+  <span class="description">Last, but certainly not least! Come help us finish off our pancakes and have a great time! (no promises that we will have oranges)</span>
+</div>
+
+      
+      
+<div class="event ">
+  <span class="id"></span>
+  <span class="date">Wed 8:30 AM - 10 AM</span>
+  &middot; 
+
+  <span class="title">Crepes</span>
+
+  
+  <span class="dorm">@ LMF</span>
+   
+  <span class="location">(LMF kitchen (W70 4111))</span>
+   &middot;
+  <span class="description">Exhausted from REX? Enjoy a sweet crepes and hot chocolate breakfast to energize you for the day!</span>
+</div>
+
+      
+      
+<div class="event tag-casual ">
+  <span class="id"></span>
+  <span class="date">Wed 8:47 AM - 9:47 AM</span>
+  &middot; 
+
+  <span class="title">¸.•☆•.°★ coffee time ★°.•☆•.¸</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(black hole kitchen)</span>
+   &middot;
+  <span class="description">we have a funky little espresso machine and spend far too much money on our fast brain juice. come grind coffee beans with us and spend some quality time sipping coffee and chatting about MIT with friendly upperclassmen!</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-breakfast ">
+  <span class="id"></span>
+  <span class="date">Wed 9 AM - 11 AM</span>
+  &middot; 🍴 
+
+  <span class="title">Continental Breakfast</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Game Room)</span>
+   &middot;
+  <span class="description">Come grab some free breakfast and meet new friends at the New Vassar Continental Breakfast!</span>
+</div>
+
+      
+      
+<div class="event tag-social ">
+  <span class="id"></span>
+  <span class="date">Wed noon - 1 PM</span>
+  &middot; 👥 
+
+  <span class="title">Hair Dying</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">We've been coloring hair so long that our hands have literally turned into rainbows. Please advise.</span>
+</div>
+
+      
+      
+<div class="event tag-social tag-food ">
+  <span class="id"></span>
+  <span class="date">Wed noon - 4 PM</span>
+  &middot; 👥 🍴 
+
+  <span class="title">Grill and Chill</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">Burgers and friends ALL DAY</span>
+</div>
+
+      
+      
+<div class="event tag-activity tag-outdoors ">
+  <span class="id"></span>
+  <span class="date">Wed 2 PM - 7 PM</span>
+  &middot; 
+
+  <span class="title">EC Rollercoaster!!</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">The EC Rollercoaster will be coasting 2pm to 7pm Tuesday and Wednesday (and even later if you can sweet talk enough upperclassmen in the EC Courtyard to operate it!).</span>
+</div>
+
+      
+      
+<div class="event tag-social tag-art ">
+  <span class="id"></span>
+  <span class="date">Wed 2:30 PM - 4 PM</span>
+  &middot; 👥 🎨 
+
+  <span class="title">Body Painting</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(EC Courtyard)</span>
+   &middot;
+  <span class="description">Paint on yourself or an EC resident, because painting on your skin doesn't just have to be on your face!</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-snack tag-favorite tag-indoors tag-social tag-chill ">
+  <span class="id"></span>
+  <span class="date">Wed 3 PM - 4 PM</span>
+  &middot; 🍴 👥 
+
+  <span class="title">DormCon Meet and Greet</span>
+
+  
+  <span class="dorm">@ DormCon</span>
+   
+  <span class="location">(W20-401)</span>
+   &middot;
+  <span class="description">Come meet DormCon, the group organizing all of REX! We can chat about how the week has been for you guys, shitpost about student government, and share some Trader Joes snacks :D</span>
+</div>
+
+      
+      
+<div class="event tag-snack tag-diy tag-chaotic ">
+  <span class="id"></span>
+  <span class="date">Wed 3:17 PM - 4:47 PM</span>
+  &middot; 
+
+  <span class="title">Make your maker, bake your maker, meet your maker, eat your maker</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(pecker kitchen)</span>
+   &middot;
+  <span class="description">I've heard that religion's pretty *sweet*, but what does god look like? Come make and bake your maker by shaping a sweet, pliable dough to re-create god's likeness in the most delicious and holy form---the sugar cookie.</span>
+</div>
+
+      
+      
+<div class="event tag-trivia tag-snack tag-casual ">
+  <span class="id"></span>
+  <span class="date">Wed 3:17 PM - 5:17 PM</span>
+  &middot; 
+
+  <span class="title">Trivia and Tribulation</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(bonfire lounge)</span>
+   &middot;
+  <span class="description">Do you love correcting people? If not, would you like to try it anyways? Come to Random Hall to enjoy a game of trivia based around correcting facts related to science fiction and fantasy. Categories will include: Star Wars, swords, Minecraft, and magic. </span>
+</div>
+
+      
+      
+<div class="event tag-games tag-activity tag-casual ">
+  <span class="id"></span>
+  <span class="date">Wed 3:17 PM - 5:17 PM</span>
+  &middot; 🎲 
+
+  <span class="title">random hall mural hunt</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(foo)</span>
+   &middot;
+  <span class="description">our dorm is a colorful maze -- come explore it, and don't forget to look up!</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-craft ">
+  <span class="id"></span>
+  <span class="date">Wed 3:47 PM - 5:47 PM</span>
+  &middot; 
+
+  <span class="title">befoul our walls</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(black hole kitchen)</span>
+   &middot;
+  <span class="description">do you look at a white wall and seethe inside?  come paint, doodle, write, scribble, splatter, slosh, stick, ooze, and more on the white walls of black hole. leave your mark. f*ck up black hole.</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-games tag-chaotic ">
+  <span class="id"></span>
+  <span class="date">Wed 4:17 PM - 6:17 PM</span>
+  &middot; 🎲 
+
+  <span class="title">Geoguessr? Hardly Know 'Er!</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(AiW)</span>
+   &middot;
+  <span class="description">Guess Geos with us by any means possible! Learn the try hard strats such as: staring at signs, staring at cars, starting at the sky and staring in general! But... are you playing the game, or is the game playing you?</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Wed 4:30 PM - 5:30 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Anti-scurvy drive thru</span>
+
+  
+  <span class="dorm">@ East Campus</span>
+   
+  <span class="location">(Stickman (1W) window)</span>
+   &middot;
+  <span class="description">Ahoy mateys! Got scurvy? Looking for some nice cold drink after your hard work building for rush? Well we've got you! Drive? Bike? Walk? Skate? Sail? or come up with some other clever way of navigating yourself to the outside window of the 1st west parallel where we will be serving smoothies, orange juice and fruit! Come to the kitchen to help out or enjoy the vibes and the views of the rush coaster outside :)</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Wed 4:30 PM - 6 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Tosci's and Tea</span>
+
+  
+  <span class="dorm">@ McCormick</span>
+   
+  <span class="location">(Front Lawn)</span>
+   &middot;
+  <span class="description">Have THE ICONIC TOSCANINI's ICE CREAM on McCormick's front lawn! Why settle for regular ice cream when you can have BOSTON'S BEST? For multiple years, Tosci's has been voted by Bostonians to be the BEST and come see why! Also just chill and spill tea with us;)</span>
+</div>
+
+      
+      
+<div class="event tag-art tag-craft ">
+  <span class="id"></span>
+  <span class="date">Wed 4:30 PM - 6 PM</span>
+  &middot; 🎨 
+
+  <span class="title">Succulent Painting & Perler Beads</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Game Room)</span>
+   &middot;
+  <span class="description">Get artsy and crafty with succulent pot painting and Perler beads!</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Wed 4:30 PM - 6:30 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Mac n' Cheese vs. Ramen</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(Late Night Cafe)</span>
+   &middot;
+  <span class="description">There can only be one college meal to rise above the others, and we need you to decide. Vegetarian options available.</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-black tag-social ">
+  <span class="id"></span>
+  <span class="date">Wed 4:30 PM - 7 PM</span>
+  &middot; 🍴 👥 
+
+  <span class="title">Waffle Wednesday</span>
+
+  
+  <span class="dorm">@ Juniper</span>
+   
+  <span class="location">(Juniper Lounge)</span>
+   &middot;
+  <span class="description">Welcome the new Juniper house with chicken, waffles, and Beyoncé's Homecoming</span>
+</div>
+
+      
+      
+<div class="event tag-snack ">
+  <span class="id"></span>
+  <span class="date">Wed 4:47 PM - 6:47 PM</span>
+  &middot; 
+
+  <span class="title">Multitools & Multivitamins</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(pecker lounge)</span>
+   &middot;
+  <span class="description">Learn all the different uses of a multivitamin, and why you should eat two multitools per day!</span>
+</div>
+
+      
+      
+<div class="event tag-activity tag-games tag-outdoors ">
+  <span class="id"></span>
+  <span class="date">Wed 5 PM - 6 PM</span>
+  &middot; 🎲 
+
+  <span class="title">c4pture the fl4g</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(Briggs Field (closest to Burton Conner))</span>
+   &middot;
+  <span class="description">can you juke out the jukiest of them all</span>
+</div>
+
+      
+      
+<div class="event tag-games tag-prizes ">
+  <span class="id"></span>
+  <span class="date">Wed 5 PM - 7 PM</span>
+  &middot; 🎲 
+
+  <span class="title">Just Dance Tournament</span>
+
+  
+  <span class="dorm">@ La Casa</span>
+   
+  <span class="location">(Latino Cultural Center (Student Center Basement))</span>
+   &middot;
+  <span class="description">Ready to dance? Come bust some moves for a chance to win a TV!</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-outdoors tag-social ">
+  <span class="id"></span>
+  <span class="date">Wed 5 PM - 8 PM</span>
+  &middot; 🍴 👥 
+
+  <span class="title">Movie Night</span>
+
+  
+  <span class="dorm">@ Maseeh</span>
+   
+  <span class="location">(Maseeh Courtyard)</span>
+   &middot;
+  <span class="description">Join us for a Maseeh movie night in the courtyard!</span>
+</div>
+
+      
+      
+<div class="event tag-vegetarian tag-cooking tag-diy ">
+  <span class="id"></span>
+  <span class="date">Wed 5:17 PM - 6:47 PM</span>
+  &middot; 
+
+  <span class="title">WHAT IS THE *MEAT*ING OF THIS!!?!?!??!?!!?!??!??!?!??!??!??!?!??!</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(pecker kitchen)</span>
+   &middot;
+  <span class="description">It's nice to *meat* you. This vegetarian wants to sink their fangs into a rich, umami piece of pure protein. It might be *meat*iculous, but you'll find yourself s*meat*ten with some plant-based protein options.</span>
+</div>
+
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Wed 5:30 PM - 6:30 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Fancy Little Tea Party for Fancy Folks</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(TV Lounge)</span>
+   &middot;
+  <span class="description">Are you a fancy lad looking for some refined company? Join us to sample an array of pastries and delightful little sandwiches while haughtily talking about sophisticated topics we know nothing about like "The economy!" *fake laughter*</span>
+</div>
+
+      
+      
+<div class="event tag-energy ">
+  <span class="id"></span>
+  <span class="date">Wed 5:30 PM - 6:30 PM</span>
+  &middot; 
+
+  <span class="title">Gatas</span>
+
+  
+  <span class="dorm">@ Simmons Hall</span>
+   
+  <span class="location">(2nd Floor Pool Table)</span>
+   &middot;
+  <span class="description">pool table madness with this simmons classic</span>
+</div>
+
+      
+      
+<div class="event tag-favorite tag-outdoors tag-volleyball tag-snack ">
+  <span class="id"></span>
+  <span class="date">Wed 5:30 PM - 7:35 PM</span>
+  &middot; 
+
+  <span class="title">Come Touch Grass</span>
+
+  
+  <span class="dorm">@ German House</span>
+   
+  <span class="location">(Tang Field (West of Next House))</span>
+   &middot;
+  <span class="description">Spent too much time coding? You're an Olympiad kid? Come play games outside! We'll be playing volleyball and other sports, and eating plenty of post-game snacks.</span>
+</div>
+
+      
+      
+<div class="event tag-breakfast tag-casual tag-watch party tag-food ">
+  <span class="id"></span>
+  <span class="date">Wed 5:47 PM - 6:47 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Crepes and Cartoons</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(loop lounge)</span>
+   &middot;
+  <span class="description">Celebrate the last afternoon of REX with a plate of crepes and some classic cartoons!</span>
+</div>
+
+      
+      
+<div class="event tag-casual tag-food ">
+  <span class="id"></span>
+  <span class="date">Wed 5:47 PM - 6:47 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Learn English and Exercise</span>
+
+  
+  <span class="dorm">@ Random</span>
+   
+  <span class="location">(clam lounge)</span>
+   &middot;
+  <span class="description">From the makers of "I have a bad case of diarrhea", come learn brand new english sentences and exercise along the way!</span>
+</div>
+
+      
+      
+<div class="event tag-games ">
+  <span class="id"></span>
+  <span class="date">Wed 6 PM - 7:30 PM</span>
+  &middot; 🎲 
+
+  <span class="title">Ping Pong Tournament</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Game Room)</span>
+   &middot;
+  <span class="description">Break out your ping pong skills and get your competitive hype on with the New Vassar Ping Pong Singles tournament!</span>
+</div>
+
+      
+      
+<div class="event tag-social tag-activity ">
+  <span class="id"></span>
+  <span class="date">Wed 6 PM - 8 PM</span>
+  &middot; 👥 
+
+  <span class="title">Sunset + Painting</span>
+
+  
+  <span class="dorm">@ Maseeh</span>
+   
+  <span class="location">(Maseeh Courtyard)</span>
+   &middot;
+  <span class="description">Live like a Pinterest post with Maseeh sunset painting, complete with locally sourced charcuterie boards of course! </span>
+</div>
+
+      
+      
+<div class="event tag-food tag-b5 tag-favorite ">
+  <span class="id"></span>
+  <span class="date">Wed 6 PM - 8 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Super Sushi</span>
+
+  
+  <span class="dorm">@ Burton Conner</span>
+   
+  <span class="location">(B5 Center Suite)</span>
+   &middot;
+  <span class="description">Sushi, sushi, come make your own sushi! Head over to B5 to hand craft your very own tasty sushi and then eat it! Come for the sushi and stay for the vibes with B5!</span>
+</div>
+
+      
+      
+<div class="event tag-games tag-food ">
+  <span class="id"></span>
+  <span class="date">Wed 7:30 PM - 9:30 PM</span>
+  &middot; 🎲 🍴 
+
+  <span class="title">Game Night + Boba</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Game Room)</span>
+   &middot;
+  <span class="description">Play your favorite game, learn a new one, and drink boba tea with new friends in the best game room on campus.</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-fun tag-games ">
+  <span class="id"></span>
+  <span class="date">Wed 8 PM - 11:59 PM</span>
+  &middot; 🍴 🎲 
+
+  <span class="title">Night Carnival</span>
+
+  
+  <span class="dorm">@ McCormick</span>
+   
+  <span class="location">(Front Lawn)</span>
+   &middot;
+  <span class="description">Bounce house obstacle course! Cotton candy, popcorn, snow cones!  Games and PRIZES GALORE! We're having a giant carnival bash, and we're giving away SO MUCH FOOD AND PRIZES! All genders invited, and bring your friends!</span>
+</div>
+
+      
+      
+<div class="event tag-movie ">
+  <span class="id"></span>
+  <span class="date">Wed 9 PM - 11 PM</span>
+  &middot; 
+
+  <span class="title">Movie Night</span>
+
+  
+  <span class="dorm">@ New Vassar</span>
+   
+  <span class="location">(New Vassar Mezzanine)</span>
+   &middot;
+  <span class="description">Kick back and watch a movie with friends in New Vassar's beautiful mezzanine.</span>
+</div>
+
+      
+      
+      
+      
+      
+    </div>
+    
+
+    <div class="post">
+      <span class="post-title">Post-REX Events</span>
+      Still can't get enough of our awesome dorms? Well, move into your new room first, but then stop by any of these
+      events for more fun times!
+      
+      <span class="day-title">Thursday 09/01/22</span>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+<div class="event tag-food ">
+  <span class="id"></span>
+  <span class="date">Thu 12:30 PM - 2:30 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Taste of Cambridge</span>
+
+  
+  <span class="dorm">@ McCormick</span>
+   
+  <span class="location">(Front Lawn)</span>
+   &middot;
+  <span class="description">FOOD!FREE FOOD! All hungry pre-frosh welcome, first come first serve!</span>
+</div>
+
+      
+      
+<div class="event tag-food tag-games ">
+  <span class="id"></span>
+  <span class="date">Thu 4 PM - 6 PM</span>
+  &middot; 🍴 🎲 
+
+  <span class="title">Who's smarter than an MIT professor?</span>
+
+  
+  <span class="dorm">@ McCormick</span>
+   
+  <span class="location">(Front Lawn)</span>
+   &middot;
+  <span class="description">Y'all got into MIT, so clearly there's something going on in your brains. But are you smarter than the folks who ADMITTED YOU?  Or feeling super gutsy? Step into the ring with a professor!</span>
+</div>
+
+      
+      
+      
+      
+      
+      
+      
+      
+      <span class="day-title">Friday 09/02/22</span>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+<div class="event tag-food tag-fun tag-games ">
+  <span class="id"></span>
+  <span class="date">Fri 8 PM - 11 PM</span>
+  &middot; 🍴 🎲 
+
+  <span class="title">Casino Night</span>
+
+  
+  <span class="dorm">@ McCormick</span>
+   
+  <span class="location">(Brown Living Room)</span>
+   &middot;
+  <span class="description">Channel your inner POKER savant and join McCormick for a night filled with gambling and mocktails (we only gamble with Lady Luck here, no money)!!! Bring your friends and dominate them in blackjack, mahjong, and MOREEE</span>
+</div>
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <span class="day-title">Saturday 09/03/22</span>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+<div class="event tag-party tag-food tag-games ">
+  <span class="id"></span>
+  <span class="date">Sat 8 PM - 10 PM</span>
+  &middot; 🎉 🍴 🎲 
+
+  <span class="title">Game night</span>
+
+  
+  <span class="dorm">@ McCormick</span>
+   
+  <span class="location">(Game Room)</span>
+   &middot;
+  <span class="description">GAMES you say? WASTE THE NIGHT AWAY WITH US IN McCormick's Game room :) Any game you could ask for (INCLUDING MARIO, SMASH, PING PONG, POOL, AND MORE! )</span>
+</div>
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <span class="day-title">Sunday 09/04/22</span>
+      
+      
+      
+      
+      
+      
+<div class="event tag-food tag-fun ">
+  <span class="id"></span>
+  <span class="date">Sun 7 PM - 10 PM</span>
+  &middot; 🍴 
+
+  <span class="title">Spa Night</span>
+
+  
+  <span class="dorm">@ McCormick</span>
+   
+  <span class="location">(Green Living Room)</span>
+   &middot;
+  <span class="description">Chill, relax, put on a face mask! Enjoy a spa night with us before heading off to your first week of classes!</span>
+</div>
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </div>
+</body>
+
+</html>
