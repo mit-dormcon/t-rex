@@ -1,5 +1,7 @@
+---
 Title: T-REX, the DormCon REX API  
 Description: This website hosts raw data about DormCon REX Events.
+---
 
 GitHub: [mit-dormcon/t-rex][repo]
 

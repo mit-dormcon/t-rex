@@ -165,7 +165,7 @@ def generate_index() -> str:
     with open("templates/index.md", encoding="utf-8") as f:
         content = md.convert(f.read())
 
-    metadata: dict[str, list[str]] = {
+    metadata: dict[str, str] = {
         k: (v[0] if isinstance(v, list) else v)
         for k, v in (md.Meta or {}).items()  # pylint: disable=no-member # type: ignore
     }
