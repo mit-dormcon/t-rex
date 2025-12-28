@@ -610,20 +610,20 @@ def get_api_schema():
     Returns:
         OpenAPI: An OpenAPI schema for the APIResponse model.
     """
+    with open("pyproject.toml", "rb") as f:
+        pyproject_data = tomllib.load(f)
+
     open_api = OpenAPI.model_validate(
         {
             "openapi": "3.1.1",
             "info": {
                 "title": "T-REX",
                 "summary": "The DormCon REX API!",
-                "version": "2025.0.0",
+                "version": pyproject_data["project"]["version"],
                 "description": "This API hosts the structured data and information for the "
                 "[REX Events page](https://dormcon.mit.edu/rex/events). "
                 "Feel free to use it for your own purposes!",
-                "contact": {
-                    "name": "DormCon Tech Chair",
-                    "email": "dormcon-tech-chair@mit.edu",
-                },
+                "contact": pyproject_data["project"]["maintainers"][0],
             },
             "tags": [
                 {

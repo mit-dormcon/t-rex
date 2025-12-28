@@ -1,9 +1,12 @@
 [project]
 name = "t-rex"
-version = "2025.0.0"
+version = "2026.0.0"
 description = "A Python project that generates a structured format for REX events and an HTML file that can get converted into a booklet"
 authors = [
     { name = "Cameron Kleiman", email = "ckleiman@mit.edu" },
+    { name = "Diego Temkin", email = "dtemkin@mit.edu" },
+]
+maintainers = [
     { name = "DormCon Tech Chair", email = "dormcon-tech-chair@mit.edu" },
 ]
 readme = "README.md"
