@@ -147,7 +147,7 @@ def process_csv(filename: Path, encoding: str = "utf-8") -> list[Event]:
     Returns:
         list[Event]: A list of Event objects for each row in the CSV file.
     """
-    with open(filename, encoding=encoding) as f:
+    with open(filename, encoding=encoding, newline="") as f:
         reader = csv.DictReader(f, strict=True)
         return validate_unique_events(*(Event.model_validate(row) for row in reader))
 

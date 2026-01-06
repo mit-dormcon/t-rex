@@ -167,7 +167,7 @@ def generate_index() -> str:
 
     metadata: dict[str, str] = {
         k: (v[0] if isinstance(v, list) else v)
-        for k, v in (md.Meta or {}).items()  # pylint: disable=no-member # type: ignore
+        for k, v in (getattr(md, "Meta", None) or {}).items()  # type: ignore[var-annotated]
     }
     return env.get_template("template.html").render(content=content, **metadata)
 

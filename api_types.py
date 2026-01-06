@@ -322,9 +322,9 @@ class Event(APIModel):
     """Tags associated with the event, used for filtering and display"""
 
     group: Annotated[
-        Optional[UniqueList[Annotated[str, StringConstraints(strip_whitespace=True)]]],
+        UniqueList[Annotated[str, StringConstraints(strip_whitespace=True)]],
         Field(validation_alias="Group"),
-    ] = None
+    ]
     """Subcommunities running/hosting the event"""
 
     id: Annotated[
@@ -508,7 +508,7 @@ class Event(APIModel):
         """
         if isinstance(v, str):
             v = v.strip()
-            return None if v == "" else v.split(",")
+            return [] if v == "" else v.split(",")
         return v
 
     @field_validator("tags", mode="after")
