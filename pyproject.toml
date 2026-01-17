@@ -23,7 +23,12 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = ["ruff >=0.14.10", "djlint >=1.36.4"]
+dev = [
+    "ruff >=0.14.10",
+    "djlint >=1.36.4",
+    "types-markdown >=3.10.0",
+    "types-PyYAML >=6.0.12",
+]
 
 [tool.djlint]
 profile = "jinja"
