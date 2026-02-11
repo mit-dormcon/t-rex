@@ -13,10 +13,10 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "Jinja2 >=3.1.6",
-    "markdown >=3.10",
+    "markdown >=3.10.2",
     "tzdata >=2025.3",
     "pydantic >=2.12.5",
-    "pydantic-extra-types >=2.10.6",
+    "pydantic-extra-types >=2.11.0",
     "openapi-pydantic >=0.5.1",
     "email-validator >=2.3.0",
     "PyYaml >=6.0.3",
@@ -24,12 +24,15 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "ruff >=0.14.10",
+    "ruff >=0.15.0",
     "djlint >=1.36.4",
-    "types-markdown >=3.10.0",
+    "types-markdown >=3.10.2",
     "types-PyYAML >=6.0.12",
 ]
 
 [tool.djlint]
 profile = "jinja"
 use_gitignore = true
+
+[tool.ruff]
+target-version = "py314"
