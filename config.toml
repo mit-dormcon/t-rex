@@ -119,6 +119,18 @@ include_on_cover = false
 "C5" = { color = "#b9e3f0" }
 "ILC" = { color = "#ba8617" }
 
+[dorms."East Campus".groups]
+"1E" = { color = "#6900e1" }
+"1W" = { color = "#d16eea" }
+"2E" = { color = "#121212" }
+"2W" = { color = "#ff6900" }
+"3E" = { color = "rgb(249, 178, 0)" }
+"3W" = { color = "#99A7FF" }
+"4E" = { color = "#45fdfe" }
+"4W" = { color = "#000000" }
+"5E" = { color = "#FF0000" }
+"5W" = { color = "rgb(59, 186, 228)" }
+
 [dorms."MacGregor House".groups]
 "A Entry" = { color = "rgba(5,93,243,1)" }
 "B Entry" = { color = "rgba(5,180,93,1)" }
