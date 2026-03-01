@@ -10,8 +10,8 @@ include_in_booklet = true
 date_format = "%m/%d/%Y %H:%M"
 
 [dates]
-start = "2026-08-22"
-end = "2026-08-26"
+start = "2026-08-29"
+end = "2026-09-02"
 hour_cutoff = 4
 
 # TAGS
