@@ -8,7 +8,6 @@ from collections.abc import Hashable
 from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Annotated, Optional, TypeVar
-from zoneinfo import ZoneInfo
 
 from openapi_pydantic import OpenAPI
 from openapi_pydantic.util import PydanticSchema, construct_open_api_with_schema_class
@@ -25,6 +24,14 @@ from pydantic import (
 )
 from pydantic_core import PydanticCustomError
 from pydantic_extra_types.color import Color
+from pydantic_settings import (
+    BaseSettings,
+    PydanticBaseSettingsSource,
+    SettingsConfigDict,
+    TomlConfigSettingsSource,
+)
+
+from helpers import process_dt_from_csv
 
 T = TypeVar("T", bound=Hashable)
 
@@ -195,10 +202,14 @@ class TagsConfig(ParentModel):
     """Tags that match rename_from will be renamed to this tag in the booklet and on the website"""
 
 
-class Config(ParentModel):
+class Config(BaseSettings):
     """
     Configuration for the REX API.
     """
+
+    model_config = SettingsConfigDict(
+        use_attribute_docstrings=True, toml_file="config.toml"
+    )
 
     name: str
     """Name of the REX season, e.g. 'REX 2025'"""
@@ -218,53 +229,37 @@ class Config(ParentModel):
     tags: dict[str, TagsConfig]
     """Tags configuration"""
 
+    @classmethod
+    def settings_customise_sources(
+        cls,
+        settings_cls: type[BaseSettings],
+        init_settings: PydanticBaseSettingsSource,
+        env_settings: PydanticBaseSettingsSource,
+        dotenv_settings: PydanticBaseSettingsSource,
+        file_secret_settings: PydanticBaseSettingsSource,
+    ) -> tuple[PydanticBaseSettingsSource, ...]:
+        return (TomlConfigSettingsSource(settings_cls),)
 
-def save_config_schema(path: Path = Path("config_schema.json")) -> None:
-    """
-    Save the JSON schema for the configuration.
+    @classmethod
+    def save_config_schema(cls, path: Path = Path("config_schema.json")) -> None:
+        """
+        Save the JSON schema for the configuration.
+        """
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(cls.model_json_schema(), f, indent=2)
 
-    Args:
-        path (Path, optional): Path to the output JSON schema file.
-            Defaults to `Path("config_schema.json")`.
-    """
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(Config.model_json_schema(), f, indent=2)
+    def model_post_init(self, _, /) -> None:
+        """
+        Save the JSON schema for the configuration.
 
-
-def load_config(path: Path = Path("config.toml")) -> Config:
-    """
-    Load the configuration from the TOML file. Also validates the configuration
-
-    Args:
-        path (Path, optional): Path to the input TOML file.
-            Defaults to `Path("config.toml")`.
-
-    Returns:
-        Config: The loaded configuration.
-    """
-    save_config_schema()
-    with open(path, "rb") as c:
-        return Config.model_validate(tomllib.load(c))
-
-
-def process_dt_from_csv(
-    time_string: str,
-    date_format: str,
-    tz: ZoneInfo = ZoneInfo("America/New_York"),
-) -> datetime:
-    """
-    Processes a datetime string from the CSV file into a timezone-aware datetime object.
-
-    Args:
-        time_string (str): The time string to convert.
-        date_format (str): The date format to use for conversion.
-        tz (ZoneInfo, optional): The timezone to use for the datetime object.
-            Defaults to `ZoneInfo("America/New_York")`.
-    """
-    return datetime.strptime(time_string, date_format).replace(tzinfo=tz)
+        Args:
+            path (Path, optional): Path to the output JSON schema file.
+                Defaults to `Path("config_schema.json")`.
+        """
+        self.save_config_schema()
 
 
-config = load_config()
+config = Config()  # type: ignore
 
 
 class APIModel(ParentModel):
@@ -667,4 +662,4 @@ def get_api_schema():
 
 if __name__ == "__main__":
     # output config schema
-    save_config_schema()
+    Config.save_config_schema()

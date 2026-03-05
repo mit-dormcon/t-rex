@@ -224,6 +224,7 @@
       "type": "object"
     }
   },
+  "additionalProperties": false,
   "description": "Configuration for the REX API.",
   "properties": {
     "name": {

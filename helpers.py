@@ -4,11 +4,13 @@ Helper functions for processing REX events.
 
 from datetime import datetime
 from functools import cache
-from typing import Iterable
+from typing import TYPE_CHECKING, Iterable
+from zoneinfo import ZoneInfo
 
-from pydantic import ValidationError, validate_call
+from pydantic import ValidationError
 
-from api_types import Event
+if TYPE_CHECKING:
+    from api_types import Event
 
 
 @cache
@@ -53,7 +55,7 @@ def get_dorm_group(dorms: Iterable[str]) -> str:
     return ", ".join(dorms)
 
 
-def event_with_same_name_exists(event: Event, events: Iterable[Event]) -> bool:
+def event_with_same_name_exists(event: "Event", events: Iterable["Event"]) -> bool:
     """
     Checks if an event with the same name exists in the list of events.
 
@@ -70,8 +72,7 @@ def event_with_same_name_exists(event: Event, events: Iterable[Event]) -> bool:
     return False
 
 
-@validate_call
-def validate_unique_events(*events: Event) -> list[Event]:
+def validate_unique_events(*events: "Event") -> list["Event"]:
     """
     Validates that the events are unique by their ID.
     Args:
@@ -86,3 +87,20 @@ def validate_unique_events(*events: Event) -> list[Event]:
     if len(events) != len({event.id for event in events}):
         raise ValidationError("Events must be unique by ID")
     return list(events)
+
+
+def process_dt_from_csv(
+    time_string: str,
+    date_format: str,
+    tz: ZoneInfo = ZoneInfo("America/New_York"),
+) -> datetime:
+    """
+    Processes a datetime string from the CSV file into a timezone-aware datetime object.
+
+    Args:
+        time_string (str): The time string to convert.
+        date_format (str): The date format to use for conversion.
+        tz (ZoneInfo, optional): The timezone to use for the datetime object.
+            Defaults to `ZoneInfo("America/New_York")`.
+    """
+    return datetime.strptime(time_string, date_format).replace(tzinfo=tz)

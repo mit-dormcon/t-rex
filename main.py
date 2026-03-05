@@ -14,7 +14,7 @@ from pathlib import Path
 
 import yaml
 
-from api_types import APIResponse, Event, get_api_schema, load_config
+from api_types import APIResponse, Config, Event, get_api_schema
 from booklet import generate_booklet, generate_errors, generate_index, get_date_bucket
 from helpers import (
     check_if_events_conflict,
@@ -23,7 +23,7 @@ from helpers import (
     validate_unique_events,
 )
 
-config = load_config()
+config = Config()  # type: ignore
 
 
 def get_main_dorm(dorm_main: str) -> str:
