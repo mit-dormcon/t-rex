@@ -23,7 +23,7 @@ from pydantic import (
     field_validator,
 )
 from pydantic_core import PydanticCustomError
-from pydantic_extra_types.color import Color
+from pydantic_extra_types import Color
 from pydantic_settings import (
     BaseSettings,
     PydanticBaseSettingsSource,
