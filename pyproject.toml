@@ -27,7 +27,7 @@ dependencies = [
 dev = [
     "ruff>=0.15.10",
     "djlint >=1.36.4",
-    "types-markdown >=3.10.2",
+    "types-markdown>=3.10.2.20260408",
     "types-PyYAML >=6.0.12",
 ]
 
