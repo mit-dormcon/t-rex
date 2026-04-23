@@ -6,9 +6,6 @@ mandatory_tag = "mandatory"
 file_name = "events/orientation.csv"
 include_in_booklet = true
 
-[csv]
-date_format = "%m/%d/%Y %H:%M"
-
 [dates]
 start = "2026-08-29"
 end = "2026-09-02"

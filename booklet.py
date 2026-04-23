@@ -6,7 +6,7 @@ It uses Jinja2 for templating and Markdown for rendering the index page.
 It also includes functions to format event dates and handle errors.
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime
 from operator import attrgetter
 from typing import Optional
 from zoneinfo import ZoneInfo
@@ -55,34 +55,13 @@ def event_dt_format(start: datetime, end: datetime, groups: Optional[list[str]] 
 env.globals["format_date"] = event_dt_format  # type:  ignore
 
 
-def get_date_bucket(event: Event, cutoff: int):
-    """
-    Returns the date that an event "occurs" on. This method treats all events starting
-    before `hour_cutoff` as occurring on the date before.
-
-    Args:
-        event (Event): The event to get the date bucket for.
-        cutoff (int): The hour cutoff to determine the date bucket.
-
-    Returns:
-        date: The date that the event occurs on, adjusted for the hour cutoff.
-    """
-    dt = event.start
-    if dt.hour < cutoff:
-        return dt.date() - timedelta(days=1)
-    return dt.date()
-
-
-def generate_booklet(
-    api: APIResponse, config: Config, extra_events: list[Event]
-) -> str:
+def generate_booklet(api: APIResponse, config: Config) -> str:
     """
     Generates the REX booklet HTML.
 
     Args:
         api (APIResponse): The API response object containing event data.
         config (Config): The configuration object.
-        extra_events (list[Event]): A list of extra events to include in the booklet.
 
     Returns:
         str: The rendered HTML for the booklet.
@@ -92,8 +71,8 @@ def generate_booklet(
     start_date = api.start
     end_date = api.end
 
-    all_events = [e.model_copy() for e in api.events + extra_events]
-    all_dates = {get_date_bucket(e, config.dates.hour_cutoff) for e in all_events}
+    all_events = [e.model_copy() for e in api.events + api.booklet_only_events]
+    all_dates = {e.get_date_bucket(config.dates.hour_cutoff) for e in all_events}
 
     dates = {
         "before": sorted(filter(lambda d: d < start_date, all_dates)),
@@ -109,7 +88,7 @@ def generate_booklet(
         if "tour" in event.tags:
             tours.append(event)
         else:
-            by_dates[get_date_bucket(event, config.dates.hour_cutoff)].append(event)
+            by_dates[event.get_date_bucket(config.dates.hour_cutoff)].append(event)
 
     # Order inside buckets by start, then end.
     for by_date in by_dates:
@@ -165,9 +144,9 @@ def generate_index() -> str:
     with open("templates/index.md", encoding="utf-8") as f:
         content = md.convert(f.read())
 
+    meta: dict[str, list[str] | str] = getattr(md, "Meta", {})
     metadata: dict[str, str] = {
-        k: (v[0] if isinstance(v, list) else v)
-        for k, v in (getattr(md, "Meta", None) or {}).items()  # type: ignore[var-annotated]
+        k: (v[0] if isinstance(v, list) else v) for k, v in meta.items()
     }
     return env.get_template("template.html").render(content=content, **metadata)
 

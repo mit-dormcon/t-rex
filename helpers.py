@@ -2,15 +2,39 @@
 Helper functions for processing REX events.
 """
 
-from datetime import datetime
+import csv
+from collections.abc import Hashable
 from functools import cache
-from typing import TYPE_CHECKING, Iterable
+from typing import TYPE_CHECKING, Annotated, TypeVar
 from zoneinfo import ZoneInfo
 
-from pydantic import ValidationError
+from pydantic import AfterValidator, Field, ValidationError
 
 if TYPE_CHECKING:
+    from datetime import datetime
+    from pathlib import Path
+    from typing import Callable, Iterable, Sequence
+
+    from pydantic import BaseModel
+
     from api_types import Event
+
+TIMEZONE = ZoneInfo("America/New_York")
+
+H = TypeVar("H", bound=Hashable)
+
+
+def _validate_unique_list(v: list[H]) -> list[H]:
+    if len(v) != len({*v}):
+        raise ValidationError("List must be unique")
+    return v
+
+
+UniqueList = Annotated[
+    list[H],
+    AfterValidator(_validate_unique_list),
+    Field(json_schema_extra={"uniqueItems": True}),
+]
 
 
 @cache
@@ -72,7 +96,7 @@ def event_with_same_name_exists(event: "Event", events: Iterable["Event"]) -> bo
     return False
 
 
-def validate_unique_events(*events: "Event") -> list["Event"]:
+def validate_unique_events(events: Sequence["Event"]) -> list["Event"]:
     """
     Validates that the events are unique by their ID.
     Args:
@@ -89,18 +113,29 @@ def validate_unique_events(*events: "Event") -> list["Event"]:
     return list(events)
 
 
-def process_dt_from_csv(
-    time_string: str,
-    date_format: str,
-    tz: ZoneInfo = ZoneInfo("America/New_York"),
-) -> datetime:
+def process_csv[M: BaseModel](
+    filename: Path,
+    model: type[M],
+    validate: Callable[[Sequence[M]], list[M]],
+    encoding: str = "utf-8",
+) -> list[M]:
     """
-    Processes a datetime string from the CSV file into a timezone-aware datetime object.
+    Processes a CSV file and yields Event objects.
+
+    .. note::
+        If you saved this with Excel as a CSV file with UTF-8 encoding, you might
+        need to open it with encoding="utf-8-sig" instead of "utf-8".
 
     Args:
-        time_string (str): The time string to convert.
-        date_format (str): The date format to use for conversion.
-        tz (ZoneInfo, optional): The timezone to use for the datetime object.
-            Defaults to `ZoneInfo("America/New_York")`.
+        filename (Path): The path to the CSV file to process.
+        model (type[M]): The model type to validate each row against.
+        validate (Callable[[Sequence[M]], list[M]]): A function to validate the list of models.
+        encoding (str, optional): The encoding of the CSV file. Defaults to "utf-8".
+
+    Returns:
+        list[M]: A list of validated model objects for each row in the CSV file.
     """
-    return datetime.strptime(time_string, date_format).replace(tzinfo=tz)
+    with open(filename, encoding=encoding, newline="") as f:
+        reader = csv.DictReader(f, strict=True)
+        models = tuple(model.model_validate(row) for row in reader)
+        return validate(models)

@@ -30,9 +30,9 @@ contain the following columns:
 - `Dorm`: Dorm(s) hosting the event
 - `Group`: Group(s) or living community(ies) hosting the event
 - `Event Location`: Location of the event
-- `Start Date and Time`: Start time in EDT formatted as `MM/DD/YYYY HH:MM`, in
+- `Start Date and Time`: Start time in EDT formatted as `YYYY-MM-DD HH:MM`, in
   24-hour time
-- `End Date and Time`: End time in EDT formatted as `MM/DD/YYYY HH:MM`, in
+- `End Date and Time`: End time in EDT formatted as `YYYY-MM-DD HH:MM`, in
   24-hour time
 - `Event Description`: A longer description of the event
 - `Published`: Set to either `TRUE` or `FALSE`. Events not set to `TRUE` are not

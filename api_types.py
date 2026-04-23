@@ -4,25 +4,28 @@ All types used in the REX API are stored here.
 
 import json
 import tomllib
-from collections.abc import Hashable
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
+from functools import cached_property
+from operator import attrgetter
 from pathlib import Path
-from typing import Annotated, Optional, TypeVar
+from typing import Annotated, Any, Optional
 
 from openapi_pydantic import OpenAPI
 from openapi_pydantic.util import PydanticSchema, construct_open_api_with_schema_class
 from pydantic import (
-    AfterValidator,
     AwareDatetime,
     BaseModel,
     ConfigDict,
     EmailStr,
     Field,
     FilePath,
+    PrivateAttr,
     StringConstraints,
+    ValidationError,
+    ValidatorFunctionWrapHandler,
+    computed_field,
     field_validator,
 )
-from pydantic_core import PydanticCustomError
 from pydantic_extra_types import Color
 from pydantic_settings import (
     BaseSettings,
@@ -31,22 +34,15 @@ from pydantic_settings import (
     TomlConfigSettingsSource,
 )
 
-from helpers import process_dt_from_csv
-
-T = TypeVar("T", bound=Hashable)
-
-
-def _validate_unique_list(v: list[T]) -> list[T]:
-    if len(v) != len({*v}):
-        raise PydanticCustomError("unique_list", "List must be unique")
-    return v
-
-
-UniqueList = Annotated[
-    list[T],
-    AfterValidator(_validate_unique_list),
-    Field(json_schema_extra={"uniqueItems": True}),
-]
+from helpers import (
+    TIMEZONE,
+    UniqueList,
+    check_if_events_conflict,
+    event_with_same_name_exists,
+    get_dorm_group,
+    process_csv,
+    validate_unique_events,
+)
 
 
 class ParentModel(BaseModel):
@@ -101,38 +97,6 @@ class OrientationConfig(ParentModel):
             if not v.exists():
                 raise ValueError(f"Orientation file {v} does not exist.")
             return v
-
-        return v
-
-
-class CSVConfig(ParentModel):
-    """
-    Configuration for parsing CSV files.
-    """
-
-    date_format: str
-    """String format used for parsing dates in the CSV, see [strftime.net](https://strftime.net/)"""
-
-    @field_validator("date_format", mode="after")
-    @classmethod
-    def validate_date_format(cls, v: object) -> object:
-        """
-        Validate the date format for parsing CSV files.
-
-        Args:
-            v (object): The date format string to validate.
-
-        Raises:
-            ValueError: If the date format is invalid.
-
-        Returns:
-            object: The validated date format.
-        """
-        if isinstance(v, str):
-            try:
-                datetime.today().strftime(v)
-            except ValueError as e:
-                raise ValueError(f"Invalid datetime formatter: {v}.") from e
 
         return v
 
@@ -217,9 +181,6 @@ class Config(BaseSettings):
     orientation: OrientationConfig
     """Orientation configuration"""
 
-    csv: CSVConfig
-    """Configuration for parsing CSV files"""
-
     dates: DatesConfig
     """REX date configuration"""
 
@@ -228,6 +189,21 @@ class Config(BaseSettings):
 
     tags: dict[str, TagsConfig]
     """Tags configuration"""
+
+    def get_main_dorm(self, dorm_main: str) -> str:
+        """
+        Get the main dorm name, considering renames in the configuration.
+
+        Args:
+            dorm_main (str): The main dorm name to check.
+
+        Returns:
+            str: The main dorm name, or the renamed version if it exists in the config.
+        """
+        if dorm_main in self.dorms:
+            return self.dorms[dorm_main].rename_to or dorm_main
+
+        return dorm_main
 
     @classmethod
     def settings_customise_sources(
@@ -244,6 +220,10 @@ class Config(BaseSettings):
     def save_config_schema(cls, path: Path = Path("config_schema.json")) -> None:
         """
         Save the JSON schema for the configuration.
+
+        Args:
+            path (Path, optional): Path to the output JSON schema file.
+                Defaults to `Path("config_schema.json")`.
         """
         with open(path, "w", encoding="utf-8") as f:
             json.dump(cls.model_json_schema(), f, indent=2)
@@ -251,10 +231,6 @@ class Config(BaseSettings):
     def model_post_init(self, _, /) -> None:
         """
         Save the JSON schema for the configuration.
-
-        Args:
-            path (Path, optional): Path to the output JSON schema file.
-                Defaults to `Path("config_schema.json")`.
         """
         self.save_config_schema()
 
@@ -318,7 +294,7 @@ class Event(APIModel):
 
     group: Annotated[
         UniqueList[Annotated[str, StringConstraints(strip_whitespace=True)]],
-        Field(validation_alias="Group"),
+        Field(validation_alias="Group", exclude_if=lambda v: len(v) < 1),
     ]
     """Subcommunities running/hosting the event"""
 
@@ -336,7 +312,7 @@ class Event(APIModel):
     )
     """Whether the event is published and visible on the website. Defaults to False."""
 
-    @property
+    @cached_property
     def emoji(self) -> UniqueList[str]:
         """List of emojis associated with the event, used for display in the booklet"""
         emojis: UniqueList[str] = []
@@ -348,6 +324,23 @@ class Event(APIModel):
                     emojis.append(emoji)
 
         return emojis
+
+    def get_date_bucket(self, cutoff: int):
+        """
+        Returns the date that an event "occurs" on. This method treats all events starting
+        before `hour_cutoff` as occurring on the date before.
+
+        Args:
+            event (Event): The event to get the date bucket for.
+            cutoff (int): The hour cutoff to determine the date bucket.
+
+        Returns:
+            date: The date that the event occurs on, adjusted for the hour cutoff.
+        """
+        dt = self.start
+        if dt.hour < cutoff:
+            return dt.date() - timedelta(days=1)
+        return dt.date()
 
     @field_validator("dorm", mode="before")
     @classmethod
@@ -378,53 +371,43 @@ class Event(APIModel):
             )
         return v
 
-    @field_validator("start", mode="before")
+    @field_validator("start", "end", mode="wrap")
     @classmethod
-    def validate_start(cls, v: object) -> object:
+    def validate_dates(
+        cls, value: Any, handler: ValidatorFunctionWrapHandler
+    ) -> AwareDatetime:
         """
-        Validates the start field. Converts a string into a timezone-aware
-        datetime object using the configured date format.
+        Validates the date fields. Adds a timezone if not present in input data
+
+        Args:
+            value (Any): The value to validate.
+            handler (ValidatorFunctionWrapHandler): The handler to use for validation.
+
+        Returns:
+            AwareDatetime: The validated value, a timezone-aware datetime object.
+        """
+        try:
+            return handler(value)
+        except ValidationError as err:
+            # try adding a timezone
+            if err.errors()[0]["type"] == "timezone_aware":
+                error_input: str = err.errors()[0]["input"]
+                date_val = datetime.fromisoformat(error_input).replace(tzinfo=TIMEZONE)
+                return handler(date_val)
+            else:
+                raise err
+
+    @field_validator("tags", "group", mode="before")
+    @classmethod
+    def validate_comma_lists(cls, v: object) -> object:
+        """
+        Validates the tags and group fields. Converts a comma-separated string into a list.
 
         Args:
             v (object): The value to validate.
 
         Returns:
-            object: The validated value, a timezone-aware datetime object.
-        """
-        if isinstance(v, str):
-            v = v.strip()
-            return process_dt_from_csv(v, config.csv.date_format)
-        return v
-
-    @field_validator("end", mode="before")
-    @classmethod
-    def validate_end(cls, v: object) -> object:
-        """
-        Validates the end field. Converts a string into a timezone-aware
-        datetime object using the configured date format.
-
-        Args:
-            v (object): The value to validate.
-
-        Returns:
-            object: The validated value, a timezone-aware datetime object.
-        """
-        if isinstance(v, str):
-            v = v.strip()
-            return process_dt_from_csv(v, config.csv.date_format)
-        return v
-
-    @field_validator("tags", mode="before")
-    @classmethod
-    def validate_tags(cls, v: object) -> object:
-        """
-        Validates the tags field. Converts a comma-separated string into a list of tags.
-
-        Args:
-            v (object): The value to validate.
-
-        Returns:
-            object: The validated value, a list of tags.
+            object: The validated value, a list of tags or groups.
         """
         if isinstance(v, str):
             v = v.strip()
@@ -489,23 +472,6 @@ class Event(APIModel):
 
         return v
 
-    @field_validator("group", mode="before")
-    @classmethod
-    def validate_group(cls, v: object) -> object:
-        """
-        Validates the group field. Converts a comma-separated string into a list of groups.
-
-        Args:
-            v (object): The value to validate.
-
-        Returns:
-            object: The validated value, a list of groups.
-        """
-        if isinstance(v, str):
-            v = v.strip()
-            return [] if v == "" else v.split(",")
-        return v
-
     @field_validator("tags", mode="after")
     @classmethod
     def rename_tags(cls, v: UniqueList[str]) -> UniqueList[str]:
@@ -545,57 +511,292 @@ class Event(APIModel):
         return v
 
 
+def process_events_csv(filename: Path, encoding: str = "utf-8") -> list[Event]:
+    """
+    Processes an events CSV file and returns a list of Event objects.
+
+    Args:
+        filename (Path): The path to the CSV file containing event data.
+        encoding (str, optional): The encoding of the CSV file. Defaults to "utf-8".
+
+    Returns:
+        list[Event]: A list of Event objects parsed from the CSV file.
+    """
+    print(f"Processing events from {filename}...")
+    return process_csv(filename, Event, validate_unique_events, encoding)
+
+
 class ColorsAPIResponse(APIModel):
     """API response for colors used in the REX system."""
 
-    dorms: dict[str, Color] = {}
-    """Colors for dorms, used for display in the booklet and on the website"""
+    _api_response: APIResponse | None = PrivateAttr(default=None)
 
-    groups: dict[str, dict[str, Color]] = {}
-    """Colors for groups within dorms, used for display in the booklet and on the website"""
+    @computed_field
+    @property
+    def dorms(self) -> dict[str, Color]:
+        """Colors for dorms, used for display in the booklet and on the website"""
+        if self._api_response is None:
+            return {}
 
-    tags: dict[str, Color] = {}
-    """Colors for tags, used for display in the booklet and on the website"""
+        return {
+            (config.dorms[dorm].rename_to or dorm): dorm_val.color
+            for dorm, dorm_val in config.dorms.items()
+            if ((config.dorms[dorm].rename_to or dorm) in self._api_response.dorms)
+        }
+
+    @computed_field
+    @property
+    def groups(self) -> dict[str, dict[str, Color]]:
+        """Colors for groups within dorms, used for display in the booklet and on the website"""
+        if self._api_response is None:
+            return {}
+
+        return {
+            (config.dorms[dorm].rename_to or dorm): {
+                group: group_val.color
+                for group, group_val in dorm_val.groups.items()
+                if group
+                in self._api_response.groups.get(
+                    (config.dorms[dorm].rename_to or dorm), []
+                )
+            }
+            for dorm, dorm_val in config.dorms.items()
+            if dorm_val.groups
+            and (config.dorms[dorm].rename_to or dorm) in self._api_response.dorms
+        }
+
+    @computed_field
+    @property
+    def tags(self) -> dict[str, Color]:
+        """Colors for tags, used for display in the booklet and on the website"""
+        if self._api_response is None:
+            return {}
+
+        return {
+            tag: tag_val.color
+            for tag, tag_val in config.tags.items()
+            if tag_val.color and tag in self._api_response.tags
+        }
 
 
 class APIResponse(APIModel):
     """API response for the REX system."""
 
-    name: str = Field(default_factory=lambda: config.name)
-    """Name of the REX season, e.g. 'REX 2025'"""
+    @cached_property
+    def _orientation_events(self) -> list[Event]:
+        """List of orientation events, used for display in the booklet and on the website"""
+        if config.orientation.file_name is None:
+            return []
+        else:
+            return process_events_csv(config.orientation.file_name)
 
-    published: AwareDatetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    """When the API was published, used for display in the booklet and on the website"""
+    @cached_property
+    def booklet_only_events(self) -> list[Event]:
+        return (
+            [
+                orientation_event
+                for orientation_event in self._orientation_events
+                if orientation_event.published
+            ]
+            if config.orientation.include_in_booklet
+            else []
+        )
 
-    events: list[Event] = []
-    """
-    List of events in the REX system, used for display in the booklet and on the website. 
-    Can be uniquely identified by the `Event.id` field.
-    """
+    @cached_property
+    def _event_files(self) -> set[Path]:
+        """Set of event files, used for processing events"""
+        return {
+            event_file
+            for event_file in Path.iterdir(Path("events"))
+            if event_file.name.endswith(".csv")
+            and event_file != config.orientation.file_name
+        }
 
-    dorms: UniqueList[Annotated[str, StringConstraints(strip_whitespace=True)]] = []
-    """All dorms in the REX system, used for display in the booklet and on the website."""
+    @cached_property
+    def _all_events(self) -> list[Event]:
+        """List of all events from all event files, used for processing events"""
+        return [
+            event
+            for event_file in self._event_files
+            for event in process_events_csv(event_file)
+        ]
 
-    groups: dict[
+    @computed_field
+    @property
+    def name(self) -> str:
+        """Name of the REX season, e.g. 'REX 2025'"""
+        return config.name
+
+    @computed_field
+    @property
+    def published(self) -> AwareDatetime:
+        """When the API was published, used for display in the booklet and on the website"""
+        return datetime.now(timezone.utc)
+
+    @computed_field
+    @cached_property
+    def events(self) -> list[Event]:
+        """
+        List of events in the REX system, used for display in the booklet and on the website.
+        Can be uniquely identified by the `Event.id` field.
+        """
+        return sorted(
+            # Get all events from other CSV files
+            # Order events by start time, then by end time.
+            (event for event in self._all_events if event.published),
+            key=attrgetter("start", "end"),
+        )
+
+    @computed_field
+    @cached_property
+    def dorms(
+        self,
+    ) -> UniqueList[Annotated[str, StringConstraints(strip_whitespace=True)]]:
+        """List of dorms in the REX system, used for display in the booklet and on the website"""
+        dorms_set = {dorm for event in self.events for dorm in event.dorm}
+        return sorted(dorms_set, key=str.lower)
+
+    @computed_field
+    @cached_property
+    def groups(
+        self,
+    ) -> dict[
         str, UniqueList[Annotated[str, StringConstraints(strip_whitespace=True)]]
-    ] = {}
-    """
-    A dictionary mapping dorms to their groups, used for display in the booklet and on the website.
-    """
+    ]:
+        """
+        Dictionary mapping dorms to their groups, used for display in the booklet and on the website.
+        """
+        groups_dict: dict[str, list[str]] = {}
+        for dorm in self.dorms:
+            groups_set = {
+                group
+                for event in self.events
+                if dorm in event.dorm and event.group
+                for group in event.group
+            }
+            if groups_set:
+                groups_dict[dorm] = sorted(groups_set, key=str.lower)
+        return groups_dict
 
-    tags: UniqueList[
+    @computed_field
+    @cached_property
+    def tags(
+        self,
+    ) -> UniqueList[
         Annotated[str, StringConstraints(strip_whitespace=True, to_lower=True)]
-    ] = []
-    """All tags in the REX system, used for display in the booklet and on the website."""
+    ]:
+        """List of tags in the REX system, used for display in the booklet and on the website"""
+        tags_set = {tag for event in self.events for tag in event.tags}
+        return sorted(tags_set, key=str.lower)
 
-    colors: ColorsAPIResponse = ColorsAPIResponse()
-    """Colors used in the REX system, used for display in the booklet and on the website."""
+    @computed_field
+    @property
+    def colors(self) -> ColorsAPIResponse:
+        """Colors used in the REX system, used for display in the booklet and on the website."""
+        colors_response = ColorsAPIResponse()
+        colors_response._api_response = self  # type: ignore
+        return colors_response
 
-    start: date = Field(default_factory=lambda: config.dates.start)
-    """Start date of REX, used for display in the booklet and on the website."""
+    @computed_field
+    @property
+    def start(self) -> date:
+        """Start date of REX, used for display in the booklet and on the website"""
+        return config.dates.start
 
-    end: date = Field(default_factory=lambda: config.dates.end)
-    """End date of REX, used for display in the booklet and on the website."""
+    @computed_field
+    @property
+    def end(self) -> date:
+        """End date of REX, used for display in the booklet and on the website"""
+        return config.dates.end
+
+    def get_invalid_events(self) -> dict[str, tuple[list[str], list[str]]]:
+        """
+        Get list of error messages for invalid events.
+
+        Formatted as a dict, with dorms as the key and
+        a tuple of the contact emails and list of events as the value.
+
+        Returns:
+            dict[str, tuple[list[str], list[str]]]: A dictionary with dorms as the key
+            and a tuple of the contact emails and list of events as the value.
+        """
+
+        event_errors: dict[str, tuple[list[str], list[str]]] = {}
+
+        api_events = self._all_events
+        extra_events = self._orientation_events
+
+        # Check for conflicts with mandatory events and invalid events
+        combined_events = api_events + extra_events
+        mandatory_events = [
+            event_to_check
+            for event_to_check in combined_events
+            if config.orientation.mandatory_tag in event_to_check.tags
+        ]
+
+        def create_error_dorm_entry(dorms: list[str], error_string: str) -> None:
+            dorms_list = frozenset(config.get_main_dorm(dorm) for dorm in dorms)
+            error_key = get_dorm_group(dorms_list)
+
+            if event_errors.get(error_key) is None:
+                contact_emails = list[str]()
+
+                for check_dorm in dorms_list:
+                    if check_dorm in config.dorms:
+                        contact_emails.append(config.dorms[check_dorm].contact)
+                    else:
+                        # If the dorm is not in the config, find if it was renamed
+                        for dorm_name, dormconfig in config.dorms.items():
+                            if check_dorm in (dormconfig.rename_to, dorm_name):
+                                contact_emails.append(dormconfig.contact)
+                                break
+
+                event_errors[error_key] = (
+                    contact_emails,
+                    [],
+                )
+
+            event_errors[error_key][1].append(error_string)
+
+        for event in api_events:
+            if event.end < event.start:
+                event_date = (
+                    " on "
+                    + event.get_date_bucket(config.dates.hour_cutoff).strftime("%x")
+                    if event_with_same_name_exists(event, api_events)
+                    else ""
+                )
+                create_error_dorm_entry(
+                    event.dorm,
+                    f"{event.name} ({event.id}) {event_date} has an end time before its start time.",
+                )
+                continue
+
+            for mandatory_event in mandatory_events:
+                if check_if_events_conflict(
+                    event.start, event.end, mandatory_event.start, mandatory_event.end
+                ):
+                    event_date = " on " + event.get_date_bucket(
+                        config.dates.hour_cutoff
+                    ).strftime("%x")
+                    create_error_dorm_entry(
+                        event.dorm,
+                        f"{event.name} ({event.id}) conflicts with "
+                        f"{mandatory_event.name} ({mandatory_event.id}){event_date}.",
+                    )
+                    continue
+
+        for dorm_to_check in config.dorms:
+            dorm_config = config.dorms[dorm_to_check]
+            if dorm_config.rename_to:
+                # If the dorm has a rename_to, check if it exists in the event_errors dict
+                if event_errors.get(dorm_config.rename_to) is not None:
+                    # If it does, move the errors to the original name
+                    event_errors[dorm_to_check] = event_errors.pop(
+                        dorm_config.rename_to
+                    )
+
+        return event_errors
 
 
 def get_api_schema():

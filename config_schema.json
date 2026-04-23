@@ -1,20 +1,5 @@
 {
   "$defs": {
-    "CSVConfig": {
-      "description": "Configuration for parsing CSV files.",
-      "properties": {
-        "date_format": {
-          "description": "String format used for parsing dates in the CSV, see [strftime.net](https://strftime.net/)",
-          "title": "Date Format",
-          "type": "string"
-        }
-      },
-      "required": [
-        "date_format"
-      ],
-      "title": "CSVConfig",
-      "type": "object"
-    },
     "DatesConfig": {
       "description": "Start and end dates of REX, in YYYY-MM-DD",
       "properties": {
@@ -236,10 +221,6 @@
       "$ref": "#/$defs/OrientationConfig",
       "description": "Orientation configuration"
     },
-    "csv": {
-      "$ref": "#/$defs/CSVConfig",
-      "description": "Configuration for parsing CSV files"
-    },
     "dates": {
       "$ref": "#/$defs/DatesConfig",
       "description": "REX date configuration"
@@ -264,7 +245,6 @@
   "required": [
     "name",
     "orientation",
-    "csv",
     "dates",
     "dorms",
     "tags"
