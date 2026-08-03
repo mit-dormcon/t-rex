@@ -13,7 +13,7 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "Jinja2 >=3.1.6",
-    "markdown >=3.10.2",
+    "markdown>=3.10.3",
     "tzdata>=2026.3",
     "pydantic>=2.13.4",
     "pydantic-extra-types >=2.11.0",
