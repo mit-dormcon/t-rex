@@ -802,7 +802,7 @@ def get_api_schema():
                 "description": "Documentation on DormCon site",
                 "url": "https://dormcon.mit.edu/rex/api",
             },
-            "jsonSchemaDialect": "https://spec.openapis.org/oas/3.1/dialect/base",
+            "jsonSchemaDialect": "https://spec.openapis.org/oas/3.1/dialect/2024-11-10",
             "paths": {
                 "/api.json": {
                     "get": {
