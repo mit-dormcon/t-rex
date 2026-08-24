@@ -12,7 +12,7 @@ from pathlib import Path
 
 import yaml
 
-from api_types import APIResponse, Config, get_api_schema
+from api_types import APIResponse, config, get_api_schema
 from booklet import generate_booklet, generate_errors, generate_index
 
 
@@ -23,7 +23,6 @@ def main() -> None:
     for the booklet, index, and errors. Also generates an OpenAPI schema for the API response.
     """
     api_response = APIResponse()
-    config = Config()  # type: ignore
 
     api_schema = get_api_schema().model_dump(
         mode="json", by_alias=True, exclude_none=True

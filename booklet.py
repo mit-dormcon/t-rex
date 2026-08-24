@@ -71,7 +71,7 @@ def generate_booklet(api: APIResponse, config: Config) -> str:
     start_date = api.start
     end_date = api.end
 
-    all_events = [e.model_copy() for e in api.events + api.booklet_only_events]
+    all_events = api.events + api.booklet_only_events
     all_dates = {e.get_date_bucket(config.dates.hour_cutoff) for e in all_events}
 
     dates = {

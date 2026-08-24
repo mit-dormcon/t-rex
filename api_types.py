@@ -112,7 +112,7 @@ class DatesConfig(ParentModel):
     end: date
     """Date of FYRE"""
 
-    hour_cutoff: Annotated[int, Field(ge="0", lt="24")]
+    hour_cutoff: Annotated[int, Field(ge=0, lt=24)]
     """
     Events that start before this hour will be considered as starting the day before in the booklet
     """
@@ -190,6 +190,36 @@ class Config(BaseSettings):
     tags: dict[str, TagsConfig]
     """Tags configuration"""
 
+    @cached_property
+    def all_groups(self) -> frozenset[str]:
+        """All valid group names across all dorms"""
+        return frozenset(
+            group
+            for dorm in self.dorms.values()
+            if dorm.groups
+            for group in dorm.groups
+        )
+
+    @cached_property
+    def group_rename_map(self) -> dict[str, str]:
+        """Group rename_from to actual key"""
+        return {
+            group_val.rename_from: group_key
+            for dorm in self.dorms.values()
+            if dorm.groups
+            for group_key, group_val in dorm.groups.items()
+            if group_val.rename_from is not None
+        }
+
+    @cached_property
+    def tag_rename_map(self) -> dict[str, str]:
+        """Tag rename_from to actual key"""
+        return {
+            tag_val.rename_from.lower(): tag_key
+            for tag_key, tag_val in self.tags.items()
+            if tag_val.rename_from is not None
+        }
+
     def get_main_dorm(self, dorm_main: str) -> str:
         """
         Get the main dorm name, considering renames in the configuration.
@@ -253,20 +283,20 @@ class Event(APIModel):
 
     name: Annotated[
         str,
-        StringConstraints(max_length=100, strip_whitespace=True),
+        StringConstraints(min_length=1, max_length=100, strip_whitespace=True),
         Field(validation_alias="Event Name"),
     ]
     """Event name"""
 
     dorm: Annotated[
         UniqueList[Annotated[str, StringConstraints(strip_whitespace=True)]],
-        Field(validation_alias="Dorm"),
+        Field(validation_alias="Dorm", min_length=1),
     ]
     """Dorms hosting the event. While typically a single dorm, this can also be multiple dorms."""
 
     location: Annotated[
         str,
-        StringConstraints(max_length=50, strip_whitespace=True),
+        StringConstraints(min_length=1, max_length=50, strip_whitespace=True),
         Field(validation_alias="Event Location"),
     ]
     """Location of the event"""
@@ -279,7 +309,7 @@ class Event(APIModel):
 
     description: Annotated[
         str,
-        StringConstraints(max_length=280, strip_whitespace=True),
+        StringConstraints(min_length=1, max_length=280, strip_whitespace=True),
         Field(validation_alias="Event Description"),
     ]
     """Event description, displayed in the booklet"""
@@ -434,42 +464,15 @@ class Event(APIModel):
         if v is None:
             return v
 
-        all_groups = [
-            group
-            for dorm in config.dorms.values()
-            if dorm.groups
-            for group in dorm.groups.keys()
-        ]
-        rename_from_groups = [
-            group.rename_from
-            for dorm in config.dorms.values()
-            if dorm.groups
-            for group in dorm.groups.values()
-            if group.rename_from is not None
-        ]
-
-        for dorm in config.dorms.values():
-            if dorm.groups:
-                all_groups.extend(dorm.groups.keys())
+        all_groups = config.all_groups
+        group_rename_map = config.group_rename_map
 
         for group in v:
             if group in all_groups:
                 pass
-            elif group in rename_from_groups:
-                # Find the group that matches rename_from
-                matching_group = next(
-                    (
-                        group_key
-                        for _, dorm_values in config.dorms.items()
-                        if dorm_values.groups is not None
-                        for group_key, group_val in dorm_values.groups.items()
-                        if group_val.rename_from is not None
-                        and group_val.rename_from == group
-                    )
-                )
-
+            elif group in group_rename_map:
                 v.remove(group)
-                v.append(matching_group)
+                v.append(group_rename_map[group])
             else:
                 pass
 
@@ -489,25 +492,14 @@ class Event(APIModel):
             UniqueList[str]: The validated value, a list of tags with renamed tags.
         """
 
+        tag_rename_map = config.tag_rename_map
+
         for tag in v:
             if tag in config.tags:
                 pass
-            elif tag in map(
-                lambda t: t.rename_from.lower() if t.rename_from else "",
-                config.tags.values(),
-            ):
-                # Find the tag that matches rename_from
-                matching_tag = next(
-                    (
-                        tag_key
-                        for tag_key, tag_val in config.tags.items()
-                        if tag_val.rename_from is not None
-                        and tag_val.rename_from.lower() == tag
-                    )
-                )
-
+            elif tag in tag_rename_map:
                 v.remove(tag)
-                v.append(matching_tag)
+                v.append(tag_rename_map[tag])
             else:
                 pass
 
@@ -541,11 +533,13 @@ class ColorsAPIResponse(APIModel):
         if self._api_response is None:
             return {}
 
-        return {
-            (config.dorms[dorm].rename_to or dorm): dorm_val.color
-            for dorm, dorm_val in config.dorms.items()
-            if ((config.dorms[dorm].rename_to or dorm) in self._api_response.dorms)
-        }
+        api_dorms = self._api_response.dorms
+        result: dict[str, Color] = {}
+        for dorm, dorm_val in config.dorms.items():
+            renamed = dorm_val.rename_to or dorm
+            if renamed in api_dorms:
+                result[renamed] = dorm_val.color
+        return result
 
     @computed_field
     @property
@@ -554,19 +548,22 @@ class ColorsAPIResponse(APIModel):
         if self._api_response is None:
             return {}
 
-        return {
-            (config.dorms[dorm].rename_to or dorm): {
+        api_dorms = self._api_response.dorms
+        api_groups = self._api_response.groups
+        result: dict[str, dict[str, Color]] = {}
+        for dorm, dorm_val in config.dorms.items():
+            if not dorm_val.groups:
+                continue
+            renamed = dorm_val.rename_to or dorm
+            if renamed not in api_dorms:
+                continue
+            allowed_groups = api_groups.get(renamed, [])
+            result[renamed] = {
                 group: group_val.color
                 for group, group_val in dorm_val.groups.items()
-                if group
-                in self._api_response.groups.get(
-                    (config.dorms[dorm].rename_to or dorm), []
-                )
+                if group in allowed_groups
             }
-            for dorm, dorm_val in config.dorms.items()
-            if dorm_val.groups
-            and (config.dorms[dorm].rename_to or dorm) in self._api_response.dorms
-        }
+        return result
 
     @computed_field
     @property

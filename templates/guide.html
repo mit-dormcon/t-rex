@@ -29,22 +29,14 @@
           free to drop by one of the events below!
           {% for day in dates.before %}
             <span class="day-title">{{ day.strftime("%A %D") }}</span>
-            {% for key, events in by_dates.items() %}
-              {% if key == day %}
-                {% for event in events %}{{ event_box(event) }}{% endfor %}
-              {% endif %}
-            {% endfor %}
+            {% for event in by_dates[day] %}{{ event_box(event) }}{% endfor %}
           {% endfor %}
         </div>
       {% endif %}
       {% for day in dates.rex %}
         <div class="page">
           <span class="day-title">{{ day.strftime("%A %D") }}</span>
-          {% for key, events in by_dates.items() %}
-            {% if key == day %}
-              {% for event in events %}{{ event_box(event) }}{% endfor %}
-            {% endif %}
-          {% endfor %}
+          {% for event in by_dates[day] %}{{ event_box(event) }}{% endfor %}
         </div>
       {% endfor %}
       {% if dates.after %}
@@ -54,11 +46,7 @@
           room first, but then stop by any of these events for more fun times!
           {% for day in dates.after %}
             <span class="day-title">{{ day.strftime("%A %D") }}</span>
-            {% for key, events in by_dates.items() %}
-              {% if key == day %}
-                {% for event in events %}{{ event_box(event) }}{% endfor %}
-              {% endif %}
-            {% endfor %}
+            {% for event in by_dates[day] %}{{ event_box(event) }}{% endfor %}
           {% endfor %}
         </div>
       {% endif %}

@@ -17,8 +17,8 @@
         },
         "hour_cutoff": {
           "description": "Events that start before this hour will be considered as starting the day before in the booklet",
-          "exclusiveMaximum": "24",
-          "minimum": "0",
+          "exclusiveMaximum": 24,
+          "minimum": 0,
           "title": "Hour Cutoff",
           "type": "integer"
         }
