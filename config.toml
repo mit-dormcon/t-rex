@@ -142,13 +142,13 @@ include_on_cover = false
 [dorms."New House".groups]
 "Chocolate City" = { color = "#ffed2e" }
 "Desmond" = { color = "#2617d3" }
+"French House" = { color = "#3357cc", rename_from = "La Maison Française" }
 "German House" = { color = "#ff0000" }
 "House 3" = { color = "#1F618D" }
 "House 4" = { color = "#6d1fca" }
 "iHouse" = { color = "#238db1" }
 "Juniper" = { color = "#32c13c" }
-"La Casa" = { color = "#e10909" }
-"La Maison Française" = { color = "#3357cc" }
+"La Casa" = { color = "#e10909", rename_from = "Spanish House" }
 
 # based on next residents saying colors...
 [dorms."Next House".groups]
@@ -157,8 +157,12 @@ include_on_cover = false
 "3W" = { color = "mediumpurple" }
 "4E" = { color = "darkcyan" }
 "5E" = { color = "darkseagreen" }
+# "5W" = { color = ""}
 "Next Act" = { color = "#9C1712" }
+# "Next Bake" = { color = "" }
+# "Next Big Thing" = { color = "" }
 "Next CS" = { color = "#de9b35" }
+# "Next Film" = { color = "" }
 "Next Haunt" = { color = "#c2ebff" }
 "Next Salon" = { color = "thistle" }
 "Next Sing" = { color = "#007bff" }

@@ -304,8 +304,8 @@ class Event(APIModel):
     id: Annotated[
         str,
         StringConstraints(
-            # min_length=4,
-            # max_length=4,
+            min_length=4,
+            max_length=4,
             strip_whitespace=True,
             to_lower=True,
         ),
