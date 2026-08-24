@@ -16,7 +16,7 @@ import markdown
 
 from api_types import APIResponse, Config, Event
 
-env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"))
+env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"), autoescape=True)
 eastern = ZoneInfo("America/New_York")
 
 

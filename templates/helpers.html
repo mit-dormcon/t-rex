@@ -14,7 +14,7 @@
     {% if event.location %}<span class="location">({{ event.location }})</span>{% endif %}
     ·
     <span class="description">
-      {{ event.description|replace('\n', '<br />') }}
+      {{ event.description|replace('\n', '<br />'|safe) }}
     </span>
   </div>
 {% endmacro %}

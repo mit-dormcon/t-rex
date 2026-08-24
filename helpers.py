@@ -8,7 +8,7 @@ from functools import cache
 from typing import TYPE_CHECKING, Annotated, TypeVar
 from zoneinfo import ZoneInfo
 
-from pydantic import AfterValidator, Field, ValidationError
+from pydantic import AfterValidator, Field
 
 if TYPE_CHECKING:
     from datetime import datetime
@@ -26,7 +26,7 @@ H = TypeVar("H", bound=Hashable)
 
 def _validate_unique_list(v: list[H]) -> list[H]:
     if len(v) != len({*v}):
-        raise ValidationError("List must be unique")
+        raise ValueError("List must be unique")
     return v
 
 
@@ -109,7 +109,7 @@ def validate_unique_events(events: Sequence["Event"]) -> list["Event"]:
         list[Event]: The validated list of unique events.
     """
     if len(events) != len({event.id for event in events}):
-        raise ValidationError("Events must be unique by ID")
+        raise ValueError("Events must be unique by ID")
     return list(events)
 
 

@@ -191,16 +191,6 @@ class Config(BaseSettings):
     """Tags configuration"""
 
     @cached_property
-    def all_groups(self) -> frozenset[str]:
-        """All valid group names across all dorms"""
-        return frozenset(
-            group
-            for dorm in self.dorms.values()
-            if dorm.groups
-            for group in dorm.groups
-        )
-
-    @cached_property
     def group_rename_map(self) -> dict[str, str]:
         """Group rename_from to actual key"""
         return {
@@ -464,19 +454,8 @@ class Event(APIModel):
         if v is None:
             return v
 
-        all_groups = config.all_groups
         group_rename_map = config.group_rename_map
-
-        for group in v:
-            if group in all_groups:
-                pass
-            elif group in group_rename_map:
-                v.remove(group)
-                v.append(group_rename_map[group])
-            else:
-                pass
-
-        return v
+        return [group_rename_map.get(group, group) for group in v]
 
     @field_validator("tags", mode="after")
     @classmethod
@@ -493,17 +472,7 @@ class Event(APIModel):
         """
 
         tag_rename_map = config.tag_rename_map
-
-        for tag in v:
-            if tag in config.tags:
-                pass
-            elif tag in tag_rename_map:
-                v.remove(tag)
-                v.append(tag_rename_map[tag])
-            else:
-                pass
-
-        return v
+        return [tag_rename_map.get(tag, tag) for tag in v]
 
 
 def process_events_csv(filename: Path, encoding: str = "utf-8") -> list[Event]:
@@ -666,17 +635,18 @@ class APIResponse(APIModel):
         """
         Dictionary mapping dorms to their groups, used for display in the booklet and on the website.
         """
-        groups_dict: dict[str, list[str]] = {}
-        for dorm in self.dorms:
-            groups_set = {
-                group
-                for event in self.events
-                if dorm in event.dorm and event.group
-                for group in event.group
-            }
-            if groups_set:
-                groups_dict[dorm] = sorted(groups_set, key=str.lower)
-        return groups_dict
+        raw_groups: dict[str, set[str]] = {}
+        for event in self.events:
+            if not event.group:
+                continue
+            for dorm in event.dorm:
+                raw_groups.setdefault(dorm, set()).update(event.group)
+
+        return {
+            dorm: sorted(raw_groups[dorm], key=str.lower)
+            for dorm in self.dorms
+            if dorm in raw_groups
+        }
 
     @computed_field
     @cached_property
