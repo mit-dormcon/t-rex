@@ -279,10 +279,7 @@ class Event(APIModel):
 
     description: Annotated[
         str,
-        StringConstraints(
-            # max_length=280,
-            strip_whitespace=True
-        ),
+        StringConstraints(max_length=280, strip_whitespace=True),
         Field(validation_alias="Event Description"),
     ]
     """Event description, displayed in the booklet"""
