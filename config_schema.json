@@ -150,6 +150,7 @@
         },
         "mandatory_tag": {
           "description": "Tag used to mark mandatory (blackout) events, used for validation and display.",
+          "minLength": 1,
           "title": "Mandatory Tag",
           "type": "string"
         },
@@ -214,6 +215,7 @@
   "properties": {
     "name": {
       "description": "Name of the REX season, e.g. 'REX 2025'",
+      "minLength": 1,
       "title": "Name",
       "type": "string"
     },

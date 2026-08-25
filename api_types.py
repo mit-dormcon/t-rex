@@ -61,7 +61,7 @@ class OrientationConfig(ParentModel):
 
     mandatory_tag: Annotated[
         str,
-        StringConstraints(strip_whitespace=True, to_lower=True),
+        StringConstraints(min_length=1, strip_whitespace=True, to_lower=True),
     ]
     """Tag used to mark mandatory (blackout) events, used for validation and display."""
 
@@ -175,7 +175,7 @@ class Config(BaseSettings):
         use_attribute_docstrings=True, toml_file="config.toml"
     )
 
-    name: str
+    name: Annotated[str, StringConstraints(min_length=1)]
     """Name of the REX season, e.g. 'REX 2025'"""
 
     orientation: OrientationConfig
@@ -279,7 +279,9 @@ class Event(APIModel):
     """Event name"""
 
     dorm: Annotated[
-        UniqueList[Annotated[str, StringConstraints(strip_whitespace=True)]],
+        UniqueList[
+            Annotated[str, StringConstraints(min_length=1, strip_whitespace=True)]
+        ],
         Field(validation_alias="Dorm", min_length=1),
     ]
     """Dorms hosting the event. While typically a single dorm, this can also be multiple dorms."""
@@ -306,14 +308,19 @@ class Event(APIModel):
 
     tags: Annotated[
         UniqueList[
-            Annotated[str, StringConstraints(strip_whitespace=True, to_lower=True)]
+            Annotated[
+                str,
+                StringConstraints(min_length=1, strip_whitespace=True, to_lower=True),
+            ]
         ],
         Field(validation_alias="Tags"),
     ]
     """Tags associated with the event, used for filtering and display"""
 
     group: Annotated[
-        UniqueList[Annotated[str, StringConstraints(strip_whitespace=True)]],
+        UniqueList[
+            Annotated[str, StringConstraints(min_length=1, strip_whitespace=True)]
+        ],
         Field(validation_alias="Group", exclude_if=lambda v: len(v) < 1),
     ]
     """Subcommunities running/hosting the event"""
@@ -325,10 +332,11 @@ class Event(APIModel):
             max_length=4,
             strip_whitespace=True,
             to_lower=True,
+            pattern=r"^[A-Za-z]{2}[0-9]{2}$",
         ),
         Field(validation_alias="ID"),
     ]
-    """4-Digit Event Code, used for linking, bookmarking, and making event revisions."""
+    """4-character event code, used for linking, bookmarking, and making event revisions."""
 
     published: Annotated[bool, Field(validation_alias="Published", exclude=True)] = (
         False
