@@ -61,7 +61,7 @@ color = "#cc4331"
 rename_to = "Burton Conner"
 
 [dorms."East Campus"]
-contact = "ec-rex-chairs-25@mit.edu"
+contact = "ec-rex-chairs-26@mit.edu"
 color = "#aa0000"
 
 [dorms."MacGregor House"]
@@ -85,7 +85,7 @@ contact = "nv-rex-chair@mit.edu"
 color = "#A62B0C"
 
 [dorms."Next House"]
-contact = "next-rex-comm@mit.edu"
+contact = "next-rex-chairs@mit.edu"
 color = "#34495e"
 
 [dorms."Random Hall"]
@@ -97,7 +97,7 @@ contact = "simmons-frosh-chairs@mit.edu"
 color = "#25aae1"
 
 [dorms."DormCon"]
-contact = "dormcon-rexvp@mit.edu"
+contact = "dormcon-rex-chairs@mit.edu"
 color = "#4a8faf"
 rename_to = "Campus Wide!"
 include_on_cover = false
