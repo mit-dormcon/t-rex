@@ -11,9 +11,9 @@ from zoneinfo import ZoneInfo
 from pydantic import AfterValidator, Field
 
 if TYPE_CHECKING:
+    from collections.abc import Callable, Iterable, Sequence
     from datetime import datetime
     from pathlib import Path
-    from typing import Callable, Iterable, Sequence
 
     from pydantic import BaseModel
 
@@ -24,7 +24,7 @@ TIMEZONE = ZoneInfo("America/New_York")
 H = TypeVar("H", bound=Hashable)
 
 
-def _validate_unique_list(v: list[H]) -> list[H]:
+def _validate_unique_list[H: Hashable](v: list[H]) -> list[H]:
     if len(v) != len({*v}):
         raise ValueError("List must be unique")
     return v
@@ -79,7 +79,7 @@ def get_dorm_group(dorms: Iterable[str]) -> str:
     return ", ".join(dorms)
 
 
-def event_with_same_name_exists(event: "Event", events: Iterable["Event"]) -> bool:
+def event_with_same_name_exists(event: Event, events: Iterable[Event]) -> bool:
     """
     Checks if an event with the same name exists in the list of events.
 
@@ -96,7 +96,7 @@ def event_with_same_name_exists(event: "Event", events: Iterable["Event"]) -> bo
     return False
 
 
-def validate_unique_events(events: Sequence["Event"]) -> list["Event"]:
+def validate_unique_events(events: Sequence[Event]) -> list[Event]:
     """
     Validates that the events are unique by their ID.
     Args:

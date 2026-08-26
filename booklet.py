@@ -8,7 +8,6 @@ It also includes functions to format event dates and handle errors.
 
 from datetime import datetime
 from operator import attrgetter
-from typing import Optional
 from zoneinfo import ZoneInfo
 
 import jinja2
@@ -20,7 +19,7 @@ env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates"), autoescape
 eastern = ZoneInfo("America/New_York")
 
 
-def event_dt_format(start: datetime, end: datetime, groups: Optional[list[str]] = None):
+def event_dt_format(start: datetime, end: datetime, groups: list[str] | None = None):
     """
     Formats the time string that gets displayed on the booklet
     """
@@ -91,8 +90,8 @@ def generate_booklet(api: APIResponse, config: Config) -> str:
             by_dates[event.get_date_bucket(config.dates.hour_cutoff)].append(event)
 
     # Order inside buckets by start, then end.
-    for by_date in by_dates:
-        by_dates[by_date].sort(key=attrgetter("start", "end"))
+    for event_bucket in by_dates.values():
+        event_bucket.sort(key=attrgetter("start", "end"))
 
     tours.sort(key=attrgetter("start", "end"))
 

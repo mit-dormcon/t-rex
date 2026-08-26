@@ -16,7 +16,7 @@ dependencies = [
     "markdown>=3.10.3",
     "tzdata>=2026.3",
     "pydantic>=2.13.4",
-    "pydantic-extra-types >=2.11.0",
+    "pydantic-extra-types >=2.11.1",
     "openapi-pydantic >=0.5.1",
     "email-validator >=2.3.0",
     "PyYaml >=6.0.3",
@@ -25,15 +25,16 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "ruff>=0.16.3",
+    "ruff>=0.16.4",
     "djlint>=1.44.2",
-    "types-markdown>=3.10.2.20260712",
+    "types-markdown>=3.10.2",
     "types-PyYAML >=6.0.12",
 ]
 
 [tool.djlint]
 profile = "jinja"
 use_gitignore = true
+files = ["templates"]
 
 [tool.ruff]
 target-version = "py314"

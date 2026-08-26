@@ -4,11 +4,11 @@ All types used in the REX API are stored here.
 
 import json
 import tomllib
-from datetime import date, datetime, timedelta, timezone
+from datetime import UTC, date, datetime, timedelta
 from functools import cached_property
 from operator import attrgetter
 from pathlib import Path
-from typing import Annotated, Any, Optional
+from typing import Annotated, Any
 
 from openapi_pydantic import OpenAPI
 from openapi_pydantic.util import PydanticSchema, construct_open_api_with_schema_class
@@ -56,7 +56,7 @@ class OrientationConfig(ParentModel):
     Configuration for orientation events.
     """
 
-    file_name: Optional[FilePath] = None
+    file_name: FilePath | None = None
     """CSV file containing orientation events."""
 
     mandatory_tag: Annotated[
@@ -126,7 +126,7 @@ class GroupConfig(ParentModel):
     color: Color
     """A representative color, usually based on the primary color on their website."""
 
-    rename_from: Optional[str] = None
+    rename_from: str | None = None
     """
     If a group with rename_from is found, it will be renamed 
     to this group in the booklet and on the website.
@@ -141,10 +141,10 @@ class DormsConfig(GroupConfig):
     contact: EmailStr
     """REX chair contact emails, available at https://groups.mit.edu/webmoira/list/dorms-rex"""
 
-    rename_to: Optional[str] = None
+    rename_to: str | None = None
     """If the dorm is renamed, this is the new name to use in the booklet and on the website"""
 
-    groups: Optional[dict[str, GroupConfig]] = None
+    groups: dict[str, GroupConfig] | None = None
     """Subcommunities within the dorm, e.g. 'B3rd' in Burton Conner or 'La Casa' in New House"""
 
     include_on_cover: bool = True
@@ -159,10 +159,10 @@ class TagsConfig(ParentModel):
     color: Color
     """Hex color code for the tag, used on the website"""
 
-    emoji: Optional[str] = None
+    emoji: str | None = None
     """Optional emoji to display next to the tag name in the booklet"""
 
-    rename_from: Optional[str] = None
+    rename_from: str | None = None
     """Tags that match rename_from will be renamed to this tag in the booklet and on the website"""
 
 
@@ -426,7 +426,7 @@ class Event(APIModel):
                 date_val = datetime.fromisoformat(error_input).replace(tzinfo=TIMEZONE)
                 return handler(date_val)
             else:
-                raise err
+                raise
 
     @field_validator("tags", "group", mode="before")
     @classmethod
@@ -447,7 +447,7 @@ class Event(APIModel):
 
     @field_validator("group", mode="after")
     @classmethod
-    def rename_groups(cls, v: Optional[UniqueList[str]]) -> Optional[UniqueList[str]]:
+    def rename_groups(cls, v: UniqueList[str] | None) -> UniqueList[str] | None:
         """
         Renames groups based on the configuration. If a group matches `rename_from`,
         it will be renamed to the corresponding group.
@@ -608,7 +608,7 @@ class APIResponse(APIModel):
     @property
     def published(self) -> AwareDatetime:
         """When the API was published, used for display in the booklet and on the website"""
-        return datetime.now(timezone.utc)
+        return datetime.now(UTC)
 
     @computed_field
     @cached_property
@@ -766,13 +766,13 @@ class APIResponse(APIModel):
 
         for dorm_to_check in config.dorms:
             dorm_config = config.dorms[dorm_to_check]
-            if dorm_config.rename_to:
-                # If the dorm has a rename_to, check if it exists in the event_errors dict
-                if event_errors.get(dorm_config.rename_to) is not None:
-                    # If it does, move the errors to the original name
-                    event_errors[dorm_to_check] = event_errors.pop(
-                        dorm_config.rename_to
-                    )
+            # If the dorm has a rename_to, check if it exists in the event_errors dict
+            if (
+                dorm_config.rename_to
+                and event_errors.get(dorm_config.rename_to) is not None
+            ):
+                # If it does, move the errors to the original name
+                event_errors[dorm_to_check] = event_errors.pop(dorm_config.rename_to)
 
         return event_errors
 
