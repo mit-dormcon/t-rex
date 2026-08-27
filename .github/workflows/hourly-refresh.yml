@@ -66,7 +66,7 @@ jobs:
         run: uv run main.py
 
       - name: Restore previous api.json
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: previous-api.json
           key: hourly-refresh-api-json-${{ github.run_id }}
@@ -95,7 +95,7 @@ jobs:
         run: cp output/api.json previous-api.json
 
       - name: Update cache
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: previous-api.json
           key: hourly-refresh-api-json-${{ github.run_id }}
