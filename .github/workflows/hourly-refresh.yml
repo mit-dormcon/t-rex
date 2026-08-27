@@ -1,0 +1,122 @@
+name: Hourly Event Refresh
+
+# if getting event data from a link, check every hour. if any of it
+# has changed, rebuild and deploy the updated event data. if not,
+# this just skips and doesn't do anything.
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: hourly-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  check-link-sources:
+    runs-on: ubuntu-latest
+    outputs:
+      has_link: ${{ steps.check.outputs.has_link }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Check for link-based event sources
+        id: check
+        run: |
+          HAS_LINK=$(python3 -c "
+          import tomllib
+          with open('config.toml', 'rb') as f:
+              data = tomllib.load(f)
+          has_link = bool(data.get('orientation', {}).get('link')) or any(
+              e.get('link') for e in data.get('events', [])
+          )
+          print(str(has_link).lower())
+          ")
+          echo "has_link=$HAS_LINK" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: check-link-sources
+    if: needs.check-link-sources.outputs.has_link == 'true'
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.diff.outputs.changed }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Python
+        uses: actions/setup-python@v7
+        with:
+          python-version-file: "pyproject.toml"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+
+      - name: Setup packages
+        run: uv sync --locked --all-extras --dev
+
+      - name: Process Data
+        run: uv run main.py
+
+      - name: Restore previous api.json
+        uses: actions/cache/restore@v4
+        with:
+          path: previous-api.json
+          key: hourly-refresh-api-json-${{ github.run_id }}
+          restore-keys: |
+            hourly-refresh-api-json-
+
+      - name: Compare against previous build
+        id: diff
+        run: |
+          if [ -f previous-api.json ]; then
+            jq 'del(.published)' previous-api.json > previous-stripped.json
+            jq 'del(.published)' output/api.json > new-stripped.json
+            if diff -q previous-stripped.json new-stripped.json > /dev/null; then
+              echo "No meaningful change in api.json (ignoring the published timestamp)."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+            else
+              echo "api.json content changed."
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "No previous build to compare against; treating as changed."
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Save api.json for next run's comparison
+        run: cp output/api.json previous-api.json
+
+      - name: Update cache
+        uses: actions/cache/save@v4
+        with:
+          path: previous-api.json
+          key: hourly-refresh-api-json-${{ github.run_id }}
+
+      - name: Upload result
+        if: steps.diff.outputs.changed == 'true'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: output
+
+  deploy:
+    needs: build
+    if: success() && github.ref_name == 'main' && needs.build.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
