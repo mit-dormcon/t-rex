@@ -1,15 +1,20 @@
 #:schema ./config_schema.json
 name = "REX 2026"
 
-[orientation]
-mandatory_tag = "mandatory"
-file_name = "events/orientation.csv"
-include_in_booklet = true
-
 [dates]
 start = "2026-08-29"
 end = "2026-09-02"
 hour_cutoff = 4
+
+# EVENTS
+
+[orientation]
+mandatory_tag = "mandatory"
+# file_name = "events/orientation.csv"
+include_in_booklet = true
+
+[[events]]
+link = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTXEPVV2pZ1mLaBmrY4zsWzhaJPIV9E-uxb0Y8QKoF15O3oXkgi1eK4UP3bGIu2evyK4HvBS4o-E6Lg/pub?gid=799640117&single=true&output=csv"
 
 # TAGS
 
