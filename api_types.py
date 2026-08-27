@@ -19,12 +19,14 @@ from pydantic import (
     EmailStr,
     Field,
     FilePath,
+    HttpUrl,
     PrivateAttr,
     StringConstraints,
     ValidationError,
     ValidatorFunctionWrapHandler,
     computed_field,
     field_validator,
+    model_validator,
 )
 from pydantic_extra_types import Color
 from pydantic_settings import (
@@ -40,7 +42,8 @@ from helpers import (
     check_if_events_conflict,
     event_with_same_name_exists,
     get_dorm_group,
-    process_csv,
+    process_csv_content,
+    read_csv_content,
     validate_unique_events,
 )
 
@@ -51,28 +54,25 @@ class ParentModel(BaseModel):
     model_config = ConfigDict(use_attribute_docstrings=True)
 
 
-class OrientationConfig(ParentModel):
+class EventSource(ParentModel):
     """
-    Configuration for orientation events.
+    A source of event data: either a local CSV file or a link to fetch CSV data from.
     """
 
     file_name: FilePath | None = None
-    """CSV file containing orientation events."""
+    """Path to a local CSV file containing events, must be within the events/ directory."""
 
-    mandatory_tag: Annotated[
-        str,
-        StringConstraints(min_length=1, strip_whitespace=True, to_lower=True),
-    ]
-    """Tag used to mark mandatory (blackout) events, used for validation and display."""
+    link: HttpUrl | None = None
+    """URL to fetch event CSV data from, e.g. a published Google Sheets CSV export link."""
 
-    include_in_booklet: bool
-    """Whether to include orientation events in the booklet."""
+    encoding: str = "utf-8"
+    """Encoding to use when reading the CSV data, defaults to 'utf-8'."""
 
     @field_validator("file_name", mode="before")
     @classmethod
     def validate_file_name(cls, v: object) -> object:
         """
-        Validate the file name for orientation events.
+        Validate the file name for an event source.
 
         Args:
             v (object): The file name to validate.
@@ -89,16 +89,47 @@ class OrientationConfig(ParentModel):
             if not v:
                 return None
             if not v.startswith("events/"):
-                raise ValueError("Orientation file must be in the 'events' directory.")
+                raise ValueError("Event source file must be in the 'events' directory.")
             return v
         if isinstance(v, Path):
             if not v.is_absolute():
                 v = Path("events") / v
             if not v.exists():
-                raise ValueError(f"Orientation file {v} does not exist.")
+                raise ValueError(f"Event source file {v} does not exist.")
             return v
 
         return v
+
+    @model_validator(mode="after")
+    def check_not_both(self) -> EventSource:
+        """
+        Ensures a source doesn't specify both a file and a link at once.
+
+        Raises:
+            ValueError: If both file_name and link are set.
+
+        Returns:
+            EventSource: The validated event source.
+        """
+        if self.file_name is not None and self.link is not None:
+            raise ValueError("Specify at most one of file_name or link, not both.")
+        return self
+
+
+class OrientationConfig(EventSource):
+    """
+    Configuration for orientation events. Set file_name or link to provide orientation
+    events (or leave both unset to disable orientation events entirely.)
+    """
+
+    mandatory_tag: Annotated[
+        str,
+        StringConstraints(min_length=1, strip_whitespace=True, to_lower=True),
+    ]
+    """Tag used to mark mandatory (blackout) events, used for validation and display."""
+
+    include_in_booklet: bool
+    """Whether to include orientation events in the booklet."""
 
 
 class DatesConfig(ParentModel):
@@ -189,6 +220,32 @@ class Config(BaseSettings):
 
     tags: dict[str, TagsConfig]
     """Tags configuration"""
+
+    events: list[EventSource] = []
+    """
+    Explicit list of event data sources (local files or links). If empty, every *.csv file
+    in the events/ directory (except the orientation source) is used automatically.
+    """
+
+    @field_validator("events")
+    @classmethod
+    def validate_events_have_source(cls, v: list[EventSource]) -> list[EventSource]:
+        """
+        Ensures each explicit event source specifies a file or a link.
+
+        Args:
+            v (list[EventSource]): The event sources to validate.
+
+        Raises:
+            ValueError: If a source specifies neither file_name nor link.
+
+        Returns:
+            list[EventSource]: The validated event sources.
+        """
+        for source in v:
+            if source.file_name is None and source.link is None:
+                raise ValueError("Each event source must specify file_name or link.")
+        return v
 
     @cached_property
     def group_rename_map(self) -> dict[str, str]:
@@ -483,19 +540,19 @@ class Event(APIModel):
         return [tag_rename_map.get(tag, tag) for tag in v]
 
 
-def process_events_csv(filename: Path, encoding: str = "utf-8") -> list[Event]:
+def process_events_source(source: EventSource) -> list[Event]:
     """
-    Processes an events CSV file and returns a list of Event objects.
+    Processes an event source and returns a list of Event objects.
 
     Args:
-        filename (Path): The path to the CSV file containing event data.
-        encoding (str, optional): The encoding of the CSV file. Defaults to "utf-8".
+        source (EventSource): The event source to process.
 
     Returns:
-        list[Event]: A list of Event objects parsed from the CSV file.
+        list[Event]: A list of parsed Events from the source.
     """
-    print(f"Processing events from {filename}...")
-    return process_csv(filename, Event, validate_unique_events, encoding)
+    print(f"Processing events from {source.link or source.file_name}...")
+    content = read_csv_content(source)
+    return process_csv_content(content, Event, validate_unique_events)
 
 
 class ColorsAPIResponse(APIModel):
@@ -562,10 +619,9 @@ class APIResponse(APIModel):
     @cached_property
     def _orientation_events(self) -> list[Event]:
         """List of orientation events, used for display in the booklet and on the website"""
-        if config.orientation.file_name is None:
+        if config.orientation.file_name is None and config.orientation.link is None:
             return []
-        else:
-            return process_events_csv(config.orientation.file_name)
+        return process_events_source(config.orientation)
 
     @cached_property
     def booklet_only_events(self) -> list[Event]:
@@ -580,22 +636,27 @@ class APIResponse(APIModel):
         )
 
     @cached_property
-    def _event_files(self) -> set[Path]:
-        """Set of event files, used for processing events"""
-        return {
-            event_file
-            for event_file in Path.iterdir(Path("events"))
+    def _event_sources(self) -> list[EventSource]:
+        """
+        List of event sources for dorm events: uses either `config.events` if set,
+        or every *.csv file in the events/ directory (except the orientation source).
+        """
+        if config.events:
+            return config.events
+        return [
+            EventSource.model_construct(file_name=event_file)
+            for event_file in sorted(Path("events").iterdir())
             if event_file.name.endswith(".csv")
             and event_file != config.orientation.file_name
-        }
+        ]
 
     @cached_property
     def _all_events(self) -> list[Event]:
-        """List of all events from all event files, used for processing events"""
+        """List of all events from all event sources, used for processing events"""
         return [
             event
-            for event_file in self._event_files
-            for event in process_events_csv(event_file)
+            for source in self._event_sources
+            for event in process_events_source(source)
         ]
 
     @computed_field

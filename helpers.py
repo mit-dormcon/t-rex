@@ -3,6 +3,8 @@ Helper functions for processing REX events.
 """
 
 import csv
+import io
+import urllib.request
 from collections.abc import Hashable
 from functools import cache
 from typing import TYPE_CHECKING, Annotated, TypeVar
@@ -13,11 +15,10 @@ from pydantic import AfterValidator, Field
 if TYPE_CHECKING:
     from collections.abc import Callable, Iterable, Sequence
     from datetime import datetime
-    from pathlib import Path
 
     from pydantic import BaseModel
 
-    from api_types import Event
+    from api_types import Event, EventSource
 
 TIMEZONE = ZoneInfo("America/New_York")
 
@@ -113,29 +114,46 @@ def validate_unique_events(events: Sequence[Event]) -> list[Event]:
     return list(events)
 
 
-def process_csv[M: BaseModel](
-    filename: Path,
-    model: type[M],
-    validate: Callable[[Sequence[M]], list[M]],
-    encoding: str = "utf-8",
-) -> list[M]:
+def read_csv_content(source: EventSource) -> str:
     """
-    Processes a CSV file and yields Event objects.
+    Reads the raw CSV text for an event source, either a local file or a link.
 
     .. note::
-        If you saved this with Excel as a CSV file with UTF-8 encoding, you might
-        need to open it with encoding="utf-8-sig" instead of "utf-8".
+        If your source is an Excel-exported  CSV file with UTF-8 encoding, you
+        might need to open it with encoding="utf-8-sig" instead of "utf-8".
 
     Args:
-        filename (Path): The path to the CSV file to process.
+        source (EventSource): The event source to read from.
+
+    Returns:
+        str: The raw CSV text.
+    """
+    encoding = source.encoding
+
+    if source.link is not None:
+        with urllib.request.urlopen(str(source.link), timeout=10) as response:
+            return response.read().decode(encoding)
+
+    assert source.file_name is not None
+    return source.file_name.read_text(encoding=encoding)
+
+
+def process_csv_content[M: BaseModel](
+    content: str,
+    model: type[M],
+    validate: Callable[[Sequence[M]], list[M]],
+) -> list[M]:
+    """
+    Parses CSV text into a list of validated models.
+
+    Args:
+        content (str): The raw CSV text.
         model (type[M]): The model type to validate each row against.
         validate (Callable[[Sequence[M]], list[M]]): A function to validate the list of models.
-        encoding (str, optional): The encoding of the CSV file. Defaults to "utf-8".
 
     Returns:
         list[M]: A list of validated model objects for each row in the CSV file.
     """
-    with open(filename, encoding=encoding, newline="") as f:
-        reader = csv.DictReader(f, strict=True)
-        models = tuple(model.model_validate(row) for row in reader)
-        return validate(models)
+    reader = csv.DictReader(io.StringIO(content), strict=True)
+    models = tuple(model.model_validate(row) for row in reader)
+    return validate(models)

@@ -102,6 +102,49 @@
       "title": "DormsConfig",
       "type": "object"
     },
+    "EventSource": {
+      "description": "A source of event data: either a local CSV file or a link to fetch CSV data from.",
+      "properties": {
+        "file_name": {
+          "anyOf": [
+            {
+              "format": "file-path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Path to a local CSV file containing events, must be within the events/ directory.",
+          "title": "File Name"
+        },
+        "link": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "URL to fetch event CSV data from, e.g. a published Google Sheets CSV export link.",
+          "title": "Link"
+        },
+        "encoding": {
+          "default": "utf-8",
+          "description": "Encoding to use when reading the CSV data, defaults to 'utf-8'.",
+          "title": "Encoding",
+          "type": "string"
+        }
+      },
+      "title": "EventSource",
+      "type": "object"
+    },
     "GroupConfig": {
       "description": "Configuration for a group within a dorm.",
       "properties": {
@@ -132,7 +175,7 @@
       "type": "object"
     },
     "OrientationConfig": {
-      "description": "Configuration for orientation events.",
+      "description": "Configuration for orientation events. Set file_name or link to provide orientation\nevents (or leave both unset to disable orientation events entirely.)",
       "properties": {
         "file_name": {
           "anyOf": [
@@ -145,8 +188,30 @@
             }
           ],
           "default": null,
-          "description": "CSV file containing orientation events.",
+          "description": "Path to a local CSV file containing events, must be within the events/ directory.",
           "title": "File Name"
+        },
+        "link": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "URL to fetch event CSV data from, e.g. a published Google Sheets CSV export link.",
+          "title": "Link"
+        },
+        "encoding": {
+          "default": "utf-8",
+          "description": "Encoding to use when reading the CSV data, defaults to 'utf-8'.",
+          "title": "Encoding",
+          "type": "string"
         },
         "mandatory_tag": {
           "description": "Tag used to mark mandatory (blackout) events, used for validation and display.",
@@ -242,6 +307,15 @@
       "description": "Tags configuration",
       "title": "Tags",
       "type": "object"
+    },
+    "events": {
+      "default": [],
+      "description": "Explicit list of event data sources (local files or links). If empty, every *.csv file\nin the events/ directory (except the orientation source) is used automatically.",
+      "items": {
+        "$ref": "#/$defs/EventSource"
+      },
+      "title": "Events",
+      "type": "array"
     }
   },
   "required": [
