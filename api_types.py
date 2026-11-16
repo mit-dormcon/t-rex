@@ -291,6 +291,20 @@ class Config(BaseSettings):
         dotenv_settings: PydanticBaseSettingsSource,
         file_secret_settings: PydanticBaseSettingsSource,
     ) -> tuple[PydanticBaseSettingsSource, ...]:
+        """
+        Load settings only from config.toml, ignoring init args, env vars, and secrets.
+
+        Args:
+            settings_cls (type[BaseSettings]): The settings class being loaded.
+            init_settings (PydanticBaseSettingsSource): Unused.
+            env_settings (PydanticBaseSettingsSource): Unused.
+            dotenv_settings (PydanticBaseSettingsSource): Unused.
+            file_secret_settings (PydanticBaseSettingsSource): Unused.
+
+        Returns:
+            tuple[PydanticBaseSettingsSource, ...]: The TOML config source.
+        """
+        del init_settings, env_settings, dotenv_settings, file_secret_settings
         return (TomlConfigSettingsSource(settings_cls),)
 
     @classmethod
@@ -482,8 +496,7 @@ class Event(APIModel):
                 error_input: str = err.errors()[0]["input"]
                 date_val = datetime.fromisoformat(error_input).replace(tzinfo=TIMEZONE)
                 return handler(date_val)
-            else:
-                raise
+            raise
 
     @field_validator("tags", "group", mode="before")
     @classmethod
@@ -560,6 +573,22 @@ class ColorsAPIResponse(APIModel):
 
     _api_response: APIResponse | None = PrivateAttr(default=None)
 
+    @classmethod
+    def for_response(cls, api_response: APIResponse) -> ColorsAPIResponse:
+        """
+        Create the colors response for an API response.
+
+        Args:
+            api_response (APIResponse): The response whose dorms, groups, and tags
+                determine which colors are included.
+
+        Returns:
+            ColorsAPIResponse: The colors response.
+        """
+        colors_response = cls()
+        colors_response._api_response = api_response
+        return colors_response
+
     @computed_field
     @property
     def dorms(self) -> dict[str, Color]:
@@ -625,6 +654,11 @@ class APIResponse(APIModel):
 
     @cached_property
     def booklet_only_events(self) -> list[Event]:
+        """
+        Published orientation events to show in the booklet, but not on the website.
+
+        Empty unless orientation.include_in_booklet is set in the config.
+        """
         return (
             [
                 orientation_event
@@ -702,7 +736,9 @@ class APIResponse(APIModel):
         str, UniqueList[Annotated[str, StringConstraints(strip_whitespace=True)]]
     ]:
         """
-        Dictionary mapping dorms to their groups, used for display in the booklet and on the website.
+        Dictionary mapping dorms to their groups.
+
+        Used for display in the booklet and on the website.
         """
         raw_groups: dict[str, set[str]] = {}
         for event in self.events:
@@ -732,9 +768,7 @@ class APIResponse(APIModel):
     @property
     def colors(self) -> ColorsAPIResponse:
         """Colors used in the REX system, used for display in the booklet and on the website."""
-        colors_response = ColorsAPIResponse()
-        colors_response._api_response = self  # type: ignore
-        return colors_response
+        return ColorsAPIResponse.for_response(self)
 
     @computed_field
     @property
@@ -807,7 +841,8 @@ class APIResponse(APIModel):
                 )
                 create_error_dorm_entry(
                     event.dorm,
-                    f"{event.name} ({event.id}) {event_date} has an end time before its start time.",
+                    f"{event.name} ({event.id}) {event_date} "
+                    "has an end time before its start time.",
                 )
                 continue
 
