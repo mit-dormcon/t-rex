@@ -18,7 +18,7 @@ dependencies = [
     "pydantic>=2.14.3",
     "pydantic-extra-types >=2.11.1",
     "openapi-pydantic>=0.6.0",
-    "email-validator >=2.3.0",
+    "email-validator>=2.4.0",
     "PyYaml >=6.0.3",
     "pydantic-settings>=2.16.2",
 ]
